@@ -11,8 +11,13 @@
 
 namespace Functions {
 	void RemoveFolder(std::string folder){
+		std::string command;
 		//LINUX ONLY
-		std::string command = "rm -r " + folder;
+#ifdef __linux__
+		command = "rm -r " + folder;
+#elif _WIN32
+		command = "rmdir /S /Q PATH";
+#endif
 		system(command.c_str());
 	}
 }
