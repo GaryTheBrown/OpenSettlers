@@ -12,6 +12,7 @@
 
 #include <string>
 #include "Log.h"
+#include "Extractor/eType.h"
 #include "Extractor/main_Extractor.h"
 
 extern int main(int argc, char *argv[]);

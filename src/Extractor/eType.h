@@ -7,13 +7,16 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef FUNCTIONS_REMOVEFOLDER_H_
-#define FUNCTIONS_REMOVEFOLDER_H_
-#include <string>
-#include <stdlib.h>
+#ifndef EXTRACTOR_ETYPE_H_
+#define EXTRACTOR_ETYPE_H_
 
-namespace Functions {
-	extern void RemoveFolder(std::string folder);
+
+namespace Extractor{
+	enum eType{
+		FULL,
+		GFX,
+		SND,
+		MAP
+	};
 }
-
 #endif

@@ -11,17 +11,22 @@
 #define EXTRACTOR_FUNCTIONS_FILEFUNCTIONS_H_
 
 #include <string>
+#include <sys/types.h>
+#include <dirent.h>
 #include <iostream>
 #include <fstream>
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
 #include <sys/stat.h>
+#include <vector>
 
 namespace Functions{
 	extern bool FileExists(std::string file);
 	extern bool FolderExists(std::string folder);
 	extern void CreateDir(std::string FileName);
 	extern void Copy(std::string from, std::string to);
+	extern void RemoveFolder(std::string folder);
+	extern std::vector<std::string> GetDir(std::string directory);
 }
 #endif

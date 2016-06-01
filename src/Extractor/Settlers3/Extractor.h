@@ -11,34 +11,22 @@
 #define EXTRACTOR_SETTLERS3_EXTRACTOR_H_
 
 #include <string>
-
+#include <vector>
+#include "../eType.h"
 #include "../../Log.h"
-
+//#include "../main_Extractor.h"
 #include "../../Functions/FileFunctions.h"
 #include "../../Functions/FileRun.h"
-#include "../../Functions/RemoveFolder.h"
 #include "GFXDataType.h"
 #include "SNDDataType.h"
+#include "MAPDataType.h"
 
 namespace Extractor{
 	namespace Settlers3{
 		class Extract {
-		private:
-			unsigned char gameVersion = 0;
-			std::string location = "";
-
-			bool RAWGFXFileExtract(std::string folder, std::string file);
-			bool RAWSNDFileExtract(std::string folder, std::string file);
-			void RAWGFXFolderExtract(std::string folder);
-			void RAWSNDFolderExtract(std::string folder);
-
 		public:
-			Extract(std::string location,bool GOG = false);
-			virtual ~Extract();
-
-			bool RAWExtract();
-
 			enum VersionS3{
+				VersionNONE,
 				VersionS3CD1,
 				VersionS3CD2,
 				VersionS3MCD1,
@@ -50,7 +38,31 @@ namespace Extractor{
 				VersionS3GOLDINSTALL,
 				VersionS3GOGINSTALL
 			};
-			unsigned char GameVersion(){return this->gameVersion;};
+
+		private:
+			VersionS3 gameVersion = VersionNONE;
+			std::string location = "";
+
+			bool RAWGFXFileExtract(std::string folder, std::string file);
+			bool RAWSNDFileExtract(std::string folder, std::string file);
+			bool RAWMAPFileExtract(std::string folder, std::string file);
+			void RAWGFXFolderExtract(std::string folder);
+			void RAWSNDFolderExtract(std::string folder);
+			void RAWMAPFolderExtract(std::string folder);
+
+			void CheckGameVersion(bool GOG);
+
+		public:
+			Extract(std::string location,bool GOG);
+			Extract(){};
+
+			virtual ~Extract();
+
+			bool FullRAWExtract();
+
+			bool ManualExtract(eType fileType,std::string location);
+
+
 		};
 	}
 }

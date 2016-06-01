@@ -12,10 +12,23 @@ namespace Extractor{
 	namespace Settlers3{
 		Extract::Extract(std::string location,bool GOG){
 			this->location = location;
-			//------------------//
-			//Game Version Check//
-			//------------------//
+			this->CheckGameVersion(GOG);
+		}
 
+		Extract::~Extract(){
+			if(Functions::FolderExists("EXE")){
+				LOGSYSTEM->Log("Cleaning up Extracted Cab Data",1);
+				Functions::RemoveFolder("EXE");
+			}
+			if(Functions::FolderExists("app")){
+				LOGSYSTEM->Log("Cleaning up Extracted GOG Data",1);
+				Functions::RemoveFolder("app");
+				Functions::RemoveFolder("sys");
+				Functions::RemoveFolder("tmp");
+			}
+		}
+
+		void Extract::CheckGameVersion(bool GOG){
 			//GOG INSTALLERS.
 			if(GOG){
 				LOGSYSTEM->Message("Detected Settlers 3 GOG Installer");
@@ -64,24 +77,13 @@ namespace Extractor{
 			}
 			else{
 				LOGSYSTEM->Error("Detection of Version Failed");
-			}
-
-		}
-
-		Extract::~Extract(){
-			if(Functions::FolderExists("EXE")){
-				LOGSYSTEM->Log("Cleaning up Extracted Cab Data",1);
-				Functions::RemoveFolder("EXE");
-			}
-			if(Functions::FolderExists("app")){
-				LOGSYSTEM->Log("Cleaning up Extracted GOG Data",1);
-				Functions::RemoveFolder("app");
-				Functions::RemoveFolder("sys");
-				Functions::RemoveFolder("tmp");
+				this->gameVersion = VersionNONE;
 			}
 		}
 
-		bool Extract::RAWExtract(){
+		bool Extract::FullRAWExtract(){
+			if(this->gameVersion == VersionNONE) return false;
+
 			std::string GFX = "";
 			std::string SND = "";
 			Functions::CreateDir("Extracted");
@@ -196,6 +198,24 @@ namespace Extractor{
 			}else return false;
 		}
 
+		bool Extract::RAWMAPFileExtract(std::string folder, std::string file){
+			if(Functions::FileExists(folder+file)){
+				LOGSYSTEM->Log("Open MAP File: "+ file,1);
+				LOGSYSTEM->Log("Extracting...",1);
+				MAPDataType* MAPFile = new MAPDataType(folder+file);
+				LOGSYSTEM->Log("Saving...",1);
+				Functions::CreateDir("Extracted");
+				Functions::CreateDir("Extracted/S3");
+				Functions::CreateDir("Extracted/S3/MAP/");
+				Functions::CreateDir("Extracted/S3/MAP/"+ file);
+				MAPFile->SaveFileData("Extracted/S3/MAP/" + file);
+				MAPFile->SaveHeaderData("Extracted/S3/MAP/" + file);
+				LOGSYSTEM->Log("Closing...",1);
+				delete MAPFile;
+				return true;
+			}else return false;
+		}
+
 		void Extract::RAWGFXFolderExtract(std::string folder){
 			std::string fileNameFront[5] = {"Siedler3_", "siedler3_", "s3_", "Siedler3_", "siedler3_"};
 			std::string fileNameBack[5] = {".f8007e01f.dat", ".f8007e01f.dat", ".dat", ".7c003e01f.dat", ".7c003e01f.dat"};
@@ -216,6 +236,51 @@ namespace Extractor{
 			for(int i = 0; i < 6; i++){
 				this->RAWSNDFileExtract(folder,fileNames[i]);
 			}
+		}
+
+		void Extract::RAWMAPFolderExtract(std::string folder){
+			std::vector<std::string> fileList = Functions::GetDir(folder);
+			for(unsigned int i=0; i < fileList.size(); i++){
+				this->RAWMAPFileExtract(folder,fileList[i]);
+			}
+
+		}
+
+		bool Extract::ManualExtract(eType fileType, std::string location){
+			size_t pos = location.find_last_of("/");
+			if(pos != location.length()-1){
+				std::string file = location.substr(pos+1);
+				std::string folder = location.substr(0,pos+1);
+				switch(fileType){
+					case MAP:
+						this->RAWMAPFileExtract(folder,file);
+						break;
+					case GFX:
+						this->RAWGFXFileExtract(folder,file);
+						break;
+					case SND:
+						this->RAWSNDFileExtract(folder,file);
+						break;
+					default:
+						break;
+				}
+
+			}else{
+				switch(fileType){
+					case MAP:
+						this->RAWMAPFolderExtract(location);
+						break;
+					case GFX:
+						this->RAWGFXFolderExtract(location);
+						break;
+					case SND:
+						this->RAWSNDFolderExtract(location);
+						break;
+					default:
+						break;
+				}
+			}
+			return true;
 		}
 	}
 }

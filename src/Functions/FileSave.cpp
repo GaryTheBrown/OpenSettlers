@@ -9,23 +9,22 @@
  *******************************************************************************/
 #include "FileSave.h"
 namespace Functions{
-	void SaveToTextFile(std::string FileLocation,std::string Data){
-		if (FileExists(FileLocation))
-			remove(FileLocation.c_str());
+	void SaveToTextFile(std::string fileLocation,std::string data){
+		if (FileExists(fileLocation))
+			remove(fileLocation.c_str());
 
 		std::ofstream ofile;
-		ofile.open(FileLocation.c_str());
-		ofile.write(Data.c_str(),Data.length());
+		ofile.open(fileLocation.c_str());
+		ofile.write(data.c_str(),data.length());
 		ofile.close();
 	}
 
-	void SaveToBinaryFile(std::string FileLocation,char* Data,unsigned int size){
-		if (FileExists(FileLocation))
-			remove(FileLocation.c_str());
+	void SaveToBinaryFile(std::string fileLocation,char* data,unsigned int size){
+		if (FileExists(fileLocation)) remove(fileLocation.c_str());
 
 		std::ofstream ofile;
-		ofile.open(FileLocation.c_str(), std::ios::binary);
-		ofile.write(Data,size);
+		ofile.open(fileLocation.c_str(), std::ios::binary);
+		ofile.write(data,size);
 		ofile.close();
 	}
 }
