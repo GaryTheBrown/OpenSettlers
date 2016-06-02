@@ -9,7 +9,7 @@ A open source project to extract graphics and sound from the Settlers Series
 Usage
 -----
 ON Linux
-./SettlersExtractor [Folder]
+./SettlersExtractor [Folder/File]
 
 Installation
 ------------
