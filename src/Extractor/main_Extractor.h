@@ -14,10 +14,11 @@
 #include "eType.h"
 #include "../Log.h"
 #include "../Functions/FileFunctions.h"
+#include "../Functions/DataReader.h"
 #include "Settlers3/Extractor.h"
 
 namespace Extractor{
-		extern bool Main(std::string location, eType type, char gameNo);
+		extern bool Main(std::string location, eType type);
 		extern bool FULLRAW(std::string location, char gameNo, bool GOG);
 }
 #endif

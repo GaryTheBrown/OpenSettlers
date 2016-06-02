@@ -21,6 +21,7 @@ int main(int argc,char* argv[]) {
 		LOGSYSTEM->Log("Settlers Extractor Completed",1);
 		return 0;
 	}else if(argc == 3){
+		LOGSYSTEM->Log("Settlers Extractor Started",1);
 		std::string type = argv[1];
 		eType option;
 		if(type == "FULL"){
@@ -33,12 +34,14 @@ int main(int argc,char* argv[]) {
 			option = MAP;
 		}
 		Main(argv[2],option,0);
+		LOGSYSTEM->Log("Settlers Extractor Completed",1);
 		return 0;
 	}
 	std::cout << "Settlers Extractor version " << VERSION << std::endl;
 	std::cout << "USAGE:" << std::endl;
-	std::cout << ProgramName << " [LOCATION/FILE]" << std::endl;
-	std::cout << ProgramName << " [OPTION] [LOCATION/FILE]" << std::endl;
+	std::cout << ProgramName << " [LOCATION] To extract the full game data files" << std::endl;
+	std::cout << ProgramName << " [FILE] To extract a single File" << std::endl;
+	std::cout << ProgramName << " [OPTION] [LOCATION] To extract selected files from a Folder" << std::endl;
 	std::cout << "OPTION: " << std::endl;
 	std::cout << "		FULL =	Extract all GFX/SND Files" << std::endl;
 	std::cout << "		GFX  =	Extract Settlers 3 GFX File" << std::endl;

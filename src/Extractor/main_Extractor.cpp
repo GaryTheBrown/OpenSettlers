@@ -9,24 +9,39 @@
  *******************************************************************************/
 #include "main_Extractor.h"
 namespace Extractor{
-	bool Main(std::string location, eType fileType, char gameNo){
+	bool Main(std::string location, eType fileType){
+		char gameNo = 0;
 		bool GOG = false;
 //First check if location is a file (with extension)
 		size_t locationofdot = location.find_last_of(".");
 		std::string extension = location.substr(locationofdot + 1);
-
+		std::transform(extension.begin(), extension.end(), extension.begin(), toupper);
 		if ((locationofdot != std::string::npos)&&(extension.length() == 3)){//File with 3 letter extension name
-			if ((extension == "map")||(extension == "MAP")){
+			if (extension == "MAP"){
 				fileType = MAP;
 				gameNo = 3;
 			}
-			else if ((extension == "dat")||(extension == "DAT")) {
-				fileType = GFX;
-				gameNo = 3;
-				//TODO check if SND or GFX HERE
+			else if (extension == "DAT") {
+				LOGSYSTEM->Log("Reading DAT File Type",1);
+				Functions::DataReader *reader = new Functions::DataReader(location);
+				int code = reader->ReadInt();
+				delete reader;
+				switch(code){
+				case 267012: //GFX
+					fileType = GFX;
+					gameNo = 3;
+					break;
+				case 70980: //SND
+					fileType = SND;
+					gameNo = 3;
+					break;
+				default:
+					LOGSYSTEM->Error("File Not Recognised");
+					return false;
+				}
 
 			}
-			else if ((extension == "exe")||(extension == "EXE")){
+			else if (extension == "EXE"){
 				if ((gameNo != 2)&&(gameNo != 3)&&(gameNo != 4)){
 					LOGSYSTEM->Log("Reading GOG EXE File",1);
 

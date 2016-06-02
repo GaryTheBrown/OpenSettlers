@@ -175,8 +175,11 @@ namespace Extractor{
 				LOGSYSTEM->Log("Open GFX Data File: "+ file,1);
 				LOGSYSTEM->Log("Extracting...",1);
 				GFXDataType* GFXFile = new GFXDataType(folder+file);
-				Functions::CreateDir("Extracted/S3/GFX/"+ file);
 				LOGSYSTEM->Log("Saving...",1);
+				Functions::CreateDir("Extracted");
+				Functions::CreateDir("Extracted/S3");
+				Functions::CreateDir("Extracted/S3/GFX");
+				Functions::CreateDir("Extracted/S3/GFX/"+ file);
 				GFXFile->SaveFileData("Extracted/S3/GFX/" + file);
 				LOGSYSTEM->Log("Closing...",1);
 				delete GFXFile;
@@ -190,6 +193,9 @@ namespace Extractor{
 				LOGSYSTEM->Log("Extracting...",1);
 				SNDDataType* SNDFile = new SNDDataType(folder+file);
 				LOGSYSTEM->Log("Saving...",1);
+				Functions::CreateDir("Extracted");
+				Functions::CreateDir("Extracted/S3");
+				Functions::CreateDir("Extracted/S3/SND");
 				Functions::CreateDir("Extracted/S3/SND/"+ file);
 				SNDFile->SaveFileData("Extracted/S3/SND/" + file);
 				LOGSYSTEM->Log("Closing...",1);
