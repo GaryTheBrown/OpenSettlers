@@ -268,7 +268,7 @@ namespace Extractor{
 						this->RAWSNDFileExtract(folder,file);
 						break;
 					default:
-						break;
+						return false;
 				}
 
 			}else{
@@ -283,7 +283,7 @@ namespace Extractor{
 						this->RAWSNDFolderExtract(location);
 						break;
 					default:
-						break;
+						return false;
 				}
 			}
 			return true;

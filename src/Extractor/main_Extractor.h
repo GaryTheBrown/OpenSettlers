@@ -11,6 +11,8 @@
 #define EXTRACTOR_MAIN_H_
 
 #include <string>
+#include <vector>
+
 #include "eType.h"
 #include "../Log.h"
 #include "../Functions/FileFunctions.h"
@@ -18,7 +20,7 @@
 #include "Settlers3/Extractor.h"
 
 namespace Extractor{
-		extern bool Main(std::string location, eType type);
+		extern bool Main(std::string location);
 		extern bool FULLRAW(std::string location, char gameNo, bool GOG);
 }
 #endif

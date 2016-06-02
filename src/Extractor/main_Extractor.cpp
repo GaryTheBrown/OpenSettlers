@@ -9,7 +9,8 @@
  *******************************************************************************/
 #include "main_Extractor.h"
 namespace Extractor{
-	bool Main(std::string location, eType fileType){
+	bool Main(std::string location){
+		eType fileType = FULL;
 		char gameNo = 0;
 		bool GOG = false;
 //First check if location is a file (with extension)
@@ -69,45 +70,44 @@ namespace Extractor{
 			if(pos != location.length()-1) location += "/";
 
 			if(gameNo == 0){
-				switch(fileType){
-					case FULL:
-						LOGSYSTEM->Log("Reading Location:"+location,1);
-						//if Settlers 1
-						if(Functions::FileExists(location + "SETTLER.BAT")){
-							gameNo = 1;
-						}
-						//if Settlers 2
-						else if((Functions::FolderExists(location + "s2"))||(Functions::FileExists(location + "s2.exe"))
-								||(Functions::FileExists(location + "S2.EXE"))){
-							gameNo = 2;
-						}
-						//if Settlers 3
-						else if((Functions::FolderExists(location + "s3"))||(Functions::FileExists(location + "s3.exe"))
-								||(Functions::FileExists(location + "S3.EXE"))||(Functions::FolderExists(location + "s3update"))
-								||(Functions::FolderExists(location + "S3UPDATE"))){
-							gameNo = 3;
-						}
-						//if Settlers 4
-						else if((Functions::FolderExists(location + "s4"))||(Functions::FolderExists(location + "S4"))
-								||(Functions::FileExists(location + "s4.exe"))||(Functions::FileExists(location + "S4.exe"))
-								||(Functions::FileExists(location + "S4_Main.exe"))){
-							gameNo = 4;
-						}
-						break;
+				LOGSYSTEM->Log("Reading Location:"+location,1);
+				//if Settlers 1
+				if(Functions::FileExists(location + "SETTLER.BAT")){
+					gameNo = 1;
+				}
+				//if Settlers 2
+				else if((Functions::FolderExists(location + "s2"))||(Functions::FileExists(location + "s2.exe"))
+						||(Functions::FileExists(location + "S2.EXE"))){
+					gameNo = 2;
+				}
+				//if Settlers 3
+				else if((Functions::FolderExists(location + "s3"))||(Functions::FileExists(location + "s3.exe"))
+						||(Functions::FileExists(location + "S3.EXE"))||(Functions::FolderExists(location + "s3update"))
+						||(Functions::FolderExists(location + "S3UPDATE"))){
+					gameNo = 3;
+				}
+				//if Settlers 4
+				else if((Functions::FolderExists(location + "s4"))||(Functions::FolderExists(location + "S4"))
+						||(Functions::FileExists(location + "s4.exe"))||(Functions::FileExists(location + "S4.exe"))
+						||(Functions::FileExists(location + "S4_Main.exe"))){
+					gameNo = 4;
+				}
+				else{//Not a Game Folder so scan and run this function on each file.
+					LOGSYSTEM->Log("No Game Detected Getting Directory List and checking each file.",1);
+					std::vector<std::string> fileList = Functions::GetDir(location);
 
-					case GFX:
-					case SND:
-					case MAP:
-						gameNo = 3;
-						break;
-
+					for(unsigned int i=0; i < fileList.size(); i++){
+						LOGSYSTEM->Log("FILE:" + fileList[i],1);
+						if (Main(location + fileList[i])== false) return false;
+					}
+					return true;
 				}
 
 			}
 		}
 //Make sure a Game Number has been selected
 		if ((gameNo == 0)||(gameNo >= 5)){
-			LOGSYSTEM->Error("Game Number Not found.ass");
+			LOGSYSTEM->Error("Game Number Not found");
 			return false;
 		}
 
@@ -120,7 +120,7 @@ namespace Extractor{
 				Settlers3::Extract* s3Extract = new Settlers3::Extract();
 				if(s3Extract->ManualExtract(fileType, location) == false) return false;
 				delete s3Extract;
-				return false;
+				return true;
 			}
 			default:
 				LOGSYSTEM->Error("UNKNOWN OPTION HOW DID THIS APPEAR?");
