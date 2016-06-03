@@ -36,6 +36,12 @@ namespace Extractor{
 					fileType = SND;
 					gameNo = 3;
 					break;
+				case 9460301: // GFX S3_18.DAT is a DOS DLL file
+					LOGSYSTEM->Error("S3_18.DAT Detected Nothing to do.");
+					return false;
+				case 1179011410: //VIDEO
+					LOGSYSTEM->Error("Video File Detected Nothing to do.");
+					return false;
 				default:
 					LOGSYSTEM->Error("File Not Recognised");
 					return false;
@@ -112,8 +118,47 @@ namespace Extractor{
 		}
 
 		switch(fileType){
-			case FULL:
-				return FULLRAW(location,gameNo,GOG);
+			case FULL:{
+				switch(gameNo){
+					case 1:{
+						//temp message of version
+						LOGSYSTEM->Log("Settlers 1 Detected.",1);
+						LOGSYSTEM->Error("Settlers 1 not implemented yet.");
+						return false;
+					}
+					case 2:{
+						//temp message of version
+						if(GOG)
+							LOGSYSTEM->Log("Settlers 2 GOG Detected.",1);
+						else
+							LOGSYSTEM->Log("Settlers 2 Detected.",1);
+						LOGSYSTEM->Error("Settlers 2 not implemented yet.");
+						break;
+					}
+					case 3:{
+						Settlers3::Extract* s3Extract = new Settlers3::Extract(location,GOG);
+						if(s3Extract->FullRAWExtract() == false) return false;
+						delete s3Extract;
+						return true;
+					}
+					case 4:{
+						//temp message of version
+						if(GOG)
+							LOGSYSTEM->Log("Settlers 4 GOG Detected.",1);
+						else
+							LOGSYSTEM->Log("Settlers 4 Detected.",1);
+
+						LOGSYSTEM->Error("Settlers 4 not implemented yet.");
+						break;
+					}
+					default:{
+						// If nothing above found then
+						LOGSYSTEM->Error("No game Detected.");
+						break;
+					}
+				}
+				return false;
+			}
 			case GFX:
 			case SND:
 			case MAP:{
@@ -126,50 +171,6 @@ namespace Extractor{
 				LOGSYSTEM->Error("UNKNOWN OPTION HOW DID THIS APPEAR?");
 				return false;
 		}
-
-
 	return true;
-	}
-
-	bool FULLRAW(std::string location, char gameNo, bool GOG){
-
-		switch(gameNo){
-			case 1:{
-				//temp message of version
-				LOGSYSTEM->Log("Settlers 1 Detected.",1);
-				LOGSYSTEM->Error("Settlers 1 not implemented yet.");
-				return false;
-			}
-			case 2:{
-				//temp message of version
-				if(GOG)
-					LOGSYSTEM->Log("Settlers 2 GOG Detected.",1);
-				else
-					LOGSYSTEM->Log("Settlers 2 Detected.",1);
-				LOGSYSTEM->Error("Settlers 2 not implemented yet.");
-				return false;
-			}
-			case 3:{
-				Settlers3::Extract* s3Extract = new Settlers3::Extract(location,GOG);
-				if(s3Extract->FullRAWExtract() == false) return false;
-				delete s3Extract;
-				return true;
-			}
-			case 4:{
-				//temp message of version
-				if(GOG)
-					LOGSYSTEM->Log("Settlers 4 GOG Detected.",1);
-				else
-					LOGSYSTEM->Log("Settlers 4 Detected.",1);
-
-				LOGSYSTEM->Error("Settlers 4 not implemented yet.");
-				return false;
-			}
-			default:{
-				// If nothing above found then
-				LOGSYSTEM->Error("No game Detected.");
-				return false;
-			}
-		}
 	}
 }

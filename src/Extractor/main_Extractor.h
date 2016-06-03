@@ -21,6 +21,5 @@
 
 namespace Extractor{
 		extern bool Main(std::string location);
-		extern bool FULLRAW(std::string location, char gameNo, bool GOG);
 }
 #endif
