@@ -1,8 +1,12 @@
-//============================================================================
-// Name        : MAPVictoryConditions.cpp
-// Author      : Gary_The_Brown
-// Description :
-//============================================================================
+/*******************************************************************************
+ * Settlers Extractor - A program To extract data file for the Settlers 1-4
+ * Copyright (C) 2016   Gary The Brown
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; ONLY version 2
+ * of the License.
+ *******************************************************************************/
 
 #include "MapVictoryConditions.h"
 
@@ -94,7 +98,7 @@ namespace Extractor{
 				returnString += "\n";
 				//Change to text
 				returnString += "\tBuildingType=";
-				returnString += Functions::ToString((int)this->victoryDestroyBuildingData[i].buildingType);
+				returnString += BuildingsList[this->victoryDestroyBuildingData[i].buildingType];
 				returnString += "\n";
 			}
 
@@ -133,7 +137,7 @@ namespace Extractor{
 				returnString += "\n";
 				//change to text
 				returnString += "\tGoodsType=";
-				returnString += Functions::ToString((int)this->victoryControlProduceGoodsData[i].goodsType);
+				returnString += Functions::ToString(ResourcesList[this->victoryControlProduceGoodsData[i].goodsType]);
 				returnString += "\n";
 			}
 

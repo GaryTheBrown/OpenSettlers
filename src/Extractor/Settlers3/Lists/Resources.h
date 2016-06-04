@@ -8,25 +8,25 @@
  * of the License.
  *******************************************************************************/
 
-#ifndef EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPTEXT_H_
-#define EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPTEXT_H_
+#ifndef SRC_EXTRACTOR_SETTLERS3_LISTS_RESOURCES_H_
+#define SRC_EXTRACTOR_SETTLERS3_LISTS_RESOURCES_H_
 
 #include <string>
-#include "../../../../Log.h"
-#include "../../../../LogSystem/LogSystem.h"
-#include "../../../../Functions/DataReader.h"
-#include "../../../../Functions/To.h"
-#include "../MAPParts.h"
+
 namespace Extractor{
 	namespace Settlers3{
-		class MAPText: public MAPParts{
-		private:
-			std::string text;
-		public:
-			MAPText(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey);
-			virtual ~MAPText();
-			virtual std::string ToString();
+		const std::string ResourcesList[36] = {	"NOTHING",//0
+				"Boards","Stones","Logs","Bread","Coal","Gold Ore","Iron Ore","Fish",
+				"Grain","Gold","Iron","Shovel","Hammer","Axe","Pick","Saw",
+				"Fishing Rod","Sword","Bow","Spear","Wine","Flour","Pig",
+				"Meat","Sulfur","Water","Rice","Gems","Beer","Gun Powder","Not Used",
+				"Scythe",
+				//Amazon Only
+				"Rice Wine","Mead","Honey"
 		};
 	}
 }
+
+
+
 #endif

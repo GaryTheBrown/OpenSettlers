@@ -1,8 +1,12 @@
-//============================================================================
-// Name        : MAPHeader.h
-// Author      : Gary_The_Brown
-// Description :
-//============================================================================
+/*******************************************************************************
+ * Settlers Extractor - A program To extract data file for the Settlers 1-4
+ * Copyright (C) 2016   Gary The Brown
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; ONLY version 2
+ * of the License.
+ *******************************************************************************/
 
 #ifndef EXTRACTOR_SETTLERS3_MAP_MAPHEADER_H_
 #define EXTRACTOR_SETTLERS3_MAP_MAPHEADER_H_
@@ -11,7 +15,7 @@
 #include "../../../Log.h"
 #include "../../../LogSystem/LogSystem.h"
 #include "../../../Functions/DataReader.h"
-#include "../../../Functions/OutputVar.h"
+#include "../../../Functions/To.h"
 #include "MAPParts.h"
 #include "MAPParts/MapInfo.h"
 #include "MAPParts/MapArea.h"
@@ -20,6 +24,7 @@
 #include "MAPParts/MapText.h"
 #include "MAPParts/MapTeamInfo.h"
 #include "MAPParts/MapVictoryConditions.h"
+#include "MAPParts/MapBuildings.h"
 
 namespace Extractor{
 	namespace Settlers3{
@@ -57,9 +62,12 @@ namespace Extractor{
 			MAPPlayerInfo* playerInfo = NULL;
 			MAPTeamInfo* teamInfo = NULL;
 
-			//TODO FINISH BELLOW PARTS OFF
+			//TODO MAP SETTLERS
 			MAPParts* settlers = NULL;
-			MAPParts* buildings = NULL;
+
+			MAPBuildings* buildings = NULL;
+
+			//TODO MAP RESOURCES
 			MAPParts* resources = NULL;
 
 			MAPVictoryConditions* victoryConditions = NULL;

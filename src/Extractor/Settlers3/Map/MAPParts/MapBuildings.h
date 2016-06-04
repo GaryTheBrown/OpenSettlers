@@ -8,8 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#ifndef EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPAREA_H_
-#define EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPAREA_H_
+#ifndef EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPBUILDINGS_H_
+#define EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPBUILDINGS_H_
 
 #include <string>
 #include "../../../../Log.h"
@@ -17,37 +17,36 @@
 #include "../../../../Functions/DataReader.h"
 #include "../../../../Functions/FileSave.h"
 #include "../../../../Functions/To.h"
+#include "../../../../Functions/OutputVar.h"
 #include "../MAPParts.h"
+#include "../../Lists/Buildings.h"
 
 namespace Extractor{
 	namespace Settlers3{
-		class MAPArea: public MAPParts{
+		class MAPBuildings: public MAPParts{
 		public:
-			struct MapTile{
-				unsigned char height = 0;
-				unsigned char type = 0;
-				unsigned char object = 0;
-				unsigned char playerClaim = 0;
-				unsigned char accessible = 0;
-				unsigned char resources = 0;
+			struct Building{
+				char player;
+				char type;
+				short x_pos;
+				short y_pos; //(-1?)
+				char unknown1; //AAAA BBBB
+				char unknown2; //AAAA BBBB A = L1 Sword	B = L2 Sword
+				char unknown3; //AAAA BBBB A = L2 Bow	B = L3 Bow
+				char unknown4; //AAAA BBBB A = L3 Sword	B = L1 Bow
+				char unknown5; //AAAA BBBB A = L3 Spear B = UNKNOWN
+				char unknown6; //AAAA BBBB A = L1 Spear	B = L2 Spear
 			};
 		private:
-			//Map Info
-			int mapSizeHeight = 0;
-			int mapSizeWidth = 0;
-			MapTile* mapData = NULL;
-
+			unsigned int buildingCount;
+			Building* buildings;
 		public:
-			MAPArea(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey);
-			virtual ~MAPArea();
+			MAPBuildings(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey);
+			virtual ~MAPBuildings();
 			virtual std::string HeaderToString();
 			void SaveFileData(std::string location);
-
-
-			int MapSizeHeight(){return this->mapSizeHeight;};
-			int MapSizeWidth(){return this->mapSizeWidth;};
-			MapTile* MapData(){return this->mapData;}
 		};
 	}
 }
 #endif
+

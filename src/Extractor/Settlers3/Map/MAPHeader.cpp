@@ -1,8 +1,12 @@
-//============================================================================
-// Name        : MAPHeader.cpp
-// Author      : Gary_The_Brown
-// Description :
-//============================================================================
+/*******************************************************************************
+ * Settlers Extractor - A program To extract data file for the Settlers 1-4
+ * Copyright (C) 2016   Gary The Brown
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; ONLY version 2
+ * of the License.
+ *******************************************************************************/
 
 #include "MAPHeader.h"
 namespace Extractor{
@@ -21,7 +25,7 @@ namespace Extractor{
 
 			if ((this->fileVersion != enumFileVersion::FILE_VERSION_DEFAULT) && (this->fileVersion != enumFileVersion::FILE_VERSION_AMAZONS)){
 				this->fileVersion = enumFileVersion::FILE_VERSION_NONE;
-				LOGSYSTEM->Error("Wrong map-file version" + this->fileVersion);
+				LOGSYSTEM->Error("Wrong map-file version " + this->fileVersion);
 				return;
 			}
 
@@ -44,7 +48,6 @@ namespace Extractor{
 					//- next pos in File
 					filePos = filePos + mapPartLen + 8;
 
-					//TODO CONTINUE THIS PART
 					switch((enumFileParts)mapPartType){
 					case PART_TYPE_MapInfo:
 						this->mapInfo = new MAPInfo(reader,mapPartPos,mapPartLen,mapPartType);
@@ -62,13 +65,16 @@ namespace Extractor{
 						this->teamInfo = new MAPTeamInfo(reader,mapPartPos,mapPartLen,mapPartType,this->mapInfo->PlayerCount());
 						break;
 
-						//From Here look at levels you create to figure this one out
+						//TODO MAP SETTLERS
 					case PART_TYPE_Settlers:
 						this->settlers = new MAPParts(reader,mapPartPos,mapPartLen,mapPartType,true);
 						break;
+
 					case PART_TYPE_Buildings:
-						this->buildings = new MAPParts(reader,mapPartPos,mapPartLen,mapPartType,true);
+						this->buildings = new MAPBuildings(reader,mapPartPos,mapPartLen,mapPartType);
 						break;
+
+						//TODO MAP RESOURCES
 					case PART_TYPE_Resources:
 						this->resources = new MAPParts(reader,mapPartPos,mapPartLen,mapPartType,true);
 						break;
@@ -83,11 +89,7 @@ namespace Extractor{
 						this->questTip = new MAPText(reader,mapPartPos,mapPartLen,mapPartType);
 						break;
 					default:
-						//temp info here remove and only break once map loading completed.
 						//If none of the above ignore it and move on
-						LOGSYSTEM->Error("Wrong Part Type version" + Functions::ToString(mapPartType));
-						break;
-					case PART_TYPE_EOF:
 						break;
 					}
 				}
@@ -154,12 +156,13 @@ namespace Extractor{
 				returnString += "\n";//LineSpace
 			}
 
+			/* Always The Same
 			if(this->preview != NULL){
 				returnString += "##MAP Preview Image##\n";
 				returnString += this->preview->HeaderToString();
 				returnString += "\n";//LineSpace
 			}
-			//IS THERE INFO IN 5?
+			*/
 
 			if(this->area != NULL){
 				returnString += "##MAP AREA##\n";
@@ -171,11 +174,12 @@ namespace Extractor{
 				returnString += this->settlers->HeaderToString();
 				returnString += "\n";//LineSpace
 			}
-			if (this->buildings != NULL){
+			/* OUTPUT TO SEPARATE TEXT FILE
 				returnString += "##BUILDING INFO##\n";
 				returnString += this->buildings->HeaderToString();
 				returnString += "\n";//LineSpace
 			}
+			*/
 			if (this->resources != NULL){
 				returnString += "##RESOURCES INFO##\n";
 				returnString += this->resources->HeaderToString();
@@ -214,10 +218,10 @@ namespace Extractor{
 				this->settlers->SaveFileData(location,"Settlers.dat");
 
 			if (this->buildings != NULL)
-				this->buildings->SaveFileData(location,"Buildings.dat");
+				this->buildings->SaveFileData(location);
 
 			if (this->resources != NULL)
-				this->playerInfo->SaveFileData(location,"PlayerInfo.dat");
+				this->resources->SaveFileData(location,"Resources.dat");
 
 			//if(this->mapInfo != NULL)
 				//Saved Into Header
