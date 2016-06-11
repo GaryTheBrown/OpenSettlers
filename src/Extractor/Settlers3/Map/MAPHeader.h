@@ -25,6 +25,7 @@
 #include "MAPParts/MapTeamInfo.h"
 #include "MAPParts/MapVictoryConditions.h"
 #include "MAPParts/MapBuildings.h"
+#include "MAPParts/MapSettlers.h"
 
 namespace Extractor{
 	namespace Settlers3{
@@ -61,10 +62,7 @@ namespace Extractor{
 			MAPPreviewImage* preview = NULL;
 			MAPPlayerInfo* playerInfo = NULL;
 			MAPTeamInfo* teamInfo = NULL;
-
-			//TODO MAP SETTLERS
-			MAPParts* settlers = NULL;
-
+			MAPSettlers* settlers = NULL;
 			MAPBuildings* buildings = NULL;
 
 			//TODO MAP RESOURCES

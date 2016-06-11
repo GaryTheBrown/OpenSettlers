@@ -35,14 +35,8 @@ namespace Extractor{
 
 			do{
 				reader->SetOffset(filePos);
-				mapPartType = reader->ReadInt();
-				mapPartLen = reader->ReadInt();
-
-				//remove header length from part length.
-				mapPartLen -= 8;
-
-				//unsigned int FileTypeSub = (MapPartType << 16) & 0x0000FFFF;
-				mapPartType = mapPartType & 0x0000FFFF;
+				mapPartType = reader->ReadInt() & 0xFFFF;
+				mapPartLen = reader->ReadInt() - 8;
 
 				int mapPartPos = reader->GetOffset();
 					//- next pos in File
@@ -64,12 +58,9 @@ namespace Extractor{
 					case PART_TYPE_TeamInfo:
 						this->teamInfo = new MAPTeamInfo(reader,mapPartPos,mapPartLen,mapPartType,this->mapInfo->PlayerCount());
 						break;
-
-						//TODO MAP SETTLERS
 					case PART_TYPE_Settlers:
-						this->settlers = new MAPParts(reader,mapPartPos,mapPartLen,mapPartType,true);
+						this->settlers = new MAPSettlers(reader,mapPartPos,mapPartLen,mapPartType);
 						break;
-
 					case PART_TYPE_Buildings:
 						this->buildings = new MAPBuildings(reader,mapPartPos,mapPartLen,mapPartType);
 						break;
@@ -155,15 +146,6 @@ namespace Extractor{
 				returnString += this->teamInfo->ToString();
 				returnString += "\n";//LineSpace
 			}
-
-			/* Always The Same
-			if(this->preview != NULL){
-				returnString += "##MAP Preview Image##\n";
-				returnString += this->preview->HeaderToString();
-				returnString += "\n";//LineSpace
-			}
-			*/
-
 			if(this->area != NULL){
 				returnString += "##MAP AREA##\n";
 				returnString += this->area->HeaderToString();
@@ -174,12 +156,6 @@ namespace Extractor{
 				returnString += this->settlers->HeaderToString();
 				returnString += "\n";//LineSpace
 			}
-			/* OUTPUT TO SEPARATE TEXT FILE
-				returnString += "##BUILDING INFO##\n";
-				returnString += this->buildings->HeaderToString();
-				returnString += "\n";//LineSpace
-			}
-			*/
 			if (this->resources != NULL){
 				returnString += "##RESOURCES INFO##\n";
 				returnString += this->resources->HeaderToString();
@@ -215,7 +191,7 @@ namespace Extractor{
 				this->preview->SaveFileData(location);
 
 			if (this->settlers != NULL)
-				this->settlers->SaveFileData(location,"Settlers.dat");
+				this->settlers->SaveFileData(location);
 
 			if (this->buildings != NULL)
 				this->buildings->SaveFileData(location);
@@ -223,19 +199,6 @@ namespace Extractor{
 			if (this->resources != NULL)
 				this->resources->SaveFileData(location,"Resources.dat");
 
-			//if(this->mapInfo != NULL)
-				//Saved Into Header
-			//if (this->playerInfo != NULL)
-				//Saved Into Header
-			//if (this->teamInfo != NULL)
-				//Saved Into Header
-
-			//if (this->victoryConditions != NULL)
-				//Saved Into Header
-			//if (this->questText != NULL)
-				//Saved Into Header
-			//if (this->questTip != NULL)
-				//Saved Into Header
 		}
 
 		bool MAPHeader::CheckChecksum(Functions::DataReader * reader){
