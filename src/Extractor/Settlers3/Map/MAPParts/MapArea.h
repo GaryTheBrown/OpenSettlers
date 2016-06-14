@@ -26,10 +26,10 @@ namespace Extractor{
 			struct MapTile{
 				unsigned char height = 0;
 				unsigned char type = 0;
-				unsigned char object = 0;
-				unsigned char playerClaim = 0;
-				unsigned char accessible = 0;
-				unsigned char resources = 0;
+				unsigned char object = 0; // Connected to MapObjects.h
+				unsigned char playerClaim = 0;// -1 = NONE
+				unsigned char accessible = 0;// 0 = YES 1 = NO
+				unsigned char resources = 0; //Connected to Resources.h
 			};
 		private:
 			//Map Info

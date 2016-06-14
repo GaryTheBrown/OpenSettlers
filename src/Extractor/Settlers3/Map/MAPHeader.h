@@ -65,8 +65,8 @@ namespace Extractor{
 			MAPSettlers* settlers = NULL;
 			MAPBuildings* buildings = NULL;
 
-			//TODO MAP RESOURCES
-			MAPParts* resources = NULL;
+			//TODO MAP Goods List
+			MAPParts* goods = NULL;
 
 			MAPVictoryConditions* victoryConditions = NULL;
 			MAPText* questText = NULL;

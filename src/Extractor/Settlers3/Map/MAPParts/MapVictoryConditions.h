@@ -17,7 +17,7 @@
 #include "../../../../Functions/DataReader.h"
 #include "../../../../Functions/To.h"
 #include "../MAPParts.h"
-#include "../../Lists/Resources.h"
+#include "../../Lists/Goods.h"
 #include "../../Lists/Buildings.h"
 
 namespace Extractor{
@@ -25,7 +25,7 @@ namespace Extractor{
 		class MAPVictoryConditions: public MAPParts{
 		public:
 			struct BuildingData{
-				unsigned char playerNumber;
+				signed char playerNumber;
 				unsigned char buildingType;
 			};
 

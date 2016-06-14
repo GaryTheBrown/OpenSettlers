@@ -65,9 +65,10 @@ namespace Extractor{
 						this->buildings = new MAPBuildings(reader,mapPartPos,mapPartLen,mapPartType);
 						break;
 
-						//TODO MAP RESOURCES
+						//TODO MAP Goods List
+						//8 chars for each one.
 					case PART_TYPE_Resources:
-						this->resources = new MAPParts(reader,mapPartPos,mapPartLen,mapPartType,true);
+						this->goods = new MAPParts(reader,mapPartPos,mapPartLen,mapPartType,true);
 						break;
 
 					case PART_TYPE_VictoryConditions:
@@ -102,8 +103,8 @@ namespace Extractor{
 				delete this->settlers;
 			if (this->buildings != NULL)
 				delete this->buildings;
-			if (this->resources != NULL)
-				delete this->resources;
+			if (this->goods != NULL)
+				delete this->goods;
 			if (this->victoryConditions != NULL)
 				delete this->victoryConditions;
 			if (this->questText != NULL)
@@ -156,9 +157,9 @@ namespace Extractor{
 				returnString += this->settlers->HeaderToString();
 				returnString += "\n";//LineSpace
 			}
-			if (this->resources != NULL){
+			if (this->goods != NULL){
 				returnString += "##RESOURCES INFO##\n";
-				returnString += this->resources->HeaderToString();
+				returnString += this->goods->HeaderToString();
 				returnString += "\n";//LineSpace
 			}
 			if (this->victoryConditions != NULL){
@@ -196,8 +197,8 @@ namespace Extractor{
 			if (this->buildings != NULL)
 				this->buildings->SaveFileData(location);
 
-			if (this->resources != NULL)
-				this->resources->SaveFileData(location,"Resources.dat");
+			if (this->goods != NULL)
+				this->goods->SaveFileData(location,"Goods.dat");
 
 		}
 
