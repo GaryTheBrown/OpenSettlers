@@ -26,6 +26,7 @@
 #include "MAPParts/MapVictoryConditions.h"
 #include "MAPParts/MapBuildings.h"
 #include "MAPParts/MapSettlers.h"
+#include "MAPParts/MapGoods.h"
 
 namespace Extractor{
 	namespace Settlers3{
@@ -64,10 +65,7 @@ namespace Extractor{
 			MAPTeamInfo* teamInfo = NULL;
 			MAPSettlers* settlers = NULL;
 			MAPBuildings* buildings = NULL;
-
-			//TODO MAP Goods List
-			MAPParts* goods = NULL;
-
+			MAPGoods* goods = NULL;
 			MAPVictoryConditions* victoryConditions = NULL;
 			MAPText* questText = NULL;
 			MAPText* questTip = NULL;

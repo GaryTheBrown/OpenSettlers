@@ -30,12 +30,29 @@ namespace Extractor{
 					this->buildings[i].type = reader->ReadChar();
 					this->buildings[i].x_pos = reader->ReadShort();
 					this->buildings[i].y_pos = reader->ReadShort();
-					this->buildings[i].unknown1 = reader->ReadChar();
-					this->buildings[i].unknown2 = reader->ReadChar();
-					this->buildings[i].unknown3 = reader->ReadChar();
-					this->buildings[i].unknown4 = reader->ReadChar();
-					this->buildings[i].unknown5 = reader->ReadChar();
-					this->buildings[i].unknown6 = reader->ReadChar();
+
+					//if Military Building
+					if ((this->buildings[i].type == 15)||(this->buildings[i].type == 16)||(this->buildings[i].type == 18)){
+						this->buildings[i].soldiers.unknown = reader->ReadChar();
+						char tmp = reader->ReadChar();
+						this->buildings[i].soldiers.sword1 = tmp >> 4;
+						this->buildings[i].soldiers.sword2 = tmp & 0xf;
+						tmp = reader->ReadChar();
+						this->buildings[i].soldiers.bow2 = tmp >> 4;
+						this->buildings[i].soldiers.bow3 = tmp & 0xf;
+						tmp = reader->ReadChar();
+						this->buildings[i].soldiers.sword3 = tmp >> 4;
+						this->buildings[i].soldiers.bow1 = tmp & 0xf;
+						tmp = reader->ReadChar();
+						this->buildings[i].soldiers.spear3 = tmp >> 4;
+						tmp = reader->ReadChar();
+						this->buildings[i].soldiers.spear1 = tmp >> 4;
+						this->buildings[i].soldiers.spear2 = tmp & 0xf;
+					}
+					else{
+						reader->ReadInt();
+						reader->ReadShort();
+					}
 				}
 			}
 			else{
@@ -62,20 +79,19 @@ namespace Extractor{
 				returnString += "\tType=" + BuildingsList[(int)this->buildings[i].type] + "\n";
 				returnString += "\tX Pos=" + Functions::ToString((int)this->buildings[i].x_pos) + "\n";
 				returnString += "\tY Pos=" + Functions::ToString((int)this->buildings[i].y_pos) + "\n";
-				returnString += "\t" + Functions::OutputVar("Unknown 1",(int)this->buildings[i].unknown1) + "\n";
-				returnString += "\t" + Functions::OutputVar("Unknown 2",(int)this->buildings[i].unknown2) + "\n";
-				returnString += "\t" + Functions::OutputVar("Unknown 3",(int)this->buildings[i].unknown3) + "\n";
-				returnString += "\t" + Functions::OutputVar("Unknown 4",(int)this->buildings[i].unknown4) + "\n";
-				returnString += "\t" + Functions::OutputVar("Unknown 5",(int)this->buildings[i].unknown5) + "\n";
-				returnString += "\t" + Functions::OutputVar("Unknown 6",(int)this->buildings[i].unknown6) + "\n";
-				/*
-				returnString += "\tUnknown1=" + Functions::ToString((int)this->buildings[i].unknown1) + "\n";
-				returnString += "\tUnknown2=" + Functions::ToString((int)this->buildings[i].unknown2) + "\n";
-				returnString += "\tUnknown3=" + Functions::ToString((int)this->buildings[i].unknown3) + "\n";
-				returnString += "\tUnknown4=" + Functions::ToString((int)this->buildings[i].unknown4) + "\n";
-				returnString += "\tUnknown5=" + Functions::ToString((int)this->buildings[i].unknown5) + "\n";
-				returnString += "\tUnknown6=" + Functions::ToString((int)this->buildings[i].unknown6) + "\n";
-				*/
+
+				if ((this->buildings[i].type == 15)||(this->buildings[i].type == 16)||(this->buildings[i].type == 18)){
+					returnString += "\tUnknown=" + Functions::ToString((int)this->buildings[i].soldiers.unknown) + "\n";
+					returnString += "\tSword Level 1=" + Functions::ToString((int)this->buildings[i].soldiers.sword1) + "\n";
+					returnString += "\tSword Level 2=" + Functions::ToString((int)this->buildings[i].soldiers.sword2) + "\n";
+					returnString += "\tSword Level 3=" + Functions::ToString((int)this->buildings[i].soldiers.sword3) + "\n";
+					returnString += "\tBow Level 1=" + Functions::ToString((int)this->buildings[i].soldiers.bow1) + "\n";
+					returnString += "\tBow Level 2=" + Functions::ToString((int)this->buildings[i].soldiers.bow2) + "\n";
+					returnString += "\tBow Level 3=" + Functions::ToString((int)this->buildings[i].soldiers.bow3) + "\n";
+					returnString += "\tSpear Level 1=" + Functions::ToString((int)this->buildings[i].soldiers.spear1) + "\n";
+					returnString += "\tSpear Level 2=" + Functions::ToString((int)this->buildings[i].soldiers.spear2) + "\n";
+					returnString += "\tSpear Level 3=" + Functions::ToString((int)this->buildings[i].soldiers.spear3) + "\n";
+				}
 			}
 			return returnString;
 		}

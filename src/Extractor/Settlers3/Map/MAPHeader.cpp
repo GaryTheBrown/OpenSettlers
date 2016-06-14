@@ -64,13 +64,9 @@ namespace Extractor{
 					case PART_TYPE_Buildings:
 						this->buildings = new MAPBuildings(reader,mapPartPos,mapPartLen,mapPartType);
 						break;
-
-						//TODO MAP Goods List
-						//8 chars for each one.
 					case PART_TYPE_Resources:
-						this->goods = new MAPParts(reader,mapPartPos,mapPartLen,mapPartType,true);
+						this->goods = new MAPGoods(reader,mapPartPos,mapPartLen,mapPartType);
 						break;
-
 					case PART_TYPE_VictoryConditions:
 						this->victoryConditions = new MAPVictoryConditions(reader,mapPartPos,mapPartLen,mapPartType);
 						break;
@@ -152,16 +148,6 @@ namespace Extractor{
 				returnString += this->area->HeaderToString();
 				returnString += "\n";//LineSpace
 			}
-			if (this->settlers != NULL){
-				returnString += "##SETTLERS INFO##\n";
-				returnString += this->settlers->HeaderToString();
-				returnString += "\n";//LineSpace
-			}
-			if (this->goods != NULL){
-				returnString += "##RESOURCES INFO##\n";
-				returnString += this->goods->HeaderToString();
-				returnString += "\n";//LineSpace
-			}
 			if (this->victoryConditions != NULL){
 				returnString += "##VICTORY CONDITIONS INFO##\n";
 				returnString += this->victoryConditions->ToString();
@@ -198,7 +184,7 @@ namespace Extractor{
 				this->buildings->SaveFileData(location);
 
 			if (this->goods != NULL)
-				this->goods->SaveFileData(location,"Goods.dat");
+				this->goods->SaveFileData(location);
 
 		}
 

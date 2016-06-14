@@ -8,8 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#ifndef EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPBUILDINGS_H_
-#define EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPBUILDINGS_H_
+#ifndef EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPGOODS_H_
+#define EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPGOODS_H_
 
 #include <string>
 #include "../../../../Log.h"
@@ -17,40 +17,28 @@
 #include "../../../../Functions/DataReader.h"
 #include "../../../../Functions/FileSave.h"
 #include "../../../../Functions/To.h"
+#include "../../../../Functions/OutputVar.h"
 #include "../MAPParts.h"
-#include "../../Lists/Buildings.h"
+#include "../../Lists/Goods.h"
 
 namespace Extractor{
 	namespace Settlers3{
-		class MAPBuildings: public MAPParts{
+		class MAPGoods: public MAPParts{
 		public:
-
-			struct Building{
-				char player;
-				char type;
+			struct Good{
 				short x_pos;
 				short y_pos;
-
-				struct Soldiers{
-					char unknown = 0
-					char sword1 = 0;
-					char sword2 = 0;
-					char sword3 = 0;
-					char bow1 = 0;
-					char bow2 = 0;
-					char bow3 = 0;
-					char spear1 = 0;
-					char spear2 = 0;
-					char spear3 = 0;
-				} soldiers;
+				char type;
+				char count;
+				char unknown1;
+				char unknown2;
 			};
-
 		private:
-			unsigned int buildingCount;
-			Building* buildings;
+			unsigned int goodsCount;
+			Good* goods;
 		public:
-			MAPBuildings(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey);
-			virtual ~MAPBuildings();
+			MAPGoods(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey);
+			virtual ~MAPGoods();
 			virtual std::string HeaderToString();
 			void SaveFileData(std::string location);
 		};

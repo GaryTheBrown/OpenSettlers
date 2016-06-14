@@ -19,7 +19,7 @@ namespace Extractor{
 				"Boards","Stones","Logs","Bread","Coal","Gold Ore","Iron Ore","Fish",
 				"Grain","Gold","Iron","Shovel","Hammer","Axe","Pick","Saw",
 				"Fishing Rod","Sword","Bow","Spear","Wine","Flour","Pig",
-				"Meat","Sulfur","Water","Rice","Gems","Beer","Gun Powder","Not Used",
+				"Meat","Sulfur","Water","Rice","Gems","Beer","Gun Powder","NOTHING",
 				"Scythe",
 				//Amazon Only
 				"Rice Wine","Mead","Honey"

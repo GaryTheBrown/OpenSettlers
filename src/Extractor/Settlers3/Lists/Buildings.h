@@ -22,7 +22,7 @@ namespace Extractor{
 				"Big Guard Tower","Grain Mill","Castle","Barracks","Bakery",
 				"Slaughterhouse","Distillery (A)","Pig Farm","Grain Farm","Fisherman's Hut",
 				"Residential 1 (Small)","Residential 2 (Medium)","Residential 3 (big)","Sulfur Mine (A)","Waterworks",
-				"Catapult Hall(R)","Shipyard","Delete Ships (Ctrl)",/*???*/"Marketplace","Healer's Quaters",
+				"Catapult Hall(R)","Shipyard","Harbor","Marketplace","Healer's Quaters",
 				"Rice Farm (A)","Gem Mine (E,Z)","Brewery (E)","Coal Maker's Works (R)","Gunpowder Maker's Works (A)",
 				"Pyramid (E)","Sphinx (E)","Big Temple (R)","Small Temple (R)","Big Pagoda (A)",
 				"Small Pagoda (A)","Ballista Hall (E)","Canon Hall (A)","Donkey Ranch",
