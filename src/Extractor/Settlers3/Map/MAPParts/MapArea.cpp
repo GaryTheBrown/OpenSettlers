@@ -85,13 +85,30 @@ namespace Extractor{
 			Functions::SaveToBinaryFile(location +"/Accessible.RAW",Aaccessible,dataSize);
 			Functions::SaveToBinaryFile(location + "/Resources.RAW",Aresources,dataSize);
 
-			std::string saveFile;
-			for(unsigned int i = 0; i < dataSize;i++){
-				if((i != 0)&&(i % this->mapSizeWidth == 0))saveFile += "\n";
-				saveFile += Functions::ToString((int)this->mapData[i].type) + ",";
-			}
+			std::string heightText,typeText,objectText,playerClaimText,accessibleText,resourcesText;
 
-			Functions::SaveToTextFile(location + "/Type.txt",saveFile);
+			for(unsigned int i = 0; i < dataSize;i++){
+				if((i != 0)&&(i % this->mapSizeWidth == 0)){
+					heightText += "\n";
+					typeText += "\n";
+					objectText += "\n";
+					playerClaimText += "\n";
+					accessibleText += "\n";
+					resourcesText += "\n";
+				}
+				heightText += Functions::ToString((int)this->mapData[i].height) + ",";
+				typeText += Functions::ToString((int)this->mapData[i].type) + ",";
+				objectText += MapObjectsList[this->mapData[i].object] + ",";
+				playerClaimText += Functions::ToString((int)this->mapData[i].playerClaim) + ",";
+				accessibleText += Functions::ToString((int)this->mapData[i].accessible) + ",";
+				resourcesText += ResourcesList[this->mapData[i].resources] + ",";
+			}
+			Functions::SaveToTextFile(location + "/MapArea_Height.txt",heightText);
+			Functions::SaveToTextFile(location + "/MapArea_Type.txt",typeText);
+			Functions::SaveToTextFile(location + "/MapArea_Object.txt",objectText);
+			Functions::SaveToTextFile(location + "/MapArea_PlayerClaim.txt",playerClaimText);
+			Functions::SaveToTextFile(location + "/MapArea_Accessible.txt",accessibleText);
+			Functions::SaveToTextFile(location + "/MapArea_Resources.txt",resourcesText);
 		}
 	}
 }

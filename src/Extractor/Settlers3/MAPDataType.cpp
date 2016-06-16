@@ -42,7 +42,7 @@ namespace Extractor{
 
 		void MAPDataType::SaveFileData(std::string location){
 			if(this->header != NULL){
-				LOGSYSTEM->Log("Saving Map Data out to text files...");
+				LOGSYSTEM->Log("Saving Map Data");
 				this->header->SaveFileData(location);
 			}
 		}

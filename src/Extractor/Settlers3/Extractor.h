@@ -40,15 +40,28 @@ namespace Extractor{
 			};
 
 		private:
+
+			enum MapType{
+				MT_UNKNOWN,
+				MT_ORIGINALMISSIONS,
+				MT_MCDMISSIONS,
+				MT_QOTAMISSIONS,
+				MT_MULTI,
+				MT_SINGLE,
+				MT_TUTORIAL,
+				MT_USER
+			};
+
 			VersionS3 gameVersion = VersionNONE;
 			std::string location = "";
+			std::string locationExtra = "";
 
 			bool RAWGFXFileExtract(std::string folder, std::string file);
 			bool RAWSNDFileExtract(std::string folder, std::string file);
-			bool RAWMAPFileExtract(std::string folder, std::string file);
+			bool RAWMAPFileExtract(std::string folder, std::string file, MapType mapType = MT_UNKNOWN);
 			void RAWGFXFolderExtract(std::string folder);
 			void RAWSNDFolderExtract(std::string folder);
-			void RAWMAPFolderExtract(std::string folder);
+			void RAWMAPFolderExtract(std::string folder, MapType mapType = MT_UNKNOWN);
 
 			void CheckGameVersion(bool GOG);
 

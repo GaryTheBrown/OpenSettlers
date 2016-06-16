@@ -28,7 +28,8 @@ namespace Functions{
 	void CreateDir(std::string FileName){
 		if(FolderExists(FileName) == false){
 			std::string command = "mkdir \"" + FileName + "\"";
-			system(command.c_str());
+			if(system(command.c_str()) == -1)
+				return;
 		}
 	}
 
@@ -46,7 +47,8 @@ namespace Functions{
 #elif _WIN32
 		command = "rmdir /S /Q PATH";
 #endif
-		system(command.c_str());
+		if(system(command.c_str()) == -1)
+			return;
 	}
 
 	std::vector<std::string> GetDir(std::string directory){

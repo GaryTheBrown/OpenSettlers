@@ -32,7 +32,7 @@ namespace Extractor{
 				short y_pos;
 
 				struct Soldiers{
-					char unknown = 0
+					char unknown = 0;
 					char sword1 = 0;
 					char sword2 = 0;
 					char sword3 = 0;

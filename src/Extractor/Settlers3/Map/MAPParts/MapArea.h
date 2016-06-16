@@ -18,6 +18,8 @@
 #include "../../../../Functions/FileSave.h"
 #include "../../../../Functions/To.h"
 #include "../MAPParts.h"
+#include "../../Lists/MapObjects.h"
+#include "../../Lists/Resources.h"
 
 namespace Extractor{
 	namespace Settlers3{
@@ -26,10 +28,10 @@ namespace Extractor{
 			struct MapTile{
 				unsigned char height = 0;
 				unsigned char type = 0;
-				unsigned char object = 0; // Connected to MapObjects.h
+				unsigned char object = 0;
 				unsigned char playerClaim = 0;// -1 = NONE
 				unsigned char accessible = 0;// 0 = YES 1 = NO
-				unsigned char resources = 0; //Connected to Resources.h
+				unsigned char resources = 0;
 			};
 		private:
 			//Map Info
