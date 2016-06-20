@@ -107,6 +107,32 @@ namespace Extractor{
 			return true;
 		}
 
+		bool Extract::RAWLBMFileExtract(std::string folder, std::string file){
+			if(Functions::FileExists(folder+file)){
+				LOGSYSTEM->Log("Open GFX Data File: "+ file,1);
+				LOGSYSTEM->Log("Extracting...",1);
+				//GFXDataType* GFXFile = new GFXDataType(folder+file);
+				LOGSYSTEM->Log("Saving...",1);
+				Functions::CreateDir("Extracted");
+				Functions::CreateDir("Extracted/S2");
+				Functions::CreateDir("Extracted/S2/LBM");
+				Functions::CreateDir("Extracted/S2/LBM/"+ file);
+				//GFXFile->SaveFileData("Extracted/S2/LBM/" + file);
+				LOGSYSTEM->Log("Closing...",1);
+				//delete GFXFile;
+				return true;
+			}else return false;
+		}
+
+		void Extract::RAWLBMFolderExtract(std::string folder){
+			if(Functions::FolderExists(folder)){
+				std::vector<std::string> fileList = Functions::GetDir(folder);
+				for(unsigned int i=0; i < fileList.size(); i++){
+					this->RAWLBMFileExtract(folder,fileList[i]);
+				}
+			}
+		}
+
 		bool Extract::ManualExtract(eType fileType, std::string location){
 			size_t pos = location.find_last_of("/");
 			if(pos != location.length()-1){
@@ -114,12 +140,18 @@ namespace Extractor{
 				std::string folder = location.substr(0,pos+1);
 
 				switch(fileType){//File
+					case LBM:
+						this->RAWLBMFileExtract(folder,file);
+						break;
 					default:
 						return false;
 				}
 
 			}else{
 				switch(fileType){//Folder
+					case LBM:
+						//TODO this->RAWLBMFolderExtract(location);
+						break;
 					default:
 						return false;
 				}

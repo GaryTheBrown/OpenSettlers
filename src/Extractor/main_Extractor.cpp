@@ -22,6 +22,7 @@ namespace Extractor{
 			if (extension == "LBM"){
 				fileType = LBM;
 				gameNo = 2;
+				LOGSYSTEM->Log("LBM File Type",1);
 			}
 //Settlers 3 File Types
 			else if (extension == "MAP"){
@@ -136,17 +137,10 @@ namespace Extractor{
 						return false;
 					}
 					case 2:{
-						//temp message of version
-						if(GOG)
-							LOGSYSTEM->Log("Settlers 2 GOG Detected.",1);
-						else
-							LOGSYSTEM->Log("Settlers 2 Detected.",1);
-						LOGSYSTEM->Error("Settlers 2 not implemented yet.");
 						Settlers2::Extract* s2Extract = new Settlers2::Extract(location,GOG);
 						if(s2Extract->FullRAWExtract() == false) return false;
 						delete s2Extract;
 						return true;
-						break;
 					}
 					case 3:{
 						Settlers3::Extract* s3Extract = new Settlers3::Extract(location,GOG);

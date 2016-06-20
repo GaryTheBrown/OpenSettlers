@@ -39,6 +39,10 @@ namespace Extractor{
 			std::string location = "";
 			std::string locationExtra = "";
 
+			bool RAWLBMFileExtract(std::string folder, std::string file);
+
+			void RAWLBMFolderExtract(std::string folder);
+
 			void CheckGameVersion(bool GOG);
 
 		public:
