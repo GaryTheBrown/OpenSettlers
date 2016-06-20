@@ -111,15 +111,15 @@ namespace Extractor{
 			if(Functions::FileExists(folder+file)){
 				LOGSYSTEM->Log("Open GFX Data File: "+ file,1);
 				LOGSYSTEM->Log("Extracting...",1);
-				//GFXDataType* GFXFile = new GFXDataType(folder+file);
+				LBMDataType* LBMFile = new LBMDataType(folder+file);
 				LOGSYSTEM->Log("Saving...",1);
 				Functions::CreateDir("Extracted");
 				Functions::CreateDir("Extracted/S2");
 				Functions::CreateDir("Extracted/S2/LBM");
 				Functions::CreateDir("Extracted/S2/LBM/"+ file);
-				//GFXFile->SaveFileData("Extracted/S2/LBM/" + file);
+				//LBMFile->SaveFileData("Extracted/S2/LBM/" + file);
 				LOGSYSTEM->Log("Closing...",1);
-				//delete GFXFile;
+				delete LBMFile;
 				return true;
 			}else return false;
 		}

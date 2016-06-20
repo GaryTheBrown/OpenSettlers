@@ -14,9 +14,10 @@
 #include <vector>
 #include "../eType.h"
 #include "../../Log.h"
-//#include "../main_Extractor.h"
 #include "../../Functions/FileFunctions.h"
 #include "../../Functions/FileRun.h"
+
+#include "LBMDataType.h"
 
 namespace Extractor{
 	namespace Settlers2{

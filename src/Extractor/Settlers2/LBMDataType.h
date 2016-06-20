@@ -38,7 +38,7 @@ namespace Extractor {
 			LBMImage* imageData = NULL;
 
 		public:
-			LBMDataType(Functions::DataReader* reader);
+			LBMDataType(std::string file);
 			virtual ~LBMDataType();
 		};
 	}
