@@ -17,7 +17,11 @@
 #include "../Log.h"
 #include "../Functions/FileFunctions.h"
 #include "../Functions/DataReader.h"
+//#include "Settlers1/Extractor.h"
+#include "Settlers2/Extractor.h"
 #include "Settlers3/Extractor.h"
+//#include "Settlers4/Extractor.h"
+
 
 namespace Extractor{
 		extern bool Main(std::string location);

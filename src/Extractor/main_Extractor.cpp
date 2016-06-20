@@ -18,7 +18,13 @@ namespace Extractor{
 		std::string extension = location.substr(locationofdot + 1);
 		std::transform(extension.begin(), extension.end(), extension.begin(), toupper);
 		if ((locationofdot != std::string::npos)&&(extension.length() == 3)){//File with 3 letter extension name
-			if (extension == "MAP"){
+//Settlers 2 File Types
+			if (extension == "LBM"){
+				fileType = LBM;
+				gameNo = 2;
+			}
+//Settlers 3 File Types
+			else if (extension == "MAP"){
 				fileType = MAP;
 				gameNo = 3;
 			}
@@ -48,6 +54,7 @@ namespace Extractor{
 				}
 
 			}
+//GOG EXE's
 			else if (extension == "EXE"){
 				if ((gameNo != 2)&&(gameNo != 3)&&(gameNo != 4)){
 					LOGSYSTEM->Log("Reading GOG EXE File",1);
@@ -71,7 +78,9 @@ namespace Extractor{
 				}
 				GOG = true;
 			}
-		}else{ //If not a file then treat as a folder
+		}
+//If not a file then treat as a folder
+		else{
 			size_t pos = location.find_last_of("/");
 			if(pos != location.length()-1) location += "/";
 
@@ -82,8 +91,8 @@ namespace Extractor{
 					gameNo = 1;
 				}
 				//if Settlers 2
-				else if((Functions::FolderExists(location + "s2"))||(Functions::FileExists(location + "s2.exe"))
-						||(Functions::FileExists(location + "S2.EXE"))){
+				else if((Functions::FolderExists(location + "s2"))||
+						(Functions::FileExists(location + "S2.EXE"))){
 					gameNo = 2;
 				}
 				//if Settlers 3
@@ -133,6 +142,10 @@ namespace Extractor{
 						else
 							LOGSYSTEM->Log("Settlers 2 Detected.",1);
 						LOGSYSTEM->Error("Settlers 2 not implemented yet.");
+						Settlers2::Extract* s2Extract = new Settlers2::Extract(location,GOG);
+						if(s2Extract->FullRAWExtract() == false) return false;
+						delete s2Extract;
+						return true;
 						break;
 					}
 					case 3:{
@@ -159,6 +172,12 @@ namespace Extractor{
 				}
 				return false;
 			}
+			case LBM:{
+				Settlers2::Extract* s2Extract = new Settlers2::Extract();
+				if(s2Extract->ManualExtract(fileType, location) == false) return false;
+				delete s2Extract;
+				return true;
+			}
 			case GFX:
 			case SND:
 			case MAP:{
@@ -167,6 +186,7 @@ namespace Extractor{
 				delete s3Extract;
 				return true;
 			}
+
 			default:
 				LOGSYSTEM->Error("UNKNOWN OPTION HOW DID THIS APPEAR?");
 				return false;

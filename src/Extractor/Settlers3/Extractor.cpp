@@ -55,28 +55,22 @@ namespace Extractor{
 			else if((Functions::FileExists(this->location + "S3GOLD1.DAT"))||(Functions::FileExists(this->location + "s3gold1.dat"))){
 				LOGSYSTEM->Message("Detected Settlers 3 GOLD CD 1");
 				this->gameVersion = VersionS3GOLD1;
-			}
-			else if((Functions::FileExists(this->location + "S3GOLD2.DAT"))||(Functions::FileExists(this->location + "s3gold2.dat"))){
+			}else if((Functions::FileExists(this->location + "S3GOLD2.DAT"))||(Functions::FileExists(this->location + "s3gold2.dat"))){
 				LOGSYSTEM->Message("Detected Settlers 3 GOLD CD 2");
 				this->gameVersion = VersionS3GOLD2;
-			}
-			else if((Functions::FileExists(this->location + "S3CD1.DAT"  ))||(Functions::FileExists(this->location + "s3cd1.dat"  ))){
+			}else if((Functions::FileExists(this->location + "S3CD1.DAT"  ))||(Functions::FileExists(this->location + "s3cd1.dat"  ))){
 				LOGSYSTEM->Message("Detected Settlers 3 CD 1");
 				this->gameVersion = VersionS3CD1;
-			}
-			else if((Functions::FileExists(this->location + "S3CD2.DAT"  ))||(Functions::FileExists(this->location + "s3cd2.dat"  ))){
+			}else if((Functions::FileExists(this->location + "S3CD2.DAT"  ))||(Functions::FileExists(this->location + "s3cd2.dat"  ))){
 				LOGSYSTEM->Message("Detected Settlers 3 CD 2");
 				this->gameVersion = VersionS3CD2;
-			}
-			else if((Functions::FileExists(this->location + "S3MCD1.DAT" ))||(Functions::FileExists(this->location + "s3mcd1.dat" ))){
+			}else if((Functions::FileExists(this->location + "S3MCD1.DAT" ))||(Functions::FileExists(this->location + "s3mcd1.dat" ))){
 				LOGSYSTEM->Message("Detected Settlers 3 Mission CD");
 				this->gameVersion = VersionS3MCD1;
-			}
-			else if((Functions::FileExists(this->location + "S3QOTA1.DAT"))||(Functions::FileExists(this->location + "s3qota1.dat"))){
+			}else if((Functions::FileExists(this->location + "S3QOTA1.DAT"))||(Functions::FileExists(this->location + "s3qota1.dat"))){
 				LOGSYSTEM->Message("Detected Settlers 3 Quest Of The Amazon CD");
 				this->gameVersion = VersionS3QOTA1;
-			}
-			else{
+			}else{
 				LOGSYSTEM->Error("Detection of Version Failed");
 				this->gameVersion = VersionNONE;
 			}

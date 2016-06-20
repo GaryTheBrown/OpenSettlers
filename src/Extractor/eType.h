@@ -14,6 +14,9 @@
 namespace Extractor{
 	enum eType{
 		FULL,
+		//Settlers 2 ONLY
+		LBM,
+		//Settlers 3 ONLY
 		GFX,
 		SND,
 		MAP
