@@ -62,6 +62,7 @@ namespace Extractor{
 				}else{
 					LOGSYSTEM->Message("Detected Settlers 2 CD");
 					this->gameVersion = VersionS2CD;
+				}
 			}else{
 				LOGSYSTEM->Error("Detection of Version Failed");
 				this->gameVersion = VersionNONE;
@@ -78,12 +79,12 @@ namespace Extractor{
 			//sFunctions::CreateDir("Extracted/S2/SND");
 			//Functions::CreateDir("Extracted/S2/MAP/");
 
-			if(this->gameVersion == VersionS2){//Original CD
-
+			if(this->gameVersion == VersionS2CD){//Original CD
+				LOGSYSTEM->Log("Settlers 2 Original CD",1);
 			}else if(this->gameVersion == (VersionS2GOLD)){//GOLD CD
-
+				LOGSYSTEM->Log("Settlers 2 Gold CD",1);
 			}else if(this->gameVersion == VersionS2MCD){//MISSION CD
-
+				LOGSYSTEM->Log("Settlers 2 Mission CD",1);
 			} else if(this->gameVersion == (VersionS2GOG)){//GOG not installed
 				Functions::ExternalProgram* program = new Functions::ExternalProgram(this->location);
 				if(Functions::FolderExists("app") == false){
