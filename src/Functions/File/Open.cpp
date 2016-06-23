@@ -7,7 +7,7 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#include "FileOpen.h"
+#include "Open.h"
 namespace Functions{
 	File::File(std::string file) {
 		//- save Filename

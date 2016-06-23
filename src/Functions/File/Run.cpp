@@ -7,7 +7,7 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#include "FileRun.h"
+#include "Run.h"
 
 namespace Functions{
 	std::string ExternalProgram::Run(std::string program, std::string arguments,bool show){

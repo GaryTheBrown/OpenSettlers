@@ -18,7 +18,7 @@
 #include "../../../../Functions/To.h"
 #include "../../../../Functions/DataReader.h"
 #include "../../../../Functions/RGBA.h"
-#include "../../../../Functions/FileImage.h"
+#include "../../../../Functions/File/Image.h"
 #include "../MAPParts.h"
 
 namespace Extractor{

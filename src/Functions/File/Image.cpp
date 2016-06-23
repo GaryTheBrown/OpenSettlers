@@ -7,7 +7,7 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#include "FileImage.h"
+#include "Image.h"
 
 namespace Functions{
 	FileImage::FileImage(SaveType saveRGBType,SaveType savePalType){

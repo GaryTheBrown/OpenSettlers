@@ -7,7 +7,7 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#include "FileFunctions.h"
+#include "Functions.h"
 
 namespace Functions{
 	bool FileExists(std::string file){

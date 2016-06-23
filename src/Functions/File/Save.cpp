@@ -7,7 +7,7 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#include "FileSave.h"
+#include "Save.h"
 namespace Functions{
 	void SaveToTextFile(std::string fileLocation,std::string data){
 		if (FileExists(fileLocation))

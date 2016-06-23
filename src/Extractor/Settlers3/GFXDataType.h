@@ -15,8 +15,8 @@
 #include "../../Log.h"
 
 #include "../../Functions/To.h"
-#include "../../Functions/FileFunctions.h"
-#include "../../Functions/FileSave.h"
+#include "../../Functions/File/Functions.h"
+#include "../../Functions/File/Save.h"
 #include "../../Functions/RGBA.h"
 
 

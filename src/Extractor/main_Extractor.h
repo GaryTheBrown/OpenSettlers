@@ -15,7 +15,7 @@
 
 #include "eType.h"
 #include "../Log.h"
-#include "../Functions/FileFunctions.h"
+#include "../Functions/File/Functions.h"
 #include "../Functions/DataReader.h"
 //#include "Settlers1/Extractor.h"
 #include "Settlers2/Extractor.h"

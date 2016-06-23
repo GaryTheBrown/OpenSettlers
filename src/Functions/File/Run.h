@@ -14,7 +14,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <unistd.h>
-#include "../Log.h"
+#include "../../Log.h"
 
 namespace Functions{
 	class ExternalProgram {

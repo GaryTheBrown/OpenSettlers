@@ -13,9 +13,9 @@
 #include <string>
 #include "RGBImageData.h"
 #include "../../../../Functions/DataReader.h"
-#include "../../../../Functions/FileSave.h"
+#include "../../../../Functions/File/Save.h"
 #include "../../../../Functions/To.h"
-#include "../../../../Functions/FileImage.h"
+#include "../../../../Functions/File/Image.h"
 #include "../../../../Functions/RGBA.h"
 
 namespace Extractor{

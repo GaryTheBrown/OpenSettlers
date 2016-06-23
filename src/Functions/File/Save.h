@@ -14,8 +14,9 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include "To.h"
-#include "FileFunctions.h"
+
+#include "Functions.h"
+#include "../To.h"
 
 namespace Functions{
 	extern void SaveToTextFile(std::string FileLocation,std::string Data);

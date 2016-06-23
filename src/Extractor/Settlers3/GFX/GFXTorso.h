@@ -12,7 +12,7 @@
 
 #include <string>
 #include "../../../Functions/To.h"
-#include "../../../Functions/FileFunctions.h"
+#include "../../../Functions/File/Functions.h"
 #include "../../../Log.h"
 
 #include "Data/PaletteFrameData.h"

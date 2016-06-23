@@ -13,10 +13,10 @@
 #include <iostream>
 #include <fstream>
 
-#include "FileSave.h"
-#include "RGBA.h"
-#include "DataReader.h"
-#include "../Log.h"
+#include "../RGBA.h"
+#include "../DataReader.h"
+#include "../../Log.h"
+#include "Save.h"
 namespace Functions{
 	class FileImage{
 	public:

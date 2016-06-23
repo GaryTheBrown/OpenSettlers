@@ -13,7 +13,7 @@
 #include <string>
 #include "../../../Functions/DataReader.h"
 #include "../../../Functions/To.h"
-#include "../../../Functions/FileFunctions.h"
+#include "../../../Functions/File/Functions.h"
 
 namespace Extractor{
 	namespace Settlers3{

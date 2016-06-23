@@ -17,8 +17,8 @@
 #include "../../LogSystem/LogSystem.h"
 
 #include "../../Functions/To.h"
-#include "../../Functions/FileFunctions.h"
-#include "../../Functions/FileSave.h"
+#include "../../Functions/File/Functions.h"
+#include "../../Functions/File/Save.h"
 #include "../../Functions/DataReader.h"
 
 #include "Map/MAPHeader.h"

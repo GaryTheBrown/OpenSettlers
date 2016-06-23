@@ -14,8 +14,8 @@
 #include <vector>
 #include "../eType.h"
 #include "../../Log.h"
-#include "../../Functions/FileFunctions.h"
-#include "../../Functions/FileRun.h"
+#include "../../Functions/File/Functions.h"
+#include "../../Functions/File/Run.h"
 
 #include "LBMDataType.h"
 
