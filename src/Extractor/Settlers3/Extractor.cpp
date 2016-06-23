@@ -78,10 +78,10 @@ namespace Extractor{
 
 		bool Extract::FullRAWExtract(){
 			if(this->gameVersion == VersionNONE) return false;
-			Functions::CreateDir("Extracted");
-			Functions::CreateDir("Extracted/S3");
-			Functions::CreateDir("Extracted/S3/GFX");
-			if(this->gameVersion != VersionS3MCD1) Functions::CreateDir("Extracted/S3/SND");
+			Functions::CreateDir("Extracted/");
+			Functions::CreateDir("Extracted/S3/");
+			Functions::CreateDir("Extracted/S3/GFX/");
+			if(this->gameVersion != VersionS3MCD1) Functions::CreateDir("Extracted/S3/SND/");
 			Functions::CreateDir("Extracted/S3/MAP/");
 
 			if(this->gameVersion == VersionS3CD2){//Original CD 2
@@ -198,9 +198,9 @@ namespace Extractor{
 				LOGSYSTEM->Log("Extracting...",1);
 				GFXDataType* GFXFile = new GFXDataType(folder+file);
 				LOGSYSTEM->Log("Saving...",1);
-				Functions::CreateDir("Extracted");
-				Functions::CreateDir("Extracted/S3");
-				Functions::CreateDir("Extracted/S3/GFX");
+				Functions::CreateDir("Extracted/");
+				Functions::CreateDir("Extracted/S3/");
+				Functions::CreateDir("Extracted/S3/GFX/");
 				Functions::CreateDir("Extracted/S3/GFX/"+ file);
 				GFXFile->SaveFileData("Extracted/S3/GFX/" + file);
 				LOGSYSTEM->Log("Closing...",1);
@@ -215,9 +215,9 @@ namespace Extractor{
 				LOGSYSTEM->Log("Extracting...",1);
 				SNDDataType* SNDFile = new SNDDataType(folder+file);
 				LOGSYSTEM->Log("Saving...",1);
-				Functions::CreateDir("Extracted");
-				Functions::CreateDir("Extracted/S3");
-				Functions::CreateDir("Extracted/S3/SND");
+				Functions::CreateDir("Extracted/");
+				Functions::CreateDir("Extracted/S3/");
+				Functions::CreateDir("Extracted/S3/SND/");
 				Functions::CreateDir("Extracted/S3/SND/"+ file);
 				SNDFile->SaveFileData("Extracted/S3/SND/" + file);
 				LOGSYSTEM->Log("Closing...",1);
@@ -233,8 +233,8 @@ namespace Extractor{
 				LOGSYSTEM->Log("Extracting...",1);
 				MAPDataType* MAPFile = new MAPDataType(folder+file);
 				LOGSYSTEM->Log("Saving...",1);
-				Functions::CreateDir("Extracted");
-				Functions::CreateDir("Extracted/S3");
+				Functions::CreateDir("Extracted/");
+				Functions::CreateDir("Extracted/S3/");
 				Functions::CreateDir("Extracted/S3/MAP/");
 				if(mapType != MT_UNKNOWN){
 					std::string outFolder = "";

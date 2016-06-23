@@ -75,8 +75,8 @@ namespace Extractor{
 			Functions::CreateDir("Extracted/S2");
 
 
-			//Functions::CreateDir("Extracted/S2/GFX");
-			//sFunctions::CreateDir("Extracted/S2/SND");
+			//Functions::CreateDir("Extracted/S2/GFX/");
+			//Functions::CreateDir("Extracted/S2/SND/");
 			//Functions::CreateDir("Extracted/S2/MAP/");
 
 			if(this->gameVersion == VersionS2CD){//Original CD
@@ -113,9 +113,9 @@ namespace Extractor{
 				LOGSYSTEM->Log("Extracting...",1);
 				LBMDataType* LBMFile = new LBMDataType(folder+file);
 				LOGSYSTEM->Log("Saving...",1);
-				Functions::CreateDir("Extracted");
-				Functions::CreateDir("Extracted/S2");
-				Functions::CreateDir("Extracted/S2/LBM");
+				Functions::CreateDir("Extracted/");
+				Functions::CreateDir("Extracted/S2/");
+				Functions::CreateDir("Extracted/S2/LBM/");
 				Functions::CreateDir("Extracted/S2/LBM/"+ file);
 				//LBMFile->SaveFileData("Extracted/S2/LBM/" + file);
 				LOGSYSTEM->Log("Closing...",1);
@@ -150,7 +150,7 @@ namespace Extractor{
 			}else{
 				switch(fileType){//Folder
 					case LBM:
-						//TODO this->RAWLBMFolderExtract(location);
+						this->RAWLBMFolderExtract(location);
 						break;
 					default:
 						return false;

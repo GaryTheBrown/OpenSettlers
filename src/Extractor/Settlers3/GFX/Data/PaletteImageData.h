@@ -16,7 +16,6 @@
 #include "../../../../Functions/FileSave.h"
 #include "../../../../Functions/To.h"
 #include "../../../../Functions/FileImage.h"
-#include "../../../../Functions/OutputVar.h"
 #include "../../../../Functions/RGBA.h"
 
 namespace Extractor{

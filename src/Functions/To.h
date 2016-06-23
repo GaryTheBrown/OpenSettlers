@@ -23,5 +23,17 @@ namespace Functions{
 	}
 	extern std::string ToHex(int value,int bytes = 1);
 	extern std::string ToBinary(int value,int bytes = 1);
+
+	template <class T> std::string OutputVar(std::string varName, T varValue,int bytes = 1, bool full = true){
+		std::string returnString;
+		if(full){
+			returnString += varName + "=\tDec:" + ToString((int)varValue);
+			returnString += "\tBinary:" + ToBinary(varValue,bytes);
+			returnString += "\tHex: 0x" + ToHex(varValue,bytes);
+		}
+		else
+			returnString = varName + "=" + ToString(varValue);
+		return returnString;
+	}
 }
 #endif
