@@ -44,14 +44,14 @@ namespace Extractor{
 					gameNo = 3;
 					break;
 				case 9460301: // GFX S3_18.DAT is a DOS DLL file
-					LOGSYSTEM->Error("S3_18.DAT Detected Nothing to do.");
-					return false;
+					LOGSYSTEM->Log("S3_18.DAT Detected Nothing to do.",1);
+					return true;
 				case 1179011410: //VIDEO
-					LOGSYSTEM->Error("Video File Detected Nothing to do.");
-					return false;
+					LOGSYSTEM->Log("Video File Detected Nothing to do.",1);
+					return true;
 				default:
-					LOGSYSTEM->Error("File Not Recognised");
-					return false;
+					LOGSYSTEM->Log("File Not Recognised",1);
+					return true;
 				}
 
 			}
