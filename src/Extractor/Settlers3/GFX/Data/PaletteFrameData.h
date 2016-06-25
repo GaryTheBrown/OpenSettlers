@@ -33,7 +33,6 @@ namespace Extractor{
 			virtual ~PaletteFrameData();
 
 			bool SaveFileData(std::string location);
-			PaletteImageData* ReturnTorso(unsigned char frame);
 		};
 	}
 }

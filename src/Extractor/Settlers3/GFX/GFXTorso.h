@@ -33,7 +33,6 @@ namespace Extractor{
 			GFXTorso(Functions::DataReader* reader, unsigned int offset,RGBA* Palette = NULL);
 			virtual ~GFXTorso();
 			bool SaveFileData(std::string location);
-			PaletteImageData* ReturnTorso(unsigned short image,unsigned char frame);
 		};
 	}
 }

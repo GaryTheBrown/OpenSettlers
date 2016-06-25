@@ -47,8 +47,5 @@ namespace Extractor{
 			return false;
 		}
 
-		PaletteImageData* PaletteFrameData::ReturnTorso(unsigned char frame){
-			return this->frames[frame];
-		}
 	}
 }

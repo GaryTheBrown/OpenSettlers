@@ -36,29 +36,40 @@ std::string LogSystem::TimeToString(){
 	return timeString;
 }
 
-void LogSystem::Out(std::string text, signed char verboseLevel){
-	if(this->verboseLevelCLI >= verboseLevel){
-		std::cout << text;
-	}
-	if(this->verboseLevelFile >= verboseLevel){
-		logFile.open(this->logFileName.c_str(), std::ofstream::out | std::ofstream::app);
-		logFile << text;
-		logFile.close();
+void LogSystem::Out(std::string text, signed char verboseLevel, bool strictLevel){
+	if(strictLevel){
+		if(this->verboseLevelCLI == verboseLevel){
+				std::cout << text;
+			}
+			if(this->verboseLevelFile == verboseLevel){
+				logFile.open(this->logFileName.c_str(), std::ofstream::out | std::ofstream::app);
+				logFile << text;
+				logFile.close();
+			}
+	}else{
+		if(this->verboseLevelCLI >= verboseLevel){
+			std::cout << text;
+		}
+		if(this->verboseLevelFile >= verboseLevel){
+			logFile.open(this->logFileName.c_str(), std::ofstream::out | std::ofstream::app);
+			logFile << text;
+			logFile.close();
+		}
 	}
 }
 
-void LogSystem::Log(std::string info, signed char verboseLevel, bool newLine){
+void LogSystem::Log(std::string info, signed char verboseLevel, bool newLine, bool strictLevel){
 	std::string text = this->TimeToString() + ":LOG(" + Functions::ToString((int)verboseLevel) + "):" + info;
 	if (newLine) text += "\n";
-	this->Out(text, verboseLevel);
+	this->Out(text, verboseLevel,strictLevel);
 }
 
-void LogSystem::LogCont(std::string info, signed char verboseLevel){
-	this->Out(info, verboseLevel);
+void LogSystem::LogCont(std::string info, signed char verboseLevel, bool strictLevel){
+	this->Out(info, verboseLevel, strictLevel);
 }
 
-void LogSystem::newLine(signed char verboseLevel){
-	this->Out("\n", verboseLevel);
+void LogSystem::newLine(signed char verboseLevel, bool strictLevel){
+	this->Out("\n", verboseLevel, strictLevel);
 }
 
 void LogSystem::Message(std::string info, bool newLine){
@@ -73,3 +84,4 @@ void LogSystem::Error(std::string info){
 	text += "\033[0m"; // reset cli colour to Normal
 	this->Out(text);
 }
+

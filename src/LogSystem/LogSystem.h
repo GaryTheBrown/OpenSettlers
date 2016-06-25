@@ -22,23 +22,24 @@ private:
 	signed char verboseLevelCLI;
 	signed char verboseLevelFile = -1;
 	signed char verboseLevelConsole = -1;//in game console
-	//-1 = no info 0 = errors and messages only 127 = all info
+	//-1 = no info 0 = errors and messages only 1-127 = all info
 
 	std::ofstream logFile;
 	std::string logFileName = "SettlersExtractor.log";
 
 	std::string TimeToString();
-	void Out(std::string Text, signed char verboseLevel = 0);
+	void Out(std::string Text, signed char verboseLevel = 0, bool strictLevel = false);
 
 public:
 	LogSystem(signed char verboseLevelCLI, signed char verboseLevelFile = -1, signed char verboseLevelConsole = -1);
 	virtual ~LogSystem();
 
-	void Log(std::string info, signed char verboseLevel = 1, bool newLine = true);
+	void Log(std::string info, signed char verboseLevel = 1, bool newLine = true, bool strictLevel = false);
 	void Message(std::string info, bool newLine = true);
 	void Error(std::string info);
-	void LogCont(std::string info, signed char verboseLevel);
-	void newLine(signed char verboseLevel);
+	void LogCont(std::string info, signed char verboseLevel, bool strictLevel = false);
+	void newLine(signed char verboseLevel,bool strictLevel = false);
+
 
 
 };

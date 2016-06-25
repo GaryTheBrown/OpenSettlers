@@ -39,20 +39,21 @@ namespace Extractor{
 					}
 				}
 				LOGSYSTEM->Log("Reading:GFX:Palette:Images:",3,false);
+				LOGSYSTEM->newLine(4);
 				for(unsigned short i = 0; i < 20; i++){
 					reader->SetOffset(offsets[i]);
 					for(unsigned char j = 0; j < 8; j++){
 						for(unsigned short k = 0; k < 256; k++){
 							this->palettes[i][j][k] = RGBA(reader->ReadShort(),((colourCode == 0xf800)?true:false));
 						}
-						LOGSYSTEM->LogCont(".",4);
+						LOGSYSTEM->LogCont(".",3,true);
 						//- first colour is set to transparency if needed for later
 						//this->palettes[i][j][0].R = 0;
 						//this->palettes[i][j][0].G = 0;
 						//this->palettes[i][j][0].B = 0;
 						//this->palettes[i][j][0].A = 0;
 					}
-					LOGSYSTEM->newLine(3);
+					LOGSYSTEM->newLine(3,true);
 				}
 			}
 		}
@@ -60,17 +61,21 @@ namespace Extractor{
 		GFXPalette::~GFXPalette() {
 			if (this->count == 20){
 				if(this->palettes != NULL){
+					LOGSYSTEM->Log("Deleting:GFX:Palette:Images:",3,false);
+					LOGSYSTEM->newLine(4);
 					for (unsigned short i = 0; i < this->count; i++){
 						for (unsigned char j = 0; j < 8; j++){
 							delete [] this->palettes[i][j];
 						}
 						delete [] this->palettes[i];
+						LOGSYSTEM->LogCont(".",3,true);
 					}
 					delete [] this->palettes;
+					LOGSYSTEM->newLine(3,true);
 				}
 			}
 		}
-
+//TODO LOGSYSTEM BELLOW
 		bool GFXPalette::SaveToText(std::string location){
 
 
