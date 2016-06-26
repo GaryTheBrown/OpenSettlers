@@ -26,8 +26,11 @@ namespace Extractor{
 				for (unsigned short i = 0; i < this->countB; i++){
 					for (unsigned short j = 0; j < this->countA; j++){
 						offsets[i][j] = reader->ReadInt();
-						LOGSYSTEM->LogCont(Functions::ToString(offsets[i][j]) + ",",4);
+						LOGSYSTEM->LogCont(Functions::ToString(offsets[i][j]) + ",",5);
+						LOGSYSTEM->LogCont(".",4,true);
+
 					}
+					LOGSYSTEM->LogCont(".",3,true);
 				}
 				LOGSYSTEM->newLine(3);
 
@@ -38,12 +41,14 @@ namespace Extractor{
 				for (unsigned short i = 0; i < this->countB; i++){
 					this->strings[i] = new std::string[this->countA];
 					for (unsigned short j = 0; j < this->countA; j++){
-						if(i < this->countA)
+						if(j+1 < this->countA)
 							size = offsets[i][j+1] - offsets[i][j];
 						else
 							size = offsets[i+1][0] - offsets[i][j];
 
 						this->strings[i][j] = reader->ReadString(size,offsets[i][j]);
+						LOGSYSTEM->LogCont(".",4,true);
+						LOGSYSTEM->Log("Reading:GFX:Text:Strings:" + Functions::ToString(i) + ":" + Functions::ToString(j) + ":" + this->strings[i][j],5);
 					}
 						LOGSYSTEM->LogCont(".",3,true);
 				}
