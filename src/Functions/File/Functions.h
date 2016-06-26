@@ -7,9 +7,8 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_FUNCTIONS_FILEFUNCTIONS_H_
-#define EXTRACTOR_FUNCTIONS_FILEFUNCTIONS_H_
 
+#pragma once
 #include <string>
 #include <sys/types.h>
 #include <dirent.h>
@@ -29,4 +28,3 @@ namespace Functions{
 	extern void RemoveFolder(std::string folder);
 	extern std::vector<std::string> GetDir(std::string directory);
 }
-#endif

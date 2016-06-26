@@ -7,9 +7,8 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_FUNCTIONS_FILERUN_H_
-#define EXTRACTOR_FUNCTIONS_FILERUN_H_
 
+#pragma once
 #include <string>
 #include <iostream>
 #include <stdio.h>
@@ -17,7 +16,7 @@
 #include "../../Log.h"
 
 namespace Functions{
-	class ExternalProgram {
+	class ExternalProgram{
 	private:
 		std::string location;
 		std::string innoextract = "/usr/bin/innoextract";
@@ -35,4 +34,3 @@ namespace Functions{
 		bool CABExtract(std::string file);
 	};
 }
-#endif

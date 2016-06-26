@@ -7,13 +7,10 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_SETTLERS3_SNDDATATYPE_H_
-#define EXTRACTOR_SETTLERS3_SNDDATATYPE_H_
 
+#pragma once
 #include <string>
-
 #include "../../Log.h"
-
 #include "../../Functions/To.h"
 #include "../../Functions/File/Functions.h"
 #include "../../Functions/File/Save.h"
@@ -33,4 +30,3 @@ namespace Extractor{
 		};
 	}
 }
-#endif

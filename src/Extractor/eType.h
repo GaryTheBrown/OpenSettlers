@@ -7,9 +7,8 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_ETYPE_H_
-#define EXTRACTOR_ETYPE_H_
 
+#pragma once
 
 namespace Extractor{
 	enum eType{
@@ -22,4 +21,3 @@ namespace Extractor{
 		MAP
 	};
 }
-#endif

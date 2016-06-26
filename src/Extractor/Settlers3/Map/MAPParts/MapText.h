@@ -8,9 +8,7 @@
  * of the License.
  *******************************************************************************/
 
-#ifndef EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPTEXT_H_
-#define EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPTEXT_H_
-
+#pragma once
 #include <string>
 #include "../../../../Log.h"
 #include "../../../../LogSystem/LogSystem.h"
@@ -19,7 +17,7 @@
 #include "../MAPParts.h"
 namespace Extractor{
 	namespace Settlers3{
-		class MAPText: public MAPParts{
+		class MAPText : public MAPParts{
 		private:
 			std::string text;
 		public:
@@ -29,4 +27,3 @@ namespace Extractor{
 		};
 	}
 }
-#endif

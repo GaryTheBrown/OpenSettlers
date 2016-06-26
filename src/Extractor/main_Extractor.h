@@ -7,12 +7,10 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_MAIN_H_
-#define EXTRACTOR_MAIN_H_
 
+#pragma once
 #include <string>
 #include <vector>
-
 #include "eType.h"
 #include "../Log.h"
 #include "../Functions/File/Functions.h"
@@ -22,8 +20,6 @@
 #include "Settlers3/Extractor.h"
 //#include "Settlers4/Extractor.h"
 
-
 namespace Extractor{
 		extern bool Main(std::string location);
 }
-#endif

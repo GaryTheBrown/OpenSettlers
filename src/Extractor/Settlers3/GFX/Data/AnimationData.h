@@ -7,22 +7,19 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_SETTLERS3_GFX_DATA_ANIMATIONDATA_H_
-#define EXTRACTOR_SETTLERS3_GFX_DATA_ANIMATIONDATA_H_
 
+#pragma once
 #include <string>
 #include <iostream>
 #include <fstream>
-
 #include "../../../../Log.h"
-
 #include "../../../../Functions/DataReader.h"
 #include "../../../../Functions/File/Save.h"
 #include "../../../../Functions/To.h"
 
 namespace Extractor{
 	namespace Settlers3{
-		class AnimationData {
+		class AnimationData{
 		private:
 			unsigned int count;
 			struct AnimationDataFrame{
@@ -48,5 +45,3 @@ namespace Extractor{
 		};
 	}
 }
-
-#endif

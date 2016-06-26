@@ -7,14 +7,12 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_FUNCTIONS_FILESAVE_H_
-#define EXTRACTOR_FUNCTIONS_FILESAVE_H_
 
+#pragma once
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <cstring>
-
 #include "Functions.h"
 #include "../To.h"
 
@@ -22,4 +20,3 @@ namespace Functions{
 	extern void SaveToTextFile(std::string FileLocation,std::string Data);
 	extern void SaveToBinaryFile(std::string FileLocation,char* Data,unsigned int size);
 }
-#endif

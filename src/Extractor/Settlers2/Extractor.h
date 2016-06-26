@@ -7,21 +7,19 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_SETTLERS2_EXTRACTOR_H_
-#define EXTRACTOR_SETTLERS2_EXTRACTOR_H_
 
+#pragma once
 #include <string>
 #include <vector>
 #include "../eType.h"
 #include "../../Log.h"
 #include "../../Functions/File/Functions.h"
 #include "../../Functions/File/Run.h"
-
 #include "LBMDataType.h"
 
 namespace Extractor{
 	namespace Settlers2{
-		class Extract {
+		class Extract{
 		private:
 			enum VersionS2{
 				VersionNONE,
@@ -60,4 +58,3 @@ namespace Extractor{
 		};
 	}
 }
-#endif

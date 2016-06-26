@@ -7,12 +7,10 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_FUNCTIONS_DATAREADER_H_
-#define EXTRACTOR_FUNCTIONS_DATAREADER_H_
 
+#pragma once
 #include <stdio.h>
 #include <iostream>
-
 #include "File/Open.h"
 
 namespace Functions{
@@ -61,4 +59,3 @@ namespace Functions{
 
 	};
 }
-#endif

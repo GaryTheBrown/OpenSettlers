@@ -7,10 +7,8 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef LOG_H_
-#define LOG_H_
+
+#pragma once
 #include "LogSystem/LogSystem.h"
 
 extern LogSystem *LOGSYSTEM;
-
-#endif

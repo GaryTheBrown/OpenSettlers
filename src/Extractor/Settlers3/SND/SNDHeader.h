@@ -7,14 +7,14 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_SETTLERS3_SND_SNDHEADER_H_
-#define EXTRACTOR_SETTLERS3_SND_SNDHEADER_H_
 
+#pragma once
 #include <string>
 #include "../../../Log.h"
 #include "../../../Functions/DataReader.h"
 #include "../../../Functions/To.h"
 #include "SNDFrame.h"
+
 namespace Extractor{
 	namespace Settlers3{
 		class SNDHeader{
@@ -43,4 +43,3 @@ namespace Extractor{
 		};
 	}
 }
-#endif

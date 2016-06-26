@@ -13,20 +13,17 @@
 // Description :
 //============================================================================
 
-#ifndef EXTRACTOR_SETTLERS3_GFX_GFXGUI_H_
-#define EXTRACTOR_SETTLERS3_GFX_GFXGUI_H_
-
+#pragma once
 #include <string>
 #include "../../../Functions/DataReader.h"
 #include "../../../Functions/To.h"
 #include "../../../Functions/File/Functions.h"
 #include "../../../Log.h"
-
 #include "Data/RGBImageData.h"
 
 namespace Extractor{
 	namespace Settlers3{
-		class GFXGUI {
+		class GFXGUI{
 		private:
 
 			//Default Header
@@ -45,4 +42,3 @@ namespace Extractor{
 		};
 	}
 }
-#endif

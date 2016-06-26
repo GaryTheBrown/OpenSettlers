@@ -7,16 +7,16 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_SRC_SETTLERS3_SND_SNDFRAME_H_
-#define EXTRACTOR_SRC_SETTLERS3_SND_SNDFRAME_H_
 
+#pragma once
 #include <string>
 #include "../../../Functions/DataReader.h"
 #include "../../../Log.h"
 #include "SNDData.h"
+
 namespace Extractor{
 	namespace Settlers3{
-		class SNDFrame {
+		class SNDFrame{
 		private:
 			//Frame Header
 			unsigned int count;
@@ -31,4 +31,3 @@ namespace Extractor{
 		};
 	}
 }
-#endif

@@ -7,19 +7,17 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_SETTLERS3_GFX_GFXLANDSCAPE_H_
-#define EXTRACTOR_SETTLERS3_GFX_GFXLANDSCAPE_H_
 
+#pragma once
 #include <string>
 #include "../../../Functions/To.h"
 #include "../../../Functions/File/Functions.h"
 #include "../../../Log.h"
-
 #include "Data/RGBImageData.h"
 
 namespace Extractor{
 	namespace Settlers3{
-		class GFXLandscape {
+		class GFXLandscape{
 		private:
 
 			//Default Header
@@ -38,5 +36,3 @@ namespace Extractor{
 		};
 	}
 }
-
-#endif

@@ -8,19 +8,14 @@
  * of the License.
  *******************************************************************************/
 
-#ifndef EXTRACTOR_SETTLERS3_MAPDATATYPE_H_
-#define EXTRACTOR_SETTLERS3_MAPDATATYPE_H_
-
+#pragma once
 #include <string>
-
 #include "../../Log.h"
 #include "../../LogSystem/LogSystem.h"
-
 #include "../../Functions/To.h"
 #include "../../Functions/File/Functions.h"
 #include "../../Functions/File/Save.h"
 #include "../../Functions/DataReader.h"
-
 #include "Map/MAPHeader.h"
 
 namespace Extractor{
@@ -39,4 +34,3 @@ namespace Extractor{
 		};
 	}
 }
-#endif

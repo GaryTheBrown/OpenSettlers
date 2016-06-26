@@ -7,16 +7,16 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef FUNCTIONS_FILEIMAGE_H_
-#define FUNCTIONS_FILEIMAGE_H_
+
+#pragma once
 #include <string>
 #include <iostream>
 #include <fstream>
-
 #include "../RGBA.h"
 #include "../DataReader.h"
 #include "../../Log.h"
 #include "Save.h"
+
 namespace Functions{
 	class FileImage{
 	public:
@@ -46,5 +46,3 @@ namespace Functions{
 			void SaveToRGBBMPv4(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height,signed short xRel, signed short yRel);
 	};
 }
-
-#endif

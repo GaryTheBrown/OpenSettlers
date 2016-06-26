@@ -8,9 +8,7 @@
  * of the License.
  *******************************************************************************/
 
-#ifndef EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPVICTORYCONDITIONS_H_
-#define EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPVICTORYCONDITIONS_H_
-
+#pragma once
 #include <string>
 #include "../../../../Log.h"
 #include "../../../../LogSystem/LogSystem.h"
@@ -22,7 +20,7 @@
 
 namespace Extractor{
 	namespace Settlers3{
-		class MAPVictoryConditions: public MAPParts{
+		class MAPVictoryConditions : public MAPParts{
 		public:
 			struct BuildingData{
 				signed char playerNumber;
@@ -65,4 +63,3 @@ namespace Extractor{
 		};
 	}
 }
-#endif

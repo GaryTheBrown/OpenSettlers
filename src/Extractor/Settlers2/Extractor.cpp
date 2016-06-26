@@ -7,6 +7,7 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
+
 #include "Extractor.h"
 namespace Extractor{
 	namespace Settlers2{

@@ -7,16 +7,15 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef LOGSYSTEM_LOGSYSTEM_H_
-#define LOGSYSTEM_LOGSYSTEM_H_
 
+#pragma once
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <ctime>
 #include "../Functions/To.h"
 
-class LogSystem {
+class LogSystem{
 private:
 
 	signed char verboseLevelCLI;
@@ -39,8 +38,4 @@ public:
 	void Error(std::string info);
 	void LogCont(std::string info, signed char verboseLevel, bool strictLevel = false);
 	void newLine(signed char verboseLevel,bool strictLevel = false);
-
-
-
 };
-#endif

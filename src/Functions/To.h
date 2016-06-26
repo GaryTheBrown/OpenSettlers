@@ -7,14 +7,14 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_FUNCTIONS_TO_H_
-#define EXTRACTOR_FUNCTIONS_TO_H_
 
+#pragma once
 #include <iostream>
 #include <iomanip>
 #include <bitset>
 #include<sstream>
 #include <string>
+
 namespace Functions{
 	template <typename T> std::string ToString(T value){
 		std::ostringstream os;
@@ -36,4 +36,3 @@ namespace Functions{
 		return returnString;
 	}
 }
-#endif

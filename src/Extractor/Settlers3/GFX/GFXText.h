@@ -7,9 +7,8 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_SETTLERS3_GFX_GFXTEXT_H_
-#define EXTRACTOR_SETTLERS3_GFX_GFXTEXT_H_
 
+#pragma once
 #include <string>
 #include "../../../Functions/DataReader.h"
 #include "../../../Functions/File/Functions.h"
@@ -19,7 +18,7 @@
 
 namespace Extractor{
 	namespace Settlers3{
-		class GFXText {
+		class GFXText{
 		private:
 			std::string Languages[8] = {
 					"1.German_ISO-8859-2",
@@ -47,4 +46,3 @@ namespace Extractor{
 		};
 	}
 }
-#endif

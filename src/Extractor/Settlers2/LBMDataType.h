@@ -1,24 +1,22 @@
-//============================================================================
-// Name        : LBMDataType.h
-// Author      : Gary_The_Brown
-// Description :
-//============================================================================
+/*******************************************************************************
+ * Settlers Extractor - A program To extract data file for the Settlers 1-4
+ * Copyright (C) 2016   Gary The Brown
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; ONLY version 2
+ * of the License.
+ *******************************************************************************/
 
-#ifndef EXTRACTOR_SETTLERS2_LBMDATATYPE_H_
-#define EXTRACTOR_SETTLERS2_LBMDATATYPE_H_
-
+#pragma once
 #include <string>
-
 #include "../../LogSystem/LogSystem.h"
 #include "../../Log.h"
-
 #include "../../Functions/DataReader.h"
 #include "../../Functions/To.h"
 #include "../../Functions/File/Functions.h"
 #include "../../Functions/File/Save.h"
 #include "../../Functions/RGBA.h"
-
-
 #include "LBM/LBMHeader.h"
 #include "LBM/LBMBMHD.h"
 #include "LBM/LBMPalette.h"
@@ -27,7 +25,7 @@
 
 namespace Extractor {
 	namespace Settlers2{
-		class LBMDataType {
+		class LBMDataType{
 		private:
 			LBMHeader* fileHeader = NULL;
 			LBMBMHD* pictureHeader = NULL;
@@ -43,5 +41,3 @@ namespace Extractor {
 		};
 	}
 }
-
-#endif

@@ -7,9 +7,8 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_SETTLERS3_GFX_DATA_PALETTEIMAGEDATA_H_
-#define EXTRACTOR_SETTLERS3_GFX_DATA_PALETTEIMAGEDATA_H_
 
+#pragma once
 #include <string>
 #include "RGBImageData.h"
 #include "../../../../Functions/DataReader.h"
@@ -20,7 +19,7 @@
 
 namespace Extractor{
 	namespace Settlers3{
-		class PaletteImageData {
+		class PaletteImageData{
 		private:
 			//header
 			unsigned short width;
@@ -46,4 +45,3 @@ namespace Extractor{
 		};
 	}
 }
-#endif

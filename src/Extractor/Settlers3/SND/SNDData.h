@@ -7,9 +7,8 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_SETTLERS3_SND_SNDDATA_H_
-#define EXTRACTOR_SETTLERS3_SND_SNDDATA_H_
 
+#pragma once
 #include <string>
 #include "../../../Functions/DataReader.h"
 #include "../../../Functions/To.h"
@@ -17,7 +16,7 @@
 
 namespace Extractor{
 	namespace Settlers3{
-		class SNDData {
+		class SNDData{
 		private:
 			//File Header
 			unsigned int length;
@@ -37,4 +36,3 @@ namespace Extractor{
 		};
 	}
 }
-#endif

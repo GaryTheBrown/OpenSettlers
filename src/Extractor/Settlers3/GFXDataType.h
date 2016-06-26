@@ -7,19 +7,14 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_SETTLERS3_GFXDATATYPE_H_
-#define EXTRACTOR_SETTLERS3_GFXDATATYPE_H_
 
+#pragma once
 #include <string>
-
 #include "../../Log.h"
-
 #include "../../Functions/To.h"
 #include "../../Functions/File/Functions.h"
 #include "../../Functions/File/Save.h"
 #include "../../Functions/RGBA.h"
-
-
 #include "GFX/GFXAnimation.h"
 #include "GFX/GFXGUI.h"
 #include "GFX/GFXHeader.h"
@@ -29,7 +24,6 @@
 #include "GFX/GFXShadow.h"
 #include "GFX/GFXText.h"
 #include "GFX/GFXTorso.h"
-
 
 namespace Extractor{
 	namespace Settlers3{
@@ -88,4 +82,3 @@ namespace Extractor{
 		};
 	}
 }
-#endif

@@ -8,19 +8,17 @@
  * of the License.
  *******************************************************************************/
 
-#ifndef EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPINFO_H_
-#define EXTRACTOR_SETTLERS3_MAP_MAPPARTS_MAPINFO_H_
-
+#pragma once
 #include <string>
 #include "../../../../Log.h"
 #include "../../../../LogSystem/LogSystem.h"
-
 #include "../../../../Functions/DataReader.h"
 #include "../../../../Functions/To.h"
 #include "../MAPParts.h"
+
 namespace Extractor{
 	namespace Settlers3{
-		class MAPInfo: public MAPParts{
+		class MAPInfo : public MAPParts{
 		public:
 			enum enumStartResources{
 				startResourceLow = 1,
@@ -48,4 +46,3 @@ namespace Extractor{
 		};
 	}
 }
-#endif

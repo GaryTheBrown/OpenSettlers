@@ -7,10 +7,10 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_RGBA_H_
-#define EXTRACTOR_RGBA_H_
 
-class RGBA {
+#pragma once
+
+class RGBA{
 public:
 	unsigned char R = 0;
 	unsigned char G = 0;
@@ -24,4 +24,3 @@ public:
 
 	unsigned int ReturnInt();
 };
-#endif

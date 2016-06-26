@@ -7,9 +7,8 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_SETTLERS3_GFX_DATA_PALETTEFRAMEDATA_H_
-#define EXTRACTOR_SETTLERS3_GFX_DATA_PALETTEFRAMEDATA_H_
 
+#pragma once
 #include <string>
 #include "../../../../Functions/DataReader.h"
 #include "../../../../Functions/To.h"
@@ -17,7 +16,7 @@
 
 namespace Extractor{
 	namespace Settlers3{
-		class PaletteFrameData {
+		class PaletteFrameData{
 		private:
 
 			unsigned int sequenceCode = 0;			//@offset:00(4) - 0x1402
@@ -36,4 +35,3 @@ namespace Extractor{
 		};
 	}
 }
-#endif

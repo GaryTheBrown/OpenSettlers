@@ -7,14 +7,11 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef MAIN_H_
-#define MAIN_H_
 
+#pragma once
 #include <string>
 #include "Log.h"
 #include "Extractor/eType.h"
 #include "Extractor/main_Extractor.h"
 
 extern int main(int argc, char *argv[]);
-
-#endif

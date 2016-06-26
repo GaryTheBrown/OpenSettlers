@@ -7,9 +7,8 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#ifndef EXTRACTOR_FUNCTIONS_FILEOPEN_H_
-#define EXTRACTOR_FUNCTIONS_FILEOPEN_H_
 
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <sys/stat.h>
@@ -18,7 +17,7 @@
 #include <string>
 
 namespace Functions{
-	class File {
+	class File{
 	private:
 		char* fileBuffer = NULL;
 		char* tmpBuffer = NULL; //For Odd Offsets
@@ -42,4 +41,3 @@ namespace Functions{
 		void DeleteTmpBuffer(){delete[] this->tmpBuffer;}
 	};
 }
-#endif
