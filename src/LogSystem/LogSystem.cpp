@@ -9,16 +9,12 @@
  *******************************************************************************/
 #include "LogSystem.h"
 
-LogSystem::LogSystem(signed char verboseLevelCLI,signed char verboseLevelFile, signed char verboseLevelConsole){ //0-x for level of info 0 = no info 255 = all info){
+LogSystem::LogSystem(signed char verboseLevelCLI,signed char verboseLevelFile, signed char verboseLevelConsole){
 	this->verboseLevelCLI = verboseLevelCLI;
 	this->verboseLevelFile = verboseLevelFile;
 	this->verboseLevelConsole = verboseLevelConsole;
 	logFile.open(this->logFileName.c_str(), std::ofstream::out);
 	logFile.close();
-}
-
-LogSystem::~LogSystem(){
-
 }
 
 std::string LogSystem::TimeToString(){
@@ -36,40 +32,21 @@ std::string LogSystem::TimeToString(){
 	return timeString;
 }
 
-void LogSystem::Out(std::string text, signed char verboseLevel, bool strictLevel){
-	if(strictLevel){
-		if(this->verboseLevelCLI == verboseLevel){
-				std::cout << text;
-			}
-			if(this->verboseLevelFile == verboseLevel){
-				logFile.open(this->logFileName.c_str(), std::ofstream::out | std::ofstream::app);
-				logFile << text;
-				logFile.close();
-			}
-	}else{
-		if(this->verboseLevelCLI >= verboseLevel){
-			std::cout << text;
-		}
-		if(this->verboseLevelFile >= verboseLevel){
-			logFile.open(this->logFileName.c_str(), std::ofstream::out | std::ofstream::app);
-			logFile << text;
-			logFile.close();
-		}
+void LogSystem::Out(std::string text, signed char verboseLevel){
+	if(this->verboseLevelCLI >= verboseLevel){
+		std::cout << text;
+	}
+	if(this->verboseLevelFile >= verboseLevel){
+		logFile.open(this->logFileName.c_str(), std::ofstream::out | std::ofstream::app);
+		logFile << text;
+		logFile.close();
 	}
 }
 
-void LogSystem::Log(std::string info, signed char verboseLevel, bool newLine, bool strictLevel){
+void LogSystem::Log(std::string info, signed char verboseLevel, bool newLine){
 	std::string text = this->TimeToString() + ":LOG(" + Functions::ToString((int)verboseLevel) + "):" + info;
 	if (newLine) text += "\n";
-	this->Out(text, verboseLevel,strictLevel);
-}
-
-void LogSystem::LogCont(std::string info, signed char verboseLevel, bool strictLevel){
-	this->Out(info, verboseLevel, strictLevel);
-}
-
-void LogSystem::newLine(signed char verboseLevel, bool strictLevel){
-	this->Out("\n", verboseLevel, strictLevel);
+	this->Out(text, verboseLevel);
 }
 
 void LogSystem::Message(std::string info, bool newLine){
@@ -84,4 +61,3 @@ void LogSystem::Error(std::string info){
 	text += "\033[0m"; // reset cli colour to Normal
 	this->Out(text);
 }
-
