@@ -23,7 +23,6 @@ namespace Extractor{
 			this->data = new SNDData*[this->count];
 			for (unsigned char i = 0; i < this->count; i++){
 					this->data[i] = new SNDData(reader,offsets[i]);
-					LOGSYSTEM->LogCont(".",4);
 			}
 		}
 

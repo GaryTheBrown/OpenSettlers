@@ -11,7 +11,7 @@
 
 namespace Extractor{
 	namespace Settlers3{
-		AnimationData::AnimationData(Functions::DataReader* reader, int offset) {
+		AnimationData::AnimationData(Functions::DataReader* reader, int offset){
 
 			reader->SetOffset(offset);
 			this->count = reader->ReadInt();
@@ -29,9 +29,7 @@ namespace Extractor{
 				this->frames[i].torso_frame = reader->ReadShort();
 				this->frames[i].sound_flag1 = reader->ReadSignedShort();
 				this->frames[i].sound_flag2 = reader->ReadSignedShort();
-				LOGSYSTEM->LogCont(".",4,true);
 			}
-			LOGSYSTEM->newLine(4,true);
 		}
 
 		AnimationData::~AnimationData(){
@@ -41,8 +39,6 @@ namespace Extractor{
 		void AnimationData::SaveToFile(std::string filename){
 
 			std::string data = "";
-			LOGSYSTEM->Log("Saving:GFX:Animations:Data:",3,false);
-			LOGSYSTEM->newLine(4);
 			for (unsigned int i = 0; i < this->count; i++){
 				data += "PosX        =" + Functions::ToString(this->frames[i].posX) + "\t";
 				data += "PosY        =" + Functions::ToString(this->frames[i].posY) + "\t";
@@ -57,11 +53,7 @@ namespace Extractor{
 				data += "Sound Flag 1=" + Functions::ToString(this->frames[i].sound_flag1) + "\t";
 				data += "Sound Flag 2=" + Functions::ToString(this->frames[i].sound_flag2) + "\t";
 				data += "\n";
-				LOGSYSTEM->LogCont(".",3,true);
 			}
-			LOGSYSTEM->newLine(3,true);
-			LOGSYSTEM->LogCont(data,4);
-			LOGSYSTEM->newLine(4);
 			Functions::SaveToTextFile(filename + ".txt",data);
 
 		}

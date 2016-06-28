@@ -11,7 +11,7 @@
 #include "MAPHeader.h"
 namespace Extractor{
 	namespace Settlers3{
-		MAPHeader::MAPHeader(Functions::DataReader* reader) {
+		MAPHeader::MAPHeader(Functions::DataReader* reader){
 			reader->SetOffset(0);
 			this->fileChecksum = reader->ReadInt();
 			this->fileVersion = (enumFileVersion)reader->ReadInt();

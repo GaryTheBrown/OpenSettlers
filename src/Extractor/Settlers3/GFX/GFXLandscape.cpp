@@ -13,42 +13,28 @@ namespace Extractor{
 		GFXLandscape::GFXLandscape(Functions::DataReader* reader, unsigned int offset,unsigned int colourCode){
 			reader->SetOffset(offset);
 			this->headerID = reader->ReadInt();
-			LOGSYSTEM->Log("Reading:GFX:Landscape:Header ID:" + Functions::ToString(this->headerID),3);
 			this->headerSize = reader->ReadShort();
-			LOGSYSTEM->Log("Reading:GFX:Landscape:Header Size:" + Functions::ToString(this->headerSize),3);
 			this->count = reader->ReadShort();
-			LOGSYSTEM->Log("Reading:GFX:Landscape:Count" + Functions::ToString(this->count),3);
 
 			if (this->count>0){
 				unsigned int offsets[this->count];
-				LOGSYSTEM->Log("Reading:GFX:Landscape:Offsets:",3,false);
 				for (unsigned short i = 0;i < this->count;i++){
 					offsets[i] = reader->ReadInt();
-					LOGSYSTEM->LogCont(Functions::ToString(offsets[i]) + ",",4);
 				}
-				LOGSYSTEM->newLine(3);
 
 				this->images = new RGBImageData* [this->count];
-				LOGSYSTEM->Log("Reading:GFX:Landscape:Images:",3,false);
-				LOGSYSTEM->newLine(4);
 				for (unsigned short i = 0;i < this->count;i++){
 					this->images[i] = new RGBImageData(reader,offsets[i],RGBImageData::IMG_GFX_Landscape,colourCode);
-					LOGSYSTEM->LogCont(".",3,true);
 				}
-				LOGSYSTEM->newLine(3,true);
 			}
 		}
 
 		GFXLandscape::~GFXLandscape(){
 			if(this->images != NULL) {
-				LOGSYSTEM->Log("Deleting:GFX:Landscape:Images:",3,false);
-				LOGSYSTEM->newLine(4);
 				for(unsigned short i = 0; i < this->count; i++){
 					delete this->images[i];
-					LOGSYSTEM->LogCont(".",3,true);
 				}
 				delete[] this->images;
-				LOGSYSTEM->newLine(3,true);
 			}
 		}
 
@@ -56,13 +42,9 @@ namespace Extractor{
 			if(this->count > 0){
 				location += "/Landscape/";
 				Functions::CreateDir(location);
-				LOGSYSTEM->Log("Saving:GFX:Landscape:Images:",3,false);
-				LOGSYSTEM->newLine(4);
 				for(unsigned short i = 0; i < this->count; i++){
 					if(this->images[i] != NULL) this->images[i]->SaveToFile(location + Functions::ToString(i));
-					LOGSYSTEM->LogCont(".",3,true);
 				}
-				LOGSYSTEM->newLine(3,true);
 				return true;
 			}
 			return false;

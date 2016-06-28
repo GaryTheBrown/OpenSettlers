@@ -12,22 +12,20 @@
 namespace Extractor{
 	namespace Settlers3{
 		MAPDataType::MAPDataType(std::string file){
-			LOGSYSTEM->Log("File:" + file);
+			LOGSYSTEM->Log("File:" + file,2);
 			Functions::DataReader* reader = new Functions::DataReader(file);
 			reader->SetOffset(0);
-			LOGSYSTEM->Log("Reading Header.");
+			LOGSYSTEM->Log("Reading Header.",2);
 			this->header = new MAPHeader(reader);
-			LOGSYSTEM->Log(".OK");
-
-			LOGSYSTEM->Log("Finished Reading Data To Memory.");
+			LOGSYSTEM->Log("Finished Reading Data To Memory.",2);
 		}
 
 		MAPDataType::~MAPDataType(){
 			if(this->header != NULL){
-				LOGSYSTEM->Log("Deleting Header...");
+				LOGSYSTEM->Log("Deleting Header...",2);
 				delete this->header;
 			}
-			LOGSYSTEM->Log("Finished Deleting.");
+			LOGSYSTEM->Log("Finished Deleting.",2);
 		}
 
 		void MAPDataType::SaveHeaderData(std::string location){
@@ -42,7 +40,7 @@ namespace Extractor{
 
 		void MAPDataType::SaveFileData(std::string location){
 			if(this->header != NULL){
-				LOGSYSTEM->Log("Saving Map Data");
+				LOGSYSTEM->Log("Saving Map Data",2);
 				this->header->SaveFileData(location);
 			}
 		}

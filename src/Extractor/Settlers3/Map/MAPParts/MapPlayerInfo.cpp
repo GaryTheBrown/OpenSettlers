@@ -12,7 +12,7 @@
 
 namespace Extractor{
 	namespace Settlers3{
-		MAPPlayerInfo::MAPPlayerInfo(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey, unsigned int playerCount):MAPParts(reader,offset,size,cryptKey,false) {
+		MAPPlayerInfo::MAPPlayerInfo(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey, unsigned int playerCount):MAPParts(reader,offset,size,cryptKey,false){
 
 			if(this->hasBeenDecrypted){
 
@@ -44,7 +44,7 @@ namespace Extractor{
 			}
 		}
 
-		MAPPlayerInfo::~MAPPlayerInfo() {
+		MAPPlayerInfo::~MAPPlayerInfo(){
 			delete [] this->playerInfo;
 		}
 

@@ -12,7 +12,6 @@
 #include <string>
 #include "../../../Functions/To.h"
 #include "../../../Functions/DataReader.h"
-#include "../../../Log.h"
 
 namespace Extractor{
 	namespace Settlers3{

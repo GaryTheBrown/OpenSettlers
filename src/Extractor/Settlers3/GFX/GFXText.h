@@ -14,7 +14,6 @@
 #include "../../../Functions/File/Functions.h"
 #include "../../../Functions/File/Save.h"
 #include "../../../Functions/To.h"
-#include "../../../Log.h"
 
 namespace Extractor{
 	namespace Settlers3{

@@ -12,7 +12,7 @@
 
 namespace Extractor{
 	namespace Settlers3{
-		MAPInfo::MAPInfo(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey):MAPParts(reader,offset,size,cryptKey,false) {
+		MAPInfo::MAPInfo(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey):MAPParts(reader,offset,size,cryptKey,false){
 
 			if(this->hasBeenDecrypted){
 
@@ -48,10 +48,6 @@ namespace Extractor{
 				//decryption failed
 				LOGSYSTEM->Error("FAIL:Data Not Decrypted!!");
 			}
-		}
-
-		MAPInfo::~MAPInfo() {
-
 		}
 
 		std::string MAPInfo::ToString(){

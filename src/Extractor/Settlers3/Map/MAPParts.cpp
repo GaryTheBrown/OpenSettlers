@@ -62,7 +62,6 @@ namespace Extractor{
 			//- key has to be byte
 			unsigned char key = this->cryptKey & 0xFF;
 
-
 			unsigned char* buffer = (unsigned char*)reader->DirectBufferAccess(this->size, this->offset);
 
 			unsigned char byte;

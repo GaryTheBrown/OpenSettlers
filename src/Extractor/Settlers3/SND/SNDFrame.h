@@ -11,7 +11,6 @@
 #pragma once
 #include <string>
 #include "../../../Functions/DataReader.h"
-#include "../../../Log.h"
 #include "SNDData.h"
 
 namespace Extractor{

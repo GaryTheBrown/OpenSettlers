@@ -12,7 +12,7 @@
 
 namespace Extractor{
 	namespace Settlers3{
-		MAPText::MAPText(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey):MAPParts(reader,offset,size,cryptKey,false) {
+		MAPText::MAPText(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey):MAPParts(reader,offset,size,cryptKey,false){
 
 			if(this->hasBeenDecrypted){
 
@@ -33,7 +33,7 @@ namespace Extractor{
 			}
 		}
 
-		MAPText::~MAPText() {
+		MAPText::~MAPText(){
 		}
 
 		std::string MAPText::ToString(){

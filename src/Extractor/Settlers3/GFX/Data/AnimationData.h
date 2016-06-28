@@ -12,7 +12,6 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../../../../Log.h"
 #include "../../../../Functions/DataReader.h"
 #include "../../../../Functions/File/Save.h"
 #include "../../../../Functions/To.h"
@@ -39,7 +38,7 @@ namespace Extractor{
 
 		public:
 			AnimationData(Functions::DataReader* reader, int offset);
-			virtual ~AnimationData(){};
+			virtual ~AnimationData();
 
 			void SaveToFile(std::string filename);
 		};

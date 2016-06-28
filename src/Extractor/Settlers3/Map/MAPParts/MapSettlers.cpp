@@ -51,13 +51,6 @@ namespace Extractor{
 			returnString += "SETTLERCOUNT=" + Functions::ToString(this->settlerCount) + "\n";
 
 			for (unsigned int i = 0; i < this->settlerCount; i++){
-/*
-				returnString += Functions::ToString((int)this->settlers[i].player);
-				returnString += "\t" + Functions::ToString((int)this->settlers[i].type);
-				//returnString += "\t" + Functions::ToString((int)this->settlers[i].x_pos);
-				//returnString += "\t" + Functions::ToString((int)this->settlers[i].y_pos);
-				returnString += "\n";
-*/
 				returnString += "Settler:" + Functions::ToString(i+1) + "\n";
 				returnString += "\tPlayer=" + Functions::ToString((int)this->settlers[i].player) + "\n";
 				returnString += "\tType=" + SettlersList[(int)this->settlers[i].type] + "\n";

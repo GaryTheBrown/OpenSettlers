@@ -11,8 +11,6 @@
 #pragma once
 #include <string>
 #include "../../../../Log.h"
-#include "../../../../LogSystem/LogSystem.h"
-
 #include "../../../../Functions/DataReader.h"
 #include "../../../../Functions/To.h"
 #include "../MAPParts.h"

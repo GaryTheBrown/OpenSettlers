@@ -68,9 +68,6 @@ namespace Extractor{
 			}
 		}
 
-		MAPVictoryConditions::~MAPVictoryConditions() {
-		}
-
 		std::string MAPVictoryConditions::ToString(){
 			if (this->hasBeenDecrypted == false)
 				return MAPParts::HeaderToString();

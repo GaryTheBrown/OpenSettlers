@@ -14,22 +14,15 @@ namespace Extractor{
 			reader->SetOffset(offset);
 
 			this->headerID = reader->ReadInt();
-			LOGSYSTEM->Log("Reading:GFX:Palette:Header ID:" + Functions::ToString(this->headerID),3);
 			this->headerSize = reader->ReadShort();
-			LOGSYSTEM->Log("Reading:GFX:Palette:Header Size:" + Functions::ToString(this->headerSize),3);
 			this->count = reader->ReadShort();
-			LOGSYSTEM->Log("Reading:GFX:Palette:Count" + Functions::ToString(this->count),3);
 			this->sizeofPalette = reader->ReadInt();
-			LOGSYSTEM->Log("Reading:GFX:Palette:SizeOf" + Functions::ToString(this->sizeofPalette),3);
 
 			if (this->count>0){
 				unsigned int offsets[this->count];
-				LOGSYSTEM->Log("Reading:GFX:Palette:Offsets:",3,false);
 				for (unsigned short i = 0;i < this->count;i++){
 					offsets[i] = reader->ReadInt();
-					LOGSYSTEM->LogCont(Functions::ToString(offsets[i]) + ",",4);
 				}
-				LOGSYSTEM->newLine(3);
 
 				this->palettes = new RGBA**[20];
 				for(unsigned short i = 0; i < this->count; i++){
@@ -38,24 +31,19 @@ namespace Extractor{
 						this->palettes[i][J] = new RGBA[256];
 					}
 				}
-				LOGSYSTEM->Log("Reading:GFX:Palette:Images:",3,false);
 
 				for(unsigned int i = 0; i < 20; i++){
 					reader->SetOffset(offsets[i]);
 					for(unsigned int j = 0; j < 8; j++){
 						for(unsigned int k = 0; k < 256; k++){
 							this->palettes[i][j][k] = RGBA(reader->ReadShort(),((colourCode == 0xf800)?true:false));
-							LOGSYSTEM->LogCont(".",4,true);
-							LOGSYSTEM->Log("Reading:GFX:Palette:" + Functions::ToString(i) + ":" + Functions::ToString(j) + ":" + Functions::ToString(k) + ":" + Functions::ToString(this->palettes[i][j][k].R) + "," + Functions::ToString(this->palettes[i][j][k].G) + "," + Functions::ToString(this->palettes[i][j][k].B) + "," + Functions::ToString(this->palettes[i][j][k].A),5);
 						}
-						LOGSYSTEM->LogCont(".",3,true);
 						//- first colour is set to transparency if needed for later
 						//this->palettes[i][j][0].R = 0;
 						//this->palettes[i][j][0].G = 0;
 						//this->palettes[i][j][0].B = 0;
 						//this->palettes[i][j][0].A = 0;
 					}
-					LOGSYSTEM->newLine(3,true);
 				}
 			}
 		}
@@ -63,18 +51,13 @@ namespace Extractor{
 		GFXPalette::~GFXPalette(){
 			if (this->count == 20){
 				if(this->palettes != NULL){
-					LOGSYSTEM->Log("Deleting:GFX:Palette:Images:",3,false);
-					LOGSYSTEM->newLine(5);
 					for (unsigned short i = 0; i < this->count; i++){
 						for (unsigned char j = 0; j < 8; j++){
 							delete [] this->palettes[i][j];
-							LOGSYSTEM->LogCont(".",4,true);
 						}
 						delete [] this->palettes[i];
-						LOGSYSTEM->LogCont(".",3,true);
 					}
 					delete [] this->palettes;
-					LOGSYSTEM->newLine(3,true);
 				}
 			}
 		}
@@ -98,12 +81,8 @@ namespace Extractor{
 						}
 						std::string filename = location + Functions::ToString(i) + "." + Functions::ToString(j) + ".txt";
 						Functions::SaveToTextFile(filename,data);
-						LOGSYSTEM->LogCont(".",4,true);
 					}
-					LOGSYSTEM->LogCont(".",3,true);
 				}
-				LOGSYSTEM->newLine(3,true);
-				LOGSYSTEM->newLine(4,true);
 				return true;
 			}
 			else
@@ -136,9 +115,6 @@ namespace Extractor{
 					htmlVersion += "</tr>";
 				}
 				htmlVersion += "</table></html>";
-				LOGSYSTEM->newLine(5);
-				LOGSYSTEM->LogCont(htmlVersion,5);
-				LOGSYSTEM->newLine(5);
 				Functions::SaveToTextFile(location + "Palettes.html",htmlVersion);
 				return true;
 			}
@@ -150,9 +126,7 @@ namespace Extractor{
 			if((this->count > 0)&&(this->palettes != NULL)){
 				location += "/Palette/";
 				Functions::CreateDir(location);
-				LOGSYSTEM->Log("Saving:GFX:Palette to text files",3,false);
 				if (!this->SaveToText(location)) return false;
-				LOGSYSTEM->Log("Saving:GFX:Palette to a Html file.",3,false);
 				if (!this->SaveToHtml(location)) return false;
 				return true;
 			}

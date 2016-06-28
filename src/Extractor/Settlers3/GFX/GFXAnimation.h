@@ -12,7 +12,7 @@
 #include <string>
 #include "../../../Functions/To.h"
 #include "../../../Functions/File/Functions.h"
-#include "../../../Log.h"
+
 #include "Data/AnimationData.h"
 
 namespace Extractor{

@@ -11,7 +11,6 @@
 #pragma once
 #include <string>
 #include "../../../../Log.h"
-#include "../../../../LogSystem/LogSystem.h"
 #include "../../../../Functions/DataReader.h"
 #include "../../../../Functions/To.h"
 #include "../MAPParts.h"
@@ -22,7 +21,7 @@ namespace Extractor{
 			std::string text;
 		public:
 			MAPText(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey);
-			virtual ~MAPText();
+			virtual ~MAPText(){};
 			virtual std::string ToString();
 		};
 	}
