@@ -12,13 +12,14 @@
 #include <string>
 #include "../../../../Functions/DataReader.h"
 #include "../../../../Functions/File/Image.h"
-#include "../../../../Functions/RGBA.h"
+#include "../../../../Functions/Image/RGBA.h"
+#include "../../../../Functions/Image/RGBImageData.h"
 #include "../../../../Functions/File/Save.h"
 #include "../../../../Functions/To.h"
 
 namespace Extractor{
 	namespace Settlers3{
-		class RGBImageData{
+		class RGBImageData : public Functions::RGBImageData{
 		public:
 			enum enumIMGType{
 				IMG_GFX_none,
@@ -31,12 +32,8 @@ namespace Extractor{
 
 		private:
 			//Header Info
-			unsigned short width;
-			unsigned short height;
 			signed short xRel;
 			signed short yRel;
-
-			RGBA* imageRGBA = NULL;
 			enumIMGType gfxType;
 
 		public:
@@ -45,14 +42,8 @@ namespace Extractor{
 			RGBImageData(RGBA* imageRGBA, unsigned short height,unsigned short width,signed short xRel,signed short yRel);
 			virtual ~RGBImageData();
 
-			void SaveToFile(std::string filename);
-			void SaveToRGBBMP(std::string filename);
-
-			//Image Manipulation
-			RGBImageData* CutOutSection(unsigned short X,unsigned short Y,unsigned short height,unsigned short width);
-			void ChangeColour(RGBA From, RGBA To);
-			void ChangeColourRange(RGBA From, RGBA To, RGBA Range);
-			void OverwriteSection(unsigned short X,unsigned short Y,unsigned short height,unsigned short width, RGBA colour = {0,0,0,0});
+			virtual void SaveToFile(std::string filename);
+			virtual void SaveToRGBBMP(std::string filename);
 		};
 	}
 }

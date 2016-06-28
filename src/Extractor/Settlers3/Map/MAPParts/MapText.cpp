@@ -33,9 +33,6 @@ namespace Extractor{
 			}
 		}
 
-		MAPText::~MAPText(){
-		}
-
 		std::string MAPText::ToString(){
 
 			if (this->hasBeenDecrypted == false)

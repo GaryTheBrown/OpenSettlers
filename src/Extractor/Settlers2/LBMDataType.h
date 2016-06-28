@@ -16,7 +16,7 @@
 #include "../../Functions/To.h"
 #include "../../Functions/File/Functions.h"
 #include "../../Functions/File/Save.h"
-#include "../../Functions/RGBA.h"
+#include "../../Functions/Image/RGBA.h"
 #include "LBM/LBMHeader.h"
 #include "LBM/LBMBMHD.h"
 #include "LBM/LBMPalette.h"

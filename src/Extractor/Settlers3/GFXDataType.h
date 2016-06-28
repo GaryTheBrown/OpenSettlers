@@ -14,7 +14,7 @@
 #include "../../Functions/To.h"
 #include "../../Functions/File/Functions.h"
 #include "../../Functions/File/Save.h"
-#include "../../Functions/RGBA.h"
+#include "../../Functions/Image/RGBA.h"
 #include "GFX/GFXAnimation.h"
 #include "GFX/GFXGUI.h"
 #include "GFX/GFXHeader.h"

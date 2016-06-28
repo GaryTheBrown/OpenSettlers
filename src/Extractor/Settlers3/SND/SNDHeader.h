@@ -12,6 +12,7 @@
 #include <string>
 #include "../../../Functions/DataReader.h"
 #include "../../../Functions/To.h"
+#include "../../../Log.h"
 #include "SNDFrame.h"
 
 namespace Extractor{

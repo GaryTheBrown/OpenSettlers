@@ -9,19 +9,28 @@
  *******************************************************************************/
 
 #pragma once
-#include "../../../Functions/DataReader.h"
-#include "../../../Functions/Image/RGBA.h"
+#include <string>
+#include "../Image/RGBA.h"
 
-namespace Extractor {
-	namespace Settlers2{
-		class LBMPalette{
-		private:
-			RGBA palette[256];
+namespace Functions{
+	class PaletteImageData{
+	protected:
+		//header
+		unsigned short width = 0;
+		unsigned short height = 0;
 
-		public:
-			LBMPalette(Functions::DataReader* reader);
-			virtual ~LBMPalette();
+		//Data
+		unsigned char* image=NULL;
+		bool* transparency=NULL;
+		unsigned char palette[1024]; // BGRA Format
 
-		};
-	}
+	public:
+		PaletteImageData(){};
+		virtual ~PaletteImageData();
+
+		virtual void SaveToFile(std::string filename){};
+
+		void SetPalette(RGBA* Palette);
+		RGBA* ConvertToRGBA();
+	};
 }

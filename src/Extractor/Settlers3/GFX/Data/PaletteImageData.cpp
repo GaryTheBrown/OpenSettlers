@@ -10,7 +10,6 @@
 #include "PaletteImageData.h"
 namespace Extractor{
 	namespace Settlers3{
-
 		PaletteImageData::PaletteImageData(Functions::DataReader* reader, unsigned int offset, RGBA* Palette){
 			reader->SetOffset(offset);
 			reader->ReadInt(); //Magic
@@ -95,46 +94,11 @@ namespace Extractor{
 
 			Functions::SaveToTextFile(filename + ".txt",data);
 
-			//show Data As RGB Files
-			if(paletteCheck){
-				RGBImageData* imageRGB = this->ConvertToRGBA();
-				imageRGB->SaveToRGBBMP(filename);
-			}
-			else{ //This Function is Working but preview is wrong for the file.
-				filename.append(".bmp");
-				Functions::FileImage* fileImage = new Functions::FileImage();
-				fileImage->SaveToPaletteImage(filename,this->image,this->palette,this->width,this->height);
-				delete fileImage;
-			}
-		}
-
-		void PaletteImageData::SetPalette(RGBA* Palette){
-			for (signed short i = 0; i < 256; i++){//BGR order
-				this->palette[(i*4)] = Palette[i].B;
-				this->palette[(i*4)+1] = Palette[i].G;
-				this->palette[(i*4)+2] = Palette[i].R;
-				this->palette[(i*4)+3] = Palette[i].A;
-			}
-		}
-
-		RGBImageData* PaletteImageData::ConvertToRGBA(){
-			RGBA *imageRGBA = new RGBA[this->height*this->width];
-
-			for (int i = 0; i < (this->height*this->width);i++){
-				if(this->transparency[i] == true){
-					imageRGBA[i].A = 0;
-					imageRGBA[i].R = 0;
-					imageRGBA[i].G = 0;
-					imageRGBA[i].B = 0;
-				}
-				else{
-					imageRGBA[i].B = this->palette[(((this->image[i])*4)+0)];
-					imageRGBA[i].G = this->palette[(((this->image[i])*4)+1)];
-					imageRGBA[i].R = this->palette[(((this->image[i])*4)+2)];
-					imageRGBA[i].A = this->palette[(((this->image[i])*4)+3)];
-				}
-			}
-			return new RGBImageData(imageRGBA,RGBImageData::IMG_GFX_Torso, this->height,this->width,this->xRel,this->yRel);
+			//This Function is Working but preview is wrong for the file.
+			filename.append(".bmp");
+			Functions::FileImage* fileImage = new Functions::FileImage();
+			fileImage->SaveToPaletteImage(filename,this->image,this->palette,this->width,this->height);
+			delete fileImage;
 		}
 	}
 }

@@ -12,7 +12,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../RGBA.h"
+#include "../Image/RGBA.h"
 #include "../DataReader.h"
 #include "../../Log.h"
 #include "Save.h"

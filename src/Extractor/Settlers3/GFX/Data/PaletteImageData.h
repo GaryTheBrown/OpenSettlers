@@ -10,38 +10,27 @@
 
 #pragma once
 #include <string>
+#include "../../../../Functions/Image/PaletteImageData.h"
 #include "RGBImageData.h"
 #include "../../../../Functions/DataReader.h"
 #include "../../../../Functions/File/Save.h"
 #include "../../../../Functions/To.h"
 #include "../../../../Functions/File/Image.h"
-#include "../../../../Functions/RGBA.h"
+#include "../../../../Functions/Image/RGBA.h"
 
 namespace Extractor{
 	namespace Settlers3{
-		class PaletteImageData{
+		class PaletteImageData : public Functions::PaletteImageData{
 		private:
 			//header
-			unsigned short width;
-			unsigned short height;
 			signed short xRel;
 			signed short yRel;
-
-			//Data
-			unsigned char* image=NULL;
-			bool* transparency=NULL;
-			unsigned char palette[1024]; // BGRA Format
-			bool paletteCheck = false;
-			bool keepTorso = false;
 
 		public:
 			PaletteImageData(Functions::DataReader* reader, unsigned int offset,RGBA* Palette = NULL);
 			virtual ~PaletteImageData();
 
-			void SetPalette(RGBA* Palette);
-			void SetPalleteCheck(){this->paletteCheck = true;};
-			void SaveToFile(std::string filename);
-			RGBImageData* ConvertToRGBA();
+			virtual void SaveToFile(std::string filename);
 		};
 	}
 }
