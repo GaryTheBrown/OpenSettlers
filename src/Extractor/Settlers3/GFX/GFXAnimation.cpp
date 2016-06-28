@@ -34,6 +34,7 @@ namespace Extractor{
 				LOGSYSTEM->Log("Reading:GFX:Animation:Data:",3,false);
 				LOGSYSTEM->newLine(4);
 				for (unsigned short i = 0;i < this->count;i++){
+					LOGSYSTEM->Log("Reading:GFX:Animation:" + Functions::ToString((int)i) + ":",4);
 					this->animations[i] = new AnimationData(reader,offsets[i]);
 					LOGSYSTEM->LogCont(".",3,true);
 				}
@@ -42,8 +43,18 @@ namespace Extractor{
 		}
 
 		GFXAnimation::~GFXAnimation(){
-			LOGSYSTEM->Log("Deleting GFX:Animation",3);
-			if(this->animations != NULL) delete[] this->animations;
+			if(this->animations != NULL) {
+				LOGSYSTEM->Log("Deleting GFX:Animation:",3,false);
+				LOGSYSTEM->newLine(4);
+				for(unsigned short i = 0; i < this->count; i++){
+					delete this->animations[i];
+					LOGSYSTEM->LogCont(".",3,true);
+				}
+				LOGSYSTEM->newLine(3,true);
+				if(this->animations != NULL) delete[] this->animations;
+			}
+
+
 		}
 
 		bool GFXAnimation::SaveFileData(std::string location){

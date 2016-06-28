@@ -10,7 +10,7 @@
 #include "GFXText.h"
 namespace Extractor{
 	namespace Settlers3{
-		GFXText::GFXText(Functions::DataReader* reader, unsigned int offset) {
+		GFXText::GFXText(Functions::DataReader* reader, unsigned int offset){
 			reader->SetOffset(offset);
 				this->headerID = reader->ReadInt();
 				LOGSYSTEM->Log("Reading:GFX:Text:Header ID:" + Functions::ToString(this->headerID),3);
@@ -37,7 +37,7 @@ namespace Extractor{
 				unsigned int size;
 				this->strings = new std::string*[this->countB];
 				LOGSYSTEM->Log("Reading:GFX:Text:Strings:",3,false);
-				LOGSYSTEM->newLine(4);
+				LOGSYSTEM->newLine(5);
 				for (unsigned short i = 0; i < this->countB; i++){
 					this->strings[i] = new std::string[this->countA];
 					for (unsigned short j = 0; j < this->countA; j++){
@@ -55,8 +55,8 @@ namespace Extractor{
 				LOGSYSTEM->newLine(3,true);
 		}
 
-		GFXText::~GFXText() {
-			if(this->strings != NULL) {
+		GFXText::~GFXText(){
+			if(this->strings != NULL){
 				LOGSYSTEM->Log("Deleting:GFX:Text:",3);
 				for (unsigned short i = 0; i < this->countB; i++){
 					delete[]this->strings[i];

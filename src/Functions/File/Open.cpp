@@ -9,7 +9,7 @@
  *******************************************************************************/
 #include "Open.h"
 namespace Functions{
-	File::File(std::string file) {
+	File::File(std::string file){
 		//- save Filename
 		this->file = file;
 		size_t lastindex = this->file.find_last_of(".");
@@ -46,7 +46,7 @@ namespace Functions{
 
 	}
 
-	File::~File() {
+	File::~File(){
 		if (this->fileBuffer != NULL) delete[] this->fileBuffer;
 	}
 

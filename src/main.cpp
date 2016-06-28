@@ -9,7 +9,7 @@
  *******************************************************************************/
 #include "main.h"
 using namespace Extractor;
-int main(int argc,char* argv[]) {
+int main(int argc,char* argv[]){
 //temp version number until build system sorted
 	std::string VERSION = "0.01";
 

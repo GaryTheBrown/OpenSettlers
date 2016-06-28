@@ -38,7 +38,7 @@ namespace Extractor{
 
 			bool SaveFileData(std::string location);
 
-			RGBA*** ReturnPalettes();
+			RGBA*** ReturnPalettes(){return this->palettes;};
 		};
 	}
 }

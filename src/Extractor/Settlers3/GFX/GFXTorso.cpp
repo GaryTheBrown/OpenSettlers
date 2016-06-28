@@ -30,7 +30,7 @@ namespace Extractor{
 				LOGSYSTEM->newLine(3);
 
 				this->images = new PaletteFrameData*[this->count];
-				LOGSYSTEM->Log("Reading:Torso:GUI:Images:",3,false);
+				LOGSYSTEM->Log("Reading:GFX:Torso:Images:",3,false);
 				LOGSYSTEM->newLine(4);
 				for (unsigned short i = 0;i < this->count;i++){
 					this->images[i] = new PaletteFrameData(reader,offsets[i],Palette);
@@ -59,7 +59,7 @@ namespace Extractor{
 			if(this->count > 0){
 				location += "/Torso/";
 				Functions::CreateDir(location);
-				LOGSYSTEM->Log("Saving:GFX:Landscape:Images:",3,false);
+				LOGSYSTEM->Log("Saving:GFX:Torso:Images:",3,false);
 				LOGSYSTEM->newLine(4);
 				for(unsigned short i = 0; i < this->count; i++){
 					if(this->images[i] != NULL) this->images[i]->SaveFileData(location + Functions::ToString(i));

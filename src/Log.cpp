@@ -8,4 +8,4 @@
  * of the License.
  *******************************************************************************/
 #include "Log.h"
-LogSystem *LOGSYSTEM = new LogSystem(1,1);
+LogSystem *LOGSYSTEM = new LogSystem(4,5);

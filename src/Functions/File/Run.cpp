@@ -44,14 +44,14 @@ namespace Functions{
 		return false;
 	}
 	std::string ExternalProgram::GOGGameCheck(){
-		if (access(this->unshield.c_str(), X_OK) == 0) {
+		if (access(this->unshield.c_str(), X_OK) == 0){
 			return this->Run(this->innoextract,this->innoextractArgumentsGameCheck + " " + this->location, false);
 		}
 		return "";
 	}
 
 	bool ExternalProgram::CABExtract(std::string file){
-		if (access(this->unshield.c_str(), X_OK) == 0) {
+		if (access(this->unshield.c_str(), X_OK) == 0){
 			LOGSYSTEM->Log("Running unshield...",1);
 			std::string error = this->Run(this->unshield,this->unshieldArguments + " " + this->location + file);
 			if (error.length() < 100){
