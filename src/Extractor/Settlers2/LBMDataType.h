@@ -37,7 +37,7 @@ namespace Extractor {
 
 		public:
 			LBMDataType(std::string file);
-			virtual ~LBMDataType();
+			~LBMDataType();
 		};
 	}
 }

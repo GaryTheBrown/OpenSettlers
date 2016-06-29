@@ -31,7 +31,7 @@ namespace Extractor{
 
 		public:
 			SNDData(Functions::DataReader* reader, unsigned int offset);
-			virtual ~SNDData();
+			~SNDData();
 			void SaveFileData(std::string filename);
 		};
 	}

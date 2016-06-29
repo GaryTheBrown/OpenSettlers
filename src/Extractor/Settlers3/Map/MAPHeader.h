@@ -76,7 +76,7 @@ namespace Extractor{
 
 
 			MAPHeader(Functions::DataReader* reader);
-			virtual ~MAPHeader();
+			~MAPHeader();
 
 			std::string HeaderToString();
 			void SaveFileData(std::string location);

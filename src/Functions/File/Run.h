@@ -27,7 +27,7 @@ namespace Functions{
 	public:
 
 		ExternalProgram(std::string location){this->location = location;};
-		virtual ~ExternalProgram(){};
+		~ExternalProgram(){};
 		std::string Run(std::string program, std::string arguments, bool show = true);
 		bool GOGExtract();
 		std::string GOGGameCheck();

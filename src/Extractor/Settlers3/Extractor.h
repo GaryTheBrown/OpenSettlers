@@ -65,7 +65,7 @@ namespace Extractor{
 			Extract(std::string location,bool GOG);
 			Extract(){};
 
-			virtual ~Extract();
+			~Extract();
 
 			bool FullRAWExtract();
 

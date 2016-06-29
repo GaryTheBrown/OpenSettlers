@@ -31,7 +31,7 @@ private:
 
 public:
 	LogSystem(signed char verboseLevelCLI, signed char verboseLevelFile = -1, signed char verboseLevelConsole = -1);
-	virtual ~LogSystem(){};
+	~LogSystem(){};
 
 	void Log(std::string info, signed char verboseLevel = 1, bool newLine = true);
 	void Message(std::string info, bool newLine = true);

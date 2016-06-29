@@ -38,7 +38,7 @@ namespace Extractor{
 
 		public:
 			SNDHeader(Functions::DataReader* reader);
-			virtual ~SNDHeader();
+			~SNDHeader();
 			void SaveFileData(std::string location);
 		};
 	}

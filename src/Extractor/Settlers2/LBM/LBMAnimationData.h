@@ -23,7 +23,7 @@ namespace Extractor{
 
 		public:
 			LBMAnimationData(Functions::DataReader* reader);
-			virtual ~LBMAnimationData();
+			~LBMAnimationData();
 		};
 	}
 }

@@ -30,7 +30,7 @@ namespace Extractor{
 
 		public:
 			GFXObject(Functions::DataReader* reader, unsigned int offset,unsigned int colourCode);
-			virtual ~GFXObject();
+			~GFXObject();
 			bool SaveFileData(std::string location);
 			RGBImageData* ReturnImage(unsigned short image,unsigned char frame){return this->images[image]->ReturnImage(frame);};
 		};

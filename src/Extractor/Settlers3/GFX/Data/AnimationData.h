@@ -38,7 +38,7 @@ namespace Extractor{
 
 		public:
 			AnimationData(Functions::DataReader* reader, int offset);
-			virtual ~AnimationData();
+			~AnimationData();
 
 			void SaveToFile(std::string filename);
 		};

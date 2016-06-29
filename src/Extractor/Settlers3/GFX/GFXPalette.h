@@ -33,7 +33,7 @@ namespace Extractor{
 
 		public:
 			GFXPalette(Functions::DataReader* reader, unsigned int offset,unsigned int colourCode);
-			virtual ~GFXPalette();
+			~GFXPalette();
 
 			bool SaveFileData(std::string location);
 

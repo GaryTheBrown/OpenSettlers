@@ -30,7 +30,7 @@ namespace Extractor{
 
 		public:
 			GFXShadow(Functions::DataReader* reader, unsigned int offset);
-			virtual ~GFXShadow();
+			~GFXShadow();
 			bool SaveFileData(std::string location);
 		};
 	}

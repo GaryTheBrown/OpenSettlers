@@ -29,7 +29,7 @@ namespace Extractor{
 			AnimationData** animations=NULL;
 		public:
 			GFXAnimation(Functions::DataReader* reader, unsigned int offset);
-			virtual ~GFXAnimation();
+			~GFXAnimation();
 			bool SaveFileData(std::string location);
 		};
 	}

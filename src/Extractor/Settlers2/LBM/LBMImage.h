@@ -18,7 +18,7 @@ namespace Extractor{
 			unsigned char *image = NULL;
 		public:
 			LBMImage(Functions::DataReader* reader,unsigned int size);
-			virtual ~LBMImage();
+			~LBMImage();
 		};
 	}
 }

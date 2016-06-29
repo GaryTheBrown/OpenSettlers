@@ -41,7 +41,7 @@ namespace Extractor{
 
 		public:
 			GFXHeader(Functions::DataReader* reader);
-			virtual ~GFXHeader(){};
+			~GFXHeader(){};
 
 			unsigned int ColourCode(){return this->colourCode1;}
 			unsigned int OffsetData(){return this->offsetText;}

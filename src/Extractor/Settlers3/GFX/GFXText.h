@@ -39,7 +39,7 @@ namespace Extractor{
 			std::string **strings;
 		public:
 			GFXText(Functions::DataReader* reader, unsigned int offset);
-			virtual ~GFXText();
+			~GFXText();
 
 			bool SaveFileData(std::string location);
 		};

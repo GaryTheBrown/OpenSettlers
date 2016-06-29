@@ -29,7 +29,7 @@ namespace Extractor{
 		public:
 
 			PaletteFrameData(Functions::DataReader* reader, unsigned int offset,RGBA* Palette = NULL);
-			virtual ~PaletteFrameData();
+			~PaletteFrameData();
 
 			bool SaveFileData(std::string location);
 		};

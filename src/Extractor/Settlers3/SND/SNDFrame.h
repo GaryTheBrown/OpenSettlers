@@ -25,7 +25,7 @@ namespace Extractor{
 
 		public:
 			SNDFrame(Functions::DataReader* reader, unsigned int offset);
-			virtual ~SNDFrame();
+			~SNDFrame();
 			void SaveFileData(std::string filename);
 		};
 	}

@@ -25,7 +25,7 @@ namespace Extractor{
 
 		public:
 			MAPDataType(std::string file);
-			virtual ~MAPDataType();
+			~MAPDataType();
 
 			void SaveHeaderData(std::string location);
 			void SaveFileData(std::string location);

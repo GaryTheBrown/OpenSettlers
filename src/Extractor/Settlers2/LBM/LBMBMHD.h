@@ -32,7 +32,7 @@ namespace Extractor {
 
 		public:
 			LBMBMHD(Functions::DataReader* reader);
-			virtual ~LBMBMHD();
+			~LBMBMHD();
 
 			unsigned short Width(){return this->width;};
 			unsigned short Height(){return this->height;};

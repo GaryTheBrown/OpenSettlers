@@ -20,7 +20,7 @@ namespace Extractor {
 
 		public:
 			LBMPalette(Functions::DataReader* reader);
-			virtual ~LBMPalette();
+			~LBMPalette();
 
 		};
 	}

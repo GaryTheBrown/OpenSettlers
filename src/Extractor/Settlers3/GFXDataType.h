@@ -75,7 +75,7 @@ namespace Extractor{
 		public:
 
 			GFXDataType(std::string file);
-			virtual ~GFXDataType();
+			~GFXDataType();
 
 			void SaveFileData(std::string location);
 

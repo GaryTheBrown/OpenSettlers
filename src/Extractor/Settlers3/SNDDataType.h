@@ -24,7 +24,7 @@ namespace Extractor{
 
 		public:
 			SNDDataType(std::string file);
-			virtual ~SNDDataType();
+			~SNDDataType();
 
 			void SaveFileData(std::string location);
 		};
