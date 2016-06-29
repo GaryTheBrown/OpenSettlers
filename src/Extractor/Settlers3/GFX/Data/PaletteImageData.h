@@ -28,7 +28,7 @@ namespace Extractor{
 
 		public:
 			PaletteImageData(Functions::DataReader* reader, unsigned int offset,RGBA* Palette = NULL);
-			virtual ~PaletteImageData();
+			virtual ~PaletteImageData(){};
 
 			virtual void SaveToFile(std::string filename);
 		};

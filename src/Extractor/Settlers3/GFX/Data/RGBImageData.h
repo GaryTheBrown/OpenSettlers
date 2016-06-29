@@ -40,7 +40,7 @@ namespace Extractor{
 			RGBImageData(Functions::DataReader* reader, unsigned int offset, enumIMGType gfxType, unsigned int colourCode);
 			RGBImageData(RGBA* imageRGBA, enumIMGType gfxType, unsigned short height, unsigned short width, signed short xRel,signed short yRel);
 			RGBImageData(RGBA* imageRGBA, unsigned short height,unsigned short width,signed short xRel,signed short yRel);
-			virtual ~RGBImageData();
+			virtual ~RGBImageData(){};
 
 			virtual void SaveToFile(std::string filename);
 			virtual void SaveToRGBBMP(std::string filename);

@@ -53,11 +53,20 @@ namespace Extractor{
 				location += "/Text/";
 				Functions::CreateDir(location);
 				std::string filename;
+				std::string output;
 				for (unsigned short i = 0; i < this->countB; i++){
 					Functions::CreateDir(location + Languages[i] + "/");
+					//if iconv
+					Functions::iConverter converter(this->LanguageCodes[i]);
 					for (unsigned short j = 0; j < this->countA; j++){
 						filename = location + Languages[i] + "/" + Functions::ToString(j) + ".txt";
-						Functions::SaveToTextFile(filename,this->strings[i][j]);
+
+						//if iconv
+						output = converter.convert(this->strings[i][j]);
+						//else
+						//output = this->strings[i][j];
+
+						Functions::SaveToTextFile(filename,output);
 					}
 				}
 				return true;

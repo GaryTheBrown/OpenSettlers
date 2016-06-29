@@ -63,10 +63,6 @@ namespace Extractor{
 			}
 		}
 
-		PaletteImageData::~PaletteImageData(){
-			delete[] this->image;
-		}
-
 		void PaletteImageData::SaveToFile(std::string filename){
 
 			std::string data = "";

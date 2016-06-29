@@ -100,10 +100,6 @@ namespace Extractor{
 			this->gfxType = IMG_GFX_none;
 		}
 
-		RGBImageData::~RGBImageData(){
-			if (this->imageRGBA != NULL) delete[] this->imageRGBA;
-		}
-
 		void RGBImageData::SaveToFile(std::string filename){
 			if ((this->gfxType != IMG_GFX_Landscape)&&(this->xRel !=0 || this->yRel != 0)){
 				std::string data;

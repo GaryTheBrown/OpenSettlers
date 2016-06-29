@@ -14,12 +14,13 @@
 #include "../../../Functions/File/Functions.h"
 #include "../../../Functions/File/Save.h"
 #include "../../../Functions/To.h"
+#include "../../../Functions/iconv.h"
 
 namespace Extractor{
 	namespace Settlers3{
 		class GFXText{
 		private:
-			std::string Languages[8] = {
+			std::string LanguagesL[8] = {
 					"1.German_ISO-8859-2",
 					"2.English_ASCII",
 					"3.Italian_ISO-8859-1",
@@ -28,6 +29,28 @@ namespace Extractor{
 					"6.Spanish_ISO-8859-1",
 					"7.Korean_EUC-KR",
 					"8.Japanese_SHIFT_JIS"
+			};
+
+			std::string LanguageCodes[8] = {
+					"ISO-8859-2",
+					"ISO-8859-1",
+					"ISO-8859-1",
+					"ISO-8859-1",
+					"ISO-8859-2",
+					"ISO-8859-1",
+					"EUC-KR",
+					"SHIFT_JIS"
+			};
+
+			std::string Languages[8] = {
+					"1.German",
+					"2.English",
+					"3.Italian",
+					"4.French",
+					"5.Polish",
+					"6.Spanish",
+					"7.Korean",
+					"8.Japanese"
 			};
 
 			//Header
