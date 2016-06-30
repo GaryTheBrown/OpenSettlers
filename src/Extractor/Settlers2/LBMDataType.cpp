@@ -40,14 +40,13 @@ namespace Extractor {
 							LOGSYSTEM->Error("Wrong Size for Image Header");
 						break;
 					case 1129136464://CMAP (Palette)
-						if(partSize == 768)
+						if(partSize == 768){
 							this->palette = new LBMPalette(reader);
-						else
+						}else
 							LOGSYSTEM->Error("Wrong Size for Palette");
 						break;
 					case 1146114131://DPPS (Deluxe Paint III perspective)
 						//if(partSize == 110){
-						//Log Passing Over Data.(type and Size info here)
 						reader->SetOffset((reader->GetOffset()+partSize));
 						//}
 
@@ -55,7 +54,7 @@ namespace Extractor {
 					case 1129467463://CRNG (animation info)
 						if(partSize == 8){
 							if(animationCount < 16){
-								this->animationData[animationCount] = NULL;
+								this->animationData[animationCount] = new LBMAnimationData(reader);
 								animationCount++;
 							}
 							else
@@ -65,18 +64,15 @@ namespace Extractor {
 							LOGSYSTEM->Error("Wrong Size for Animation Data " + Functions::ToString((int)animationCount));
 						break;
 					case 1414090329://TINY (preview image)
-						if(this->pictureHeader != NULL){// if Preview Image Before Header
-
-						}
+						reader->SetOffset((reader->GetOffset()+partSize));
+						reader->ReadChar(); //partSize is an Odd Number Why?
 						break;
 					case 1112491097://BODY (IMAGE Data (chars))
-						if(this->pictureHeader != NULL){// if Image Data Before Header
-
-						}
+							this->imageData = new LBMImage(reader,this->pictureHeader->Width(),this->pictureHeader->Height(),this->palette->Palette());
+							reader->SetOffset(reader->GetOffset()+this->pictureHeader->Height()*this->pictureHeader->Width());
 						break;
 					default:
 						//skip the section
-						//Log Passing Over Data. (type and Size info here)
 						reader->SetOffset((reader->GetOffset()+partSize));
 						break;
 					}

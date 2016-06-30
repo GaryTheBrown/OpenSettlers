@@ -27,9 +27,5 @@ namespace Extractor {
 			this->pageWidth = reader->ReadShort();
 			this->pageHeight = reader->ReadShort();
 		}
-
-		LBMBMHD::~LBMBMHD() {
-
-		}
 	}
 }

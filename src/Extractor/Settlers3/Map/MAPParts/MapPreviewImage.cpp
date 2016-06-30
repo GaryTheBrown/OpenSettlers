@@ -69,9 +69,9 @@ namespace Extractor{
 		void MAPPreviewImage::SaveFileData(std::string location){
 			Functions::FileImage* fileImage = new Functions::FileImage();
 			if (this->imageSquare != NULL)
-				fileImage->SaveToRGBImage(location + "/PreviewImageSquare.bmp",this->imageSquare,this->length,this->length,0,0);
+				fileImage->SaveToRGBImage(location + "/PreviewImageSquare.bmp",this->imageSquare,this->length,this->length);
 			if (this->imageSheared != NULL)
-				fileImage->SaveToRGBImage(location + "/PreviewImageSheer.bmp",this->imageSheared,this->shearWidth,this->length,0,0);
+				fileImage->SaveToRGBImage(location + "/PreviewImageSheer.bmp",this->imageSheared,this->shearWidth,this->length);
 			delete fileImage;
 		}
 

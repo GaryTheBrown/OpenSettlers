@@ -32,17 +32,17 @@ namespace Functions{
 		public:
 			FileImage(SaveType saveRGBType = Save_Type_BMPv4,SaveType savePalType = Save_Type_BMPv2);
 
-			void SaveToRGBImage(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height,signed short xRel, signed short yRel);
-			void SaveToPaletteImage(std::string filename,unsigned char* image, unsigned char* palette, unsigned short width, unsigned short height);
-			RGBA* LoadImageToRGBA(std::string filename, unsigned short* width, unsigned short* height,signed short* xRel, signed short* yRel);
+			void SaveToRGBImage(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height);
+			void SaveToPaletteImage(std::string filename,unsigned char* image, RGBA* palette, unsigned short width, unsigned short height);
+			RGBA* LoadImageToRGBA(std::string filename, unsigned short* width, unsigned short* height);
 
 		private:
 			//BMPv2 NO TRANSPANRENCY OUTSIDE OF OPENSETTLERS AS ALPHA IGNORED
-			void SaveToRGBBMPv2(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height,signed short xRel, signed short yRel);
-			void SaveToPaletteBMPv2(std::string filename,unsigned char* image, unsigned char* palette, unsigned short width, unsigned short height);
+			void SaveToRGBBMPv2(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height);
+			void SaveToPaletteBMPv2(std::string filename,unsigned char* image, RGBA* palette, unsigned short width, unsigned short height);
 			RGBA* LoadBMPv2ToRGBA(DataReader* reader, unsigned short* width, unsigned short* height);
 
 			//BMPv4 TRANSPANRENCY OUTSIDE OF OPENSETTLERS AS ALPHA USED
-			void SaveToRGBBMPv4(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height,signed short xRel, signed short yRel);
+			void SaveToRGBBMPv4(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height);
 	};
 }

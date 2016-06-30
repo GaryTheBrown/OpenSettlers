@@ -16,11 +16,13 @@ namespace Extractor {
 	namespace Settlers2{
 		class LBMPalette{
 		private:
-			RGBA palette[256];
+			RGBA* palette;
 
 		public:
 			LBMPalette(Functions::DataReader* reader);
 			~LBMPalette();
+
+			RGBA* Palette(){return this->palette;};
 
 		};
 	}

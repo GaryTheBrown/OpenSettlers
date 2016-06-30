@@ -11,7 +11,6 @@
 #pragma once
 #include <string>
 #include "../../../../Functions/File/DataReader.h"
-#include "../../../../Functions/File/Image.h"
 #include "../../../../Functions/Image/RGBA.h"
 #include "../../../../Functions/Image/RGBImageData.h"
 #include "../../../../Functions/File/Save.h"
@@ -43,7 +42,6 @@ namespace Extractor{
 			virtual ~RGBImageData(){};
 
 			virtual void SaveToFile(std::string filename);
-			virtual void SaveToRGBBMP(std::string filename);
 		};
 	}
 }

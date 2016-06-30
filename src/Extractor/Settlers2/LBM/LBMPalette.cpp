@@ -14,6 +14,7 @@ namespace Extractor {
 	namespace Settlers2{
 		LBMPalette::LBMPalette(Functions::DataReader* reader) {
 
+			this->palette = new RGBA[256];
 			for(unsigned short i = 0; i < 256; i++){
 				this->palette[i].R = reader->ReadChar();
 				this->palette[i].G = reader->ReadChar();
@@ -22,7 +23,8 @@ namespace Extractor {
 		}
 
 		LBMPalette::~LBMPalette() {
-
+			if (this->palette != NULL)
+				delete [] palette;
 		}
 	}
 }

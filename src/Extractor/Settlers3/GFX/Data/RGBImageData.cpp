@@ -113,12 +113,5 @@ namespace Extractor{
 			if (this->height > 0 && this->width > 0)
 				this->SaveToRGBBMP(filename);
 		}
-
-		void RGBImageData::SaveToRGBBMP(std::string filename){
-			filename.append(".bmp");
-			Functions::FileImage* fileImage = new Functions::FileImage();
-			fileImage->SaveToRGBImage(filename,this->imageRGBA,this->width,this->height,this->xRel,this->yRel);
-			delete fileImage;
-		}
 	}
 }

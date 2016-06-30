@@ -15,18 +15,18 @@ namespace Functions{
 		this->savePalType = savePalType;
 	}
 
-	void FileImage::SaveToRGBImage(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height,signed short xRel, signed short yRel){
+	void FileImage::SaveToRGBImage(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height){
 		switch(this->saveRGBType){
 		case Save_Type_BMPv2:
-				SaveToRGBBMPv2(filename,imageRGBA,width,height,xRel,yRel);
+				SaveToRGBBMPv2(filename,imageRGBA,width,height);
 				break;
 		case Save_Type_BMPv4:
-				SaveToRGBBMPv4(filename,imageRGBA,width,height,xRel,yRel);
+				SaveToRGBBMPv4(filename,imageRGBA,width,height);
 				break;
 		};
 	}
 
-	void FileImage::SaveToPaletteImage(std::string filename,unsigned char* image, unsigned char* palette, unsigned short width, unsigned short height){
+	void FileImage::SaveToPaletteImage(std::string filename,unsigned char* image, RGBA* palette, unsigned short width, unsigned short height){
 		switch(this->savePalType){
 			case Save_Type_BMPv2:
 				SaveToPaletteBMPv2(filename,image,palette,width,height);
@@ -36,7 +36,7 @@ namespace Functions{
 		};
 	}
 
-	RGBA* FileImage::LoadImageToRGBA(std::string filename, unsigned short* width, unsigned short* height,signed short* xRel, signed short* yRel){
+	RGBA* FileImage::LoadImageToRGBA(std::string filename, unsigned short* width, unsigned short* height){
 
 		DataReader* reader = new DataReader(filename);
 		RGBA* imageRGBA = NULL;
@@ -50,8 +50,10 @@ namespace Functions{
 		if (magic1 == 'B' || magic2 == 'M'){
 			//Read Rest Of header
 			/*int fileSize =*/ reader->ReadInt();
-			*xRel = reader->ReadSignedShort();
-			*yRel = reader->ReadSignedShort();
+			/*3x shorts unused*/
+			reader->ReadShort();
+			reader->ReadShort();
+			reader->ReadShort();
 			int startOffset = reader->ReadInt();
 			if (startOffset == 54){
 				imageRGBA = LoadBMPv2ToRGBA(reader,width,height);
@@ -72,7 +74,7 @@ namespace Functions{
 		return imageRGBA;
 	}
 
-	void FileImage::SaveToRGBBMPv2(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height,signed short xRel, signed short yRel){
+	void FileImage::SaveToRGBBMPv2(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height){
 		// mimeType = "image/bmp";
 		unsigned char file[14] = {
 				'B','M', // magic
@@ -103,13 +105,6 @@ namespace Functions{
 		file[3] = (unsigned char)(sizeAll>> 8) & 0xFF;
 		file[4] = (unsigned char)(sizeAll>>16) & 0xFF;
 		file[5] = (unsigned char)(sizeAll>>24) & 0xFF;
-
-		file[6] = (unsigned char)(xRel) & 0xFF;
-		file[7] = (unsigned char)(xRel>> 8) & 0xFF;
-
-		file[8] = (unsigned char)(yRel) & 0xFF;
-		file[9] = (unsigned char)(yRel>> 8) & 0xFF;
-
 
 		info[4] = (unsigned char)(width) & 0xFF;
 		info[5] = (unsigned char)(width>> 8) & 0xFF;
@@ -155,7 +150,7 @@ namespace Functions{
 		ofile.close();
 	}
 
-	void FileImage::SaveToRGBBMPv4(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height,signed short xRel, signed short yRel){
+	void FileImage::SaveToRGBBMPv4(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height){
 		// mimeType = "image/bmp";
 		unsigned char file[14] = {
 				'B','M', // magic
@@ -206,13 +201,6 @@ namespace Functions{
 		file[4] = (unsigned char)(sizeAll>>16) & 0xFF;
 		file[5] = (unsigned char)(sizeAll>>24) & 0xFF;
 
-		file[6] = (unsigned char)(xRel) & 0xFF;
-		file[7] = (unsigned char)(xRel>> 8) & 0xFF;
-
-		file[8] = (unsigned char)(yRel) & 0xFF;
-		file[9] = (unsigned char)(yRel>> 8) & 0xFF;
-
-
 		info[4] = (unsigned char)(width) & 0xFF;
 		info[5] = (unsigned char)(width>> 8) & 0xFF;
 		info[6] = (unsigned char)(width>>16) & 0xFF;
@@ -257,7 +245,7 @@ namespace Functions{
 		ofile.close();
 	}
 
-	void FileImage::SaveToPaletteBMPv2(std::string filename,unsigned char* image, unsigned char* palette, unsigned short width, unsigned short height){
+	void FileImage::SaveToPaletteBMPv2(std::string filename,unsigned char* image, RGBA* palette, unsigned short width, unsigned short height){
 		// mimeType = "image/bmp";
 		unsigned char file[14] = {
 				'B','M', // magic
@@ -280,6 +268,14 @@ namespace Functions{
 				0x00,0x00,0x00,0x00,	//0 colours	Number of colours in the palette
 				0x00,0x00,0x00,0x00,	//0 important colours	0 means all colours are important
 		};
+
+		unsigned char charPalette[1024]; // BGRA Format
+		for (signed short i = 0; i < 256; i++){//BGR order
+			charPalette[(i*4)] = palette[i].B;
+			charPalette[(i*4)+1] = palette[i].G;
+			charPalette[(i*4)+2] = palette[i].R;
+			charPalette[(i*4)+3] = palette[i].A;
+		}
 
 		//check if padding needed
 		int paddingCount = 0; // Set pad byte count per row to zero by default.
@@ -320,7 +316,7 @@ namespace Functions{
 		ofile.write((char*)info, sizeof(info));
 
 		//Add in show Palette [0][0]
-		ofile.write((char*)palette, 1024);
+		ofile.write((char*)charPalette, 1024);
 
 		//Write Pixel Data To File
 		int pixel = 0;

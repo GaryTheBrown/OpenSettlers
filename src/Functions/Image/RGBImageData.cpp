@@ -21,6 +21,13 @@ namespace Functions{
 		if (this->imageRGBA != NULL) delete[] this->imageRGBA;
 	}
 
+	void RGBImageData::SaveToRGBBMP(std::string filename){
+		filename.append(".bmp");
+		Functions::FileImage* fileImage = new Functions::FileImage();
+		fileImage->SaveToRGBImage(filename,this->imageRGBA,this->width,this->height);
+		delete fileImage;
+	}
+
 	RGBA* RGBImageData::CutOutSection(unsigned short X,unsigned short Y,unsigned short height,unsigned short width){
 		RGBA* newImage = new RGBA[height*width];
 

@@ -11,6 +11,7 @@
 #pragma once
 #include <string>
 #include "../Image/RGBA.h"
+#include "../File/Image.h"
 
 
 namespace Functions{
@@ -27,7 +28,7 @@ namespace Functions{
 		virtual ~RGBImageData();
 
 		virtual void SaveToFile(std::string filename){};
-		virtual void SaveToRGBBMP(std::string filename){};
+		void SaveToRGBBMP(std::string filename);
 
 		//Image Manipulation
 		RGBA* CutOutSection(unsigned short X,unsigned short Y,unsigned short height,unsigned short width);

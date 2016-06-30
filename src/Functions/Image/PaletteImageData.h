@@ -22,7 +22,7 @@ namespace Functions{
 		//Data
 		unsigned char* image=NULL;
 		bool* transparency=NULL;
-		unsigned char palette[1024]; // BGRA Format
+		RGBA* palette=NULL;
 
 	public:
 		PaletteImageData(){};

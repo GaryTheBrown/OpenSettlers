@@ -10,15 +10,19 @@
 
 #pragma once
 #include "../../../Functions/File/DataReader.h"
+#include "../../../Functions/Image/PaletteImageData.h"
+
+#include "../../../Log.h"
 
 namespace Extractor{
 	namespace Settlers2{
-		class LBMImage{
+		class LBMImage : public Functions::PaletteImageData{
+
 		private:
-			unsigned char *image = NULL;
+			//unsigned char *image = NULL;
 		public:
-			LBMImage(Functions::DataReader* reader,unsigned int size);
-			~LBMImage();
+			LBMImage(Functions::DataReader* reader,unsigned short width,unsigned short height,RGBA* palette);
+			virtual ~LBMImage(){};
 		};
 	}
 }

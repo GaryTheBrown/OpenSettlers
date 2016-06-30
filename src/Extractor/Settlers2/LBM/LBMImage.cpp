@@ -13,8 +13,13 @@
 namespace Extractor {
 	namespace Settlers2{
 
-		LBMImage::LBMImage(Functions::DataReader* reader,unsigned int size) {
+		LBMImage::LBMImage(Functions::DataReader* reader,unsigned short width,unsigned short height,RGBA* palette){
+			this->width = width;
+			this->height = height;
+			this->palette = palette;
+
 			bool exitLoop = false;
+			unsigned int size = width*height;
 
 			this->image = new unsigned char[size];
 			unsigned int imageLocation = 0;
@@ -41,10 +46,7 @@ namespace Extractor {
 					}
 				}
 			}
-		}
-
-		LBMImage::~LBMImage() {
-			delete [] this->image;
+			//TODO IMAGE STUFF HERE
 		}
 	}
 }
