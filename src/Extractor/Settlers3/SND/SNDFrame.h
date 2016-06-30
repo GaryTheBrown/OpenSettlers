@@ -10,7 +10,7 @@
 
 #pragma once
 #include <string>
-#include "../../../Functions/DataReader.h"
+#include "../../../Functions/File/DataReader.h"
 #include "SNDData.h"
 
 namespace Extractor{

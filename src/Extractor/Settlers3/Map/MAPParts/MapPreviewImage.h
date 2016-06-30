@@ -12,7 +12,7 @@
 #include <string>
 #include "../../../../Log.h"
 #include "../../../../Functions/To.h"
-#include "../../../../Functions/DataReader.h"
+#include "../../../../Functions/File/DataReader.h"
 #include "../../../../Functions/Image/RGBA.h"
 #include "../../../../Functions/File/Image.h"
 #include "../MAPParts.h"

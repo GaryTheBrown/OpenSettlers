@@ -13,7 +13,7 @@
 #include <iostream>
 #include <fstream>
 #include "../Image/RGBA.h"
-#include "../DataReader.h"
+#include "DataReader.h"
 #include "../../Log.h"
 #include "Save.h"
 

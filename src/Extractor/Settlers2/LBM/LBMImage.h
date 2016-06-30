@@ -9,7 +9,7 @@
  *******************************************************************************/
 
 #pragma once
-#include "../../../Functions/DataReader.h"
+#include "../../../Functions/File/DataReader.h"
 
 namespace Extractor{
 	namespace Settlers2{

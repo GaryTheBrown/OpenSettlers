@@ -12,7 +12,7 @@
 #include <string>
 #include "../../../../Functions/Image/PaletteImageData.h"
 #include "RGBImageData.h"
-#include "../../../../Functions/DataReader.h"
+#include "../../../../Functions/File/DataReader.h"
 #include "../../../../Functions/File/Save.h"
 #include "../../../../Functions/To.h"
 #include "../../../../Functions/File/Image.h"
