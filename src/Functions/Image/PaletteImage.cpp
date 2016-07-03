@@ -7,26 +7,22 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#include "PaletteImageData.h"
+#include "PaletteImage.h"
 namespace Functions{
-	PaletteImageData::~PaletteImageData(){
-		delete[] this->image;
+	PaletteImage::~PaletteImage(){
+		if (this->image != NULL)
+			delete [] this->image;
 	}
 
-	void PaletteImageData::SetPalette(RGBA* palette){
-		this->palette = palette;
+	void PaletteImage::SetPalette(RGBA* palette){
+		if ((this->palette == NULL)||(this->palette != palette))
+			this->palette = palette;
 	}
 
-	RGBA* PaletteImageData::ConvertToRGBA(){
+	RGBA* PaletteImage::ConvertToRGBA(){
 		RGBA *imageRGBA = new RGBA[this->height*this->width];
 
 		for (int i = 0; i < (this->height*this->width);i++){
-			if(this->transparency != NULL){
-				if (this->transparency[i] == true){
-					imageRGBA[i] = {0,0,0,0};
-					continue;
-				}
-			}
 			imageRGBA[i] = this->palette[this->image[i]];
 		}
 		return imageRGBA;

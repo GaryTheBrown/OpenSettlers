@@ -15,7 +15,7 @@
 
 
 namespace Functions{
-	class RGBImageData{
+	class RGBImage{
 		protected:
 		unsigned short width = 0;
 		unsigned short height = 0;
@@ -23,9 +23,9 @@ namespace Functions{
 		RGBA* imageRGBA = NULL;
 
 	public:
-		RGBImageData(){};
-		RGBImageData(RGBA* imageRGBA, unsigned short height,unsigned short width);
-		virtual ~RGBImageData();
+		RGBImage(){};
+		RGBImage(RGBA* imageRGBA, unsigned short height,unsigned short width);
+		virtual ~RGBImage();
 
 		virtual void SaveToFile(std::string filename){};
 		void SaveToRGBBMP(std::string filename);

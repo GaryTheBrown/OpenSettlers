@@ -10,27 +10,30 @@
 
 #pragma once
 #include <string>
-#include "../../../../Functions/Image/PaletteImageData.h"
-#include "RGBImageData.h"
+#include "../../../../Functions/Image/PaletteImage.h"
 #include "../../../../Functions/File/DataReader.h"
 #include "../../../../Functions/File/Save.h"
 #include "../../../../Functions/To.h"
 #include "../../../../Functions/File/Image.h"
 #include "../../../../Functions/Image/RGBA.h"
+#include "RGBImageData.h"
 
 namespace Extractor{
 	namespace Settlers3{
-		class PaletteImageData : public Functions::PaletteImageData{
+		class PaletteImageData : public Functions::PaletteImage{
 		private:
 			//header
 			signed short xRel;
 			signed short yRel;
 
+			//
+			bool* transparency=NULL;
+
 		public:
 			PaletteImageData(Functions::DataReader* reader, unsigned int offset,RGBA* Palette = NULL);
-			virtual ~PaletteImageData(){};
-
+			virtual ~PaletteImageData();
 			virtual void SaveToFile(std::string filename);
+			virtual RGBA* ConvertToRGBA();
 		};
 	}
 }

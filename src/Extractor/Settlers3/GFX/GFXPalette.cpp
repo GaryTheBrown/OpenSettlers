@@ -67,18 +67,7 @@ namespace Extractor{
 				std::string data;
 				for(int i = 0; i < this->count;i++){
 					for(int j = 0; j < 8;j++){
-						data = "";
-						for(int k = 0; k < 256;k++){
-							data += "[";
-							data += Functions::ToString((unsigned int)this->palettes[i][j][k].R);
-							data += ",";
-							data += Functions::ToString((unsigned int)this->palettes[i][j][k].G);
-							data += ",";
-							data += Functions::ToString((unsigned int)this->palettes[i][j][k].B);
-							data += ",";
-							data += Functions::ToString((unsigned int)this->palettes[i][j][k].A);
-							data += "]";
-						}
+						data = Functions::PaletteToText(this->palettes[i][j]);
 						std::string filename = location + Functions::ToString(i) + "." + Functions::ToString(j) + ".txt";
 						Functions::SaveToTextFile(filename,data);
 					}
@@ -95,22 +84,9 @@ namespace Extractor{
 				for(int i = 0; i < this->count;i++){
 					htmlVersion += "<tr><td><b>Group #" + Functions::ToString(i) + "</b></td>.";
 					for(int j = 0; j < 8;j++){
-						htmlVersion += "<td>Palette #" + Functions::ToString(j)+ "<br><table>";
-						for(int k = 0; k < 16;k++){
-							htmlVersion += "<tr>";
-							for(int l = 0; l < 16;l++){
-								int colour = ((int)this->palettes[i][j][k*16+l].R << 16) | ((int)this->palettes[i][j][k*16+l].G << 8) | (int)this->palettes[i][j][k*16+l].B;
-								std::string hex = Functions::ToHex(colour,3);
-								std::string textcolour = "#000000";
-								if(this->palettes[i][j][k*16+l].R < 128 && this->palettes[i][j][k*16+l].G < 128 && this->palettes[i][j][k*16+l].B < 128)
-									textcolour="#FFFFFF";
-
-
-								htmlVersion += "<td bgcolor=#" + hex + "><font color=" + textcolour + ">" + hex + "</font></td>";
-							}
-							htmlVersion += "</tr>";
-						}
-						htmlVersion += "</table></td>";
+						htmlVersion += "<td>Palette #" + Functions::ToString(j)+ "<br>";
+						htmlVersion += Functions::PaletteToHtml(this->palettes[i][j]);
+						htmlVersion += "</td>";
 					}
 					htmlVersion += "</tr>";
 				}

@@ -22,23 +22,21 @@
 #include "LBM/LBMBMHD.h"
 #include "LBM/LBMPalette.h"
 #include "LBM/LBMAnimationData.h"
-#include "LBM/LBMImage.h"
 
 namespace Extractor {
 	namespace Settlers2{
-		class LBMDataType{
+		class BBMDataType{
 		private:
 			LBMHeader* fileHeader = NULL;
 			LBMBMHD* pictureHeader = NULL;
 			LBMPalette* palette = NULL;
 			LBMAnimationData* animationData[16] = {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL}; //array of pointers to data
-			LBMImage* imageData = NULL;
 
 			unsigned short animationCount = 0;
 
 		public:
-			LBMDataType(std::string file);
-			~LBMDataType();
+			BBMDataType(std::string file);
+			~BBMDataType();
 
 			void SaveFileData(std::string location);
 		};

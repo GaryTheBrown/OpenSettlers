@@ -9,17 +9,12 @@
  *******************************************************************************/
 
 #pragma once
+#include <string>
+#include "RGBA.h"
+#include "../To.h"
 
-namespace Extractor{
-	enum eType{
-		FULL,
-		//Settlers 2 ONLY
-		LBM,
-		BBM,
-		LST,
-		//Settlers 3 ONLY
-		GFX,
-		SND,
-		MAP
-	};
+namespace Functions{
+
+	extern std::string PaletteToText(RGBA* palette);
+	extern std::string PaletteToHtml(RGBA* palette);
 }

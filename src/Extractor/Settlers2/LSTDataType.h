@@ -9,21 +9,33 @@
  *******************************************************************************/
 
 #pragma once
-#include "../../../Functions/File/DataReader.h"
-#include "../../../Functions/Image/RGBA.h"
+#include <string>
+#include "../../Functions/File/DataReader.h"
+#include "../../Functions/File/Functions.h"
+#include "../../Log.h"
 
 namespace Extractor {
 	namespace Settlers2{
-		class LBMPalette{
+		class LSTDataType{
+		public:
+			struct imageHead{
+				unsigned short zeroPointX = 0;
+				unsigned short zeroPointY = 0;
+				unsigned int unknown = 0;// (always 0 = hex 00 00 00 00)
+				unsigned short width = 0;
+				unsigned short height = 0;
+				unsigned short paletteID = 0; //(always 1 = hex 01 00)
+				unsigned int partSize = 0;
+			};
+
 		private:
-			RGBA* palette;
+
+			unsigned short headerID = 0;
+			unsigned int count = 0;
 
 		public:
-			LBMPalette(Functions::DataReader* reader);
-			~LBMPalette();
-
-			RGBA* Palette(){return this->palette;};
-			void SetTransparentColour(unsigned short transClr);
+			LSTDataType(std::string file);
+			~LSTDataType();
 
 		};
 	}

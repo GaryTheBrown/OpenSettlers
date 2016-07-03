@@ -12,13 +12,13 @@
 #include <string>
 #include "../../../../Functions/File/DataReader.h"
 #include "../../../../Functions/Image/RGBA.h"
-#include "../../../../Functions/Image/RGBImageData.h"
+#include "../../../../Functions/Image/RGBImage.h"
 #include "../../../../Functions/File/Save.h"
 #include "../../../../Functions/To.h"
 
 namespace Extractor{
 	namespace Settlers3{
-		class RGBImageData : public Functions::RGBImageData{
+		class RGBImageData : public Functions::RGBImage{
 		public:
 			enum enumIMGType{
 				IMG_GFX_none,

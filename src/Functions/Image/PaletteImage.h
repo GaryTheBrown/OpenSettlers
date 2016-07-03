@@ -9,17 +9,30 @@
  *******************************************************************************/
 
 #pragma once
+#include <string>
+#include "../Image/RGBA.h"
+#include "../../Log.h"
 
-namespace Extractor{
-	enum eType{
-		FULL,
-		//Settlers 2 ONLY
-		LBM,
-		BBM,
-		LST,
-		//Settlers 3 ONLY
-		GFX,
-		SND,
-		MAP
+namespace Functions{
+	class PaletteImage{
+	protected:
+		//header
+		unsigned short width = 0;
+		unsigned short height = 0;
+
+		//Data
+		unsigned char* image=NULL;
+
+		RGBA* palette=NULL;
+
+	public:
+		PaletteImage(){};
+		virtual ~PaletteImage();
+
+		virtual void SaveToFile(std::string filename){};
+		virtual RGBA* ConvertToRGBA();
+
+		void SetPalette(RGBA* Palette);
+
 	};
 }

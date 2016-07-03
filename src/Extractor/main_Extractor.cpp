@@ -24,6 +24,16 @@ namespace Extractor{
 				gameNo = 2;
 				LOGSYSTEM->Log("LBM File Type",1);
 			}
+			if (extension == "BBM"){
+				fileType = BBM;
+				gameNo = 2;
+				LOGSYSTEM->Log("BBM File Type",1);
+			}
+			if (extension == "LST"){
+				fileType = LST;
+				gameNo = 2;
+				LOGSYSTEM->Log("LST File Type",1);
+			}
 //Settlers 3 File Types
 			else if (extension == "MAP"){
 				fileType = MAP;
@@ -166,7 +176,9 @@ namespace Extractor{
 				}
 				return false;
 			}
-			case LBM:{
+			case LBM:
+			case BBM:
+			case LST:{
 				Settlers2::Extract* s2Extract = new Settlers2::Extract();
 				if(s2Extract->ManualExtract(fileType, location) == false) return false;
 				delete s2Extract;

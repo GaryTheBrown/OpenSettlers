@@ -62,6 +62,10 @@ namespace Extractor{
 				this->SetPalette(Palette);
 			}
 		}
+		PaletteImageData::~PaletteImageData(){
+			if (this->transparency != NULL)
+				delete [] this->transparency;
+		}
 
 		void PaletteImageData::SaveToFile(std::string filename){
 
@@ -90,11 +94,25 @@ namespace Extractor{
 
 			Functions::SaveToTextFile(filename + ".txt",data);
 
-			//This Function is Working but preview is wrong for the file.
 			filename.append(".bmp");
 			Functions::FileImage* fileImage = new Functions::FileImage();
 			fileImage->SaveToPaletteImage(filename,this->image,this->palette,this->width,this->height);
 			delete fileImage;
+		}
+
+		RGBA* PaletteImageData::ConvertToRGBA(){
+			RGBA *imageRGBA = new RGBA[this->height*this->width];
+
+			for (int i = 0; i < (this->height*this->width);i++){
+				if(this->transparency != NULL){
+					if (this->transparency[i] == true){
+						imageRGBA[i] = {0,0,0,0};
+						continue;
+					}
+				}
+				imageRGBA[i] = this->palette[this->image[i]];
+			}
+			return imageRGBA;
 		}
 	}
 }

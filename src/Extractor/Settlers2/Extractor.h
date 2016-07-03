@@ -16,6 +16,8 @@
 #include "../../Functions/File/Functions.h"
 #include "../../Functions/File/Run.h"
 #include "LBMDataType.h"
+#include "BBMDataType.h"
+#include "LSTDataType.h"
 
 namespace Extractor{
 	namespace Settlers2{
@@ -39,8 +41,13 @@ namespace Extractor{
 			std::string locationExtra = "";
 
 			bool RAWLBMFileExtract(std::string folder, std::string file);
-
 			void RAWLBMFolderExtract(std::string folder);
+
+			bool RAWBBMFileExtract(std::string folder, std::string file);
+			void RAWBBMFolderExtract(std::string folder);
+
+			bool RAWLSTFileExtract(std::string folder, std::string file);
+			void RAWLSTFolderExtract(std::string folder);
 
 			void CheckGameVersion(bool GOG);
 

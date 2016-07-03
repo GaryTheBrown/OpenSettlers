@@ -8,11 +8,11 @@
  * of the License.
  *******************************************************************************/
 
-#include "LBMDataType.h"
+#include "BBMDataType.h"
 
 namespace Extractor {
 	namespace Settlers2{
-		LBMDataType::LBMDataType(std::string file){
+		BBMDataType::BBMDataType(std::string file){
 
 			if (Functions::FileExists(file) == true){
 				Functions::DataReader* reader = new Functions::DataReader(file);
@@ -57,22 +57,17 @@ namespace Extractor {
 						else
 							LOGSYSTEM->Error("Wrong Size for Animation Data " + Functions::ToString((int)animationCount));
 						break;
-
-					case 1112491097://BODY (IMAGE Data (chars))
-							this->imageData = new LBMImage(reader,this->pictureHeader->Width(),this->pictureHeader->Height(),this->palette->Palette());
-						break;
-					default:
-						//skip the section
+					default://skip the section
 						reader->SetOffset((reader->GetOffset()+partSize));
 						break;
 					}
 					if(reader->GetOffset()%2 == 1){
 						reader->ReadChar(); //partSize is an Odd Number skip a char
-						}
+					}
 				}
 			}
 		}
-		LBMDataType::~LBMDataType() {
+		BBMDataType::~BBMDataType() {
 			if(this->fileHeader != NULL){
 				delete this->fileHeader;
 			}
@@ -89,13 +84,9 @@ namespace Extractor {
 					}
 				}
 			}
-
-			if(this->imageData != NULL){
-				delete this->imageData;
-			}
 		}
 
-		void LBMDataType::SaveFileData(std::string location){
+		void BBMDataType::SaveFileData(std::string location){
 			location += "/";
 			if (this->animationCount > 0){
 				std::string data = "pad\trate\tflags\tlow\thigh\tacti\tdir\n";
@@ -104,12 +95,11 @@ namespace Extractor {
 				}
 				Functions::SaveToTextFile(location + "Animation.txt",data);
 			}
-			this->imageData->SaveToFile(location + "Image");
-
 			if (this->palette != NULL){
 				Functions::SaveToTextFile(location + "Palette.html", Functions::PaletteToHtml(this->palette->Palette()));
 				Functions::SaveToTextFile(location + "Palette.txt", Functions::PaletteToText(this->palette->Palette()));
 			}
+
 		}
 	}
 }

@@ -15,6 +15,7 @@
 #include "../../../Functions/File/Save.h"
 #include "../../../Functions/File/DataReader.h"
 #include "../../../Functions/Image/RGBA.h"
+#include "../../../Functions/Image/Palette.h"
 
 namespace Extractor{
 	namespace Settlers3{

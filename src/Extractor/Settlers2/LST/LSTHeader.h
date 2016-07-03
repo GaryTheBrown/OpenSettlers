@@ -10,20 +10,24 @@
 
 #pragma once
 #include "../../../Functions/File/DataReader.h"
-#include "../../../Functions/File/Image.h"
-#include "../../../Functions/Image/PaletteImage.h"
-#include "../../../Log.h"
-#include "../../../Functions/To.h"
 
 namespace Extractor{
 	namespace Settlers2{
-		class LBMImage : public Functions::PaletteImage{
-		public:
-			LBMImage(Functions::DataReader* reader,unsigned short width,unsigned short height,RGBA* palette);
-			virtual ~LBMImage(){};
-			virtual void SaveToFile(std::string filename);
+	/*
+	 * WAV or XMIDI
+	 * RLE Compressed Bitmap
+	 * Font
+	 * Player Colored Bitmap
+	 * Palette
+	 * Shadow Bitmap
+	 * Uncompressed Bitmap
+	 */
+		class LSTxxx{
+		private:
 
-			bool StepAnimation();
+		public:
+			LSTxxx(Functions::DataReader* reader);
+			~LSTxxx();
 		};
 	}
 }

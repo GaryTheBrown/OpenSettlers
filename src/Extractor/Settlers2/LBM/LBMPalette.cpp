@@ -19,12 +19,16 @@ namespace Extractor {
 				this->palette[i].R = reader->ReadChar();
 				this->palette[i].G = reader->ReadChar();
 				this->palette[i].B = reader->ReadChar();
+				this->palette[i].A = 255;
 			}
 		}
 
 		LBMPalette::~LBMPalette() {
-			if (this->palette != NULL)
-				delete [] palette;
+			delete [] palette;
+		}
+
+		void LBMPalette::SetTransparentColour(unsigned short transClr){
+			this->palette[(transClr & 0xFF)] = {0,0,0,0};
 		}
 	}
 }

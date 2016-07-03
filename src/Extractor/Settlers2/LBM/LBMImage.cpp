@@ -24,11 +24,11 @@ namespace Extractor {
 			this->image = new unsigned char[size];
 			unsigned int imageLocation = 0;
 
-			while (exitLoop != false){
+			while (exitLoop == false){
 				if (imageLocation < size){
 					unsigned char code = reader->ReadChar();
 					if(code > 128){
-						unsigned char count = (256 - code);
+						unsigned char count = (257 - code);
 						unsigned char pixel = reader->ReadChar();
 						for (unsigned char i = 0; i < count; i++){
 							this->image[imageLocation] = pixel;
@@ -44,9 +44,19 @@ namespace Extractor {
 					else{ //if code == 128
 						exitLoop = true;
 					}
+				}else{
+					exitLoop = true;
 				}
 			}
-			//TODO IMAGE STUFF HERE
+		}
+
+		void LBMImage::SaveToFile(std::string filename){
+
+			RGBA* RGBImage = this->ConvertToRGBA();
+			Functions::FileImage* fileImage = new Functions::FileImage();
+			fileImage->SaveToPaletteImage(filename + "PAL.bmp",this->image,this->palette,this->width,this->height);
+			fileImage->SaveToRGBImage(filename + "RGB.bmp",RGBImage,this->width,this->height);
+			delete fileImage;
 		}
 	}
 }

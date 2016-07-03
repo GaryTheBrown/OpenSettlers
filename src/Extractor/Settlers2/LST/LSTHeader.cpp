@@ -8,29 +8,17 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
-#include <string>
-#include "../Image/RGBA.h"
+#include "LSTHeader.h"
 
-namespace Functions{
-	class PaletteImageData{
-	protected:
-		//header
-		unsigned short width = 0;
-		unsigned short height = 0;
+namespace Extractor {
+	namespace Settlers2{
 
-		//Data
-		unsigned char* image=NULL;
-		bool* transparency=NULL;
-		RGBA* palette=NULL;
+		LSTxxx::LSTxxx(Functions::DataReader* reader) {
 
-	public:
-		PaletteImageData(){};
-		virtual ~PaletteImageData();
+		}
 
-		virtual void SaveToFile(std::string filename){};
+		LSTxxx::~LSTxxx() {
 
-		void SetPalette(RGBA* Palette);
-		RGBA* ConvertToRGBA();
-	};
+		}
+	}
 }

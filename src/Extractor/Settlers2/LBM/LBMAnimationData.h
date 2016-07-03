@@ -9,7 +9,10 @@
  *******************************************************************************/
 
 #pragma once
+#include <string>
 #include "../../../Functions/File/DataReader.h"
+#include "../../../Functions/File/Save.h"
+#include "../../../Functions/To.h"
 
 namespace Extractor{
 	namespace Settlers2{
@@ -20,10 +23,14 @@ namespace Extractor{
 			unsigned short flags;
 			unsigned char low;
 			unsigned char high;
+			bool active = true;
+			bool direction = true;
 
 		public:
 			LBMAnimationData(Functions::DataReader* reader);
 			~LBMAnimationData();
+
+			std::string ToString();
 		};
 	}
 }
