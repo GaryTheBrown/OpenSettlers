@@ -50,7 +50,7 @@ void Functions::RemoveFolder(std::string folder){
 		return;
 }
 
-std::vector<std::string> GetDir(std::string directory){
+std::vector<std::string> Functions::GetDir(std::string directory){
 	std::vector<std::string> outVector;
 #ifdef _WIN32
 	HANDLE dir;

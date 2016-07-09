@@ -20,7 +20,7 @@ namespace Extractor {
 
 		public:
 			LBMPalette(Functions::DataReader* reader);
-			~LBMPalette();
+			~LBMPalette(){delete [] palette;};
 
 			RGBA* Palette(){return this->palette;};
 			void SetTransparentColour(unsigned short transClr);

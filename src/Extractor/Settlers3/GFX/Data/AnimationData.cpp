@@ -30,10 +30,6 @@ Extractor::Settlers3::AnimationData::AnimationData(Functions::DataReader* reader
 	}
 }
 
-Extractor::Settlers3::AnimationData::~AnimationData(){
-	delete [] this->frames;
-}
-
 void Extractor::Settlers3::AnimationData::SaveToFile(std::string filename){
 
 	std::string data = "";

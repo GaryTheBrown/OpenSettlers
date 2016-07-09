@@ -21,10 +21,6 @@ Extractor::Settlers2::LBMPalette::LBMPalette(Functions::DataReader* reader) {
 	}
 }
 
-Extractor::Settlers2::LBMPalette::~LBMPalette() {
-	delete [] palette;
-}
-
 void Extractor::Settlers2::LBMPalette::SetTransparentColour(unsigned short transClr){
 	this->palette[(transClr & 0xFF)] = {0,0,0,0};
 }

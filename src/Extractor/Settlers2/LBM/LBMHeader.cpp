@@ -15,7 +15,3 @@ Extractor::Settlers2::LBMHeader::LBMHeader(Functions::DataReader* reader) {
 	this->lenChunk = reader->ReadInt();
 	this->formatID = reader->ReadInt();
 }
-
-Extractor::Settlers2::LBMHeader::~LBMHeader() {
-
-}

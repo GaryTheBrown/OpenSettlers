@@ -23,7 +23,7 @@
 #include "LBM/LBMPalette.h"
 #include "LBM/LBMAnimationData.h"
 
-namespace Extractor {
+namespace Extractor{
 	namespace Settlers2{
 		class BBMDataType{
 		private:

@@ -64,5 +64,3 @@ void Extractor::Settlers3::MAPGoods::SaveFileData(std::string location){
 
 	Functions::SaveToTextFile(location + "/Goods.txt",this->HeaderToString());
 }
-}
-}

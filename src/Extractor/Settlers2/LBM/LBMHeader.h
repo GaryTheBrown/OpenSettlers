@@ -21,7 +21,6 @@ namespace Extractor{
 
 		public:
 			LBMHeader(Functions::DataReader* reader);
-			~LBMHeader();
 		};
 	}
 }
