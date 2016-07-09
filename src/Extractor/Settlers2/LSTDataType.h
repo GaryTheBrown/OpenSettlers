@@ -14,12 +14,13 @@
 #include "../../Functions/File/DataReader.h"
 #include "../../Functions/File/Functions.h"
 #include "../../Functions/To.h"
+#include "../../Functions/Image/PaletteData.h"
 #include "../../Log.h"
 #include "LST/XMIDIData.h"
 #include "LST/WAVData.h"
 #include "LST/RLECompressedBitmap.h"
 #include "LST/FontData.h"
-#include "LST/PaletteData.h"
+
 
 #include "LST/UncompressedBitmap.h"
 
@@ -46,7 +47,7 @@ namespace Extractor {
 			RLECompressedBitmap** rleCompressedBitmapFiles = NULL;
 			FontData** fontFiles = NULL;
 
-			PaletteData** paletteFiles = NULL;
+			Functions::PaletteData** paletteFiles = NULL;
 
 			UncompressedBitmap** uncompressedBitmapFiles = NULL;
 

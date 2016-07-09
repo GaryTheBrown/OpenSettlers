@@ -9,23 +9,22 @@
  *******************************************************************************/
 
 #pragma once
-#include <string>
-#include "../../../Functions/File/DataReader.h"
-#include "../../../Functions/Image/Palette.h"
-#include "../../../Functions/File/Save.h"
+#include "../File/DataReader.h"
+#include "../File/Save.h"
+#include "RGBA.h"
+#include "Palette.h"
 
-namespace Extractor{
-	namespace Settlers2{
-		class PaletteData{
-		private:
-			RGBA* palette = NULL;
+namespace Functions{
+	class PaletteData{
+	protected:
+		RGBA* palette = NULL;
 
-		public:
-			PaletteData(Functions::DataReader* reader);
-			~PaletteData(){delete [] this->palette;};
+	public:
+		PaletteData(Functions::DataReader* reader);
+		~PaletteData(){delete [] palette;};
 
-			RGBA* GetPalette(){return this->palette;};
-			void SaveFileData(std::string location);
-		};
-	}
+		RGBA* GetPalette(){return this->palette;};
+		void SetTransparentColour(unsigned short transClr);
+		void SaveFileData(std::string location);
+	};
 }

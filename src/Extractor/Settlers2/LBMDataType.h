@@ -18,9 +18,9 @@
 #include "../../Functions/File/Save.h"
 #include "../../Functions/Image/RGBA.h"
 #include "../../Functions/Image/Palette.h"
+#include "../../Functions/Image/PaletteData.h"
 #include "LBM/LBMHeader.h"
 #include "LBM/LBMBMHD.h"
-#include "LBM/LBMPalette.h"
 #include "LBM/LBMAnimationData.h"
 #include "LBM/LBMImage.h"
 
@@ -30,7 +30,7 @@ namespace Extractor {
 		private:
 			LBMHeader* fileHeader = NULL;
 			LBMBMHD* pictureHeader = NULL;
-			LBMPalette* palette = NULL;
+			Functions::PaletteData* palette = NULL;
 			LBMAnimationData* animationData[16] = {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL}; //array of pointers to data
 			LBMImage* imageData = NULL;
 

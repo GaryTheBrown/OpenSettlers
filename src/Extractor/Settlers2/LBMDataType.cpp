@@ -38,7 +38,7 @@ Extractor::Settlers2::LBMDataType::LBMDataType(std::string file){
 				break;
 			case 1129136464://CMAP (Palette)
 				if(partSize == 768){
-					this->palette = new LBMPalette(reader);
+					this->palette = new Functions::PaletteData(reader);
 					this->palette->SetTransparentColour(this->pictureHeader->TransClr());
 				}else
 					LOGSYSTEM->Error("Wrong Size for Palette");
@@ -57,7 +57,7 @@ Extractor::Settlers2::LBMDataType::LBMDataType(std::string file){
 				break;
 
 			case 1112491097://BODY (IMAGE Data (chars))
-					this->imageData = new LBMImage(reader,this->pictureHeader->Width(),this->pictureHeader->Height(),this->palette->Palette());
+					this->imageData = new LBMImage(reader,this->pictureHeader->Width(),this->pictureHeader->Height(),this->palette->GetPalette());
 				break;
 			default:
 				//skip the section
@@ -66,7 +66,7 @@ Extractor::Settlers2::LBMDataType::LBMDataType(std::string file){
 			}
 			if(reader->GetOffset()%2 == 1){
 				reader->ReadChar(); //partSize is an Odd Number skip a char
-				}
+			}
 		}
 	}
 }
@@ -105,7 +105,7 @@ void Extractor::Settlers2::LBMDataType::SaveFileData(std::string location){
 	this->imageData->SaveToFile(location + "Image");
 
 	if (this->palette != NULL){
-		Functions::SaveToTextFile(location + "Palette.html", Functions::PaletteToHtml(this->palette->Palette()));
-		Functions::SaveToTextFile(location + "Palette.txt", Functions::PaletteToText(this->palette->Palette()));
+		Functions::SaveToTextFile(location + "Palette.html", Functions::PaletteToHtml(this->palette->GetPalette()));
+		Functions::SaveToTextFile(location + "Palette.txt", Functions::PaletteToText(this->palette->GetPalette()));
 	}
 }

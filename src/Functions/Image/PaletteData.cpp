@@ -10,18 +10,22 @@
 
 #include "PaletteData.h"
 
-Extractor::Settlers2::PaletteData::PaletteData(Functions::DataReader* reader){
+Functions::PaletteData::PaletteData(Functions::DataReader* reader) {
+
 	this->palette = new RGBA[256];
-	for(unsigned int i = 0; i < 256; i++){
-		this->palette[i].A = 255;
+	for(unsigned short i = 0; i < 256; i++){
 		this->palette[i].R = reader->ReadChar();
 		this->palette[i].G = reader->ReadChar();
 		this->palette[i].B = reader->ReadChar();
-
+		this->palette[i].A = 255;
 	}
 }
 
-void Extractor::Settlers2::PaletteData::SaveFileData(std::string location){
+void Functions::PaletteData::SetTransparentColour(unsigned short transClr){
+	this->palette[(transClr & 0xFF)] = {0,0,0,0};
+}
+
+void Functions::PaletteData::SaveFileData(std::string location){
 	std::string data;
 	data = Functions::PaletteToText(this->palette);
 	std::string filename = location + ".txt";
@@ -32,3 +36,4 @@ void Extractor::Settlers2::PaletteData::SaveFileData(std::string location){
 	htmlVersion += "</html>";
 	Functions::SaveToTextFile(location + ".html",htmlVersion);
 }
+

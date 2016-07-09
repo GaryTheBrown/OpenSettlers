@@ -133,11 +133,11 @@ Extractor::Settlers2::LSTDataType::LSTDataType(std::string file){
 			}
 
 			if(this->paletteCount > 0){
-				this->paletteFiles = new PaletteData*[this->paletteCount];
+				this->paletteFiles = new Functions::PaletteData*[this->paletteCount];
 
 				for (unsigned int i = 0; i < this->paletteCount; i++){
 					reader->SetOffset(paletteOffsets[i]);
-					this->paletteFiles[i] = new PaletteData(reader);
+					this->paletteFiles[i] = new Functions::PaletteData(reader);
 				}
 			}
 

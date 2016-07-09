@@ -38,7 +38,7 @@ Extractor::Settlers2::BBMDataType::BBMDataType(std::string file){
 				break;
 			case 1129136464://CMAP (Palette)
 				if(partSize == 768){
-					this->palette = new LBMPalette(reader);
+					this->palette = new Functions::PaletteData(reader);
 					this->palette->SetTransparentColour(this->pictureHeader->TransClr());
 				}else
 					LOGSYSTEM->Error("Wrong Size for Palette");
@@ -94,8 +94,8 @@ void Extractor::Settlers2::BBMDataType::SaveFileData(std::string location){
 		Functions::SaveToTextFile(location + "Animation.txt",data);
 	}
 	if (this->palette != NULL){
-		Functions::SaveToTextFile(location + "Palette.html", Functions::PaletteToHtml(this->palette->Palette()));
-		Functions::SaveToTextFile(location + "Palette.txt", Functions::PaletteToText(this->palette->Palette()));
+		Functions::SaveToTextFile(location + "Palette.html", Functions::PaletteToHtml(this->palette->GetPalette()));
+		Functions::SaveToTextFile(location + "Palette.txt", Functions::PaletteToText(this->palette->GetPalette()));
 	}
 
 }

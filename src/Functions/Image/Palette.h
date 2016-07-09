@@ -14,7 +14,6 @@
 #include "../To.h"
 
 namespace Functions{
-
 	extern std::string PaletteToText(RGBA* palette);
 	extern std::string PaletteToHtml(RGBA* palette);
 }
