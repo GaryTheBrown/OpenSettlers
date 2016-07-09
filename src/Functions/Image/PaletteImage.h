@@ -11,26 +11,33 @@
 #pragma once
 #include <string>
 #include "../Image/RGBA.h"
+#include "../File/Save.h"
+#include "../To.h"
+#include "../File/Image.h"
 #include "../../Log.h"
 
 namespace Functions{
 	class PaletteImage{
 	protected:
 		//header
+		signed short xRel;
+		signed short yRel;
 		unsigned short width = 0;
 		unsigned short height = 0;
 
 		//Data
 		unsigned char* image=NULL;
-
+		bool* transparency=NULL;
 		RGBA* palette=NULL;
+
+		unsigned int tmpsize;
+		void RAWSAVETEMP(std::string filename);
 
 	public:
 		virtual ~PaletteImage();
+		virtual void SaveToFile(std::string filename);
 
-		virtual void SaveToFile(std::string filename){};
-		virtual RGBA* ConvertToRGBA();
-
+		RGBA* ConvertToRGBA();
 		void SetPalette(RGBA* Palette);
 
 	};

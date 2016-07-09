@@ -11,13 +11,17 @@
 #include "RLECompressedBitmap.h"
 
 Extractor::Settlers2::RLECompressedBitmap::RLECompressedBitmap(Functions::DataReader* reader){
-	this->zeroPointX = reader->ReadSignedShort();
-	this->zeroPointY = reader->ReadSignedShort();
+	this->xRel = reader->ReadSignedShort();
+	this->yRel = reader->ReadSignedShort();
 	this->unknown = reader->ReadInt();
 	this->width = reader->ReadShort();
 	this->height = reader->ReadShort();
 	this->paletteID = reader->ReadShort();
+	this->partSize = reader->ReadInt();
 
-	this->image = new unsigned char[this->width*this->height];
-
+	//this->image = new unsigned char[this->width*this->height];
+	this->image = new unsigned char[this->partSize];
+	for (unsigned int i = 0; i < this->partSize; i++)
+		this->image[i] = reader->ReadChar();
+	this->tmpsize = partSize;
 }

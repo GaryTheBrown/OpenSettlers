@@ -20,8 +20,8 @@
 #include "LST/WAVData.h"
 #include "LST/RLECompressedBitmap.h"
 #include "LST/FontData.h"
-
-
+#include "LST/PlayerColouredBitmap.h"
+#include "LST/ShadowBitmap.h"
 #include "LST/UncompressedBitmap.h"
 
 namespace Extractor {
@@ -36,7 +36,7 @@ namespace Extractor {
 			unsigned short xmidiCount = 0;
 			unsigned short rleCompressedBitmapCount = 0;
 			unsigned short fontCount = 0;
-			unsigned short playerColoredBitmapCount = 0;
+			unsigned short playerColouredBitmapCount = 0;
 			unsigned short paletteCount = 0;
 			unsigned short shadowBitmapCount = 0;
 			unsigned short uncompressedBitmapCount = 0;
@@ -45,9 +45,9 @@ namespace Extractor {
 			XMIDIData** xmidiFiles = NULL;
 			RLECompressedBitmap** rleCompressedBitmapFiles = NULL;
 			FontData** fontFiles = NULL;
-
+			PlayerColouredBitmap** playerColouredBitmapFiles = NULL;
 			Functions::PaletteData** paletteFiles = NULL;
-
+			ShadowBitmap** shadowBitmapFiles = NULL;
 			UncompressedBitmap** uncompressedBitmapFiles = NULL;
 
 		public:

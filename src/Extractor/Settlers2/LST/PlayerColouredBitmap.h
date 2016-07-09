@@ -9,25 +9,21 @@
  *******************************************************************************/
 
 #pragma once
+#include <string>
 #include "../../../Functions/File/DataReader.h"
+#include "../../../Functions/Image/PaletteImage.h"
 
 namespace Extractor{
 	namespace Settlers2{
-	/*
-	 * WAV or XMIDI
-	 * RLE Compressed Bitmap
-	 * Font
-	 * Player Colored Bitmap
-	 * Palette
-	 * Shadow Bitmap
-	 * Uncompressed Bitmap
-	 */
-		class LSTxxx{
+		class PlayerColouredBitmap : public Functions::PaletteImage{
 		private:
-
+			unsigned int unknown = 0;// (always 0 = hex 00 00 00 00)
+			unsigned short paletteID = 0; //(always 1 = hex 01 00)
+			unsigned int partSize = 0;
 		public:
-			LSTxxx(Functions::DataReader* reader);
-			~LSTxxx();
+			PlayerColouredBitmap(Functions::DataReader* reader);
+
+			virtual void SaveToFile(std::string location){this->RAWSAVETEMP(location);};
 		};
 	}
 }

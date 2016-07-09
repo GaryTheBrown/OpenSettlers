@@ -171,19 +171,19 @@ std::string Extractor::Settlers3::MAPHeader::HeaderToString(){
 void Extractor::Settlers3::MAPHeader::SaveToFile(std::string location){
 
 	if(this->area != NULL)
-		this->area->SaveFileData(location);
+		this->area->SaveToFile(location);
 
 	if(this->preview != NULL)
-		this->preview->SaveFileData(location);
+		this->preview->SaveToFile(location);
 
 	if (this->settlers != NULL)
-		this->settlers->SaveFileData(location);
+		this->settlers->SaveToFile(location);
 
 	if (this->buildings != NULL)
-		this->buildings->SaveFileData(location);
+		this->buildings->SaveToFile(location);
 
 	if (this->goods != NULL)
-		this->goods->SaveFileData(location);
+		this->goods->SaveToFile(location);
 
 }
 

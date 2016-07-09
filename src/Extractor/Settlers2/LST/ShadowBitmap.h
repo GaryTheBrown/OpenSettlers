@@ -9,20 +9,24 @@
  *******************************************************************************/
 
 #pragma once
+#include <string>
 #include "../../../Functions/File/DataReader.h"
-#include "../../../Functions/Image/PaletteImage.h"
+#include "../../../Functions/Image/RGBImage.h"
+#include "../../../Functions/Image/RGBA.h"
 
 namespace Extractor{
 	namespace Settlers2{
-		class UncompressedBitmap : public Functions::PaletteImage{
+		class ShadowBitmap : public Functions::RGBImage{
 		private:
-			unsigned short paletteID;
-			unsigned int lengthOfData;
-			unsigned long long unknown;
-
+			unsigned int unknown = 0;// (always 0 = hex 00 00 00 00)
+			unsigned short paletteID = 0; //(always 1 = hex 01 00)
+			signed short xRel;
+			signed short yRel;
+			unsigned int partSize = 0;
 		public:
-			UncompressedBitmap(Functions::DataReader* reader);
+			ShadowBitmap(Functions::DataReader* reader);
 
+			virtual void SaveToFile(std::string filename);
 		};
 	}
 }

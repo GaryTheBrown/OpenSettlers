@@ -21,7 +21,7 @@ Extractor::Settlers2::LSTDataType::LSTDataType(std::string file){
 			std::vector<unsigned int> xmidiOffsets;
 			std::vector<unsigned int> wavOffsets;
 			std::vector<unsigned int> rleCompressedBitmapOffsets;
-			std::vector<unsigned int> playerColoredBitmapOffsets;
+			std::vector<unsigned int> playerColouredBitmapOffsets;
 			std::vector<unsigned int> shadowBitmapOffsets;
 			std::vector<unsigned int> uncompressedBitmapOffsets;
 			std::vector<unsigned int> fontOffsets;
@@ -54,7 +54,7 @@ Extractor::Settlers2::LSTDataType::LSTDataType(std::string file){
 							rleCompressedBitmapOffsets.push_back(offset);
 							break;
 						case 4:
-							playerColoredBitmapOffsets.push_back(offset);
+							playerColouredBitmapOffsets.push_back(offset);
 							break;
 						case 7:
 							shadowBitmapOffsets.push_back(offset);
@@ -93,7 +93,7 @@ Extractor::Settlers2::LSTDataType::LSTDataType(std::string file){
 			this->wavCount = wavOffsets.size();
 			this->xmidiCount = xmidiOffsets.size();
 			this->rleCompressedBitmapCount = rleCompressedBitmapOffsets.size();
-			this->playerColoredBitmapCount = playerColoredBitmapOffsets.size();
+			this->playerColouredBitmapCount = playerColouredBitmapOffsets.size();
 			this->shadowBitmapCount = shadowBitmapOffsets.size();
 			this->fontCount = fontOffsets.size();
 			this->paletteCount = paletteOffsets.size();
@@ -119,7 +119,7 @@ Extractor::Settlers2::LSTDataType::LSTDataType(std::string file){
 				this->rleCompressedBitmapFiles = new RLECompressedBitmap*[this->rleCompressedBitmapCount];
 
 				for (unsigned int i = 0; i < this->rleCompressedBitmapCount; i++){
-					reader->SetOffset(fontOffsets[i]);
+					reader->SetOffset(rleCompressedBitmapOffsets[i]);
 					this->rleCompressedBitmapFiles[i] = new RLECompressedBitmap(reader);
 				}
 			}
@@ -131,7 +131,14 @@ Extractor::Settlers2::LSTDataType::LSTDataType(std::string file){
 					this->fontFiles[i] = new FontData(reader);
 				}
 			}
+			if(this->playerColouredBitmapCount > 0){
+				this->playerColouredBitmapFiles = new PlayerColouredBitmap*[this->playerColouredBitmapCount];
 
+				for (unsigned int i = 0; i < this->playerColouredBitmapCount; i++){
+					reader->SetOffset(playerColouredBitmapOffsets[i]);
+					this->playerColouredBitmapFiles[i] = new PlayerColouredBitmap(reader);
+				}
+			}
 			if(this->paletteCount > 0){
 				this->paletteFiles = new Functions::PaletteData*[this->paletteCount];
 
@@ -140,7 +147,14 @@ Extractor::Settlers2::LSTDataType::LSTDataType(std::string file){
 					this->paletteFiles[i] = new Functions::PaletteData(reader);
 				}
 			}
+			if(this->shadowBitmapCount > 0){
+				this->shadowBitmapFiles = new ShadowBitmap*[this->shadowBitmapCount];
 
+				for (unsigned int i = 0; i < this->shadowBitmapCount; i++){
+					reader->SetOffset(shadowBitmapOffsets[i]);
+					this->shadowBitmapFiles[i] = new ShadowBitmap(reader);
+				}
+			}
 			if(this->uncompressedBitmapCount > 0){
 				this->uncompressedBitmapFiles = new UncompressedBitmap*[this->uncompressedBitmapCount];
 
@@ -180,14 +194,24 @@ Extractor::Settlers2::LSTDataType::~LSTDataType() {
 		}
 		delete [] this->fontFiles;
 	}
-
+	if (this->playerColouredBitmapFiles != NULL){
+		for(unsigned short i = 0; i < this->playerColouredBitmapCount; i++){
+			delete this->playerColouredBitmapFiles[i];
+		}
+		delete [] this->playerColouredBitmapFiles;
+	}
 	if (this->paletteFiles != NULL){
 		for(unsigned short i = 0; i < this->paletteCount; i++){
 			delete this->paletteFiles[i];
 		}
 		delete [] this->paletteFiles;
 	}
-
+	if (this->shadowBitmapFiles != NULL){
+		for(unsigned short i = 0; i < this->shadowBitmapCount; i++){
+			delete this->shadowBitmapFiles[i];
+		}
+		delete [] this->shadowBitmapFiles;
+	}
 	if (this->uncompressedBitmapFiles != NULL){
 		for(unsigned short i = 0; i < this->uncompressedBitmapCount; i++){
 			delete this->uncompressedBitmapFiles[i];
@@ -201,19 +225,19 @@ void Extractor::Settlers2::LSTDataType::SaveToFile(std::string location){
 	if (this->xmidiCount > 0){
 		for(unsigned int i=0; i < this->xmidiCount; i++){
 			Functions::CreateDir(location + "xMidi/");
-			this->xmidiFiles[i]->SaveFileData(location + "xMidi/" + Functions::ToString(i) + ".xmi");
+			this->xmidiFiles[i]->SaveToFile(location + "xMidi/" + Functions::ToString(i) + ".xmi");
 		}
 	}
 	if (this->wavCount > 0){
 		for(unsigned int i=0; i < this->wavCount; i++){
 			Functions::CreateDir(location + "wav/");
-			this->wavFiles[i]->SaveFileData(location + "wav/" + Functions::ToString(i) + ".wav");
+			this->wavFiles[i]->SaveToFile(location + "wav/" + Functions::ToString(i) + ".wav");
 		}
 	}
 	if (this->rleCompressedBitmapCount > 0){
 		for(unsigned int i=0; i < this->rleCompressedBitmapCount; i++){
 			Functions::CreateDir(location + "rleCompressedBitmap/");
-			if (this->paletteCount == 1)this->rleCompressedBitmapFiles[i]->SetPalette(this->paletteFiles[1]->GetPalette());
+			//if (this->paletteCount == 1)this->rleCompressedBitmapFiles[i]->SetPalette(this->paletteFiles[1]->GetPalette());
 			this->rleCompressedBitmapFiles[i]->SaveToFile(location + "rleCompressedBitmap/" + Functions::ToString(i));
 		}
 	}
@@ -224,13 +248,25 @@ void Extractor::Settlers2::LSTDataType::SaveToFile(std::string location){
 			this->fontFiles[i]->SaveToFile(location + "font/" + Functions::ToString(i));
 		}
 	}
+	if (this->playerColouredBitmapCount > 0){
+		for(unsigned int i=0; i < this->playerColouredBitmapCount; i++){
+			Functions::CreateDir(location + "PlayerColouredBitmap/");
+			//if (this->paletteCount == 1)this->playerColouredBitmapFiles[i]->SetPalette(this->paletteFiles[1]->GetPalette());
+			this->playerColouredBitmapFiles[i]->SaveToFile(location + "PlayerColouredBitmap/" + Functions::ToString(i));
+		}
+	}
 	if (this->paletteCount > 0){
 		for(unsigned int i=0; i < this->paletteCount; i++){
 			Functions::CreateDir(location + "palette/");
 			this->paletteFiles[i]->SaveToFile(location + "palette/" + Functions::ToString(i));
 		}
 	}
-
+	if (this->shadowBitmapCount > 0){
+		for(unsigned int i=0; i < this->shadowBitmapCount; i++){
+			Functions::CreateDir(location + "ShadowBitmap/");
+			this->shadowBitmapFiles[i]->SaveToFile(location + "ShadowBitmap/" + Functions::ToString(i));
+		}
+	}
 	if (this->uncompressedBitmapCount > 0){
 		for(unsigned int i=0; i < this->uncompressedBitmapCount; i++){
 			Functions::CreateDir(location + "UncompressedBitmap/");

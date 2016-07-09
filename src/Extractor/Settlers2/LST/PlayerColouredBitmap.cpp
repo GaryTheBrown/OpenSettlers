@@ -8,22 +8,20 @@
  * of the License.
  *******************************************************************************/
 
-#include "UncompressedBitmap.h"
+#include "PlayerColouredBitmap.h"
 
-Extractor::Settlers2::UncompressedBitmap::UncompressedBitmap(Functions::DataReader* reader) {
-	this->paletteID = reader->ReadShort(); //(always 1 = hex 01 00)
-	this->lengthOfData = reader->ReadInt();
-
-	//A raw paletted 8-bit bitmap, pixel-by-pixel.
-	this->image = new unsigned char[this->lengthOfData];
-
-	for (unsigned int i = 0; i < this->lengthOfData; i++)
-		this->image[i] = reader->ReadChar();
-
-	//Footer
+Extractor::Settlers2::PlayerColouredBitmap::PlayerColouredBitmap(Functions::DataReader* reader){
 	this->xRel = reader->ReadSignedShort();
 	this->yRel = reader->ReadSignedShort();
+	this->unknown = reader->ReadInt();
 	this->width = reader->ReadShort();
 	this->height = reader->ReadShort();
-	this->unknown = reader->ReadLongLong();
+	this->paletteID = reader->ReadShort();
+	this->partSize = reader->ReadInt();
+
+	//this->image = new unsigned char[this->width*this->height];
+	this->image = new unsigned char[this->partSize];
+	for (unsigned int i = 0; i < this->partSize; i++)
+		this->image[i] = reader->ReadChar();
+	this->tmpsize = partSize;
 }

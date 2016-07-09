@@ -27,7 +27,7 @@ namespace Functions{
 		RGBImage(RGBA* imageRGBA, unsigned short height,unsigned short width);
 		virtual ~RGBImage();
 
-		virtual void SaveToFile(std::string filename){};
+		virtual void SaveToFile(std::string filename){this->SaveToRGBBMP(filename);};
 		void SaveToRGBBMP(std::string filename);
 
 		//Image Manipulation

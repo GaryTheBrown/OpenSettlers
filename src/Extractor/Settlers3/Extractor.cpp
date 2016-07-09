@@ -201,7 +201,7 @@ bool Extractor::Settlers3::Extract::RAWGFXFileExtract(std::string folder, std::s
 		Functions::CreateDir("Extracted/S3/");
 		Functions::CreateDir("Extracted/S3/GFX/");
 		Functions::CreateDir("Extracted/S3/GFX/"+ file);
-		GFXFile->SaveFileData("Extracted/S3/GFX/" + file);
+		GFXFile->SaveToFile("Extracted/S3/GFX/" + file);
 		LOGSYSTEM->Log("Closing...",1);
 		delete GFXFile;
 		return true;
@@ -218,7 +218,7 @@ bool Extractor::Settlers3::Extract::RAWSNDFileExtract(std::string folder, std::s
 		Functions::CreateDir("Extracted/S3/");
 		Functions::CreateDir("Extracted/S3/SND/");
 		Functions::CreateDir("Extracted/S3/SND/"+ file);
-		SNDFile->SaveFileData("Extracted/S3/SND/" + file);
+		SNDFile->SaveToFile("Extracted/S3/SND/" + file);
 		LOGSYSTEM->Log("Closing...",1);
 		delete SNDFile;
 		return true;
@@ -264,12 +264,12 @@ bool Extractor::Settlers3::Extract::RAWMAPFileExtract(std::string folder, std::s
 			}
 			Functions::CreateDir("Extracted/S3/MAP/" + outFolder);
 			Functions::CreateDir("Extracted/S3/MAP/"+ outFolder + file);
-			MAPFile->SaveFileData("Extracted/S3/MAP/" + outFolder + file);
+			MAPFile->SaveToFile("Extracted/S3/MAP/" + outFolder + file);
 			MAPFile->SaveHeaderData("Extracted/S3/MAP/" + outFolder + file);
 
 		}else{
 			Functions::CreateDir("Extracted/S3/MAP/" + file);
-			MAPFile->SaveFileData("Extracted/S3/MAP/" + file);
+			MAPFile->SaveToFile("Extracted/S3/MAP/" + file);
 			MAPFile->SaveHeaderData("Extracted/S3/MAP/" + file);
 		}
 		LOGSYSTEM->Log("Closing...",1);
