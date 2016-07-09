@@ -41,7 +41,7 @@ Extractor::Settlers3::GFXAnimation::~GFXAnimation(){
 
 }
 
-bool Extractor::Settlers3::GFXAnimation::SaveFileData(std::string location){
+bool Extractor::Settlers3::GFXAnimation::SaveToFile(std::string location){
 	if(this->count > 0){
 		location += "/Animation/";
 		Functions::CreateDir(location);

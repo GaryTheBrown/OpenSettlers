@@ -41,7 +41,6 @@ namespace Extractor {
 			unsigned short shadowBitmapCount = 0;
 			unsigned short uncompressedBitmapCount = 0;
 
-			//std::vector<XMIDIData> xMidiFiles;
 			WAVData** wavFiles = NULL;
 			XMIDIData** xmidiFiles = NULL;
 			RLECompressedBitmap** rleCompressedBitmapFiles = NULL;
@@ -54,7 +53,7 @@ namespace Extractor {
 		public:
 			LSTDataType(std::string file);
 			~LSTDataType();
-			void SaveFileData(std::string location);
+			void SaveToFile(std::string location);
 
 		};
 	}

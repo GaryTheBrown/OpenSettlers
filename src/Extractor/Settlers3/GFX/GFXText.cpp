@@ -47,7 +47,7 @@ Extractor::Settlers3::GFXText::~GFXText(){
 	}
 }
 
-bool Extractor::Settlers3::GFXText::SaveFileData(std::string location){
+bool Extractor::Settlers3::GFXText::SaveToFile(std::string location){
 	if(this->countA > 0){
 		location += "/Text/";
 		Functions::CreateDir(location);

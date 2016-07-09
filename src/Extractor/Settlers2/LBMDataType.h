@@ -39,7 +39,7 @@ namespace Extractor {
 			LBMDataType(std::string file);
 			~LBMDataType();
 
-			void SaveFileData(std::string location);
+			void SaveToFile(std::string location);
 		};
 	}
 }

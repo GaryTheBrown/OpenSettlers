@@ -196,7 +196,7 @@ Extractor::Settlers2::LSTDataType::~LSTDataType() {
 	}
 }
 
-void Extractor::Settlers2::LSTDataType::SaveFileData(std::string location){
+void Extractor::Settlers2::LSTDataType::SaveToFile(std::string location){
 	location += "/";
 	if (this->xmidiCount > 0){
 		for(unsigned int i=0; i < this->xmidiCount; i++){
@@ -214,20 +214,20 @@ void Extractor::Settlers2::LSTDataType::SaveFileData(std::string location){
 		for(unsigned int i=0; i < this->rleCompressedBitmapCount; i++){
 			Functions::CreateDir(location + "rleCompressedBitmap/");
 			if (this->paletteCount == 1)this->rleCompressedBitmapFiles[i]->SetPalette(this->paletteFiles[1]->GetPalette());
-			this->rleCompressedBitmapFiles[i]->SaveFileData(location + "rleCompressedBitmap/" + Functions::ToString(i));
+			this->rleCompressedBitmapFiles[i]->SaveToFile(location + "rleCompressedBitmap/" + Functions::ToString(i));
 		}
 	}
 	if (this->fontCount > 0){
 		for(unsigned int i=0; i < this->fontCount; i++){
 			Functions::CreateDir(location + "font/");
 			if (this->paletteCount == 1)this->fontFiles[i]->SetPalette(this->paletteFiles[1]->GetPalette());
-			this->fontFiles[i]->SaveFileData(location + "font/" + Functions::ToString(i));
+			this->fontFiles[i]->SaveToFile(location + "font/" + Functions::ToString(i));
 		}
 	}
 	if (this->paletteCount > 0){
 		for(unsigned int i=0; i < this->paletteCount; i++){
 			Functions::CreateDir(location + "palette/");
-			this->paletteFiles[i]->SaveFileData(location + "palette/" + Functions::ToString(i));
+			this->paletteFiles[i]->SaveToFile(location + "palette/" + Functions::ToString(i));
 		}
 	}
 

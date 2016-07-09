@@ -10,7 +10,7 @@
 
 #include "RLECompressedBitmap.h"
 
-Extractor::Settlers2::RLECompressedBitmap::RLECompressedBitmap(Functions::DataReader* reader) {
+Extractor::Settlers2::RLECompressedBitmap::RLECompressedBitmap(Functions::DataReader* reader){
 	this->zeroPointX = reader->ReadSignedShort();
 	this->zeroPointY = reader->ReadSignedShort();
 	this->unknown = reader->ReadInt();

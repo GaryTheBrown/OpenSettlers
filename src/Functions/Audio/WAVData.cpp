@@ -9,7 +9,7 @@
  *******************************************************************************/
 #include "WAVData.h"
 
-void Functions::WAVData::SaveFileData(std::string filename){
+void Functions::WAVData::SaveToFile(std::string filename){
 	// mimeType = "audio/wav";
 	unsigned char Header[44] = {
 

@@ -33,7 +33,7 @@ namespace Extractor{
 			virtual std::string HeaderToString();
 
 			//temp to see info inside file.
-			void SaveFileData(std::string location,std::string fileName);
+			void SaveToFile(std::string location,std::string fileName);
 
 			bool Decrypt(Functions::DataReader* reader);
 		};

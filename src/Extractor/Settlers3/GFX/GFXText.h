@@ -64,7 +64,7 @@ namespace Extractor{
 			GFXText(Functions::DataReader* reader, unsigned int offset);
 			~GFXText();
 
-			bool SaveFileData(std::string location);
+			bool SaveToFile(std::string location);
 		};
 	}
 }

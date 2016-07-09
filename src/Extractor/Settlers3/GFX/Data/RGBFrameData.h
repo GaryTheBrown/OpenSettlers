@@ -30,7 +30,7 @@ namespace Extractor{
 			RGBFrameData(Functions::DataReader* reader, unsigned int offset, RGBImageData::enumIMGType gfxType,unsigned int colourCode = 0);
 			~RGBFrameData();
 
-			bool SaveFileData(std::string location);
+			bool SaveToFile(std::string location);
 			RGBImageData* ReturnImage(unsigned char frame){return this->frames[frame];};
 
 		};

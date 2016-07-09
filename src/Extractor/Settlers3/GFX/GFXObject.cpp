@@ -38,13 +38,13 @@ Extractor::Settlers3::GFXObject::~GFXObject(){
 	}
 }
 
-bool Extractor::Settlers3::GFXObject::SaveFileData(std::string location){
+bool Extractor::Settlers3::GFXObject::SaveToFile(std::string location){
 
 	if(this->count > 0){
 		location += "/Object/";
 		Functions::CreateDir(location);
 		for(unsigned short i = 0; i < this->count; i++){
-			if(this->images[i] != NULL) this->images[i]->SaveFileData(location + Functions::ToString(i));
+			if(this->images[i] != NULL) this->images[i]->SaveToFile(location + Functions::ToString(i));
 		}
 		return true;
 	}

@@ -60,7 +60,7 @@ std::string Extractor::Settlers3::MAPGoods::HeaderToString(){
 	return returnString;
 }
 
-void Extractor::Settlers3::MAPGoods::SaveFileData(std::string location){
+void Extractor::Settlers3::MAPGoods::SaveToFile(std::string location){
 
 	Functions::SaveToTextFile(location + "/Goods.txt",this->HeaderToString());
 }

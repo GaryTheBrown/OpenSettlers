@@ -32,7 +32,7 @@ namespace Extractor{
 		public:
 			GFXGUI(Functions::DataReader* reader, unsigned int offset,unsigned int colourCode);
 			~GFXGUI();
-			bool SaveFileData(std::string location);
+			bool SaveToFile(std::string location);
 			RGBImageData* ReturnImage(unsigned short image){return this->images[image];};
 		};
 	}

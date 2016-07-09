@@ -36,7 +36,7 @@ namespace Extractor{
 			MAPGoods(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey);
 			virtual ~MAPGoods(){delete [] this->goods;};
 			virtual std::string HeaderToString();
-			void SaveFileData(std::string location);
+			void SaveToFile(std::string location);
 		};
 	}
 }

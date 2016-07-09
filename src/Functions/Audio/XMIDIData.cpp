@@ -9,7 +9,7 @@
  *******************************************************************************/
 #include "XMIDIData.h"
 
-void Functions::XMIDIData::SaveFileData(std::string filename){
+void Functions::XMIDIData::SaveToFile(std::string filename){
 	if(Functions::FileExists(filename))
 		remove(filename.c_str());
 

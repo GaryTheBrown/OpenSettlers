@@ -93,7 +93,7 @@ Extractor::Settlers2::LBMDataType::~LBMDataType() {
 	}
 }
 
-void Extractor::Settlers2::LBMDataType::SaveFileData(std::string location){
+void Extractor::Settlers2::LBMDataType::SaveToFile(std::string location){
 	location += "/";
 	if (this->animationCount > 0){
 		std::string data = "pad\trate\tflags\tlow\thigh\tacti\tdir\n";
@@ -105,6 +105,6 @@ void Extractor::Settlers2::LBMDataType::SaveFileData(std::string location){
 	this->imageData->SaveToFile(location + "Image");
 
 	if (this->palette != NULL){
-		this->palette->SaveFileData(location + "Palette");
+		this->palette->SaveToFile(location + "Palette");
 	}
 }

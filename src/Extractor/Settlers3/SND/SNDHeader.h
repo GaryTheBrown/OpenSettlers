@@ -39,7 +39,7 @@ namespace Extractor{
 		public:
 			SNDHeader(Functions::DataReader* reader);
 			~SNDHeader();
-			void SaveFileData(std::string location);
+			void SaveToFile(std::string location);
 		};
 	}
 }

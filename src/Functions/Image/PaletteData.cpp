@@ -25,7 +25,7 @@ void Functions::PaletteData::SetTransparentColour(unsigned short transClr){
 	this->palette[(transClr & 0xFF)] = {0,0,0,0};
 }
 
-void Functions::PaletteData::SaveFileData(std::string location){
+void Functions::PaletteData::SaveToFile(std::string location){
 	Functions::SaveToTextFile(location + ".txt",Functions::PaletteToText(this->palette));
 	Functions::SaveToTextFile(location + ".html","<html>" + Functions::PaletteToHtml(this->palette) + "</html>");
 }

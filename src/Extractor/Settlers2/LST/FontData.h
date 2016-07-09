@@ -29,7 +29,7 @@ namespace Extractor{
 			~FontData();
 
 			void SetPalette(RGBA* palette){this->palette = palette;};
-			void SaveFileData(std::string location);
+			void SaveToFile(std::string location);
 		};
 	}
 }

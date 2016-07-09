@@ -22,6 +22,6 @@ namespace Functions{
 	public:
 
 		virtual ~XMIDIData(){delete[] this->data;};
-		void SaveFileData(std::string filename);
+		void SaveToFile(std::string filename);
 	};
 }

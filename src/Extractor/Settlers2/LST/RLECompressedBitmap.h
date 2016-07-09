@@ -26,7 +26,7 @@ namespace Extractor{
 		public:
 			RLECompressedBitmap(Functions::DataReader* reader);
 
-			void SaveFileData(std::string location){};
+			void SaveToFile(std::string location){};
 		};
 	}
 }

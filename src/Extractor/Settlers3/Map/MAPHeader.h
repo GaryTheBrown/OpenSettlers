@@ -79,7 +79,7 @@ namespace Extractor{
 			~MAPHeader();
 
 			std::string HeaderToString();
-			void SaveFileData(std::string location);
+			void SaveToFile(std::string location);
 		};
 	}
 }

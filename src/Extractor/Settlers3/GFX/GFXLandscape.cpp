@@ -37,7 +37,7 @@ Extractor::Settlers3::GFXLandscape::~GFXLandscape(){
 	}
 }
 
-bool Extractor::Settlers3::GFXLandscape::SaveFileData(std::string location){
+bool Extractor::Settlers3::GFXLandscape::SaveToFile(std::string location){
 	if(this->count > 0){
 		location += "/Landscape/";
 		Functions::CreateDir(location);

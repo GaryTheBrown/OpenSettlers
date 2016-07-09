@@ -49,7 +49,7 @@ std::string Extractor::Settlers3::MAPParts::HeaderToString(){
 
 }
 
-void Extractor::Settlers3::MAPParts::SaveFileData(std::string location,std::string fileName){
+void Extractor::Settlers3::MAPParts::SaveToFile(std::string location,std::string fileName){
 	if (this->data != NULL)
 		Functions::SaveToBinaryFile(location + "/" + fileName,this->data,this->size);
 }

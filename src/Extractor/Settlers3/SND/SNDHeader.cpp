@@ -43,9 +43,9 @@ Extractor::Settlers3::SNDHeader::~SNDHeader(){
 	delete[] this->frames;
 }
 
-void Extractor::Settlers3::SNDHeader::SaveFileData(std::string location){
+void Extractor::Settlers3::SNDHeader::SaveToFile(std::string location){
 	for (unsigned short i = 0;i < this->count;i++){
 		if (this->frames[i] != NULL)
-			this->frames[i]->SaveFileData(location + "/" + Functions::ToString(i));
+			this->frames[i]->SaveToFile(location + "/" + Functions::ToString(i));
 	}
 }

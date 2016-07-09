@@ -34,9 +34,9 @@ Extractor::Settlers3::SNDDataType::~SNDDataType(){
 	LOGSYSTEM->Log("Finished Clean up.",2);
 }
 
-void Extractor::Settlers3::SNDDataType::SaveFileData(std::string location){
+void Extractor::Settlers3::SNDDataType::SaveToFile(std::string location){
 	if(this->header != NULL){
 		LOGSYSTEM->Log("Saving Sound Data...",2);
-		this->header->SaveFileData(location);
+		this->header->SaveToFile(location);
 	}
 }

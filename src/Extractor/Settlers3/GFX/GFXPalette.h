@@ -33,7 +33,7 @@ namespace Extractor{
 			GFXPalette(Functions::DataReader* reader, unsigned int offset,unsigned int colourCode);
 			~GFXPalette();
 
-			bool SaveFileData(std::string location);
+			bool SaveToFile(std::string location);
 			RGBA*** ReturnPalettes(){return this->palettes;};
 		};
 	}

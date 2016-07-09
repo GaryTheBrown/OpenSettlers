@@ -38,7 +38,7 @@ Extractor::Settlers3::GFXGUI::~GFXGUI(){
 	}
 }
 
-bool Extractor::Settlers3::GFXGUI::SaveFileData(std::string location){
+bool Extractor::Settlers3::GFXGUI::SaveToFile(std::string location){
 	if(this->count > 0){
 		location += "/GUI/";
 		Functions::CreateDir(location);

@@ -31,9 +31,9 @@ Extractor::Settlers3::SNDFrame::~SNDFrame(){
 	delete[] this->data;
 }
 
-void Extractor::Settlers3::SNDFrame::SaveFileData(std::string filename){
+void Extractor::Settlers3::SNDFrame::SaveToFile(std::string filename){
 	for (unsigned short i = 0;i < this->count;i++){
 		if (this->data[i] != NULL)
-			this->data[i]->SaveFileData(filename + "_" + Functions::ToString(i) + ".wav");
+			this->data[i]->SaveToFile(filename + "_" + Functions::ToString(i) + ".wav");
 	}
 }

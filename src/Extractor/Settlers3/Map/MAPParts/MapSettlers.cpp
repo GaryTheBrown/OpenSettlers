@@ -54,7 +54,7 @@ std::string Extractor::Settlers3::MAPSettlers::HeaderToString(){
 	return returnString;
 }
 
-void Extractor::Settlers3::MAPSettlers::SaveFileData(std::string location){
+void Extractor::Settlers3::MAPSettlers::SaveToFile(std::string location){
 
 	Functions::SaveToTextFile(location + "/Settlers.txt",this->HeaderToString());
 }

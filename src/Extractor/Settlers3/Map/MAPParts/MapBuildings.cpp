@@ -90,7 +90,7 @@ std::string Extractor::Settlers3::MAPBuildings::HeaderToString(){
 	return returnString;
 }
 
-void Extractor::Settlers3::MAPBuildings::SaveFileData(std::string location){
+void Extractor::Settlers3::MAPBuildings::SaveToFile(std::string location){
 
 	Functions::SaveToTextFile(location + "/Buildings.txt",this->HeaderToString());
 }

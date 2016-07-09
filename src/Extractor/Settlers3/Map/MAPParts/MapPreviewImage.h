@@ -35,7 +35,7 @@ namespace Extractor{
 			MAPPreviewImage(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey);
 			virtual ~MAPPreviewImage();
 			virtual std::string HeaderToString();
-			void SaveFileData(std::string location);
+			void SaveToFile(std::string location);
 			void ShearImage();
 
 			unsigned short Length(){return this->length;};

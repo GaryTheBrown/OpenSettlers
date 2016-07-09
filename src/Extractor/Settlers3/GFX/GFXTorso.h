@@ -29,7 +29,7 @@ namespace Extractor{
 		public:
 			GFXTorso(Functions::DataReader* reader, unsigned int offset,RGBA* Palette = NULL);
 			~GFXTorso();
-			bool SaveFileData(std::string location);
+			bool SaveToFile(std::string location);
 		};
 	}
 }

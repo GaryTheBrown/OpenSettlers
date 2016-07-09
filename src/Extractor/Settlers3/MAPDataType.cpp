@@ -37,9 +37,9 @@ void Extractor::Settlers3::MAPDataType::SaveHeaderData(std::string location){
 	Functions::SaveToTextFile(location + "/Header.txt",data);
 }
 
-void Extractor::Settlers3::MAPDataType::SaveFileData(std::string location){
+void Extractor::Settlers3::MAPDataType::SaveToFile(std::string location){
 	if(this->header != NULL){
 		LOGSYSTEM->Log("Saving Map Data",2);
-		this->header->SaveFileData(location);
+		this->header->SaveToFile(location);
 	}
 }

@@ -37,12 +37,12 @@ Extractor::Settlers3::GFXShadow::~GFXShadow(){
 	}
 }
 
-bool Extractor::Settlers3::GFXShadow::SaveFileData(std::string location){
+bool Extractor::Settlers3::GFXShadow::SaveToFile(std::string location){
 	if(this->count > 0){
 		location += "/Shadow/";
 		Functions::CreateDir(location);
 		for(unsigned short i = 0; i < this->count; i++){
-			if(this->images[i] != NULL) this->images[i]->SaveFileData(location + Functions::ToString(i));
+			if(this->images[i] != NULL) this->images[i]->SaveToFile(location + Functions::ToString(i));
 		}
 		return true;
 	}

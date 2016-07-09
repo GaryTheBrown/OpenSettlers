@@ -31,7 +31,7 @@ Extractor::Settlers2::FontData::~FontData() {
 	}
 }
 
-void Extractor::Settlers2::FontData::SaveFileData(std::string location){
+void Extractor::Settlers2::FontData::SaveToFile(std::string location){
 	location += "/";
 	Functions::CreateDir(location);
 	for (unsigned char i = 0; i < this->count; i++){

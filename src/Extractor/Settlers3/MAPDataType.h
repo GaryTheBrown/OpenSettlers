@@ -28,7 +28,7 @@ namespace Extractor{
 			~MAPDataType();
 
 			void SaveHeaderData(std::string location);
-			void SaveFileData(std::string location);
+			void SaveToFile(std::string location);
 
 		};
 	}

@@ -37,7 +37,7 @@ Extractor::Settlers3::RGBFrameData::~RGBFrameData() {
 	delete[] this->frames;
 }
 
-bool Extractor::Settlers3::RGBFrameData::SaveFileData(std::string location){
+bool Extractor::Settlers3::RGBFrameData::SaveToFile(std::string location){
 	if(this->count > 0){
 		for(unsigned char i = 0; i < this->count; i++)
 			if(this->frames[i] != NULL) this->frames[i]->SaveToFile(location + "_" + Functions::ToString((int)i));

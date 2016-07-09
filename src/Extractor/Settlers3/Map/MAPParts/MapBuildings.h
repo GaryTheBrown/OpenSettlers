@@ -49,7 +49,7 @@ namespace Extractor{
 			MAPBuildings(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey);
 			virtual ~MAPBuildings(){delete [] this->buildings;};
 			virtual std::string HeaderToString();
-			void SaveFileData(std::string location);
+			void SaveToFile(std::string location);
 		};
 	}
 }

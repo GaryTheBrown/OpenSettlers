@@ -29,6 +29,6 @@ namespace Functions{
 	public:
 
 		virtual ~WAVData(){delete[] this->data;};
-		void SaveFileData(std::string filename);
+		void SaveToFile(std::string filename);
 	};
 }

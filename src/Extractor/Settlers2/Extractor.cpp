@@ -117,7 +117,7 @@ bool Extractor::Settlers2::Extract::RAWLBMFileExtract(std::string folder, std::s
 		Functions::CreateDir("Extracted/S2/");
 		Functions::CreateDir("Extracted/S2/LBM/");
 		Functions::CreateDir("Extracted/S2/LBM/"+ file);
-		LBMFile->SaveFileData("Extracted/S2/LBM/" + file);
+		LBMFile->SaveToFile("Extracted/S2/LBM/" + file);
 		LOGSYSTEM->Log("Closing...",1);
 		delete LBMFile;
 		return true;
@@ -143,7 +143,7 @@ bool Extractor::Settlers2::Extract::RAWBBMFileExtract(std::string folder, std::s
 		Functions::CreateDir("Extracted/S2/");
 		Functions::CreateDir("Extracted/S2/BBM/");
 		Functions::CreateDir("Extracted/S2/BBM/"+ file);
-		BBMFile->SaveFileData("Extracted/S2/BBM/" + file);
+		BBMFile->SaveToFile("Extracted/S2/BBM/" + file);
 		LOGSYSTEM->Log("Closing...",1);
 		delete BBMFile;
 		return true;
@@ -169,7 +169,7 @@ bool Extractor::Settlers2::Extract::RAWLSTFileExtract(std::string folder, std::s
 		Functions::CreateDir("Extracted/S2/");
 		Functions::CreateDir("Extracted/S2/LST/");
 		Functions::CreateDir("Extracted/S2/LST/"+ file);
-		LSTFile->SaveFileData("Extracted/S2/LST/" + file);
+		LSTFile->SaveToFile("Extracted/S2/LST/" + file);
 		LOGSYSTEM->Log("Closing...",1);
 		delete LSTFile;
 		return true;

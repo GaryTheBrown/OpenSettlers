@@ -53,7 +53,7 @@ std::string Extractor::Settlers3::MAPArea::HeaderToString(){
 	return returnString;
 }
 
-void Extractor::Settlers3::MAPArea::SaveFileData(std::string location){
+void Extractor::Settlers3::MAPArea::SaveToFile(std::string location){
 
 	unsigned int dataSize = this->mapSizeHeight*this->mapSizeWidth;
 	char* Aheight = new char[dataSize];

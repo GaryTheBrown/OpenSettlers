@@ -40,7 +40,7 @@ namespace Extractor{
 			MAPArea(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey);
 			virtual ~MAPArea(){delete [] this->mapData;};
 			virtual std::string HeaderToString();
-			void SaveFileData(std::string location);
+			void SaveToFile(std::string location);
 
 
 			int MapSizeHeight(){return this->mapSizeHeight;};

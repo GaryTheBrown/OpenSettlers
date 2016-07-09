@@ -25,6 +25,6 @@ namespace Functions{
 
 		RGBA* GetPalette(){return this->palette;};
 		void SetTransparentColour(unsigned short transClr);
-		void SaveFileData(std::string location);
+		void SaveToFile(std::string location);
 	};
 }

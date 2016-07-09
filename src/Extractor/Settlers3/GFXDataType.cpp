@@ -84,38 +84,38 @@ Extractor::Settlers3::GFXDataType::~GFXDataType(){
 	LOGSYSTEM->Log("Finished Clean up.",2);
 }
 
-void Extractor::Settlers3::GFXDataType::SaveFileData(std::string location){
+void Extractor::Settlers3::GFXDataType::SaveToFile(std::string location){
 
 	if(this->text != NULL){
 		LOGSYSTEM->Log("Saving Text Data...",2);
-		this->text->SaveFileData(location);
+		this->text->SaveToFile(location);
 	}
 	if(this->landscape != NULL){
 		LOGSYSTEM->Log("Saving Landscapes...",2);
-		this->landscape->SaveFileData(location);
+		this->landscape->SaveToFile(location);
 	}
 	if(this->gui != NULL){
 		LOGSYSTEM->Log("Saving GUIs...",2);
-		this->gui->SaveFileData(location);
+		this->gui->SaveToFile(location);
 	}
 	if(this->object != NULL){
 		LOGSYSTEM->Log("Saving Objects...",2);
-		this->object->SaveFileData(location);
+		this->object->SaveToFile(location);
 	}
 	if(this->torso != NULL){
 		LOGSYSTEM->Log("Saving Torsos...",2);
-		this->torso->SaveFileData(location);
+		this->torso->SaveToFile(location);
 	}
 	if(this->shadow != NULL){
 		LOGSYSTEM->Log("Saving Shadows...",2);
-		this->shadow->SaveFileData(location);
+		this->shadow->SaveToFile(location);
 	}
 	if(this->animation != NULL){
 		LOGSYSTEM->Log("Saving Animations...",2);
-		this->animation->SaveFileData(location);
+		this->animation->SaveToFile(location);
 	}
 	if(this->palette != NULL){
 		LOGSYSTEM->Log("Saving Palettes...",2);
-		this->palette->SaveFileData(location);
+		this->palette->SaveToFile(location);
 	}
 }

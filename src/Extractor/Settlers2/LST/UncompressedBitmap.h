@@ -25,7 +25,7 @@ namespace Extractor{
 		public:
 			UncompressedBitmap(Functions::DataReader* reader);
 
-			void SaveFileData(std::string location);
+			void SaveToFile(std::string location);
 		};
 	}
 }

@@ -37,7 +37,7 @@ namespace Extractor{
 			BBMDataType(std::string file);
 			~BBMDataType();
 
-			void SaveFileData(std::string location);
+			void SaveToFile(std::string location);
 		};
 	}
 }

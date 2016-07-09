@@ -168,7 +168,7 @@ std::string Extractor::Settlers3::MAPHeader::HeaderToString(){
 	return returnString;
 }
 
-void Extractor::Settlers3::MAPHeader::SaveFileData(std::string location){
+void Extractor::Settlers3::MAPHeader::SaveToFile(std::string location){
 
 	if(this->area != NULL)
 		this->area->SaveFileData(location);

@@ -56,7 +56,7 @@ Extractor::Settlers3::GFXPalette::~GFXPalette(){
 	}
 }
 
-bool Extractor::Settlers3::GFXPalette::SaveFileData(std::string location){
+bool Extractor::Settlers3::GFXPalette::SaveToFile(std::string location){
 	if((this->count == 0)||(this->palettes == NULL)) return false;
 	location += "/Palette/";
 	Functions::CreateDir(location);

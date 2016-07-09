@@ -64,7 +64,7 @@ std::string Extractor::Settlers3::MAPPreviewImage::HeaderToString(){
 	return returnString;
 }
 
-void Extractor::Settlers3::MAPPreviewImage::SaveFileData(std::string location){
+void Extractor::Settlers3::MAPPreviewImage::SaveToFile(std::string location){
 	Functions::FileImage* fileImage = new Functions::FileImage();
 	if (this->imageSquare != NULL)
 		fileImage->SaveToRGBImage(location + "/PreviewImageSquare.bmp",this->imageSquare,this->length,this->length);
