@@ -29,15 +29,11 @@ namespace Extractor{
 
 			RGBA*** palettes = NULL;
 
-			bool SaveToText(std::string location);
-			bool SaveToHtml(std::string location);
-
 		public:
 			GFXPalette(Functions::DataReader* reader, unsigned int offset,unsigned int colourCode);
 			~GFXPalette();
 
 			bool SaveFileData(std::string location);
-
 			RGBA*** ReturnPalettes(){return this->palettes;};
 		};
 	}

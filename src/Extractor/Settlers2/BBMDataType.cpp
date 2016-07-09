@@ -94,8 +94,7 @@ void Extractor::Settlers2::BBMDataType::SaveFileData(std::string location){
 		Functions::SaveToTextFile(location + "Animation.txt",data);
 	}
 	if (this->palette != NULL){
-		Functions::SaveToTextFile(location + "Palette.html", Functions::PaletteToHtml(this->palette->GetPalette()));
-		Functions::SaveToTextFile(location + "Palette.txt", Functions::PaletteToText(this->palette->GetPalette()));
+		this->palette->SaveFileData(location + "Palette");
 	}
 
 }

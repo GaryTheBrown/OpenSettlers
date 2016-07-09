@@ -105,7 +105,6 @@ void Extractor::Settlers2::LBMDataType::SaveFileData(std::string location){
 	this->imageData->SaveToFile(location + "Image");
 
 	if (this->palette != NULL){
-		Functions::SaveToTextFile(location + "Palette.html", Functions::PaletteToHtml(this->palette->GetPalette()));
-		Functions::SaveToTextFile(location + "Palette.txt", Functions::PaletteToText(this->palette->GetPalette()));
+		this->palette->SaveFileData(location + "Palette");
 	}
 }

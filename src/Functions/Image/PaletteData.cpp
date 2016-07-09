@@ -26,14 +26,7 @@ void Functions::PaletteData::SetTransparentColour(unsigned short transClr){
 }
 
 void Functions::PaletteData::SaveFileData(std::string location){
-	std::string data;
-	data = Functions::PaletteToText(this->palette);
-	std::string filename = location + ".txt";
-	Functions::SaveToTextFile(filename,data);
-
-	std::string htmlVersion = "<html>";
-	htmlVersion += Functions::PaletteToHtml(this->palette);
-	htmlVersion += "</html>";
-	Functions::SaveToTextFile(location + ".html",htmlVersion);
+	Functions::SaveToTextFile(location + ".txt",Functions::PaletteToText(this->palette));
+	Functions::SaveToTextFile(location + ".html","<html>" + Functions::PaletteToHtml(this->palette) + "</html>");
 }
 

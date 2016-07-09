@@ -37,11 +37,6 @@ Extractor::Settlers3::GFXPalette::GFXPalette(Functions::DataReader* reader, unsi
 				for(unsigned int k = 0; k < 256; k++){
 					this->palettes[i][j][k] = RGBA(reader->ReadShort(),((colourCode == 0xf800)?true:false));
 				}
-				//- first colour is set to transparency if needed for later
-				//this->palettes[i][j][0].R = 0;
-				//this->palettes[i][j][0].G = 0;
-				//this->palettes[i][j][0].B = 0;
-				//this->palettes[i][j][0].A = 0;
 			}
 		}
 	}
@@ -61,49 +56,30 @@ Extractor::Settlers3::GFXPalette::~GFXPalette(){
 	}
 }
 
-bool Extractor::Settlers3::GFXPalette::SaveToText(std::string location){
-	if(this->count > 0){
-		std::string data;
-		for(int i = 0; i < this->count;i++){
-			for(int j = 0; j < 8;j++){
-				data = Functions::PaletteToText(this->palettes[i][j]);
-				std::string filename = location + Functions::ToString(i) + "." + Functions::ToString(j) + ".txt";
-				Functions::SaveToTextFile(filename,data);
-			}
-		}
-		return true;
-	}
-	else
-		return false;
-}
-
-bool Extractor::Settlers3::GFXPalette::SaveToHtml(std::string location){
-	if(this->count > 0){
-		std::string htmlVersion = "<html><table>";
-		for(int i = 0; i < this->count;i++){
-			htmlVersion += "<tr><td><b>Group #" + Functions::ToString(i) + "</b></td>.";
-			for(int j = 0; j < 8;j++){
-				htmlVersion += "<td>Palette #" + Functions::ToString(j)+ "<br>";
-				htmlVersion += Functions::PaletteToHtml(this->palettes[i][j]);
-				htmlVersion += "</td>";
-			}
-			htmlVersion += "</tr>";
-		}
-		htmlVersion += "</table></html>";
-		Functions::SaveToTextFile(location + "Palettes.html",htmlVersion);
-		return true;
-	}
-	else
-		return false;
-}
-
 bool Extractor::Settlers3::GFXPalette::SaveFileData(std::string location){
-	if((this->count > 0)&&(this->palettes != NULL)){
-		location += "/Palette/";
-		Functions::CreateDir(location);
-		if (!this->SaveToText(location)) return false;
-		if (!this->SaveToHtml(location)) return false;
-		return true;
+	if((this->count == 0)||(this->palettes == NULL)) return false;
+	location += "/Palette/";
+	Functions::CreateDir(location);
+	if(this->count == 0) return false;
+
+	for(int i = 0; i < this->count;i++){
+		for(int j = 0; j < 8;j++){
+			Functions::SaveToTextFile(location + Functions::ToString(i) + "." + Functions::ToString(j) + ".txt",Functions::PaletteToText(this->palettes[i][j]));
+		}
 	}
-	return false;
+
+	std::string htmlVersion = "<html><table>";
+	for(int i = 0; i < this->count;i++){
+		htmlVersion += "<tr><td><b>Group #" + Functions::ToString(i) + "</b></td>.";
+		for(int j = 0; j < 8;j++){
+			htmlVersion += "<td>Palette #" + Functions::ToString(j)+ "<br>";
+			htmlVersion += Functions::PaletteToHtml(this->palettes[i][j]);
+			htmlVersion += "</td>";
+		}
+		htmlVersion += "</tr>";
+	}
+	htmlVersion += "</table></html>";
+	Functions::SaveToTextFile(location + "Palettes.html",htmlVersion);
+
+	return true;
 }
