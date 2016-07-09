@@ -54,14 +54,10 @@ namespace Extractor{
 		public:
 			Extract(std::string location,bool GOG);
 			Extract(){};
-
 			~Extract();
 
 			bool FullRAWExtract();
-
 			bool ManualExtract(eType fileType,std::string location);
-
-
 		};
 	}
 }

@@ -28,7 +28,6 @@ namespace Extractor{
 
 		public:
 			LBMAnimationData(Functions::DataReader* reader);
-			~LBMAnimationData();
 
 			std::string ToString();
 		};

@@ -8,49 +8,46 @@
  * of the License.
  *******************************************************************************/
 #include "GFXTorso.h"
-namespace Extractor{
-	namespace Settlers3{
-		GFXTorso::GFXTorso(Functions::DataReader* reader, unsigned int offset,RGBA* Palette){
-			reader->SetOffset(offset);
 
-			this->headerID = reader->ReadInt();
-			this->headerSize = reader->ReadShort();
-			this->count = reader->ReadShort();
+Extractor::Settlers3::GFXTorso::GFXTorso(Functions::DataReader* reader, unsigned int offset,RGBA* Palette){
+	reader->SetOffset(offset);
 
-			if (this->count>0){
-				unsigned int offsets[this->count];
-				for (unsigned short i = 0;i < this->count;i++){
-					offsets[i] = reader->ReadInt();
-				}
+	this->headerID = reader->ReadInt();
+	this->headerSize = reader->ReadShort();
+	this->count = reader->ReadShort();
 
-				this->images = new PaletteFrameData*[this->count];
-				for (unsigned short i = 0;i < this->count;i++){
-					this->images[i] = new PaletteFrameData(reader,offsets[i],Palette);
-				}
-			}
+	if (this->count>0){
+		unsigned int offsets[this->count];
+		for (unsigned short i = 0;i < this->count;i++){
+			offsets[i] = reader->ReadInt();
 		}
 
-		GFXTorso::~GFXTorso(){
-
-			if(this->images != NULL){
-				for (unsigned short i = 0; i < this->count; i++){
-					if(this->images[i] != NULL)
-						delete this->images[i];
-				}
-				delete[] this->images;
-			}
-		}
-
-		bool GFXTorso::SaveFileData(std::string location){
-			if(this->count > 0){
-				location += "/Torso/";
-				Functions::CreateDir(location);
-				for(unsigned short i = 0; i < this->count; i++){
-					if(this->images[i] != NULL) this->images[i]->SaveFileData(location + Functions::ToString(i));
-				}
-				return true;
-			}
-			return false;
+		this->images = new PaletteFrameData*[this->count];
+		for (unsigned short i = 0;i < this->count;i++){
+			this->images[i] = new PaletteFrameData(reader,offsets[i],Palette);
 		}
 	}
+}
+
+Extractor::Settlers3::GFXTorso::~GFXTorso(){
+
+	if(this->images != NULL){
+		for (unsigned short i = 0; i < this->count; i++){
+			if(this->images[i] != NULL)
+				delete this->images[i];
+		}
+		delete[] this->images;
+	}
+}
+
+bool Extractor::Settlers3::GFXTorso::SaveFileData(std::string location){
+	if(this->count > 0){
+		location += "/Torso/";
+		Functions::CreateDir(location);
+		for(unsigned short i = 0; i < this->count; i++){
+			if(this->images[i] != NULL) this->images[i]->SaveFileData(location + Functions::ToString(i));
+		}
+		return true;
+	}
+	return false;
 }

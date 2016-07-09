@@ -38,6 +38,7 @@ namespace Functions{
 		unsigned int FileSize(){return this->file->FileSize();};
 		unsigned int GetOffset(){return this->offset;};
 		bool SetOffset(unsigned int newOffset);
+		bool MoveOffset(signed int value);
 
 		void SetBigEndian(){this->bigEndian = true;};
 
@@ -48,7 +49,7 @@ namespace Functions{
 		unsigned char ReadChar();
 		unsigned short ReadShort();
 		unsigned int ReadInt();
-		unsigned long ReadLong();
+		unsigned long long ReadLongLong();
 		std::string ReadString(int size, unsigned int offset);
 		//Get signed Variables
 		signed short ReadSignedShort();

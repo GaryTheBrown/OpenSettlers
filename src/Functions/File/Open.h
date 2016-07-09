@@ -31,7 +31,7 @@ namespace Functions{
 		~File();
 
 		const char* FetchBuffer(unsigned int offset,unsigned int size);
-		const char *readBuffer(int offset);
+		const char* readBuffer(int offset){return this->fileBuffer + offset;};
 
 
 		unsigned int FileSize(){return this->fileSize;};

@@ -8,23 +8,22 @@
  * of the License.
  *******************************************************************************/
 #include "Save.h"
-namespace Functions{
-	void SaveToTextFile(std::string fileLocation,std::string data){
-		if (FileExists(fileLocation))
-			remove(fileLocation.c_str());
 
-		std::ofstream ofile;
-		ofile.open(fileLocation.c_str());
-		ofile.write(data.c_str(),data.length());
-		ofile.close();
-	}
+void Functions::SaveToTextFile(std::string fileLocation,std::string data){
+	if (FileExists(fileLocation))
+		remove(fileLocation.c_str());
 
-	void SaveToBinaryFile(std::string fileLocation,char* data,unsigned int size){
-		if (FileExists(fileLocation)) remove(fileLocation.c_str());
+	std::ofstream ofile;
+	ofile.open(fileLocation.c_str());
+	ofile.write(data.c_str(),data.length());
+	ofile.close();
+}
 
-		std::ofstream ofile;
-		ofile.open(fileLocation.c_str(), std::ios::binary);
-		ofile.write(data,size);
-		ofile.close();
-	}
+void Functions::SaveToBinaryFile(std::string fileLocation,char* data,unsigned int size){
+	if (FileExists(fileLocation)) remove(fileLocation.c_str());
+
+	std::ofstream ofile;
+	ofile.open(fileLocation.c_str(), std::ios::binary);
+	ofile.write(data,size);
+	ofile.close();
 }

@@ -8,7 +8,7 @@
  * of the License.
  *******************************************************************************/
 #include "main.h"
-using namespace Extractor;
+
 int main(int argc,char* argv[]){
 //temp version number until build system sorted
 	std::string VERSION = "0.01";
@@ -17,7 +17,7 @@ int main(int argc,char* argv[]){
 
 	if(argc == 2){
 		LOGSYSTEM->Log("Settlers Extractor Started",1);
-		if (Main(argv[1]) == false) return 0;
+		if (Extractor::Main(argv[1]) == false) return 0;
 		LOGSYSTEM->Log("Settlers Extractor Completed",1);
 		return 0;
 	}

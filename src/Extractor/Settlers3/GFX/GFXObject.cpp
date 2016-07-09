@@ -8,48 +8,45 @@
  * of the License.
  *******************************************************************************/
 #include "GFXObject.h"
-namespace Extractor{
-	namespace Settlers3{
-		GFXObject::GFXObject(Functions::DataReader* reader, unsigned int offset,unsigned int colourCode){
-			reader->SetOffset(offset);
-			this->headerID = reader->ReadInt();
-			this->headerSize = reader->ReadShort();
-			this->count = reader->ReadShort();
 
-			//- assign array for offsets
-			if (this->count>0){
-				unsigned int offsets[this->count];
-				for (unsigned short i = 0;i < this->count;i++){
-					offsets[i] = reader->ReadInt();
-				}
+Extractor::Settlers3::GFXObject::GFXObject(Functions::DataReader* reader, unsigned int offset,unsigned int colourCode){
+	reader->SetOffset(offset);
+	this->headerID = reader->ReadInt();
+	this->headerSize = reader->ReadShort();
+	this->count = reader->ReadShort();
 
-				this->images = new RGBFrameData*[this->count];
-				for (unsigned short i = 0;i < this->count;i++){
-					this->images[i] = new RGBFrameData(reader,offsets[i],RGBImageData::IMG_GFX_Object,colourCode);
-				}
-			}
+	//- assign array for offsets
+	if (this->count>0){
+		unsigned int offsets[this->count];
+		for (unsigned short i = 0;i < this->count;i++){
+			offsets[i] = reader->ReadInt();
 		}
 
-		GFXObject::~GFXObject(){
-			if(this->images != NULL){
-				for (unsigned short i = 0; i < this->count; i++){
-					if(this->images[i] != NULL) delete this->images[i];
-				}
-				delete[] this->images;
-			}
-		}
-
-		bool GFXObject::SaveFileData(std::string location){
-
-			if(this->count > 0){
-				location += "/Object/";
-				Functions::CreateDir(location);
-				for(unsigned short i = 0; i < this->count; i++){
-					if(this->images[i] != NULL) this->images[i]->SaveFileData(location + Functions::ToString(i));
-				}
-				return true;
-			}
-			return false;
+		this->images = new RGBFrameData*[this->count];
+		for (unsigned short i = 0;i < this->count;i++){
+			this->images[i] = new RGBFrameData(reader,offsets[i],RGBImageData::IMG_GFX_Object,colourCode);
 		}
 	}
+}
+
+Extractor::Settlers3::GFXObject::~GFXObject(){
+	if(this->images != NULL){
+		for (unsigned short i = 0; i < this->count; i++){
+			if(this->images[i] != NULL) delete this->images[i];
+		}
+		delete[] this->images;
+	}
+}
+
+bool Extractor::Settlers3::GFXObject::SaveFileData(std::string location){
+
+	if(this->count > 0){
+		location += "/Object/";
+		Functions::CreateDir(location);
+		for(unsigned short i = 0; i < this->count; i++){
+			if(this->images[i] != NULL) this->images[i]->SaveFileData(location + Functions::ToString(i));
+		}
+		return true;
+	}
+	return false;
 }

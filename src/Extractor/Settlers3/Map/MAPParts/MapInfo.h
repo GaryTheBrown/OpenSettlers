@@ -36,9 +36,7 @@ namespace Extractor{
 
 		public:
 			MAPInfo(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey);
-			virtual ~MAPInfo(){};
 			virtual std::string ToString();
-
 			bool IsSinglePlayerMap(){return this->isSinglePlayerMap;};
 			int PlayerCount(){return this->playerCount;};
 			enumStartResources StartResources(){return this->startResources;};

@@ -10,15 +10,10 @@
 
 #include "LSTHeader.h"
 
-namespace Extractor {
-	namespace Settlers2{
+Extractor::Settlers2::LSTxxx::LSTxxx(Functions::DataReader* reader) {
 
-		LSTxxx::LSTxxx(Functions::DataReader* reader) {
+}
 
-		}
+Extractor::Settlers2::LSTxxx::~LSTxxx() {
 
-		LSTxxx::~LSTxxx() {
-
-		}
-	}
 }

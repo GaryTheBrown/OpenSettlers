@@ -8,35 +8,32 @@
  * of the License.
  *******************************************************************************/
 #include "SNDFrame.h"
-namespace Extractor{
-	namespace Settlers3{
-		SNDFrame::SNDFrame(Functions::DataReader* reader, unsigned int offset) {
-			reader->SetOffset(offset);
 
-			this->count = reader->ReadInt();
+Extractor::Settlers3::SNDFrame::SNDFrame(Functions::DataReader* reader, unsigned int offset) {
+	reader->SetOffset(offset);
 
-			unsigned int offsets[this->count];
+	this->count = reader->ReadInt();
 
-			for (unsigned char i = 0; i < this->count; i++)
-				offsets[i] = reader->ReadInt();
+	unsigned int offsets[this->count];
 
-			this->data = new SNDData*[this->count];
-			for (unsigned char i = 0; i < this->count; i++){
-					this->data[i] = new SNDData(reader,offsets[i]);
-			}
-		}
+	for (unsigned char i = 0; i < this->count; i++)
+		offsets[i] = reader->ReadInt();
 
-		SNDFrame::~SNDFrame(){
-			for (unsigned char i = 0; i < this->count; i++)
-				delete this->data[i];
-			delete[] this->data;
-		}
+	this->data = new SNDData*[this->count];
+	for (unsigned char i = 0; i < this->count; i++){
+		this->data[i] = new SNDData(reader,offsets[i]);
+	}
+}
 
-		void SNDFrame::SaveFileData(std::string filename){
-			for (unsigned short i = 0;i < this->count;i++){
-				if (this->data[i] != NULL)
-					this->data[i]->SaveFileData(filename + "_" + Functions::ToString(i) + ".wav");
-			}
-		}
+Extractor::Settlers3::SNDFrame::~SNDFrame(){
+	for (unsigned char i = 0; i < this->count; i++)
+		delete this->data[i];
+	delete[] this->data;
+}
+
+void Extractor::Settlers3::SNDFrame::SaveFileData(std::string filename){
+	for (unsigned short i = 0;i < this->count;i++){
+		if (this->data[i] != NULL)
+			this->data[i]->SaveFileData(filename + "_" + Functions::ToString(i) + ".wav");
 	}
 }

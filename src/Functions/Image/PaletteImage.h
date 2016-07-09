@@ -26,7 +26,6 @@ namespace Functions{
 		RGBA* palette=NULL;
 
 	public:
-		PaletteImage(){};
 		virtual ~PaletteImage();
 
 		virtual void SaveToFile(std::string filename){};

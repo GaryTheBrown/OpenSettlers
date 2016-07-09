@@ -8,43 +8,41 @@
  * of the License.
  *******************************************************************************/
 #include "PaletteFrameData.h"
-namespace Extractor{
-	namespace Settlers3{
-		PaletteFrameData::PaletteFrameData(Functions::DataReader* reader, unsigned int offset, RGBA* Palette) {
-			reader->SetOffset(offset);
-			this->sequenceCode = reader->ReadInt();
-			this->sequenceHeaderSize = reader->ReadShort();
-			this->sequenceUnknown06 = reader->ReadChar();
-			this->count = reader->ReadChar();
-			unsigned int offsets[this->count];
 
-			for (unsigned char i = 0; i < this->count; i++){
-				offsets[i] = offset + reader->ReadInt();
-			}
+Extractor::Settlers3::PaletteFrameData::PaletteFrameData(Functions::DataReader* reader, unsigned int offset, RGBA* Palette) {
+	reader->SetOffset(offset);
+	this->sequenceCode = reader->ReadInt();
+	this->sequenceHeaderSize = reader->ReadShort();
+	this->sequenceUnknown06 = reader->ReadChar();
+	this->count = reader->ReadChar();
+	unsigned int offsets[this->count];
 
-			this->frames = new PaletteImageData*[this->count];
+	for (unsigned char i = 0; i < this->count; i++){
+		offsets[i] = offset + reader->ReadInt();
+	}
 
-			for (unsigned char i = 0;i < this->count; i++){
-				this->frames[i] = new PaletteImageData(reader,offsets[i],Palette);
-			}
-		}
+	this->frames = new PaletteImageData*[this->count];
 
-		PaletteFrameData::~PaletteFrameData() {
-			for(unsigned char i = 0; i < this->count; i++){
-				if(this->frames[i] != NULL){
-						delete this->frames[i];
-				}
-			}
-			delete[] this->frames;
-		}
-
-		bool PaletteFrameData::SaveFileData(std::string location){
-			if(this->count > 0){
-				for(unsigned char i = 0; i < this->count; i++)
-					if(this->frames[i] != NULL) this->frames[i]->SaveToFile(location + "_" + Functions::ToString((int)i));
-				return true;
-			}
-			return false;
-		}
+	for (unsigned char i = 0;i < this->count; i++){
+		this->frames[i] = new PaletteImageData(reader,offsets[i],Palette);
 	}
 }
+
+Extractor::Settlers3::PaletteFrameData::~PaletteFrameData() {
+	for(unsigned char i = 0; i < this->count; i++){
+		if(this->frames[i] != NULL){
+			delete this->frames[i];
+		}
+	}
+	delete[] this->frames;
+}
+
+bool Extractor::Settlers3::PaletteFrameData::SaveFileData(std::string location){
+	if(this->count > 0){
+		for(unsigned char i = 0; i < this->count; i++)
+			if(this->frames[i] != NULL) this->frames[i]->SaveToFile(location + "_" + Functions::ToString((int)i));
+		return true;
+	}
+	return false;
+}
+

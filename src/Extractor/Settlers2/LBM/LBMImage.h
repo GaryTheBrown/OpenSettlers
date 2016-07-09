@@ -20,7 +20,6 @@ namespace Extractor{
 		class LBMImage : public Functions::PaletteImage{
 		public:
 			LBMImage(Functions::DataReader* reader,unsigned short width,unsigned short height,RGBA* palette);
-			virtual ~LBMImage(){};
 			virtual void SaveToFile(std::string filename);
 
 			bool StepAnimation();

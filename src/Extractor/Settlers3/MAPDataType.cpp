@@ -9,40 +9,37 @@
  *******************************************************************************/
 
 #include "MAPDataType.h"
-namespace Extractor{
-	namespace Settlers3{
-		MAPDataType::MAPDataType(std::string file){
-			LOGSYSTEM->Log("File:" + file,2);
-			Functions::DataReader* reader = new Functions::DataReader(file);
-			reader->SetOffset(0);
-			LOGSYSTEM->Log("Reading Header.",2);
-			this->header = new MAPHeader(reader);
-			LOGSYSTEM->Log("Finished Reading Data To Memory.",2);
-		}
 
-		MAPDataType::~MAPDataType(){
-			if(this->header != NULL){
-				LOGSYSTEM->Log("Deleting Header...",2);
-				delete this->header;
-			}
-			LOGSYSTEM->Log("Finished Deleting.",2);
-		}
+Extractor::Settlers3::MAPDataType::MAPDataType(std::string file){
+	LOGSYSTEM->Log("File:" + file,2);
+	Functions::DataReader* reader = new Functions::DataReader(file);
+	reader->SetOffset(0);
+	LOGSYSTEM->Log("Reading Header.",2);
+	this->header = new MAPHeader(reader);
+	LOGSYSTEM->Log("Finished Reading Data To Memory.",2);
+}
 
-		void MAPDataType::SaveHeaderData(std::string location){
+Extractor::Settlers3::MAPDataType::~MAPDataType(){
+	if(this->header != NULL){
+		LOGSYSTEM->Log("Deleting Header...",2);
+		delete this->header;
+	}
+	LOGSYSTEM->Log("Finished Deleting.",2);
+}
 
-			std::string data;
-			if(this->header != NULL){
-				data += "**HEADER**\n";
-				data += this->header->HeaderToString();
-			}
-			Functions::SaveToTextFile(location + "/Header.txt",data);
-		}
+void Extractor::Settlers3::MAPDataType::SaveHeaderData(std::string location){
 
-		void MAPDataType::SaveFileData(std::string location){
-			if(this->header != NULL){
-				LOGSYSTEM->Log("Saving Map Data",2);
-				this->header->SaveFileData(location);
-			}
-		}
+	std::string data;
+	if(this->header != NULL){
+		data += "**HEADER**\n";
+		data += this->header->HeaderToString();
+	}
+	Functions::SaveToTextFile(location + "/Header.txt",data);
+}
+
+void Extractor::Settlers3::MAPDataType::SaveFileData(std::string location){
+	if(this->header != NULL){
+		LOGSYSTEM->Log("Saving Map Data",2);
+		this->header->SaveFileData(location);
 	}
 }

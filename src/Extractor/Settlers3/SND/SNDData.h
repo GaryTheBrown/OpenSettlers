@@ -9,30 +9,15 @@
  *******************************************************************************/
 
 #pragma once
-#include <string>
 #include "../../../Functions/File/DataReader.h"
-#include "../../../Functions/To.h"
-#include "../../../Functions/File/Functions.h"
+#include "../../../Functions/Audio/WAVData.h"
 
 namespace Extractor{
 	namespace Settlers3{
-		class SNDData{
-		private:
-			//File Header
-			unsigned int length;
-			unsigned short fileVersion;		//1
-			unsigned short channels;		//1
-			unsigned int samplesPerSecond;	//0x5622 = 22,050
-			unsigned int bytesPerSecond;	//0xac44 - 44100htz
-			unsigned short blockAlignment;	//2
-			unsigned short bitsPerSample;	//0x10 - 16
-
-			unsigned char* data;
+		class SNDData : public Functions::WAVData{
 
 		public:
 			SNDData(Functions::DataReader* reader, unsigned int offset);
-			~SNDData();
-			void SaveFileData(std::string filename);
 		};
 	}
 }

@@ -8,47 +8,44 @@
  * of the License.
  *******************************************************************************/
 #include "SNDHeader.h"
-namespace Extractor{
-	namespace Settlers3{
-		SNDHeader::SNDHeader(Functions::DataReader* reader){
-			LOGSYSTEM->Log("Reading:SND:Header...",2);
-			reader->SetOffset(0);
-			//Header
-			this->fileID = reader->ReadInt();
-			this->version = reader->ReadInt();
-			this->spacer = reader->ReadInt();
-			this->headerSizeA = reader->ReadInt();
-			this->fileSize = reader->ReadInt();
-			this->unknown20 = reader->ReadInt();
-			this->headerSizeB = reader->ReadInt();
 
-			//Data Header
-			this->headerID = reader->ReadInt();
-			this->unknown32 = reader->ReadShort();
-			this->count = reader->ReadShort();
-			unsigned int offsets[this->count];
-			for (unsigned short i = 0;i < this->count;i++){
-				offsets[i] = reader->ReadInt();
-			}
+Extractor::Settlers3::SNDHeader::SNDHeader(Functions::DataReader* reader){
+	LOGSYSTEM->Log("Reading:SND:Header...",2);
+	reader->SetOffset(0);
+	//Header
+	this->fileID = reader->ReadInt();
+	this->version = reader->ReadInt();
+	this->spacer = reader->ReadInt();
+	this->headerSizeA = reader->ReadInt();
+	this->fileSize = reader->ReadInt();
+	this->unknown20 = reader->ReadInt();
+	this->headerSizeB = reader->ReadInt();
 
-			this->frames = new SNDFrame*[this->count];
-			for (unsigned short i = 0;i < this->count;i++){
-				this->frames[i] = new SNDFrame(reader,offsets[i]);
-			}
-		}
+	//Data Header
+	this->headerID = reader->ReadInt();
+	this->unknown32 = reader->ReadShort();
+	this->count = reader->ReadShort();
+	unsigned int offsets[this->count];
+	for (unsigned short i = 0;i < this->count;i++){
+		offsets[i] = reader->ReadInt();
+	}
 
-		SNDHeader::~SNDHeader(){
-			for (unsigned short i = 0;i < this->count;i++){
-				delete this->frames[i];
-			}
-			delete[] this->frames;
-		}
+	this->frames = new SNDFrame*[this->count];
+	for (unsigned short i = 0;i < this->count;i++){
+		this->frames[i] = new SNDFrame(reader,offsets[i]);
+	}
+}
 
-		void SNDHeader::SaveFileData(std::string location){
-			for (unsigned short i = 0;i < this->count;i++){
-				if (this->frames[i] != NULL)
-					this->frames[i]->SaveFileData(location + "/" + Functions::ToString(i));
-			}
-		}
+Extractor::Settlers3::SNDHeader::~SNDHeader(){
+	for (unsigned short i = 0;i < this->count;i++){
+		delete this->frames[i];
+	}
+	delete[] this->frames;
+}
+
+void Extractor::Settlers3::SNDHeader::SaveFileData(std::string location){
+	for (unsigned short i = 0;i < this->count;i++){
+		if (this->frames[i] != NULL)
+			this->frames[i]->SaveFileData(location + "/" + Functions::ToString(i));
 	}
 }

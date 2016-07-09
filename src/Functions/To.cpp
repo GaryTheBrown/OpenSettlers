@@ -8,31 +8,30 @@
  * of the License.
  *******************************************************************************/
 #include "To.h"
-namespace Functions{
-	std::string ToHex(int value,int bytes){
-		std::stringstream streamHex;
-		streamHex << std::hex << std::setw(bytes*2)<<value << std::dec;
-		return streamHex.str();
-	}
 
-	std::string ToBinary(int value,int bytes){
-		if(bytes == 1){
-			std::bitset<8> b(value);
-			return b.to_string();
-		}
-		else if(bytes == 2){
-			std::bitset<16> b(value);
-			return b.to_string();
-		}
-		else if(bytes == 4){
-			std::bitset<32> b(value);
-			return b.to_string();
-		}
-		else if(bytes == 8){
-			std::bitset<64> b(value);
-			return b.to_string();
-		}
-		else
-			return "";
+std::string Functions::ToHex(int value,int bytes){
+	std::stringstream streamHex;
+	streamHex << std::hex << std::setw(bytes*2)<<value << std::dec;
+	return streamHex.str();
+}
+
+std::string Functions::ToBinary(int value,int bytes){
+	if(bytes == 1){
+		std::bitset<8> b(value);
+		return b.to_string();
 	}
+	else if(bytes == 2){
+		std::bitset<16> b(value);
+		return b.to_string();
+	}
+	else if(bytes == 4){
+		std::bitset<32> b(value);
+		return b.to_string();
+	}
+	else if(bytes == 8){
+		std::bitset<64> b(value);
+		return b.to_string();
+	}
+	else
+		return "";
 }

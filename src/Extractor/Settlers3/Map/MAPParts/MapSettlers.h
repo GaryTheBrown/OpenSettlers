@@ -32,7 +32,7 @@ namespace Extractor{
 			Settler* settlers;
 		public:
 			MAPSettlers(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey);
-			virtual ~MAPSettlers();
+			virtual ~MAPSettlers(){delete [] this->settlers;};
 			virtual std::string HeaderToString();
 			void SaveFileData(std::string location);
 		};

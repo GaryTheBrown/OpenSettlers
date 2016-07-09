@@ -8,23 +8,22 @@
  * of the License.
  *******************************************************************************/
 #include "PaletteImage.h"
-namespace Functions{
-	PaletteImage::~PaletteImage(){
-		if (this->image != NULL)
-			delete [] this->image;
-	}
 
-	void PaletteImage::SetPalette(RGBA* palette){
-		if ((this->palette == NULL)||(this->palette != palette))
-			this->palette = palette;
-	}
+Functions::PaletteImage::~PaletteImage(){
+	if (this->image != NULL)
+		delete [] this->image;
+}
 
-	RGBA* PaletteImage::ConvertToRGBA(){
-		RGBA *imageRGBA = new RGBA[this->height*this->width];
+void Functions::PaletteImage::SetPalette(RGBA* palette){
+	if ((this->palette == NULL)||(this->palette != palette))
+		this->palette = palette;
+}
 
-		for (int i = 0; i < (this->height*this->width);i++){
-			imageRGBA[i] = this->palette[this->image[i]];
-		}
-		return imageRGBA;
+RGBA* Functions::PaletteImage::ConvertToRGBA(){
+	RGBA *imageRGBA = new RGBA[this->height*this->width];
+
+	for (int i = 0; i < (this->height*this->width);i++){
+		imageRGBA[i] = this->palette[this->image[i]];
 	}
+	return imageRGBA;
 }

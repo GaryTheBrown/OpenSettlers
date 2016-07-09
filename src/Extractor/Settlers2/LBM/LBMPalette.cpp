@@ -10,25 +10,22 @@
 
 #include "LBMPalette.h"
 
-namespace Extractor {
-	namespace Settlers2{
-		LBMPalette::LBMPalette(Functions::DataReader* reader) {
+Extractor::Settlers2::LBMPalette::LBMPalette(Functions::DataReader* reader) {
 
-			this->palette = new RGBA[256];
-			for(unsigned short i = 0; i < 256; i++){
-				this->palette[i].R = reader->ReadChar();
-				this->palette[i].G = reader->ReadChar();
-				this->palette[i].B = reader->ReadChar();
-				this->palette[i].A = 255;
-			}
-		}
-
-		LBMPalette::~LBMPalette() {
-			delete [] palette;
-		}
-
-		void LBMPalette::SetTransparentColour(unsigned short transClr){
-			this->palette[(transClr & 0xFF)] = {0,0,0,0};
-		}
+	this->palette = new RGBA[256];
+	for(unsigned short i = 0; i < 256; i++){
+		this->palette[i].R = reader->ReadChar();
+		this->palette[i].G = reader->ReadChar();
+		this->palette[i].B = reader->ReadChar();
+		this->palette[i].A = 255;
 	}
 }
+
+Extractor::Settlers2::LBMPalette::~LBMPalette() {
+	delete [] palette;
+}
+
+void Extractor::Settlers2::LBMPalette::SetTransparentColour(unsigned short transClr){
+	this->palette[(transClr & 0xFF)] = {0,0,0,0};
+}
+

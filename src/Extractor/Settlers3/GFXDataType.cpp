@@ -8,117 +8,114 @@
  * of the License.
  *******************************************************************************/
 #include "../Settlers3/GFXDataType.h"
-namespace Extractor{
-	namespace Settlers3{
-		GFXDataType::GFXDataType(std::string file){
 
-			if (Functions::FileExists(file) == true){
-				Functions::DataReader* reader = new Functions::DataReader(file);
-				unsigned int headCode = reader->ReadInt();
+Extractor::Settlers3::GFXDataType::GFXDataType(std::string file){
 
-				//Make sure file is for Settlers 3
-				if (headCode != 0x041304){
-					LOGSYSTEM->Error(file + "is not a Settlers 3 GFX File.");
-				}else{
-					LOGSYSTEM->Log("Reading Header.",2);
-					this->header = new GFXHeader(reader);
-					LOGSYSTEM->Log("Reading Text Data.",2);
-					this->text = new GFXText(reader,this->header->OffsetData());
-					LOGSYSTEM->Log("Reading Landscapes.",2);
-					this->landscape = new GFXLandscape(reader,this->header->OffsetLandscape(),this->header->ColourCode());
-					LOGSYSTEM->Log("Reading GUIs.",2);
-					this->gui = new GFXGUI(reader,this->header->OffsetGui(),this->header->ColourCode());
-					LOGSYSTEM->Log("Reading Objects.",2);
-					this->object = new GFXObject(reader,this->header->OffsetObject(),this->header->ColourCode());
-					LOGSYSTEM->Log("Reading Torsos.",2);
-					this->torso = new GFXTorso(reader,this->header->OffsetTorso(),Palette);
-					LOGSYSTEM->Log("Reading Shadows.",2);
-					this->shadow = new GFXShadow(reader,this->header->OffsetShadow());
-					LOGSYSTEM->Log("Reading Animations.",2);
-					this->animation = new GFXAnimation(reader,this->header->OffsetAnimation());
-					LOGSYSTEM->Log("Reading Palettes.",2);
-					this->palette = new GFXPalette(reader,this->header->OffsetPalette(),this->header->ColourCode());
-					LOGSYSTEM->Log("Finished Reading Data To Memory.",2);
-				}
-				if (reader != NULL)delete reader;
-			}
+	if (Functions::FileExists(file) == true){
+		Functions::DataReader* reader = new Functions::DataReader(file);
+		unsigned int headCode = reader->ReadInt();
+
+		//Make sure file is for Settlers 3
+		if (headCode != 0x041304){
+			LOGSYSTEM->Error(file + "is not a Settlers 3 GFX File.");
+		}else{
+			LOGSYSTEM->Log("Reading Header.",2);
+			this->header = new GFXHeader(reader);
+			LOGSYSTEM->Log("Reading Text Data.",2);
+			this->text = new GFXText(reader,this->header->OffsetData());
+			LOGSYSTEM->Log("Reading Landscapes.",2);
+			this->landscape = new GFXLandscape(reader,this->header->OffsetLandscape(),this->header->ColourCode());
+			LOGSYSTEM->Log("Reading GUIs.",2);
+			this->gui = new GFXGUI(reader,this->header->OffsetGui(),this->header->ColourCode());
+			LOGSYSTEM->Log("Reading Objects.",2);
+			this->object = new GFXObject(reader,this->header->OffsetObject(),this->header->ColourCode());
+			LOGSYSTEM->Log("Reading Torsos.",2);
+			this->torso = new GFXTorso(reader,this->header->OffsetTorso(),Palette);
+			LOGSYSTEM->Log("Reading Shadows.",2);
+			this->shadow = new GFXShadow(reader,this->header->OffsetShadow());
+			LOGSYSTEM->Log("Reading Animations.",2);
+			this->animation = new GFXAnimation(reader,this->header->OffsetAnimation());
+			LOGSYSTEM->Log("Reading Palettes.",2);
+			this->palette = new GFXPalette(reader,this->header->OffsetPalette(),this->header->ColourCode());
+			LOGSYSTEM->Log("Finished Reading Data To Memory.",2);
 		}
+		if (reader != NULL)delete reader;
+	}
+}
 
-		GFXDataType::~GFXDataType(){
-			if(this->header != NULL){
-				LOGSYSTEM->Log("Clean up Header...",2);
-				delete this->header;
-			}
-			if(this->text != NULL){
-				LOGSYSTEM->Log("Clean up Text Data...",2);
-				delete this->text;
-			}
+Extractor::Settlers3::GFXDataType::~GFXDataType(){
+	if(this->header != NULL){
+		LOGSYSTEM->Log("Clean up Header...",2);
+		delete this->header;
+	}
+	if(this->text != NULL){
+		LOGSYSTEM->Log("Clean up Text Data...",2);
+		delete this->text;
+	}
 
-			if(this->landscape != NULL){
-				LOGSYSTEM->Log("Clean up Landscapes...",2);
-				delete this->landscape;
-			}
-			if(this->gui != NULL){
-				LOGSYSTEM->Log("Clean up GUIs...",2);
-				delete this->gui;
-			}
-			if(this->object != NULL){
-				LOGSYSTEM->Log("Clean up Objects...",2);
-				delete this->object;
-			}
-			if(this->torso != NULL){
-				LOGSYSTEM->Log("Clean up Torsos...",2);
-				delete this->torso;
-			}
-			if(this->shadow != NULL){
-				LOGSYSTEM->Log("Clean up Shadows...",2);
-				delete this->shadow;
-			}
-			if(this->animation != NULL){
-				LOGSYSTEM->Log("Clean up Animations...",2);
-				delete this->animation;
-			}
-			if(this->palette != NULL){
-				LOGSYSTEM->Log("Clean up Palettes...",2);
-				delete this->palette;
-			}
-			LOGSYSTEM->Log("Finished Clean up.",2);
-		}
+	if(this->landscape != NULL){
+		LOGSYSTEM->Log("Clean up Landscapes...",2);
+		delete this->landscape;
+	}
+	if(this->gui != NULL){
+		LOGSYSTEM->Log("Clean up GUIs...",2);
+		delete this->gui;
+	}
+	if(this->object != NULL){
+		LOGSYSTEM->Log("Clean up Objects...",2);
+		delete this->object;
+	}
+	if(this->torso != NULL){
+		LOGSYSTEM->Log("Clean up Torsos...",2);
+		delete this->torso;
+	}
+	if(this->shadow != NULL){
+		LOGSYSTEM->Log("Clean up Shadows...",2);
+		delete this->shadow;
+	}
+	if(this->animation != NULL){
+		LOGSYSTEM->Log("Clean up Animations...",2);
+		delete this->animation;
+	}
+	if(this->palette != NULL){
+		LOGSYSTEM->Log("Clean up Palettes...",2);
+		delete this->palette;
+	}
+	LOGSYSTEM->Log("Finished Clean up.",2);
+}
 
-		void GFXDataType::SaveFileData(std::string location){
+void Extractor::Settlers3::GFXDataType::SaveFileData(std::string location){
 
-			if(this->text != NULL){
-				LOGSYSTEM->Log("Saving Text Data...",2);
-				this->text->SaveFileData(location);
-			}
-			if(this->landscape != NULL){
-				LOGSYSTEM->Log("Saving Landscapes...",2);
-				this->landscape->SaveFileData(location);
-			}
-			if(this->gui != NULL){
-				LOGSYSTEM->Log("Saving GUIs...",2);
-				this->gui->SaveFileData(location);
-			}
-			if(this->object != NULL){
-				LOGSYSTEM->Log("Saving Objects...",2);
-				this->object->SaveFileData(location);
-			}
-			if(this->torso != NULL){
-				LOGSYSTEM->Log("Saving Torsos...",2);
-				this->torso->SaveFileData(location);
-			}
-			if(this->shadow != NULL){
-				LOGSYSTEM->Log("Saving Shadows...",2);
-				this->shadow->SaveFileData(location);
-			}
-			if(this->animation != NULL){
-				LOGSYSTEM->Log("Saving Animations...",2);
-				this->animation->SaveFileData(location);
-			}
-			if(this->palette != NULL){
-				LOGSYSTEM->Log("Saving Palettes...",2);
-				this->palette->SaveFileData(location);
-			}
-		}
+	if(this->text != NULL){
+		LOGSYSTEM->Log("Saving Text Data...",2);
+		this->text->SaveFileData(location);
+	}
+	if(this->landscape != NULL){
+		LOGSYSTEM->Log("Saving Landscapes...",2);
+		this->landscape->SaveFileData(location);
+	}
+	if(this->gui != NULL){
+		LOGSYSTEM->Log("Saving GUIs...",2);
+		this->gui->SaveFileData(location);
+	}
+	if(this->object != NULL){
+		LOGSYSTEM->Log("Saving Objects...",2);
+		this->object->SaveFileData(location);
+	}
+	if(this->torso != NULL){
+		LOGSYSTEM->Log("Saving Torsos...",2);
+		this->torso->SaveFileData(location);
+	}
+	if(this->shadow != NULL){
+		LOGSYSTEM->Log("Saving Shadows...",2);
+		this->shadow->SaveFileData(location);
+	}
+	if(this->animation != NULL){
+		LOGSYSTEM->Log("Saving Animations...",2);
+		this->animation->SaveFileData(location);
+	}
+	if(this->palette != NULL){
+		LOGSYSTEM->Log("Saving Palettes...",2);
+		this->palette->SaveFileData(location);
 	}
 }

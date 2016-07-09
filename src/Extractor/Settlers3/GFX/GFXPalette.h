@@ -27,7 +27,7 @@ namespace Extractor{
 			unsigned short count=0;		//- @offset:06(2)
 			unsigned int sizeofPalette;	//- @offset:08(4)
 
-			RGBA ***palettes = NULL;
+			RGBA*** palettes = NULL;
 
 			bool SaveToText(std::string location);
 			bool SaveToHtml(std::string location);

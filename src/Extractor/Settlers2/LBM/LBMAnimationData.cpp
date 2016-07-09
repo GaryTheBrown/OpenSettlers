@@ -10,40 +10,32 @@
 
 #include "LBMAnimationData.h"
 
-namespace Extractor {
-	namespace Settlers2{
+Extractor::Settlers2::LBMAnimationData::LBMAnimationData(Functions::DataReader* reader) {
 
-		LBMAnimationData::LBMAnimationData(Functions::DataReader* reader) {
+	this->flags = reader->ReadShort();
+	this->rate = reader->ReadShort();
+	this->padding = reader->ReadShort();
 
-			this->flags = reader->ReadShort();
-			this->rate = reader->ReadShort();
-			this->padding = reader->ReadShort();
+	this->active = ((this->flags & 1) >= 1);
+	this->direction = (((this->flags >> 1) & 1) >= 1);
 
-			this->active = ((this->flags & 1) >= 1);
-			this->direction = (((this->flags >> 1) & 1) >= 1);
+	this->low = reader->ReadChar();
+	this->high = reader->ReadChar();
 
-			this->low = reader->ReadChar();
-			this->high = reader->ReadChar();
-
-		}
-
-		LBMAnimationData::~LBMAnimationData() {
-
-		}
-
-		std::string LBMAnimationData::ToString(){
-			std::string data = "";
-			data += Functions::ToString((int)this->padding);
-			data += " \t" + Functions::ToString((int)this->rate);
-			data += " \t" + Functions::ToString((int)this->flags);
-			data += " \t" + Functions::ToString((int)this->low);
-			data += " \t" + Functions::ToString((int)this->high);
-			data += " \t";
-			data += (this->active?"true":"false");
-			data += " \t";
-			data += (this->direction?"true":"false");
-			data += "\n";
-			return data;
-		}
-	}
 }
+
+std::string Extractor::Settlers2::LBMAnimationData::ToString(){
+	std::string data = "";
+	data += Functions::ToString((int)this->padding);
+	data += " \t" + Functions::ToString((int)this->rate);
+	data += " \t" + Functions::ToString((int)this->flags);
+	data += " \t" + Functions::ToString((int)this->low);
+	data += " \t" + Functions::ToString((int)this->high);
+	data += " \t";
+	data += (this->active?"true":"false");
+	data += " \t";
+	data += (this->direction?"true":"false");
+	data += "\n";
+	return data;
+}
+

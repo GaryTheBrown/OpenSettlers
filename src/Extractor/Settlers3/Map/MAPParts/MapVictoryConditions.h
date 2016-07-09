@@ -57,7 +57,6 @@ namespace Extractor{
 
 		public:
 			MAPVictoryConditions(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey);
-			virtual ~MAPVictoryConditions(){};
 			virtual std::string ToString();
 		};
 	}

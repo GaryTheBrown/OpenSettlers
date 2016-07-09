@@ -20,7 +20,7 @@ namespace Functions{
 
 		public:
 			iConverter(std::string inEncode);
-			~iConverter();
+			~iConverter(){iconv_close(iConv);};
 
 			std::string convert(std::string input);
 		};

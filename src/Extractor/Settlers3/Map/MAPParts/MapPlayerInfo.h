@@ -31,7 +31,7 @@ namespace Extractor{
 			unsigned int playerCount;
 		public:
 			MAPPlayerInfo(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey, unsigned int playerCount);
-			virtual ~MAPPlayerInfo();
+			virtual ~MAPPlayerInfo(){delete [] this->playerInfo;};
 			virtual std::string ToString();
 		};
 	}

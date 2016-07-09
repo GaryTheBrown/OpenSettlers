@@ -8,50 +8,47 @@
  * of the License.
  *******************************************************************************/
 #include "GFXAnimation.h"
-namespace Extractor{
-	namespace Settlers3{
-		GFXAnimation::GFXAnimation(Functions::DataReader* reader, unsigned int offset){
-			reader->SetOffset(offset);
 
-			this->headerID = reader->ReadInt();
-			this->headerSize = reader->ReadShort();
-			this->count = reader->ReadShort();
+Extractor::Settlers3::GFXAnimation::GFXAnimation(Functions::DataReader* reader, unsigned int offset){
+	reader->SetOffset(offset);
 
-			//- assign array for offsets
-			if (this->count>0){
-				unsigned int offsets[this->count];
-				for (unsigned short i = 0;i < this->count;i++){
-					offsets[i] = reader->ReadInt();
-				}
+	this->headerID = reader->ReadInt();
+	this->headerSize = reader->ReadShort();
+	this->count = reader->ReadShort();
 
-				this->animations = new AnimationData*[this->count];
-				for (unsigned short i = 0;i < this->count;i++){
-					this->animations[i] = new AnimationData(reader,offsets[i]);
-				}
-			}
+	//- assign array for offsets
+	if (this->count>0){
+		unsigned int offsets[this->count];
+		for (unsigned short i = 0;i < this->count;i++){
+			offsets[i] = reader->ReadInt();
 		}
 
-		GFXAnimation::~GFXAnimation(){
-			if(this->animations != NULL) {
-				for(unsigned short i = 0; i < this->count; i++){
-					delete this->animations[i];
-				}
-				if(this->animations != NULL) delete[] this->animations;
-			}
-
-
-		}
-
-		bool GFXAnimation::SaveFileData(std::string location){
-			if(this->count > 0){
-				location += "/Animation/";
-				Functions::CreateDir(location);
-				for(unsigned short i = 0; i < this->count; i++){
-					if(this->animations[i] != NULL) this->animations[i]->SaveToFile(location + Functions::ToString(i));
-				}
-				return true;
-			}
-			return false;
+		this->animations = new AnimationData*[this->count];
+		for (unsigned short i = 0;i < this->count;i++){
+			this->animations[i] = new AnimationData(reader,offsets[i]);
 		}
 	}
+}
+
+Extractor::Settlers3::GFXAnimation::~GFXAnimation(){
+	if(this->animations != NULL) {
+		for(unsigned short i = 0; i < this->count; i++){
+			delete this->animations[i];
+		}
+		if(this->animations != NULL) delete[] this->animations;
+	}
+
+
+}
+
+bool Extractor::Settlers3::GFXAnimation::SaveFileData(std::string location){
+	if(this->count > 0){
+		location += "/Animation/";
+		Functions::CreateDir(location);
+		for(unsigned short i = 0; i < this->count; i++){
+			if(this->animations[i] != NULL) this->animations[i]->SaveToFile(location + Functions::ToString(i));
+		}
+		return true;
+	}
+	return false;
 }

@@ -21,7 +21,6 @@ namespace Extractor{
 			std::string text;
 		public:
 			MAPText(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey);
-			virtual ~MAPText(){};
 			virtual std::string ToString();
 		};
 	}
