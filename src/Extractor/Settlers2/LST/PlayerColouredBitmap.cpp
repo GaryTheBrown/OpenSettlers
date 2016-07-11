@@ -9,7 +9,7 @@
  *******************************************************************************/
 
 #include "PlayerColouredBitmap.h"
-
+//TODO Fix errors in this system
 Extractor::Settlers2::PlayerColouredBitmap::PlayerColouredBitmap(Functions::DataReader* reader){
 	this->xRel = reader->ReadSignedShort();
 	this->yRel = reader->ReadSignedShort();
@@ -19,9 +19,44 @@ Extractor::Settlers2::PlayerColouredBitmap::PlayerColouredBitmap(Functions::Data
 	this->paletteID = reader->ReadShort();
 	this->partSize = reader->ReadInt();
 
-	//this->image = new unsigned char[this->width*this->height];
-	this->image = new unsigned char[this->partSize];
-	for (unsigned int i = 0; i < this->partSize; i++)
-		this->image[i] = reader->ReadChar();
-	this->tmpsize = partSize;
+	this->image = new unsigned char[this->height*this->width];
+	this->transparency = new bool[this->height*this->width];
+
+	unsigned int offset = reader->GetOffset();
+	std::vector<unsigned short> starts;
+	for (unsigned short i = 0; i < this->height; i++){
+		starts.push_back(reader->ReadShort());
+	}
+
+	for (unsigned int y = 0; y < this->height; y++){
+		unsigned short x = 0;
+
+		reader->SetOffset(offset + starts[y]);
+
+		while(x < this->width){
+			unsigned char code = reader->ReadChar();
+			if (code < 0x40){//transparent pixels
+				for (unsigned int i = 0; i < code ; i++,x++){
+					this->transparency[((y*this->width)+x)] = true;
+				}
+			} else if (code < 0x80){//uncompressed pixels
+				code -= 0x40;
+				for (unsigned int i = 0; i < code; i++,x++){
+					this->image[((y*this->width)+x)] = reader->ReadChar();
+				}
+			} else if (code < 0xC0){//player coloured pixels
+				code -= 0x80;
+				for (unsigned int i = 0; i < code; i++,x++){
+					this->transparency[((y*this->width)+x)] = true;
+					this->image[((y*this->width)+x)] = reader->ReadChar();
+				}
+			} else {//compressed pixels
+				code -= 0xC0;
+				unsigned char colour = reader->ReadChar();
+				for (unsigned int i = 0; i < code; i++,x++){
+					this->image[((y*this->width)+x)] = colour;
+				}
+			}
+		}
+	}
 }

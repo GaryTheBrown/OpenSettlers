@@ -19,19 +19,20 @@ Extractor::Settlers2::ShadowBitmap::ShadowBitmap(Functions::DataReader* reader){
 	this->paletteID = reader->ReadShort();
 	this->partSize = reader->ReadInt();
 
-	this->imageRGBA = new RGBA[this->height*this->width];
+	unsigned int imageSize = this->height*this->width;
+	this->imageRGBA = new RGBA[imageSize];
 
 	reader->MoveOffset(this->height*2);
 
-	for (unsigned int i = 0; i < this->height*this->width;){
-		unsigned char value = reader->ReadChar();
-		if (value != 255){
-			for (unsigned char j = 0; j < value; j++,i++){
+	for (unsigned int i = 0; i < imageSize;){
+		unsigned char code = reader->ReadChar();
+		if (code < 0xFF){
+			for (unsigned char j = 0; j < code; i++,j++){
 				this->imageRGBA[i] = {0,0,0,127};
 			}
-			value = reader->ReadChar();
-			if (value != 255){
-				for (unsigned char j = 0; j < value; j++,i++){
+			code = reader->ReadChar();
+			if (code < 0xFF){
+				for (unsigned char j = 0; j < code; i++,j++){
 					this->imageRGBA[i] = {0,0,0,0};
 				}
 			}

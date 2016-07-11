@@ -10,8 +10,11 @@
 
 #pragma once
 #include <string>
+#include <vector>
 #include "../../../Functions/File/DataReader.h"
 #include "../../../Functions/Image/PaletteImage.h"
+#include "../../../Functions/To.h"
+#include "../../../Log.h"
 
 namespace Extractor{
 	namespace Settlers2{
@@ -23,7 +26,6 @@ namespace Extractor{
 		public:
 			PlayerColouredBitmap(Functions::DataReader* reader);
 
-			virtual void SaveToFile(std::string location){this->RAWSAVETEMP(location);};
 		};
 	}
 }

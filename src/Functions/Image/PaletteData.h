@@ -18,7 +18,6 @@ namespace Functions{
 	class PaletteData{
 	protected:
 		RGBA* palette = NULL;
-
 	public:
 		PaletteData(Functions::DataReader* reader);
 		~PaletteData(){delete [] palette;};

@@ -14,8 +14,6 @@ Extractor::Settlers2::FontData::FontData(Functions::DataReader* reader) {
 	this->xSpacing = reader->ReadChar();
 	this->ySpacing = reader->ReadChar();
 
-	//TODO Finish this
-	//how is this data stored?
 	short size = this->xSpacing + this->ySpacing;
 	for (unsigned char i = 0; i < this->count; i++){
 		this->ImageData[i] = new unsigned char[size];
@@ -36,6 +34,5 @@ void Extractor::Settlers2::FontData::SaveToFile(std::string location){
 	Functions::CreateDir(location);
 	for (unsigned char i = 0; i < this->count; i++){
 		//TODO FOr each imagedata[i] save the file
-		//need to grab the palette from somewhere for this.
 	}
 }

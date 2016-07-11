@@ -51,14 +51,11 @@ void Functions::PaletteImage::SaveToFile(std::string filename){
 		for(int i = 0; i < this->height; i++){
 			for(int j = 0; j < this->width; j++){
 				int pixel = (i*this->width)+j;
-				if (this->transparency[pixel])
-					data += "XXX,";
-				else if (this->image[pixel] > 99)
-					data += Functions::ToString((int)this->image[pixel]) + ",";
-				else if(this->image[pixel] > 9)
-					data += "0" + Functions::ToString((int)this->image[pixel]) + ",";
-				else
-					data += "00" + Functions::ToString((int)this->image[pixel]) + ",";
+				if (this->transparency[pixel]){
+					data += "XX,";
+				}else{
+					data += Functions::ToHex((int)this->image[pixel],1) + ",";
+				}
 			}
 			data += "\n";
 		}
@@ -66,10 +63,13 @@ void Functions::PaletteImage::SaveToFile(std::string filename){
 
 	Functions::SaveToTextFile(filename + ".txt",data);
 
-	filename.append(".bmp");
-	Functions::FileImage* fileImage = new Functions::FileImage();
-	fileImage->SaveToPaletteImage(filename,this->image,this->palette,this->width,this->height);
-	delete fileImage;
+	if(this->palette != NULL){
+		filename.append(".bmp");
+		Functions::FileImage* fileImage = new Functions::FileImage();
+		//fileImage->SaveToRGBImage(filename,this->ConvertToRGBA(),this->width,this->height);
+		fileImage->SaveToPaletteImage(filename,this->image,this->palette,this->width,this->height);
+		delete fileImage;
+	}
 }
 
 void Functions::PaletteImage::RAWSAVETEMP(std::string filename){

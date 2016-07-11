@@ -30,6 +30,7 @@ namespace Functions{
 		bool* transparency=NULL;
 		RGBA* palette=NULL;
 
+		unsigned char* tempData = NULL;
 		unsigned int tmpsize;
 		void RAWSAVETEMP(std::string filename);
 

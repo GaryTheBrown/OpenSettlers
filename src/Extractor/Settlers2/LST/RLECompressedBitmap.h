@@ -20,10 +20,12 @@ namespace Extractor{
 			unsigned int unknown = 0;// (always 0 = hex 00 00 00 00)
 			unsigned short paletteID = 0; //(always 1 = hex 01 00)
 			unsigned int partSize = 0;
+
+			unsigned char* tempData = NULL;
 		public:
 			RLECompressedBitmap(Functions::DataReader* reader);
 
-			virtual void SaveToFile(std::string location){this->RAWSAVETEMP(location);};
+			virtual void SaveToFile(std::string filename);
 		};
 	}
 }

@@ -50,6 +50,7 @@ namespace Extractor {
 			ShadowBitmap** shadowBitmapFiles = NULL;
 			UncompressedBitmap** uncompressedBitmapFiles = NULL;
 
+			RGBA* tempPalette;
 		public:
 			LSTDataType(std::string file);
 			~LSTDataType();

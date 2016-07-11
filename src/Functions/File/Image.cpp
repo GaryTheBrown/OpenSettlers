@@ -269,11 +269,13 @@ void Functions::FileImage::SaveToPaletteBMPv2(std::string filename,unsigned char
 	};
 
 	unsigned char charPalette[1024]; // BGRA Format
-	for (signed short i = 0; i < 256; i++){//BGR order
-		charPalette[(i*4)] = palette[i].B;
-		charPalette[(i*4)+1] = palette[i].G;
-		charPalette[(i*4)+2] = palette[i].R;
-		charPalette[(i*4)+3] = palette[i].A;
+	if (palette != NULL){
+		for (signed short i = 0; i < 256; i++){//BGR order
+			charPalette[(i*4)] = palette[i].B;
+			charPalette[(i*4)+1] = palette[i].G;
+			charPalette[(i*4)+2] = palette[i].R;
+			charPalette[(i*4)+3] = palette[i].A;
+		}
 	}
 
 	//check if padding needed
