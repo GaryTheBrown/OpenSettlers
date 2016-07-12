@@ -14,25 +14,31 @@ Extractor::Settlers2::FontData::FontData(Functions::DataReader* reader) {
 	this->xSpacing = reader->ReadChar();
 	this->ySpacing = reader->ReadChar();
 
-	short size = this->xSpacing + this->ySpacing;
-	for (unsigned char i = 0; i < this->count; i++){
-		this->ImageData[i] = new unsigned char[size];
-		for (unsigned short j = 0; j < size; j++){
-			this->ImageData[i][j] = reader->ReadChar();
+	unsigned int size = this->xSpacing + this->ySpacing;
+	for (unsigned int i = 0; i < this->count; i++){
+		this->imageData[i] = new unsigned char[size];
+		for (unsigned int j = 0; j < size; j++){
+			this->imageData[i][j] = reader->ReadChar();
 		}
 	}
 }
 
 Extractor::Settlers2::FontData::~FontData() {
-	for (unsigned char i = 0; i < this->count; i++){
-		delete [] this->ImageData[i];
+	for (unsigned int i = 0; i < this->count; i++){
+		delete [] this->imageData[i];
 	}
 }
 
-void Extractor::Settlers2::FontData::SaveToFile(std::string location){
-	location += "/";
-	Functions::CreateDir(location);
-	for (unsigned char i = 0; i < this->count; i++){
-		//TODO FOr each imagedata[i] save the file
+void Extractor::Settlers2::FontData::SaveToFile(std::string filename){
+	std::string data = "";
+	data += "xSpacing=" + Functions::ToString(this->xSpacing) + "\n";
+	data += "ySpacing=" + Functions::ToString(this->ySpacing) + "\n";
+	Functions::SaveToTextFile(filename + ".txt",data);
+
+	Functions::FileImage* fileImage = new Functions::FileImage();
+	for (unsigned int i = 0; i < this->count; i++){
+		//fileImage->SaveToRGBImage(filename,this->ConvertToRGBA(),this->width,this->height);
+		fileImage->SaveToPaletteImage(filename + "." + Functions::ToString(i) + ".bmp",this->imageData[i],this->palette,this->xSpacing,this->ySpacing);
 	}
+	delete fileImage;
 }

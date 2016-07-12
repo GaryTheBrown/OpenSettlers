@@ -9,8 +9,10 @@
  *******************************************************************************/
 
 #pragma once
+#include <string>
 #include "../../../Functions/File/DataReader.h"
 #include "../../../Functions/File/Image.h"
+#include "../../../Functions/To.h"
 
 namespace Extractor{
 	namespace Settlers2{
@@ -21,7 +23,7 @@ namespace Extractor{
 			unsigned char xSpacing;
 			unsigned char ySpacing;
 
-			unsigned char* ImageData[count];
+			unsigned char* imageData[count];
 
 			RGBA* palette = NULL;
 		public:
@@ -29,7 +31,7 @@ namespace Extractor{
 			~FontData();
 
 			void SetPalette(RGBA* palette){this->palette = palette;};
-			void SaveToFile(std::string location);
+			void SaveToFile(std::string filename);
 		};
 	}
 }

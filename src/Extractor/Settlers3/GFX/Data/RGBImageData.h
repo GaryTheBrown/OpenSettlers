@@ -30,9 +30,6 @@ namespace Extractor{
 			};
 
 		private:
-			//Header Info
-			signed short xRel;
-			signed short yRel;
 			enumIMGType gfxType;
 
 		public:

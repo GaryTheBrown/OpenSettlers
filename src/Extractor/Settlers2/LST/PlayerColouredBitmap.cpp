@@ -13,25 +13,31 @@
 Extractor::Settlers2::PlayerColouredBitmap::PlayerColouredBitmap(Functions::DataReader* reader){
 	this->xRel = reader->ReadSignedShort();
 	this->yRel = reader->ReadSignedShort();
-	this->unknown = reader->ReadInt();
+	reader->MoveOffset(4);
 	this->width = reader->ReadShort();
 	this->height = reader->ReadShort();
-	this->paletteID = reader->ReadShort();
-	this->partSize = reader->ReadInt();
+	reader->MoveOffset(6);
 
-	this->image = new unsigned char[this->height*this->width];
-	this->transparency = new bool[this->height*this->width];
+	unsigned int imageSize = this->height*this->width;
+	this->image = new unsigned char[imageSize];
+	for (unsigned int i = 0; i < imageSize; i++){
+		this->image[i] = 0;
+	}
+	this->transparency = new bool[imageSize];
+	for (unsigned int i = 0; i < imageSize; i++){
+		this->transparency[i] = false;
+	}
 
 	unsigned int offset = reader->GetOffset();
-	std::vector<unsigned short> starts;
+	std::vector<unsigned int> starts;
 	for (unsigned short i = 0; i < this->height; i++){
-		starts.push_back(reader->ReadShort());
+		starts.push_back(offset + reader->ReadShort());
 	}
 
 	for (unsigned int y = 0; y < this->height; y++){
 		unsigned short x = 0;
 
-		reader->SetOffset(offset + starts[y]);
+		reader->SetOffset((int)starts[y]);
 
 		while(x < this->width){
 			unsigned char code = reader->ReadChar();
@@ -45,10 +51,18 @@ Extractor::Settlers2::PlayerColouredBitmap::PlayerColouredBitmap(Functions::Data
 					this->image[((y*this->width)+x)] = reader->ReadChar();
 				}
 			} else if (code < 0xC0){//player coloured pixels
+				if (this->image2 == NULL){
+					this->image2 = new unsigned char[imageSize];
+					this->transparency2 = new bool[imageSize];
+					for (unsigned int i = 0; i < imageSize; i++){
+						this->transparency2[i] = true;
+					}
+				}
 				code -= 0x80;
 				for (unsigned int i = 0; i < code; i++,x++){
 					this->transparency[((y*this->width)+x)] = true;
-					this->image[((y*this->width)+x)] = reader->ReadChar();
+					this->transparency2[((y*this->width)+x)] = false;
+					this->image2[((y*this->width)+x)] = reader->ReadChar();
 				}
 			} else {//compressed pixels
 				code -= 0xC0;
@@ -58,5 +72,16 @@ Extractor::Settlers2::PlayerColouredBitmap::PlayerColouredBitmap(Functions::Data
 				}
 			}
 		}
+	}
+}
+void Extractor::Settlers2::PlayerColouredBitmap::SaveToFile(std::string filename){
+	PaletteImage::SaveToFile(filename);
+
+	if (this->image2 != NULL){
+		filename.append(".2.bmp");
+		Functions::FileImage* fileImage = new Functions::FileImage();
+		fileImage->SaveToRGBImage(filename,this->ConvertToRGBA(this->image2,this->transparency2),this->width,this->height);
+		//fileImage->SaveToPaletteImage(filename,this->image2,this->palette,this->width,this->height);
+		delete fileImage;
 	}
 }

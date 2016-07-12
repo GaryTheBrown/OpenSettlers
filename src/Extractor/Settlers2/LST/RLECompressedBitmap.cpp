@@ -13,25 +13,21 @@
 Extractor::Settlers2::RLECompressedBitmap::RLECompressedBitmap(Functions::DataReader* reader){
 	this->xRel = reader->ReadSignedShort();
 	this->yRel = reader->ReadSignedShort();
-	this->unknown = reader->ReadInt();
+	reader->MoveOffset(4);
 	this->width = reader->ReadShort();
 	this->height = reader->ReadShort();
-	this->paletteID = reader->ReadShort();
-	this->partSize = reader->ReadInt();
+	reader->MoveOffset(6);
 
 	unsigned int imageSize = this->height*this->width;
 	this->image = new unsigned char[imageSize];
+	for (unsigned int i = 0; i < imageSize; i++){
+		this->image[i] = 0;
+	}
 	this->transparency = new bool[imageSize];
-//TMP
-	unsigned int offset = reader->GetOffset();
-
-	this->tempData = new unsigned char[this->partSize];
-	for(unsigned int i = 0; i < this->partSize; i++){
-		this->tempData[i] = reader->ReadChar();
+	for (unsigned int i = 0; i < imageSize; i++){
+		this->transparency[i] = false;
 	}
 
-	reader->SetOffset(offset);
-//ENDTMP
 	reader->MoveOffset(this->height*2);
 
 	for (unsigned int i = 0; i < imageSize;){
@@ -48,9 +44,4 @@ Extractor::Settlers2::RLECompressedBitmap::RLECompressedBitmap(Functions::DataRe
 			}
 		}
 	}
-}
-//TMP Feature
-void Extractor::Settlers2::RLECompressedBitmap::SaveToFile(std::string filename){
-	PaletteImage::SaveToFile(filename);
-	Functions::SaveToBinaryFile(filename + ".dat",(char*)this->tempData,this->partSize);
 }

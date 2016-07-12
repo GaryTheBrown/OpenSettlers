@@ -38,7 +38,7 @@ namespace Functions{
 		virtual ~PaletteImage();
 		virtual void SaveToFile(std::string filename);
 
-		RGBA* ConvertToRGBA();
+		RGBA* ConvertToRGBA(unsigned char* fromImage=NULL, bool* fromTransparency=NULL,	RGBA* fromPalette=NULL);
 		void SetPalette(RGBA* Palette);
 
 	};

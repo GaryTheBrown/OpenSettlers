@@ -19,6 +19,8 @@ namespace Functions{
 		protected:
 		unsigned short width = 0;
 		unsigned short height = 0;
+		signed short xRel = 0;
+		signed short yRel = 0;
 
 		RGBA* imageRGBA = NULL;
 

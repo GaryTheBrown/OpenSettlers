@@ -13,11 +13,10 @@ Extractor::Settlers2::ShadowBitmap::ShadowBitmap(Functions::DataReader* reader){
 
 	this->xRel = reader->ReadSignedShort();
 	this->yRel = reader->ReadSignedShort();
-	this->unknown = reader->ReadInt();
+	reader->MoveOffset(4);
 	this->width = reader->ReadShort();
 	this->height = reader->ReadShort();
-	this->paletteID = reader->ReadShort();
-	this->partSize = reader->ReadInt();
+	reader->MoveOffset(6);
 
 	unsigned int imageSize = this->height*this->width;
 	this->imageRGBA = new RGBA[imageSize];

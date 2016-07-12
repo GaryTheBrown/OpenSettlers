@@ -21,19 +21,24 @@ void Functions::PaletteImage::SetPalette(RGBA* palette){
 		this->palette = palette;
 }
 
-RGBA* Functions::PaletteImage::ConvertToRGBA(){
+RGBA* Functions::PaletteImage::ConvertToRGBA(unsigned char* fromImage, bool* fromTransparency,	RGBA* fromPalette){
+
+	if (fromImage == NULL) fromImage = this->image;
+	if (fromTransparency == NULL) fromTransparency = this->transparency;
+	if (fromPalette == NULL) fromPalette = this->palette;
+
 	RGBA *imageRGBA = new RGBA[this->height*this->width];
 
-	if(this->transparency != NULL){
+	if(fromTransparency != NULL){
 		for (int i = 0; i < (this->height*this->width);i++){
-			if(this->transparency[i] == true)
+			if(fromTransparency[i] == true)
 				imageRGBA[i] = {0,0,0,0};
 			else
-				imageRGBA[i] = this->palette[this->image[i]];
+				imageRGBA[i] = fromPalette[fromImage[i]];
 		}
 	}else{
 		for (int i = 0; i < (this->height*this->width);i++)
-			imageRGBA[i] = this->palette[this->image[i]];
+			imageRGBA[i] = fromPalette[fromImage[i]];
 	}
 	return imageRGBA;
 }
@@ -44,32 +49,14 @@ void Functions::PaletteImage::SaveToFile(std::string filename){
 	data += "Width=" + Functions::ToString(this->width) + "\n";
 	data += "Height=" + Functions::ToString(this->height) + "\n";
 	data += "OffsetPositionX=" + Functions::ToString(this->xRel) + "\n";
-	data += "OffsetPositionY=" + Functions::ToString(this->yRel) + "\n";
-
-	if(this->transparency != NULL){
-		//add the data
-		for(int i = 0; i < this->height; i++){
-			for(int j = 0; j < this->width; j++){
-				int pixel = (i*this->width)+j;
-				if (this->transparency[pixel]){
-					data += "XX,";
-				}else{
-					data += Functions::ToHex((int)this->image[pixel],1) + ",";
-				}
-			}
-			data += "\n";
-		}
-	}
-
+	data += "OffsetPositionY=" + Functions::ToString(this->yRel);
 	Functions::SaveToTextFile(filename + ".txt",data);
 
-	if(this->palette != NULL){
-		filename.append(".bmp");
-		Functions::FileImage* fileImage = new Functions::FileImage();
-		//fileImage->SaveToRGBImage(filename,this->ConvertToRGBA(),this->width,this->height);
-		fileImage->SaveToPaletteImage(filename,this->image,this->palette,this->width,this->height);
-		delete fileImage;
-	}
+	filename.append(".bmp");
+	Functions::FileImage* fileImage = new Functions::FileImage();
+	fileImage->SaveToRGBImage(filename,this->ConvertToRGBA(),this->width,this->height);
+	//fileImage->SaveToPaletteImage(filename,this->image,this->palette,this->width,this->height);
+	delete fileImage;
 }
 
 void Functions::PaletteImage::RAWSAVETEMP(std::string filename){

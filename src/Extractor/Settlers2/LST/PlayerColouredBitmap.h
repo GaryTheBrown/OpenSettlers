@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 #include "../../../Functions/File/DataReader.h"
+#include "../../../Functions/File/Image.h"
 #include "../../../Functions/Image/PaletteImage.h"
 #include "../../../Functions/To.h"
 #include "../../../Log.h"
@@ -20,11 +21,11 @@ namespace Extractor{
 	namespace Settlers2{
 		class PlayerColouredBitmap : public Functions::PaletteImage{
 		private:
-			unsigned int unknown = 0;// (always 0 = hex 00 00 00 00)
-			unsigned short paletteID = 0; //(always 1 = hex 01 00)
-			unsigned int partSize = 0;
+			unsigned char* image2 = NULL;
+			bool* transparency2 = NULL;
 		public:
 			PlayerColouredBitmap(Functions::DataReader* reader);
+			void SaveToFile(std::string filename);
 
 		};
 	}

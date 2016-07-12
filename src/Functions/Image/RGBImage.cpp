@@ -21,6 +21,13 @@ Functions::RGBImage::~RGBImage(){
 }
 
 void Functions::RGBImage::SaveToRGBBMP(std::string filename){
+	std::string data = "";
+	data += "Width=" + Functions::ToString(this->width) + "\n";
+	data += "Height=" + Functions::ToString(this->height) + "\n";
+	data += "OffsetPositionX=" + Functions::ToString(this->xRel) + "\n";
+	data += "OffsetPositionY=" + Functions::ToString(this->yRel);
+	Functions::SaveToTextFile(filename + ".txt",data);
+
 	filename.append(".bmp");
 	Functions::FileImage* fileImage = new Functions::FileImage();
 	fileImage->SaveToRGBImage(filename,this->imageRGBA,this->width,this->height);

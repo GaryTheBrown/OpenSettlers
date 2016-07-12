@@ -16,9 +16,7 @@ namespace Extractor{
 	namespace Settlers2{
 		class UncompressedBitmap : public Functions::PaletteImage{
 		private:
-			unsigned short paletteID;
-			unsigned int lengthOfData;
-			unsigned long long unknown;
+
 
 		public:
 			UncompressedBitmap(Functions::DataReader* reader);

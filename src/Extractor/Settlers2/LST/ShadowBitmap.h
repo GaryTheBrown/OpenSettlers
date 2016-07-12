@@ -18,11 +18,8 @@ namespace Extractor{
 	namespace Settlers2{
 		class ShadowBitmap : public Functions::RGBImage{
 		private:
-			unsigned int unknown = 0;// (always 0 = hex 00 00 00 00)
-			unsigned short paletteID = 0; //(always 1 = hex 01 00)
 			signed short xRel;
 			signed short yRel;
-			unsigned int partSize = 0;
 		public:
 			ShadowBitmap(Functions::DataReader* reader);
 
