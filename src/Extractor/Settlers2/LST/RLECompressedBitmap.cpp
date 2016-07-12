@@ -9,7 +9,7 @@
  *******************************************************************************/
 
 #include "RLECompressedBitmap.h"
-//TODO Fix errors in this system
+
 Extractor::Settlers2::RLECompressedBitmap::RLECompressedBitmap(Functions::DataReader* reader){
 	this->xRel = reader->ReadSignedShort();
 	this->yRel = reader->ReadSignedShort();

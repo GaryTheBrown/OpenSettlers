@@ -9,7 +9,7 @@
  *******************************************************************************/
 
 #include "PlayerColouredBitmap.h"
-//TODO Fix errors in this system
+
 Extractor::Settlers2::PlayerColouredBitmap::PlayerColouredBitmap(Functions::DataReader* reader){
 	this->xRel = reader->ReadSignedShort();
 	this->yRel = reader->ReadSignedShort();
