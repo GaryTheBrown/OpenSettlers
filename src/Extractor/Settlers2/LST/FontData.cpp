@@ -31,14 +31,17 @@ Extractor::Settlers2::FontData::~FontData() {
 
 void Extractor::Settlers2::FontData::SaveToFile(std::string filename){
 	std::string data = "";
-	data += "xSpacing=" + Functions::ToString(this->xSpacing) + "\n";
-	data += "ySpacing=" + Functions::ToString(this->ySpacing) + "\n";
+	data += "xSpacing=" + Functions::ToString((int)this->xSpacing) + "\n";
+	data += "ySpacing=" + Functions::ToString((int)this->ySpacing) + "\n";
 	Functions::SaveToTextFile(filename + ".txt",data);
 
+	filename.append("/");
+	Functions::CreateDir(filename);
 	Functions::FileImage* fileImage = new Functions::FileImage();
 	for (unsigned int i = 0; i < this->count; i++){
 		//fileImage->SaveToRGBImage(filename,this->ConvertToRGBA(),this->width,this->height);
-		fileImage->SaveToPaletteImage(filename + "." + Functions::ToString(i) + ".bmp",this->imageData[i],this->palette,this->xSpacing,this->ySpacing);
+
+		fileImage->SaveToPaletteImage(filename + Functions::ToString(i + 32) + ".bmp",this->imageData[i],this->palette,this->ySpacing,this->xSpacing);
 	}
 	delete fileImage;
 }

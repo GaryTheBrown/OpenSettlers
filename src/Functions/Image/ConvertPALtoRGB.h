@@ -9,19 +9,10 @@
  *******************************************************************************/
 
 #pragma once
+#include <string>
+#include "../Image/RGBA.h"
+//#include "../File/Image.h"
 
-namespace Extractor{
-	enum eType{
-		SKIP,
-		FULL,
-		//Settlers 2 ONLY
-		LBM,
-		BBM,
-		LST,
-		IDX,
-		//Settlers 3 ONLY
-		GFX,
-		SND,
-		MAP
-	};
-}
+namespace Functions{
+	RGBA* ConvertPALToRGBA(unsigned char* fromImage, bool* fromTransparency, RGBA* fromPalette, unsigned int size);
+	}

@@ -13,9 +13,11 @@ bool Extractor::Main(std::string location){
 	eType fileType = FULL;
 	char gameNo = 0;
 	bool GOG = false;
+
 	//First check if location is a file (with extension)
 	size_t locationofdot = location.find_last_of(".");
 	std::string extension = location.substr(locationofdot + 1);
+	std::string fileWithoutExtension = location.substr(0, locationofdot);
 	std::transform(extension.begin(), extension.end(), extension.begin(), toupper);
 	if ((locationofdot != std::string::npos)&&(extension.length() == 3)){//File with 3 letter extension name
 		//Settlers 2 File Types
@@ -39,29 +41,44 @@ bool Extractor::Main(std::string location){
 			fileType = MAP;
 			gameNo = 3;
 		}
+		else if (extension == "IDX") {
+			if (Functions::FileExists(fileWithoutExtension + ".DAT")){
+			fileType = IDX;
+			gameNo = 2;
+			}else{
+				LOGSYSTEM->Error("IDX file without DAT File");
+				fileType = SKIP;
+				gameNo = 2;
+			}
+		}
 		else if (extension == "DAT") {
 			LOGSYSTEM->Log("Reading DAT File Type",1);
-			Functions::DataReader *reader = new Functions::DataReader(location);
-			int code = reader->ReadInt();
-			delete reader;
-			switch(code){
-			case 267012: //GFX
-				fileType = GFX;
-				gameNo = 3;
-				break;
-			case 70980: //SND
-				fileType = SND;
-				gameNo = 3;
-				break;
-			case 9460301: // GFX S3_18.DAT is a DOS DLL file
-				LOGSYSTEM->Log("S3_18.DAT Detected Nothing to do.",1);
-				return true;
-			case 1179011410: //VIDEO
-				LOGSYSTEM->Log("Video File Detected Nothing to do.",1);
-				return true;
-			default:
-				LOGSYSTEM->Log("File Not Recognised",1);
-				return true;
+			if (Functions::FileExists(fileWithoutExtension + ".IDX")){
+				fileType = SKIP;
+				gameNo = 2;
+			}else{
+				Functions::DataReader *reader = new Functions::DataReader(location);
+				int code = reader->ReadInt();
+				delete reader;
+				switch(code){
+				case 267012: //GFX
+					fileType = GFX;
+					gameNo = 3;
+					break;
+				case 70980: //SND
+					fileType = SND;
+					gameNo = 3;
+					break;
+				case 9460301: // GFX S3_18.DAT is a DOS DLL file
+					LOGSYSTEM->Log("S3_18.DAT Detected Nothing to do.",1);
+					return true;
+				case 1179011410: //VIDEO
+					LOGSYSTEM->Log("Video File Detected Nothing to do.",1);
+					return true;
+				default:
+					LOGSYSTEM->Log("File Not Recognised",1);
+					return true;
+				}
 			}
 
 		}
@@ -138,6 +155,9 @@ bool Extractor::Main(std::string location){
 	}
 
 	switch(fileType){
+	case SKIP:{//This is to allow the skipping of a file if the file is a paired file (Settlers 2 IDX & DAT)
+		return true;
+	}
 	case FULL:{
 		switch(gameNo){
 		case 1:{
@@ -178,7 +198,8 @@ bool Extractor::Main(std::string location){
 	}
 	case LBM:
 	case BBM:
-	case LST:{
+	case LST:
+	case IDX:{
 		Settlers2::Extract* s2Extract = new Settlers2::Extract();
 		if(s2Extract->ManualExtract(fileType, location) == false) return false;
 		delete s2Extract;

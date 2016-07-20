@@ -17,30 +17,12 @@ Functions::PaletteImage::~PaletteImage(){
 }
 
 void Functions::PaletteImage::SetPalette(RGBA* palette){
-	if ((this->palette == NULL)||(this->palette != palette))
+//	if ((this->palette == NULL)||(this->palette != palette))
 		this->palette = palette;
 }
 
-RGBA* Functions::PaletteImage::ConvertToRGBA(unsigned char* fromImage, bool* fromTransparency,	RGBA* fromPalette){
-
-	if (fromImage == NULL) fromImage = this->image;
-	if (fromTransparency == NULL) fromTransparency = this->transparency;
-	if (fromPalette == NULL) fromPalette = this->palette;
-
-	RGBA *imageRGBA = new RGBA[this->height*this->width];
-
-	if(fromTransparency != NULL){
-		for (int i = 0; i < (this->height*this->width);i++){
-			if(fromTransparency[i] == true)
-				imageRGBA[i] = {0,0,0,0};
-			else
-				imageRGBA[i] = fromPalette[fromImage[i]];
-		}
-	}else{
-		for (int i = 0; i < (this->height*this->width);i++)
-			imageRGBA[i] = fromPalette[fromImage[i]];
-	}
-	return imageRGBA;
+RGBA* Functions::PaletteImage::ConvertToRGBA(){
+	return Functions::ConvertPALToRGBA(this->image,this->transparency,this->palette,(this->height*this->width));
 }
 
 void Functions::PaletteImage::SaveToFile(std::string filename){

@@ -15,6 +15,7 @@
 #include "../To.h"
 #include "../File/Image.h"
 #include "../../Log.h"
+#include "ConvertPALtoRGB.h"
 
 namespace Functions{
 	class PaletteImage{
@@ -38,7 +39,7 @@ namespace Functions{
 		virtual ~PaletteImage();
 		virtual void SaveToFile(std::string filename);
 
-		RGBA* ConvertToRGBA(unsigned char* fromImage=NULL, bool* fromTransparency=NULL,	RGBA* fromPalette=NULL);
+		RGBA* ConvertToRGBA();
 		void SetPalette(RGBA* Palette);
 
 	};

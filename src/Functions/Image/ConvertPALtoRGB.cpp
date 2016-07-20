@@ -7,21 +7,22 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
+#include "ConvertPALtoRGB.h"
 
-#pragma once
+RGBA* Functions::ConvertPALToRGBA(unsigned char* fromImage, bool* fromTransparency,	RGBA* fromPalette, unsigned int size){
 
-namespace Extractor{
-	enum eType{
-		SKIP,
-		FULL,
-		//Settlers 2 ONLY
-		LBM,
-		BBM,
-		LST,
-		IDX,
-		//Settlers 3 ONLY
-		GFX,
-		SND,
-		MAP
-	};
+	RGBA *imageRGBA = new RGBA[size];
+
+	if(fromTransparency != NULL){
+		for (int i = 0; i < (size);i++){
+			if(fromTransparency[i] == true)
+				imageRGBA[i] = {0,0,0,0};
+			else
+				imageRGBA[i] = fromPalette[fromImage[i]];
+		}
+	}else{
+		for (int i = 0; i < (size);i++)
+			imageRGBA[i] = fromPalette[fromImage[i]];
+	}
+	return imageRGBA;
 }

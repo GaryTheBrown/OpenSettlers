@@ -185,6 +185,32 @@ void Extractor::Settlers2::Extract::RAWLSTFolderExtract(std::string folder){
 	}
 }
 
+bool Extractor::Settlers2::Extract::RAWIDXFileExtract(std::string folder, std::string file){
+	if(Functions::FileExists(folder+file)){
+		LOGSYSTEM->Log("Open IDX Data File: "+ file,1);
+		LOGSYSTEM->Log("Extracting...",1);
+		IDXDATDataType* IDXDATFile = new IDXDATDataType(folder+file);
+		LOGSYSTEM->Log("Saving...",1);
+		Functions::CreateDir("Extracted/");
+		Functions::CreateDir("Extracted/S2/");
+		Functions::CreateDir("Extracted/S2/IDX/");
+		Functions::CreateDir("Extracted/S2/IDX/"+ file);
+		IDXDATFile->SaveToFile("Extracted/S2/IDX/" + file);
+		LOGSYSTEM->Log("Closing...",1);
+		delete IDXDATFile;
+		return true;
+	}else return false;
+}
+
+void Extractor::Settlers2::Extract::RAWIDXFolderExtract(std::string folder){
+	if(Functions::FolderExists(folder)){
+		std::vector<std::string> fileList = Functions::GetDir(folder);
+		for(unsigned int i=0; i < fileList.size(); i++){
+			this->RAWIDXFileExtract(folder,fileList[i]);
+		}
+	}
+}
+
 bool Extractor::Settlers2::Extract::ManualExtract(eType fileType, std::string location){
 	size_t pos = location.find_last_of("/");
 	if(pos != location.length()-1){
@@ -201,10 +227,12 @@ bool Extractor::Settlers2::Extract::ManualExtract(eType fileType, std::string lo
 		case LST:
 			this->RAWLSTFileExtract(folder,file);
 			break;
+		case IDX:
+			this->RAWIDXFileExtract(folder,file);
+			break;
 		default:
 			return false;
 		}
-
 	}else{
 		switch(fileType){//Folder
 		case LBM:
@@ -216,10 +244,12 @@ bool Extractor::Settlers2::Extract::ManualExtract(eType fileType, std::string lo
 		case LST:
 			this->RAWLSTFolderExtract(location);
 			break;
+		case IDX:
+			this->RAWIDXFolderExtract(location);
+			break;
 		default:
 			return false;
 		}
 	}
 	return true;
 }
-

@@ -23,21 +23,54 @@ Extractor::Settlers2::PlayerColouredBitmap::PlayerColouredBitmap(Functions::Data
 	for (unsigned int i = 0; i < imageSize; i++){
 		this->image[i] = 0;
 	}
+
 	this->transparency = new bool[imageSize];
 	for (unsigned int i = 0; i < imageSize; i++){
 		this->transparency[i] = false;
 	}
 
 	unsigned int offset = reader->GetOffset();
-	std::vector<unsigned int> starts;
+	unsigned int* starts = new unsigned int[this->height];
 	for (unsigned short i = 0; i < this->height; i++){
-		starts.push_back(offset + reader->ReadShort());
+		starts[i] = offset + reader->ReadShort();
 	}
+
+	this->Read(reader,starts,false);
+}
+
+Extractor::Settlers2::PlayerColouredBitmap::PlayerColouredBitmap(Functions::DataReader* reader, unsigned short width, unsigned short height, unsigned char nx, unsigned char ny, unsigned char* image, unsigned int* starts, bool absoluteStarts){
+
+	this->width = width;
+	this->height = height;
+	this->xRel = nx;
+	this->yRel = ny;
+
+	unsigned int imageSize = this->height*this->width;
+
+	if(image == NULL)
+		this->image = new unsigned char[imageSize];
+	else
+		this->image = image;
+
+	this->transparency = new bool[imageSize];
+	for (unsigned int i = 0; i < imageSize; i++){
+		this->transparency[i] = false;
+	}
+
+	this->Read(reader,starts,true);
+
+}
+
+void Extractor::Settlers2::PlayerColouredBitmap::Read(Functions::DataReader* reader, unsigned int* starts, bool absoluteStarts){
+	unsigned int imageSize = this->height*this->width;
 
 	for (unsigned int y = 0; y < this->height; y++){
 		unsigned short x = 0;
 
 		reader->SetOffset((int)starts[y]);
+
+//		if(absoluteStarts == false)
+//          reader->MoveOffset(-(height * 2));
 
 		while(x < this->width){
 			unsigned char code = reader->ReadChar();
@@ -74,13 +107,15 @@ Extractor::Settlers2::PlayerColouredBitmap::PlayerColouredBitmap(Functions::Data
 		}
 	}
 }
+
 void Extractor::Settlers2::PlayerColouredBitmap::SaveToFile(std::string filename){
 	PaletteImage::SaveToFile(filename);
 
 	if (this->image2 != NULL){
 		filename.append(".2.bmp");
+		RGBA* RGBImage = Functions::ConvertPALToRGBA(this->image2,this->transparency2,this->palette,(this->width*this->height));
 		Functions::FileImage* fileImage = new Functions::FileImage();
-		fileImage->SaveToRGBImage(filename,this->ConvertToRGBA(this->image2,this->transparency2),this->width,this->height);
+		fileImage->SaveToRGBImage(filename,RGBImage,this->width,this->height);
 		//fileImage->SaveToPaletteImage(filename,this->image2,this->palette,this->width,this->height);
 		delete fileImage;
 	}

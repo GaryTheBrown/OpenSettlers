@@ -23,8 +23,12 @@ namespace Extractor{
 		private:
 			unsigned char* image2 = NULL;
 			bool* transparency2 = NULL;
+			void Read(Functions::DataReader* reader, unsigned int* starts, bool absoluteStarts);
+
 		public:
 			PlayerColouredBitmap(Functions::DataReader* reader);
+			PlayerColouredBitmap(Functions::DataReader* reader,unsigned short width, unsigned short height, unsigned char nx, unsigned char ny, unsigned char* image, unsigned int* starts, bool absoluteStarts);
+
 			void SaveToFile(std::string filename);
 
 		};
