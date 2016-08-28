@@ -11,7 +11,7 @@
 
 int main(int argc,char* argv[]){
 //temp version number until build system sorted
-	std::string VERSION = "0.01";
+	std::string VERSION = "0.26";
 
 	std::string ProgramName = argv[0];
 

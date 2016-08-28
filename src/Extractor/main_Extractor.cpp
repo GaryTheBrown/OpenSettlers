@@ -36,11 +36,6 @@ bool Extractor::Main(std::string location){
 			gameNo = 2;
 			LOGSYSTEM->Log("LST File Type",1);
 		}
-		//Settlers 3 File Types
-		else if (extension == "MAP"){
-			fileType = MAP;
-			gameNo = 3;
-		}
 		else if (extension == "IDX") {
 			if (Functions::FileExists(fileWithoutExtension + ".DAT")){
 			fileType = IDX;
@@ -51,6 +46,17 @@ bool Extractor::Main(std::string location){
 				gameNo = 2;
 			}
 		}
+		if (extension == "BOB"){
+			fileType = BOB;
+			gameNo = 2;
+			LOGSYSTEM->Log("BOB File Type",1);
+		}
+		//Settlers 3 File Types
+		else if (extension == "MAP"){
+			fileType = MAP;
+			gameNo = 3;
+		}
+		//MULTI GAME File Types
 		else if (extension == "DAT") {
 			LOGSYSTEM->Log("Reading DAT File Type",1);
 			if (Functions::FileExists(fileWithoutExtension + ".IDX")){
@@ -80,7 +86,6 @@ bool Extractor::Main(std::string location){
 					return true;
 				}
 			}
-
 		}
 		//GOG EXE's
 		else if (extension == "EXE"){
@@ -199,7 +204,8 @@ bool Extractor::Main(std::string location){
 	case LBM:
 	case BBM:
 	case LST:
-	case IDX:{
+	case IDX:
+	case BOB:{
 		Settlers2::Extract* s2Extract = new Settlers2::Extract();
 		if(s2Extract->ManualExtract(fileType, location) == false) return false;
 		delete s2Extract;

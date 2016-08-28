@@ -28,7 +28,7 @@ namespace Extractor{
 		public:
 			PlayerColouredBitmap(Functions::DataReader* reader);
 			PlayerColouredBitmap(Functions::DataReader* reader,unsigned short width, unsigned short height, unsigned char nx, unsigned char ny, unsigned char* image, unsigned int* starts, bool absoluteStarts);
-
+			PlayerColouredBitmap(unsigned short width, unsigned short height, unsigned char nx, unsigned char ny, unsigned char* rawData, unsigned int* starts);
 			void SaveToFile(std::string filename);
 
 		};

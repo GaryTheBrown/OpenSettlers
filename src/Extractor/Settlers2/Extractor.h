@@ -19,6 +19,7 @@
 #include "BBMDataType.h"
 #include "LSTDataType.h"
 #include "IDXDATDataType.h"
+#include "BOBDataType.h"
 
 namespace Extractor{
 	namespace Settlers2{
@@ -52,6 +53,9 @@ namespace Extractor{
 
 			bool RAWIDXFileExtract(std::string folder, std::string file);
 			void RAWIDXFolderExtract(std::string folder);
+
+			bool RAWBOBFileExtract(std::string folder, std::string file);
+			void RAWBOBFolderExtract(std::string folder);
 
 			void CheckGameVersion(bool GOG);
 

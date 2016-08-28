@@ -22,7 +22,7 @@ void Functions::PaletteImage::SetPalette(RGBA* palette){
 }
 
 RGBA* Functions::PaletteImage::ConvertToRGBA(){
-	return Functions::ConvertPALToRGBA(this->image,this->transparency,this->palette,(this->height*this->width));
+	return ConvertPALToRGBA(this->image,this->transparency,this->palette,(this->height*this->width));
 }
 
 void Functions::PaletteImage::SaveToFile(std::string filename){
@@ -34,11 +34,15 @@ void Functions::PaletteImage::SaveToFile(std::string filename){
 	data += "OffsetPositionY=" + Functions::ToString(this->yRel);
 	Functions::SaveToTextFile(filename + ".txt",data);
 
-	filename.append(".bmp");
-	Functions::FileImage* fileImage = new Functions::FileImage();
-	fileImage->SaveToRGBImage(filename,this->ConvertToRGBA(),this->width,this->height);
-	//fileImage->SaveToPaletteImage(filename,this->image,this->palette,this->width,this->height);
-	delete fileImage;
+	if(this->image != NULL){
+		filename.append(".bmp");
+		FileImage* fileImage = new Functions::FileImage();
+		fileImage->SaveToRGBImage(filename,this->ConvertToRGBA(),this->width,this->height);
+		//fileImage->SaveToPaletteImage(filename,this->image,this->palette,this->width,this->height);
+		delete fileImage;
+	}else{
+		LOGSYSTEM->Error("NO IMAGE");
+	}
 }
 
 void Functions::PaletteImage::RAWSAVETEMP(std::string filename){
@@ -48,7 +52,7 @@ void Functions::PaletteImage::RAWSAVETEMP(std::string filename){
 	data += "Height=" + Functions::ToString(this->height) + "\n";
 	data += "OffsetPositionX=" + Functions::ToString(this->xRel) + "\n";
 	data += "OffsetPositionY=" + Functions::ToString(this->yRel) + "\n";
-	Functions::SaveToTextFile(filename + ".txt",data);
+	SaveToTextFile(filename + ".txt",data);
 
 	SaveToBinaryFile(filename + ".dat",(char*)this->image,this->tmpsize);
 }

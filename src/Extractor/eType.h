@@ -19,6 +19,7 @@ namespace Extractor{
 		BBM,
 		LST,
 		IDX,
+		BOB,
 		//Settlers 3 ONLY
 		GFX,
 		SND,

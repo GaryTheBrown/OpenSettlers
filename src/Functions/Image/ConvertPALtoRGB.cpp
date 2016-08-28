@@ -14,14 +14,14 @@ RGBA* Functions::ConvertPALToRGBA(unsigned char* fromImage, bool* fromTransparen
 	RGBA *imageRGBA = new RGBA[size];
 
 	if(fromTransparency != NULL){
-		for (int i = 0; i < (size);i++){
+		for (unsigned int i = 0; i < (size);i++){
 			if(fromTransparency[i] == true)
 				imageRGBA[i] = {0,0,0,0};
 			else
 				imageRGBA[i] = fromPalette[fromImage[i]];
 		}
 	}else{
-		for (int i = 0; i < (size);i++)
+		for (unsigned int i = 0; i < (size);i++)
 			imageRGBA[i] = fromPalette[fromImage[i]];
 	}
 	return imageRGBA;
