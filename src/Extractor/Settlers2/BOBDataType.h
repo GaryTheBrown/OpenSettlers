@@ -10,6 +10,7 @@
 
 #pragma once
 #include <string>
+#include <vector>
 
 #include "../../Functions/File/DataReader.h"
 #include "../../Functions/File/Functions.h"
@@ -26,12 +27,9 @@ namespace Extractor{
 		class BOBDataType{
 		private:
 
-			PlayerColouredBitmap* imageGroup1[96];
-			PlayerColouredBitmap** imageGroup2 = NULL;
-
-
-
-
+			//PlayerColouredBitmap* imageGroup1[96];
+			//PlayerColouredBitmap** imageGroup2 = NULL;
+			std::vector<PlayerColouredBitmap*> images;
 			unsigned short goodCount = 0;
             unsigned short itemCount = 0;
 

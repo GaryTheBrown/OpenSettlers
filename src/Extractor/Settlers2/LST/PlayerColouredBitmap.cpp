@@ -61,68 +61,6 @@ Extractor::Settlers2::PlayerColouredBitmap::PlayerColouredBitmap(Functions::Data
 
 }
 
-Extractor::Settlers2::PlayerColouredBitmap::PlayerColouredBitmap(unsigned short width, unsigned short height, unsigned char nx, unsigned char ny, unsigned char* rawData, unsigned int* starts){
-
-	this->width = width;
-	this->height = height;
-	this->xRel = nx;
-	this->yRel = ny;
-
-	unsigned int imageSize = this->height*this->width;
-
-	this->image = new unsigned char[imageSize];
-
-	this->transparency = new bool[imageSize];
-	for (unsigned int i = 0; i < imageSize; i++){
-		this->transparency[i] = false;
-	}
-
-	for (unsigned int y = 0; y < this->height; y++){
-		unsigned short x = 0;
-
-		unsigned int offset = (int)starts[y];
-
-		while(x < this->width){
-			unsigned char code = rawData[offset];
-			offset++;
-			if (code < 0x40){//transparent pixels
-				for (unsigned int i = 0; i < code ; i++,x++){
-					this->transparency[((y*this->width)+x)] = true;
-				}
-			} else if (code < 0x80){//uncompressed pixels
-				code -= 0x40;
-				for (unsigned int i = 0; i < code; i++,x++){
-					this->image[((y*this->width)+x)] = rawData[offset];
-					offset++;
-				}
-			} else if (code < 0xC0){//player coloured pixels
-				if (this->image2 == NULL){
-					this->image2 = new unsigned char[imageSize];
-					this->transparency2 = new bool[imageSize];
-					for (unsigned int i = 0; i < imageSize; i++){
-						this->transparency2[i] = true;
-					}
-				}
-				code -= 0x80;
-				for (unsigned int i = 0; i < code; i++,x++){
-					this->transparency[((y*this->width)+x)] = true;
-					this->transparency2[((y*this->width)+x)] = false;
-					this->image2[((y*this->width)+x)] = rawData[offset];
-					offset++;
-				}
-			} else {//compressed pixels
-				code -= 0xC0;
-				unsigned char colour = rawData[offset];
-				offset++;
-				for (unsigned int i = 0; i < code; i++,x++){
-					this->image[((y*this->width)+x)] = colour;
-				}
-			}
-		}
-	}
-
-}
-
 void Extractor::Settlers2::PlayerColouredBitmap::Read(Functions::DataReader* reader, unsigned int* starts, bool absoluteStarts){
 	unsigned int imageSize = this->height*this->width;
 
