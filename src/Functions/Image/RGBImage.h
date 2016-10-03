@@ -24,9 +24,13 @@ namespace Functions{
 
 		RGBA* imageRGBA = NULL;
 
+		bool keep = false;
+
 	public:
 		RGBImage(){};
+		RGBImage(unsigned short height,unsigned short width);
 		RGBImage(RGBA* imageRGBA, unsigned short height,unsigned short width);
+		RGBImage(RGBA* imageRGBA, unsigned short height,unsigned short width,signed short xRel,signed short yRel);
 		virtual ~RGBImage();
 
 		virtual void SaveToFile(std::string filename){this->SaveToRGBBMP(filename);};
@@ -37,5 +41,8 @@ namespace Functions{
 		void ChangeColour(RGBA From, RGBA To);
 		void ChangeColourRange(RGBA From, RGBA To, RGBA Range);
 		void OverwriteSection(unsigned short X,unsigned short Y,unsigned short height,unsigned short width, RGBA colour = {0,0,0,0});
+
+		void SetKeep(){this->keep = true;};
+		bool GetKeep(){return this->keep;};
 	};
 }

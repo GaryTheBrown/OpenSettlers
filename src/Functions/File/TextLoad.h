@@ -9,17 +9,21 @@
  *******************************************************************************/
 
 #pragma once
-#include <string>
-#include <vector>
-#include "eType.h"
-#include "../Log.h"
-#include "../Functions/File/Functions.h"
-#include "../Functions/File/DataReader.h"
-//#include "Settlers1/Extractor.h"
-#include "Settlers2/Extractor.h"
-#include "Settlers3/Extractor.h"
-//#include "Settlers4/Extractor.h"
 
-namespace Extractor{
-	extern bool Main(std::string location);
+#include <iostream>
+#include <fstream>
+#include <sys/stat.h>
+#include <stdlib.h>
+#include <string>
+#include <sstream>
+#include <vector>
+#include <utility>
+#include <iterator>
+#include <iostream>
+#include <algorithm>
+
+namespace Functions{
+	extern std::vector<std::pair<std::string,std::string>>* LoadFromTextFile(std::string file);
+	extern std::vector<std::pair<std::string,std::string>>* LoadFromTextLine(std::string line);
+	extern std::vector<std::pair<std::string,std::string>>* TextLinesToList(std::vector<std::string>* lines, char deliminator);
 }

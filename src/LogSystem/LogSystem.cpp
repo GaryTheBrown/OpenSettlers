@@ -9,10 +9,10 @@
  *******************************************************************************/
 #include "LogSystem.h"
 
-LogSystem::LogSystem(signed char verboseLevelCLI,signed char verboseLevelFile, signed char verboseLevelConsole){
-	this->verboseLevelCLI = verboseLevelCLI;
-	this->verboseLevelFile = verboseLevelFile;
-	this->verboseLevelConsole = verboseLevelConsole;
+LogSystem::LogSystem(signed char verboseLevelCLI,signed char verboseLevelFile, signed char verboseLevelConsole)
+	:verboseLevelCLI(verboseLevelCLI),
+	verboseLevelFile(verboseLevelFile),
+	verboseLevelConsole(verboseLevelConsole){
 	logFile.open(this->logFileName.c_str(), std::ofstream::out);
 	logFile.close();
 }

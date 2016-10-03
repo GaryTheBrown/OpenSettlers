@@ -10,8 +10,8 @@
 
 #include "Extractor.h"
 
-Extractor::Settlers2::Extract::Extract(std::string location,bool GOG){
-	this->location = location;
+Extractor::Settlers2::Extract::Extract(std::string location,bool GOG)
+	:location(location){
 	this->CheckGameVersion(GOG);
 }
 

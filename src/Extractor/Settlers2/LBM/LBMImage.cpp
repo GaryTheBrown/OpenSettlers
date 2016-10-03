@@ -10,19 +10,17 @@
 
 #include "LBMImage.h"
 
-Extractor::Settlers2::LBMImage::LBMImage(Functions::DataReader* reader,unsigned short width,unsigned short height,RGBA* palette){
-	this->width = width;
-	this->height = height;
+Extractor::Settlers2::LBMImage::LBMImage(Functions::DataReader* reader,unsigned short width,unsigned short height,RGBA* palette)
+	:Functions::PaletteImage(height,width){
+
 	this->palette = palette;
+	this->image = new unsigned char[width*height];
 
 	bool exitLoop = false;
-	unsigned int size = width*height;
-
-	this->image = new unsigned char[size];
 	unsigned int imageLocation = 0;
 
 	while (exitLoop == false){
-		if (imageLocation < size){
+		if (imageLocation < width*height){
 			unsigned char code = reader->ReadChar();
 			if(code > 128){
 				unsigned char count = (257 - code);

@@ -9,9 +9,9 @@
  *******************************************************************************/
 #include "Image.h"
 
-Functions::FileImage::FileImage(SaveType saveRGBType,SaveType savePalType){
-	this->saveRGBType = saveRGBType;
-	this->savePalType = savePalType;
+Functions::FileImage::FileImage(SaveType saveRGBType,SaveType savePalType)
+	:saveRGBType(saveRGBType),
+	savePalType(savePalType){
 }
 
 void Functions::FileImage::SaveToRGBImage(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height){

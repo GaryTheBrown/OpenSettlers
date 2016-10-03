@@ -9,8 +9,8 @@
  *******************************************************************************/
 #include "Extractor.h"
 
-Extractor::Settlers3::Extract::Extract(std::string location,bool GOG){
-	this->location = location;
+Extractor::Settlers3::Extract::Extract(std::string location,bool GOG)
+	:location(location){
 	this->CheckGameVersion(GOG);
 }
 
@@ -188,6 +188,29 @@ bool Extractor::Settlers3::Extract::FullRAWExtract(){
 		LOGSYSTEM->Error("Detection of Settlers 3 version failed");
 		return false;
 	}
+	return true;
+}
+
+bool Extractor::Settlers3::Extract::SortedExtract(){
+	if(this->gameVersion == (VersionS3GOG)){//GOG not installed
+		Functions::ExternalProgram* program = new Functions::ExternalProgram(this->location);
+		if(Functions::FolderExists("app") == false){
+			if(program->GOGExtract() == false) return false;
+		}else
+			LOGSYSTEM->Log("GOG Extract: Already Extracted",1);
+		delete program;
+	}else if(this->gameVersion == (VersionS3GOLD2)){//GOLD CD 2
+		Functions::ExternalProgram* program = new Functions::ExternalProgram(this->location);
+		if(Functions::FolderExists("EXE") == false){
+			if(program->CABExtract("s3/install/data.cab") == false) return false;
+		}else
+			LOGSYSTEM->Log("CABExtract: Already Extracted",1);
+		delete program;
+	}
+
+	SortedExtractor* sortedExtract = new SortedExtractor(this->location, this->gameVersion);
+	sortedExtract->Extract();
+	delete sortedExtract;
 	return true;
 }
 

@@ -79,6 +79,9 @@ namespace Extractor{
 
 			void SaveToFile(std::string location);
 
+			RGBImageData* ReturnGUIImage(unsigned short image){return this->gui->ReturnImage(image);};
+			RGBImageData* ReturnObjectImage(unsigned short image, unsigned short frame){return this->object->ReturnImage(image,frame);};
+
 		};
 	}
 }

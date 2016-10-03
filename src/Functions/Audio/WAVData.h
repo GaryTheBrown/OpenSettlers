@@ -16,18 +16,19 @@ namespace Functions{
 	class WAVData{
 	protected:
 		//File Header
-		unsigned int length;
-		unsigned short fileVersion;
-		unsigned short channels;
-		unsigned int samplesPerSecond;
-		unsigned int bytesPerSecond;
-		unsigned short blockAlignment;
-		unsigned short bitsPerSample;
+		unsigned short fileVersion = 0;
+		unsigned short channels = 0;
+		unsigned int samplesPerSecond = 0;
+		unsigned int bytesPerSecond = 0;
+		unsigned short blockAlignment = 0;
+		unsigned short bitsPerSample = 0;
 
-		unsigned char* data;
+		unsigned int length = 0;
+		unsigned char* data = NULL;
 
 	public:
-
+		WAVData(){};
+		WAVData(unsigned short fileVersion,unsigned short channels,unsigned int samplesPerSecond,unsigned int bytesPerSecond,unsigned short blockAlignment,unsigned short bitsPerSample);
 		virtual ~WAVData(){delete[] this->data;};
 		void SaveToFile(std::string filename);
 	};

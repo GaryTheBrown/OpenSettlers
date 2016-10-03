@@ -10,12 +10,11 @@
 
 #include "MAPParts.h"
 
-Extractor::Settlers3::MAPParts::MAPParts(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey, bool storeData){
-
-	this->cryptKey = cryptKey;
-	this->hasBeenDecrypted = hasBeenDecrypted;
-	this->offset = offset;
-	this->size = size;
+Extractor::Settlers3::MAPParts::MAPParts(Functions::DataReader* reader,unsigned int offset,unsigned int size,unsigned int cryptKey, bool storeData)
+	:offset(offset),
+	 size(size),
+	 cryptKey(cryptKey),
+	hasBeenDecrypted(false){
 
 	if (this->hasBeenDecrypted == false){
 		if (this->size > 0){

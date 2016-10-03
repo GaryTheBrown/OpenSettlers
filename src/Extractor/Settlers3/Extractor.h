@@ -11,19 +11,17 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "../eType.h"
 #include "../../Log.h"
 #include "../../Functions/File/Functions.h"
 #include "../../Functions/File/Run.h"
+#include "SortedExtractor.h"
 #include "GFXDataType.h"
 #include "SNDDataType.h"
 #include "MAPDataType.h"
 
 namespace Extractor{
 	namespace Settlers3{
-		class Extract{
-		private:
-			enum VersionS3{
+	enum VersionS3{
 				VersionNONE,
 				VersionS3CD1,
 				VersionS3CD2,
@@ -47,7 +45,8 @@ namespace Extractor{
 				MT_TUTORIAL,
 				MT_USER
 			};
-
+		class Extract{
+		private:
 			VersionS3 gameVersion = VersionNONE;
 			std::string location = "";
 			std::string locationExtra = "";
@@ -67,7 +66,7 @@ namespace Extractor{
 			~Extract();
 
 			bool FullRAWExtract();
-
+			bool SortedExtract();
 			bool ManualExtract(eType fileType,std::string location);
 
 

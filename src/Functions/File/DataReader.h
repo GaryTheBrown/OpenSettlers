@@ -16,7 +16,7 @@
 namespace Functions{
 	class DataReader{
 	private:
-		unsigned int offset;
+		unsigned int offset = 0;
 		File* file;
 		unsigned int hiddenOffset;
 		unsigned int blockLength;

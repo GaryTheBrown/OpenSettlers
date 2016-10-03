@@ -7,7 +7,7 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#include "main_Extractor.h"
+#include "Extractor.h"
 
 bool Extractor::Main(std::string location){
 	eType fileType = FULL;

@@ -9,11 +9,11 @@
  *******************************************************************************/
 #include "RGBA.h"
 
-RGBA::RGBA(unsigned char R,unsigned char G,unsigned char B,unsigned char A){
-	this->R = R;
-	this->G = G;
-	this->B = B;
-	this->A = A;
+RGBA::RGBA(unsigned char R,unsigned char G,unsigned char B,unsigned char A)
+	:R(R),
+	 G(G),
+	 B(B),
+	 A(A){
 }
 RGBA::RGBA(short colour, bool c565){
 	//- scale Colour from RGB555/RGB565 to RGB888
@@ -34,6 +34,13 @@ RGBA::RGBA(short colour, bool c565){
 		this->R = (unsigned char) (1.03 * ((colour >> 7) & 0xF8));
 	}
 	this->A = 255;
+}
+
+RGBA::RGBA(unsigned int colour){
+	this->R = colour >> 24 & 0xff;
+	this->G = colour >> 16 & 0xff;
+	this->B = colour >> 8 & 0xff;
+	this->A = colour & 0xff;
 }
 
 unsigned int RGBA::ReturnInt(){

@@ -21,10 +21,11 @@ namespace Functions{
 	class PaletteImage{
 	protected:
 		//header
-		signed short xRel;
-		signed short yRel;
-		unsigned short width = 0;
+		signed short xRel = 0;
+		signed short yRel = 0;
 		unsigned short height = 0;
+		unsigned short width = 0;
+
 
 		//Data
 		unsigned char* image=NULL;
@@ -32,10 +33,13 @@ namespace Functions{
 		RGBA* palette=NULL;
 
 		unsigned char* tempData = NULL;
-		unsigned int tmpsize;
+		unsigned int tmpsize = 0;
 		void RAWSAVETEMP(std::string filename);
 
 	public:
+		PaletteImage(){};
+		PaletteImage(unsigned short height,unsigned short width);
+		PaletteImage(unsigned char* image, unsigned short height,unsigned short width);
 		virtual ~PaletteImage();
 		virtual void SaveToFile(std::string filename);
 

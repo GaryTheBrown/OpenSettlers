@@ -9,12 +9,23 @@
  *******************************************************************************/
 #include "RGBImage.h"
 
-Functions::RGBImage::RGBImage(RGBA* imageRGBA, unsigned short height,unsigned short width){
-	this->imageRGBA = imageRGBA;
-	this->height = height;
-	this->width = width;
+Functions::RGBImage::RGBImage(unsigned short height,unsigned short width)
+	:width(width),
+	 height(height){
+}
+Functions::RGBImage::RGBImage(RGBA* imageRGBA, unsigned short height,unsigned short width)
+	:width(width),
+	 height(height),
+	 imageRGBA(imageRGBA){
 }
 
+Functions::RGBImage::RGBImage(RGBA* imageRGBA, unsigned short height,unsigned short width,signed short xRel,signed short yRel)
+	:width(width),
+	 height(height),
+	 xRel(xRel),
+	 yRel(yRel),
+	 imageRGBA(imageRGBA){
+}
 Functions::RGBImage::~RGBImage(){
 	if (this->imageRGBA != NULL)
 		delete[] this->imageRGBA;

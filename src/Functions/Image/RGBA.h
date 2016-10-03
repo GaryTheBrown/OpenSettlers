@@ -20,6 +20,7 @@ public:
 	RGBA(){};
 	RGBA(unsigned char R,unsigned char G,unsigned char B,unsigned char A);
 	RGBA(short colour, bool c565);
+	RGBA(unsigned int colour);
 	~RGBA(){};
 
 	unsigned int ReturnInt();

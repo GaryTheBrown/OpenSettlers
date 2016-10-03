@@ -11,10 +11,10 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "../eType.h"
 #include "../../Log.h"
 #include "../../Functions/File/Functions.h"
 #include "../../Functions/File/Run.h"
+#include "../Extractor.h"
 #include "LBMDataType.h"
 #include "BBMDataType.h"
 #include "LSTDataType.h"

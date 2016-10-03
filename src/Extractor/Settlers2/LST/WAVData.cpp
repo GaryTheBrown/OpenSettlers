@@ -8,14 +8,10 @@
  * of the License.
  *******************************************************************************/
 #include "WAVData.h"
-Extractor::Settlers2::WAVData::WAVData(Functions::DataReader* reader) {
+Extractor::Settlers2::WAVData::WAVData(Functions::DataReader* reader)
+	: Functions::WAVData(0,1,11025,11025,1,8){
+
 	this->length = reader->ReadInt();
-	this->fileVersion = 0;
-	this->channels = 1;
-	this->samplesPerSecond = 11025;
-	this->bytesPerSecond = 11025;
-	this->blockAlignment= 1;
-	this->bitsPerSample = 8;
 
 	this->data = new unsigned char[this->length];
 

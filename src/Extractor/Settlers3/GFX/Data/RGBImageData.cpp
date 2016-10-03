@@ -9,9 +9,8 @@
  *******************************************************************************/
 #include "RGBImageData.h"
 
-Extractor::Settlers3::RGBImageData::RGBImageData(Functions::DataReader* reader, unsigned int offset, enumIMGType gfxType,unsigned int colourCode){
-
-	this->gfxType = gfxType;
+Extractor::Settlers3::RGBImageData::RGBImageData(Functions::DataReader* reader, unsigned int offset, enumIMGType gfxType,unsigned int colourCode)
+	:gfxType(gfxType){
 
 	bool oddOffset = false;
 	if (offset % 2 == 1)
@@ -81,21 +80,13 @@ Extractor::Settlers3::RGBImageData::RGBImageData(Functions::DataReader* reader, 
 		}
 	}
 }
-Extractor::Settlers3::RGBImageData::RGBImageData(RGBA* imageRGBA, enumIMGType gfxType, unsigned short height, unsigned short width, signed short xRel, signed short yRel){
-	this->imageRGBA = imageRGBA;
-	this->height = height;
-	this->width = width;
-	this->xRel = xRel;
-	this->yRel = yRel;
-	this->gfxType = gfxType;
+Extractor::Settlers3::RGBImageData::RGBImageData(RGBA* imageRGBA, enumIMGType gfxType, unsigned short height, unsigned short width, signed short xRel, signed short yRel)
+	:Functions::RGBImage(imageRGBA,height,width,xRel,yRel),
+	gfxType(gfxType){
 }
-Extractor::Settlers3::RGBImageData::RGBImageData(RGBA* imageRGBA, unsigned short height,unsigned short width,signed short xRel,signed short yRel){
-	this->imageRGBA = imageRGBA;
-	this->height = height;
-	this->width = width;
-	this->xRel = xRel;
-	this->yRel = yRel;
-	this->gfxType = IMG_GFX_none;
+Extractor::Settlers3::RGBImageData::RGBImageData(RGBA* imageRGBA, unsigned short height,unsigned short width,signed short xRel,signed short yRel)
+	:Functions::RGBImage(imageRGBA,height,width,xRel,yRel),
+	gfxType(IMG_GFX_none){
 }
 
 void Extractor::Settlers3::RGBImageData::SaveToFile(std::string filename){

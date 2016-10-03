@@ -9,6 +9,15 @@
  *******************************************************************************/
 #include "WAVData.h"
 
+Functions::WAVData::WAVData(unsigned short fileVersion,unsigned short channels,unsigned int samplesPerSecond,unsigned int bytesPerSecond,unsigned short blockAlignment,unsigned short bitsPerSample)
+	:fileVersion(fileVersion),
+		channels(channels),
+		samplesPerSecond(samplesPerSecond),
+		bytesPerSecond(bytesPerSecond),
+		blockAlignment(blockAlignment),
+		bitsPerSample(bitsPerSample){
+
+}
 void Functions::WAVData::SaveToFile(std::string filename){
 	// mimeType = "audio/wav";
 	unsigned char Header[44] = {

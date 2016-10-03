@@ -9,9 +9,8 @@
  *******************************************************************************/
 #include "Open.h"
 
-Functions::File::File(std::string file){
-	//- save Filename
-	this->file = file;
+Functions::File::File(std::string file)
+	:file(file){
 	size_t lastindex = this->file.find_last_of(".");
 	if (lastindex == std::string::npos)
 		this->fileName = this->file;

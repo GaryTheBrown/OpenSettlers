@@ -9,6 +9,16 @@
  *******************************************************************************/
 #include "PaletteImage.h"
 
+Functions::PaletteImage::PaletteImage(unsigned short height,unsigned short width)
+	:height(height),
+	 width(width){
+}
+Functions::PaletteImage::PaletteImage(unsigned char* image, unsigned short height,unsigned short width)
+	:height(height),
+	 width(width),
+	 image(image){
+}
+
 Functions::PaletteImage::~PaletteImage(){
 	if (this->image != NULL)
 		delete [] this->image;
@@ -17,8 +27,7 @@ Functions::PaletteImage::~PaletteImage(){
 }
 
 void Functions::PaletteImage::SetPalette(RGBA* palette){
-//	if ((this->palette == NULL)||(this->palette != palette))
-		this->palette = palette;
+	this->palette = palette;
 }
 
 RGBA* Functions::PaletteImage::ConvertToRGBA(){

@@ -7,22 +7,15 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
+#include "XML.h"
 
-#pragma once
+Functions::XMLFile::XMLFile(std::string file){
+	this->xmlFile = xmlReadFile(file.c_str(),NULL,0);
+	this->rootNode = xmlDocGetRootElement(this->xmlFile);
+}
 
-namespace Extractor{
-	enum eType{
-		SKIP,
-		FULL,
-		//Settlers 2 ONLY
-		LBM,
-		BBM,
-		LST,
-		IDX,
-		BOB,
-		//Settlers 3 ONLY
-		GFX,
-		SND,
-		MAP
-	};
+
+Functions::XMLFile::~XMLFile(){
+	xmlFreeDoc(doc);
+	xmlCleanupParser();
 }

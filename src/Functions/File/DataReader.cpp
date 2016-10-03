@@ -9,12 +9,11 @@
  *******************************************************************************/
 #include "DataReader.h"
 
-Functions::DataReader::DataReader(std::string filename, int hiddenOffset, int blockLength){
-	this->file = new File(filename);
-	this->offset = 0;
-	this->hiddenOffset = hiddenOffset;
-	this->blockLength = -1;
-	this->endOfFile= true;
+Functions::DataReader::DataReader(std::string filename, int hiddenOffset, int blockLength)
+	:file(new File(filename)),
+	hiddenOffset(hiddenOffset),
+	blockLength(blockLength),
+	endOfFile(true){
 
 	if (this->blockLength > this->file->FileSize()) this->blockLength = file->FileSize();
 	if (this->file->FileSize() > 0){
@@ -78,8 +77,8 @@ unsigned char Functions::DataReader::ReadChar(){
 	const char* tmp = this->FetchBuffer(1);
 	if (tmp != NULL){
 		returnVal = (unsigned char) *tmp;
-		delete tmp;
 	}
+	delete [] tmp;
 	if(this->bigEndian) this->endswap(&returnVal);
 	return returnVal;
 }
@@ -88,8 +87,8 @@ unsigned short Functions::DataReader::ReadShort(){
 	const char* tmp = this->FetchBuffer(2);
 	if (tmp != NULL){
 		returnVal = (unsigned short)((*((int*) tmp)) & 0x0000FFFF);
-		delete tmp;
 	}
+	delete [] tmp;
 	if(this->bigEndian) this->endswap(&returnVal);
 	return returnVal;
 }
@@ -99,8 +98,8 @@ unsigned int Functions::DataReader::ReadInt(){
 	const char* tmp = this->FetchBuffer(4);
 	if (tmp != NULL){
 		returnVal = *((unsigned int*)tmp);
-		delete tmp;
 	}
+	delete [] tmp;
 	if(this->bigEndian) this->endswap(&returnVal);
 	return returnVal;
 }
@@ -110,8 +109,8 @@ unsigned long long Functions::DataReader::ReadLongLong(){
 	const char* tmp = this->FetchBuffer(8);
 	if (tmp != NULL){
 		returnVal = *((unsigned long long*)tmp);
-		delete tmp;
 	}
+	delete [] tmp;
 	if(this->bigEndian) this->endswap(&returnVal);
 	return returnVal;
 }
@@ -121,8 +120,8 @@ signed short Functions::DataReader::ReadSignedShort(){
 	const char* tmp = this->FetchBuffer(2);
 	if (tmp != NULL){
 		returnVal = (signed short)((*((int*) tmp)) & 0x0000FFFF);
-		delete tmp;
 	}
+	delete [] tmp;
 	if(this->bigEndian) this->endswap(&returnVal);
 	return returnVal;
 }
