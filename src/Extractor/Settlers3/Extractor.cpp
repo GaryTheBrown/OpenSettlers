@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Settlers Extractor - A program To extract data file for the Settlers 1-4
+ * Open Settlers - A Game Engine to run the Settlers 1-4
  * Copyright (C) 2016   Gary The Brown
  *
  * This program is free software; you can redistribute it and/or
@@ -7,6 +7,7 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
+
 #include "Extractor.h"
 
 Extractor::Settlers3::Extract::Extract(std::string location,bool GOG)
@@ -190,7 +191,7 @@ bool Extractor::Settlers3::Extract::FullRAWExtract(){
 	}
 	return true;
 }
-
+/*
 bool Extractor::Settlers3::Extract::SortedExtract(){
 	if(this->gameVersion == (VersionS3GOG)){//GOG not installed
 		Functions::ExternalProgram* program = new Functions::ExternalProgram(this->location);
@@ -213,7 +214,7 @@ bool Extractor::Settlers3::Extract::SortedExtract(){
 	delete sortedExtract;
 	return true;
 }
-
+*/
 bool Extractor::Settlers3::Extract::RAWGFXFileExtract(std::string folder, std::string file){
 	if(Functions::FileExists(folder+file)){
 		LOGSYSTEM->Log("Open GFX Data File: "+ file,1);

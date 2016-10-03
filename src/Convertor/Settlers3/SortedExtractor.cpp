@@ -1,9 +1,12 @@
-//============================================================================
-// Name        : SortedExtractor.cpp
-// Author      : Gary_The_Brown
-// Copyright   :
-// Description :
-//============================================================================
+/*******************************************************************************
+ * Open Settlers - A Game Engine to run the Settlers 1-4
+ * Copyright (C) 2016   Gary The Brown
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; ONLY version 2
+ * of the License.
+ *******************************************************************************/
 
 #include "SortedExtractor.h"
 
@@ -12,12 +15,12 @@ Extractor::Settlers3::SortedExtractor::SortedExtractor(std::string locationOfFil
 	 locationofFiles(locationOfFiles){
 }
 bool Extractor::Settlers3::SortedExtractor::Extract(bool extendible){
-	if(this->gameVersion == VersionNONE) return false;
+//	if(this->gameVersion == VersionNONE) return false;
 
 	Functions::CreateDir("Games/");
 	Functions::CreateDir(this->extractionLocation);
 
-
+/*
 //Make these else if's store locations and file names (counter in the middle of pair)
 	if(this->gameVersion == VersionS3CD1){//Original CD 1
 		this->locationofGFXFiles = "s3/gfx/";
@@ -150,7 +153,7 @@ bool Extractor::Settlers3::SortedExtractor::Extract(bool extendible){
 
 
 	this->Landscape();
-	this->GUI(extendible);
+	this->GUI(extendible);*/
 	return true;
 }
 

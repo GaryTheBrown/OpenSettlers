@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Settlers Extractor - A program To extract data file for the Settlers 1-4
+ * Open Settlers - A Game Engine to run the Settlers 1-4
  * Copyright (C) 2016   Gary The Brown
  *
  * This program is free software; you can redistribute it and/or
@@ -9,6 +9,7 @@
  *******************************************************************************/
 
 #pragma once
+
 #include <string>
 #include <vector>
 #include "../Log.h"
@@ -20,21 +21,5 @@
 //#include "Settlers4/Extractor.h"
 
 namespace Extractor{
-
-	enum eType{
-		SKIP,
-		FULL,
-		//Settlers 2 ONLY
-		LBM,
-		BBM,
-		LST,
-		IDX,
-		BOB,
-		//Settlers 3 ONLY
-		GFX,
-		SND,
-		MAP
-	};
-
 	extern bool Main(std::string location);
 }

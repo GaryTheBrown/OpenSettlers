@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Settlers Extractor - A program To extract data file for the Settlers 1-4
+ * Open Settlers - A Game Engine to run the Settlers 1-4
  * Copyright (C) 2016   Gary The Brown
  *
  * This program is free software; you can redistribute it and/or
@@ -7,6 +7,7 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
+
 #include "DataReader.h"
 
 Functions::DataReader::DataReader(std::string filename, int hiddenOffset, int blockLength)
