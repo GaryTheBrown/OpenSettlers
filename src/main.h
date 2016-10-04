@@ -11,6 +11,7 @@
 #pragma once
 #include <string>
 #include "Log.h"
+#include "StartupArguments.h"
 #include "Extractor/Extractor.h"
 
 extern int main(int argc, char *argv[]);

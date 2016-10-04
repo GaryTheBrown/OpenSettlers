@@ -10,18 +10,28 @@
 
 #pragma once
 
-class RGBA{
-public:
-	unsigned char R = 0;
-	unsigned char G = 0;
-	unsigned char B = 0;
-	unsigned char A = 0;
+namespace Functions{
+	class Timer {
+	private:
+		unsigned int startTicks = 0;
+		unsigned int pausedTicks = 0;
+		bool paused = false;
+		bool started = false;
 
-	RGBA(){};
-	RGBA(unsigned char R,unsigned char G,unsigned char B,unsigned char A = 0);
-	RGBA(short colour, bool c565);
-	RGBA(unsigned int colour);
-	~RGBA(){};
+	public:
+		Timer(){};
+		virtual ~Timer(){};
 
-	unsigned int ReturnInt();
-};
+		//The various clock actions
+		void Start(unsigned int time);
+		void Stop();
+		void Pause(unsigned int time);
+		void Unpause(unsigned int time);
+
+		//Gets the timer's time
+		unsigned int GetTicks(unsigned int time);
+		bool GetStarted();
+		bool GetPaused();
+
+	};
+}

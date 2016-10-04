@@ -10,18 +10,21 @@
 
 #pragma once
 
-class RGBA{
-public:
-	unsigned char R = 0;
-	unsigned char G = 0;
-	unsigned char B = 0;
-	unsigned char A = 0;
+#include <string>
+//SDL2
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+//TODO FINISH OFF THIS SYSTEM
+//TODO further improve the fonts to load all in system
+// and allow any in Game/Data/Fonts/  or /Data/Fonts/
+namespace SystemInterface {
+	class Fonts {
+	protected:
 
-	RGBA(){};
-	RGBA(unsigned char R,unsigned char G,unsigned char B,unsigned char A = 0);
-	RGBA(short colour, bool c565);
-	RGBA(unsigned int colour);
-	~RGBA(){};
+	public:
+		TTF_Font* masterFont;
 
-	unsigned int ReturnInt();
-};
+		Fonts(){this->masterFont = NULL;};
+		virtual ~Fonts(){};
+	};
+}

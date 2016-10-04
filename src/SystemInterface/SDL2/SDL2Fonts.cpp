@@ -8,20 +8,14 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#include "SDL2Fonts.h"
 
-class RGBA{
-public:
-	unsigned char R = 0;
-	unsigned char G = 0;
-	unsigned char B = 0;
-	unsigned char A = 0;
+SystemInterface::SDL2Fonts::SDL2Fonts() {
+	TTF_Init();
+	this->masterFont = TTF_OpenFont( "arial.ttf", 22 );
+}
 
-	RGBA(){};
-	RGBA(unsigned char R,unsigned char G,unsigned char B,unsigned char A = 0);
-	RGBA(short colour, bool c565);
-	RGBA(unsigned int colour);
-	~RGBA(){};
-
-	unsigned int ReturnInt();
-};
+SystemInterface::SDL2Fonts::~SDL2Fonts() {
+    TTF_CloseFont(this->masterFont);
+	TTF_Quit();
+}

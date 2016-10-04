@@ -10,18 +10,14 @@
 
 #pragma once
 
-class RGBA{
-public:
-	unsigned char R = 0;
-	unsigned char G = 0;
-	unsigned char B = 0;
-	unsigned char A = 0;
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include "../Fonts.h"
 
-	RGBA(){};
-	RGBA(unsigned char R,unsigned char G,unsigned char B,unsigned char A = 0);
-	RGBA(short colour, bool c565);
-	RGBA(unsigned int colour);
-	~RGBA(){};
-
-	unsigned int ReturnInt();
-};
+namespace SystemInterface {
+	class SDL2Fonts : public Fonts {
+	public:
+		SDL2Fonts();
+		virtual ~SDL2Fonts();
+	};
+}

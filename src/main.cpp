@@ -11,35 +11,18 @@
 #include "main.h"
 
 int main(int argc,char* argv[]){
-//temp version number until build system sorted
-	std::string VERSION = "0.0 ALPHA";
 
-	std::string ProgramName = argv[0];
-	std::string option;
-	if (argc > 1) option = argv[2];
-	if(argc == 1){
-		std::cout << "Open Settlers" << std::endl;
+	//Startup Arguments Setup
+	StartupArguments* startupArguments = new StartupArguments(argc,argv);
+	if(startupArguments->CheckArguments())
+		return 0; //if comes back true exits
 
-	} else if(argc == 2){
-		if (option == "-v"){
-			std::cout << "Open Settlers version " << VERSION << std::endl;
-			std::cout << "USAGE:" << ProgramName << " [LOCATION/FILE]" << std::endl;
-			return 0;
-		} else {
-			std::cout << "Unknown Options" << std::endl;
-		}
-	} else if(argc == 3){
-
-		if (option == "-e"){
-			LOGSYSTEM->Log("Settlers Extractor Started",1);
-			if (Extractor::Main(argv[2]) == false) return 0;
-			LOGSYSTEM->Log("Settlers Extractor Completed",1);
-			return 0;
-		} else {
-			std::cout << "Unknown Options" << std::endl;
-		}
-	} else {
-		std::cout << "Unknown Options" << std::endl;
+	//CLI Extractor
+	if(startupArguments->Extractor()){
+		LOGSYSTEM->Log("Settlers Extractor Started",1);
+		if (Extractor::Main(startupArguments->Location()) == false) return 0;
+		LOGSYSTEM->Log("Settlers Extractor Completed",1);
+		return 0;
 	}
 
 	return 0;
