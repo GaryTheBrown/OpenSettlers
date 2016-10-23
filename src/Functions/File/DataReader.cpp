@@ -150,3 +150,12 @@ std::string Functions::DataReader::ReadString(int size, unsigned int offset){
 		return "";
 	}
 }
+std::string Functions::DataReader::ReadString(unsigned int size){
+	char* text = new char[size];
+	for (unsigned char i = 0; i < size; i++){
+		text[i] = this->ReadChar();
+	}
+	std::string returnString(text,size);
+	delete text;
+	return returnString;
+}

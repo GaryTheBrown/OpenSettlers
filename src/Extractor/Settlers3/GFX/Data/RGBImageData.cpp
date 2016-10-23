@@ -81,12 +81,12 @@ Extractor::Settlers3::RGBImageData::RGBImageData(Functions::DataReader* reader, 
 		}
 	}
 }
-Extractor::Settlers3::RGBImageData::RGBImageData(RGBA* imageRGBA, enumIMGType gfxType, unsigned short height, unsigned short width, signed short xRel, signed short yRel)
-	:Functions::RGBImage(imageRGBA,height,width,xRel,yRel),
+Extractor::Settlers3::RGBImageData::RGBImageData(RGBA* imageRGBA, enumIMGType gfxType, unsigned short width, unsigned short height, signed short xRel, signed short yRel)
+	:Functions::RGBImage(imageRGBA,width,height,xRel,yRel),
 	gfxType(gfxType){
 }
-Extractor::Settlers3::RGBImageData::RGBImageData(RGBA* imageRGBA, unsigned short height,unsigned short width,signed short xRel,signed short yRel)
-	:Functions::RGBImage(imageRGBA,height,width,xRel,yRel),
+Extractor::Settlers3::RGBImageData::RGBImageData(RGBA* imageRGBA, unsigned short width,unsigned short height,signed short xRel,signed short yRel)
+	:Functions::RGBImage(imageRGBA,width,height,xRel,yRel),
 	gfxType(IMG_GFX_none){
 }
 
@@ -101,5 +101,5 @@ void Extractor::Settlers3::RGBImageData::SaveToFile(std::string filename){
 	}
 
 	if (this->height > 0 && this->width > 0)
-		this->SaveToRGBBMP(filename);
+		this->SaveToFile(filename);
 }

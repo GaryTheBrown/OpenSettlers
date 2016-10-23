@@ -10,11 +10,11 @@
 
 #include "SDL2System.h"
 
-SystemInterface::SDL2System::SDL2System(std::string windowName,bool fullscreen) {
+SystemInterface::SDL2System::SDL2System(std::string windowName,std::pair<int,int> windowSize,bool fullscreen) {
 
 	//Start SDL2
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER);
-	this->sdl2Display = new SDL2Display(this,fullscreen);
+	this->sdl2Display = new SDL2Display(this,windowSize,fullscreen);
 	this->display = this->sdl2Display;
 	this->display->SetWindowName(windowName);
 
@@ -40,6 +40,12 @@ SystemInterface::ImageContainer* SystemInterface::SDL2System::LoadTexture(std::s
 	else
 		imageContainer->LoadTexture((this->gameLocation + path));
     return imageContainer;
+}
+
+SystemInterface::ImageContainer* SystemInterface::SDL2System::LoadTexture(Functions::RGBImage* memoryImage){
+	ImageContainer* imageContainer = new SDL2ImageContainer(this);
+	imageContainer->LoadTexture(memoryImage);
+	return imageContainer;
 }
 
 void SystemInterface::SDL2System::TextureToScreen(ImageContainer* imageContainer){

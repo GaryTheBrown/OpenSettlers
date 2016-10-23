@@ -25,7 +25,7 @@ bool SystemInterface::SDL2Events::GetNextEvent() {
 	return false;
 }
 
-SystemInterface::Events::eEvent SystemInterface::SDL2Events::GetEvent() {
+SystemInterface::eEvent SystemInterface::SDL2Events::GetEvent() {
 	if (this->event.type == SDL_QUIT)
 		return eQuit;
 	if (this->event.type == SDL_WINDOWEVENT){
@@ -72,15 +72,15 @@ SystemInterface::Events::eEvent SystemInterface::SDL2Events::GetEvent() {
 
 	return eNone;
 }
-SystemInterface::Events::eKeyboardKey SystemInterface::SDL2Events::GetKey(){
-	return (Events::eKeyboardKey)(int)this->event.key.keysym.scancode;
+SystemInterface::eKeyboardKey SystemInterface::SDL2Events::GetKey(){
+	return (eKeyboardKey)((int)this->event.key.keysym.scancode);
 }
 
-SystemInterface::Events::eKeyboardMod SystemInterface::SDL2Events::GetKeyMod(){
-	return (Events::eKeyboardMod)(int)this->event.key.keysym.mod;
+SystemInterface::eKeyboardMod SystemInterface::SDL2Events::GetKeyMod(){
+	return (eKeyboardMod)((int)this->event.key.keysym.mod);
 }
 
-SystemInterface::Events::eMouseButton SystemInterface::SDL2Events::GetMouseButton(){
+SystemInterface::eMouseButton SystemInterface::SDL2Events::GetMouseButton(){
 if (this->event.button.button == SDL_BUTTON_LEFT)
 	return MouseButtonLeft;
 if (this->event.button.button == SDL_BUTTON_MIDDLE)

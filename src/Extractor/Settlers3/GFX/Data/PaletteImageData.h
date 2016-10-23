@@ -18,8 +18,14 @@
 namespace Extractor{
 	namespace Settlers3{
 		class PaletteImageData : public Functions::PaletteImage{
+		private:
+			bool keep = false;
 		public:
 			PaletteImageData(Functions::DataReader* reader, unsigned int offset,RGBA* Palette = NULL);
+
+			bool Keep(){return this->keep;};
+
+			PaletteImageData* ReturnImage(){this->keep = true; return this;}
 		};
 	}
 }

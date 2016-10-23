@@ -14,33 +14,34 @@
 #include <vector>
 #include <utility>
 #include <algorithm>
+#include <libxml/tree.h>
 
 #include "../../../../Functions/Image/RGBA.h"
 #include "../../../../Functions/File/DataReader.h"
-#include "../../../../Functions/File/TextLoad.h"
 #include "../../../../Functions/To.h"
 #include "../../../APILEVELS.h"
 #include "../../FileTypes.h"
-
 #include "GUIItemData.h"
 
 namespace OSData{
 	class GUITextData : public GUIItemData {
 	private:
-		std::string text;
-		RGBA textColour;
-		signed short fontSize;
+		std::string text = "";
+		RGBA textColour = 0xFFFFFFFF;
+		signed short fontSize = 0;
 
+		void CheckValues(std::string name, std::string value);
 	public:
-		GUITextData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition verticalPosition,ePosition horizontalPosition,std::string text,RGBA textColour,signed short fontSize);
+		GUITextData(std::pair<unsigned short,unsigned short> location,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,signed short fontSize = 0);
 		GUITextData(Functions::DataReader* reader);
-		GUITextData(std::string line);
-		virtual ~GUITextData();
+		GUITextData(xmlNode* node);
+		virtual ~GUITextData(){};
 
 		std::string Text(){return text;}
 		RGBA TextColour(){return textColour;}
 		signed short FontSize(){return fontSize;}
 
 		bool ToSaveToData(std::vector<char>* data = NULL);
+		std::string ToString();
 	};
 }

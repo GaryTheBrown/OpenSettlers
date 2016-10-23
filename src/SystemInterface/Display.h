@@ -26,9 +26,10 @@ class System;
 		System* system = NULL;
 
 		//Constant System Settings.
-		const std::pair<int,int> MINWINDOWSIZE = {600,800};
-		std::pair<int,int> currentWindowSize;
-		std::pair<int,int> windowSize; //for use when fullscreened and exited to remember the size.
+		const std::pair<int,int> MINWINDOWSIZE = {800,600};
+
+		//for use when exiting fullscreen to remember the size.
+		std::pair<int,int> tmpFullscreenWindowSize;
 
 		//Look at setting up an option to Max out FPS for your monitor
 		const unsigned int MAXFPS = 30;

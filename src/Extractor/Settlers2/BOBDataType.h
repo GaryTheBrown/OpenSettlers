@@ -14,7 +14,7 @@
 
 #include "../../Functions/File/DataReader.h"
 #include "../../Functions/File/Functions.h"
-#include "../../Functions/File/Image.h"
+#include "../../Functions/Image/FileImage.h"
 #include "../../Functions/Image/RGBA.h"
 #include "../../Functions/Image/PaletteImage.h"
 #include "../../Functions/Image/ConvertPALtoRGB.h"

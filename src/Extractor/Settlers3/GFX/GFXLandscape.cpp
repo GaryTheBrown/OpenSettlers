@@ -32,7 +32,8 @@ Extractor::Settlers3::GFXLandscape::GFXLandscape(Functions::DataReader* reader, 
 Extractor::Settlers3::GFXLandscape::~GFXLandscape(){
 	if(this->images != NULL) {
 		for(unsigned short i = 0; i < this->count; i++){
-			delete this->images[i];
+			if (this->images[i]->Keep() == false)
+				delete this->images[i];
 		}
 		delete[] this->images;
 	}

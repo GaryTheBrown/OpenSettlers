@@ -10,11 +10,11 @@
 
 #include "PaletteImage.h"
 
-Functions::PaletteImage::PaletteImage(unsigned short height,unsigned short width)
+Functions::PaletteImage::PaletteImage(unsigned short width,unsigned short height)
 	:height(height),
 	 width(width){
 }
-Functions::PaletteImage::PaletteImage(unsigned char* image, unsigned short height,unsigned short width)
+Functions::PaletteImage::PaletteImage(unsigned char* image, unsigned short width,unsigned short height)
 	:height(height),
 	 width(width),
 	 image(image){
@@ -45,7 +45,6 @@ void Functions::PaletteImage::SaveToFile(std::string filename){
 	Functions::SaveToTextFile(filename + ".txt",data);
 
 	if(this->image != NULL){
-		filename.append(".bmp");
 		FileImage* fileImage = new Functions::FileImage();
 		fileImage->SaveToRGBImage(filename,this->ConvertToRGBA(),this->width,this->height);
 		//fileImage->SaveToPaletteImage(filename,this->image,this->palette,this->width,this->height);

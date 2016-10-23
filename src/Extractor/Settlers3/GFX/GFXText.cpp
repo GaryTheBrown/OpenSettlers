@@ -58,6 +58,7 @@ bool Extractor::Settlers3::GFXText::SaveToFile(std::string location){
 			Functions::CreateDir(location + Languages[i] + "/");
 			//if iconv
 			Functions::iConverter converter(this->LanguageCodes[i]);
+
 			for (unsigned short j = 0; j < this->countA; j++){
 				filename = location + Languages[i] + "/" + Functions::ToString(j) + ".txt";
 

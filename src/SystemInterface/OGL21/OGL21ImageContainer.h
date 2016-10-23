@@ -14,14 +14,15 @@
 #include <string>
 #include <utility>
 #include "../../Log.h"
-
+#include "../../Functions/Image/RGBImage.h"
 #include "../System.h"
 #include "../ImageContainer.h"
 
 #include "OGL21System.h"
-class OGL21System;
+
 
 namespace SystemInterface {
+	class OGL21System;
 	class OGL21ImageContainer: public ImageContainer {
 	private:
 
@@ -36,19 +37,20 @@ namespace SystemInterface {
 		virtual ~OGL21ImageContainer();
 
 
-		virtual bool LoadTexture(std::string path);
-		virtual bool CreateTexture(std::pair<int,int> size, RGBA colour);
-		virtual bool TextToImage(std::string text, RGBA colour);
+		bool LoadTexture(std::string path);
+		bool LoadTexture(Functions::RGBImage* image);
+		bool CreateTexture(std::pair<int,int> size, RGBA colour);
+		bool TextToImage(std::string text, RGBA colour);
 
-		virtual void TextureToScreen();
-		virtual void TextureToScreen(std::pair<int,int> location);
-		virtual void TextureToScreen(std::pair<int,int> location,std::pair<int,int> size);
+		void TextureToScreen();
+		void TextureToScreen(std::pair<int,int> location);
+		void TextureToScreen(std::pair<int,int> location,std::pair<int,int> size);
 
 		//Getters
-		virtual std::pair<int,int> GetTextureSize();
+		std::pair<int,int> GetTextureSize();
 
 
 	private:
-		bool textureToGPU(SDL_Surface* surface);
+		bool TextureToGPU(SDL_Surface* surface);
 	};
 }

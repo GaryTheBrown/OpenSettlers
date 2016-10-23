@@ -28,26 +28,26 @@ namespace SystemInterface {
 
 	public:
 
-		OGL21Display(System* system, bool fullscreen);
+		OGL21Display(System* system, std::pair<int,int> windowSize, bool fullscreen);
 		virtual ~OGL21Display();
 
 		//Window
-		virtual void SetWindowName(std::string name = "");
-		virtual std::pair<int,int> GetWindowSize();
-		virtual void SetWindowSize(std::pair<int,int> size);
-		virtual void SetWindowFullscreen();
+		void SetWindowName(std::string name = "");
+		std::pair<int,int> GetWindowSize();
+		void SetWindowSize(std::pair<int,int> size);
+		void SetWindowFullscreen();
 
 		//Screen
-		virtual std::pair<int,int> GetScreenSize();
-		virtual void ClearToColour(RGBA colour = {0,0,0});
-		virtual void FlipScreen();
+		std::pair<int,int> GetScreenSize();
+		void ClearToColour(RGBA colour = {0,0,0});
+		void FlipScreen();
 
 		//FPS
-		virtual void FPSWait();
-		virtual void FPSRestart();
-		virtual unsigned int GetTick();
-		virtual double CalculateFPS();
-		virtual void ShowFPSCounter();
+		void FPSWait();
+		void FPSRestart();
+		unsigned int GetTick();
+		double CalculateFPS();
+		void ShowFPSCounter();
 
 	};
 }

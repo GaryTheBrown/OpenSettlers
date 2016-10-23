@@ -20,15 +20,16 @@
 #include <SDL2/SDL_opengl.h>
 #include <GL/glu.h>
 
+#include "../../Functions/Image/RGBImage.h"
 #include "../System.h"
 #include "../SDL2/SDL2Events.h"
 #include "../SDL2/SDL2Fonts.h"
 #include "OGL21Display.h"
 #include "OGL21ImageContainer.h"
 
-class OGL21Display;
-
 namespace SystemInterface {
+
+	class OGL21Display;
 	class OGL21System : public System {
 	private:
 
@@ -37,14 +38,15 @@ namespace SystemInterface {
 		OGL21Display* oGL21Display;
 
 		//Constructor
-		OGL21System(std::string windowName,bool fullscreen);
+		OGL21System(std::string windowName,std::pair<int,int> windowSize,bool fullscreen);
 		virtual ~OGL21System();
 
 		//Image functions
-		virtual ImageContainer* LoadTexture(std::string path);
-		virtual ImageContainer* CreateTexture(std::pair<int,int> size, RGBA colour);
-		virtual ImageContainer* TextToImage(std::string text, RGBA colour);
-		virtual void TextureToScreen(ImageContainer* imageContainer);
+		ImageContainer* LoadTexture(std::string path);
+		ImageContainer* LoadTexture(Functions::RGBImage* memoryImage);
+		ImageContainer* CreateTexture(std::pair<int,int> size, RGBA colour);
+		ImageContainer* TextToImage(std::string text, RGBA colour);
+		void TextureToScreen(ImageContainer* imageContainer);
 
 	};
 }

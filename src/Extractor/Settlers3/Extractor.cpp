@@ -12,7 +12,7 @@
 
 Extractor::Settlers3::Extract::Extract(std::string location,bool GOG)
 	:location(location){
-	this->CheckGameVersion(GOG);
+	this->gameVersion = CheckGameVersion(location,GOG);
 }
 
 Extractor::Settlers3::Extract::~Extract(){
@@ -26,53 +26,6 @@ Extractor::Settlers3::Extract::~Extract(){
 		Functions::RemoveFolder("sys");
 		Functions::RemoveFolder("tmp");
 		if(Functions::FolderExists("commonappdata")) Functions::RemoveFolder("commonappdata");
-	}
-}
-
-void Extractor::Settlers3::Extract::CheckGameVersion(bool GOG){
-	//GOG INSTALLERS.
-	if(GOG){
-		LOGSYSTEM->Message("Detected Settlers 3 GOG Installer");
-		this->gameVersion = VersionS3GOG;
-	}
-	//DISC INSTALLED
-	else if(Functions::FileExists(this->location + "s3.exe")){
-		if(Functions::FolderExists(this->location + "EXTRAS")){
-			LOGSYSTEM->Message("Detected Settlers 3 GOLD Installed Version");
-			this->gameVersion = VersionS3GOLDINSTALL;
-		}else{
-			LOGSYSTEM->Message("Detected Settlers 3 Installed Version");
-			this->gameVersion = VersionS3DISCINSTALL;
-		}
-	}
-
-	//GOG INSTALLED
-	else if(Functions::FileExists(this->location + "S3.EXE")){
-		LOGSYSTEM->Message("Detected Settlers 3 GOG Installed Version");
-		this->gameVersion = VersionS3GOGINSTALL;
-	}
-	//DISCS
-	else if((Functions::FileExists(this->location + "S3GOLD1.DAT"))||(Functions::FileExists(this->location + "s3gold1.dat"))){
-		LOGSYSTEM->Message("Detected Settlers 3 GOLD CD 1");
-		this->gameVersion = VersionS3GOLD1;
-	}else if((Functions::FileExists(this->location + "S3GOLD2.DAT"))||(Functions::FileExists(this->location + "s3gold2.dat"))){
-		LOGSYSTEM->Message("Detected Settlers 3 GOLD CD 2");
-		this->gameVersion = VersionS3GOLD2;
-	}else if((Functions::FileExists(this->location + "S3CD1.DAT"  ))||(Functions::FileExists(this->location + "s3cd1.dat"  ))){
-		LOGSYSTEM->Message("Detected Settlers 3 CD 1");
-		this->gameVersion = VersionS3CD1;
-	}else if((Functions::FileExists(this->location + "S3CD2.DAT"  ))||(Functions::FileExists(this->location + "s3cd2.dat"  ))){
-		LOGSYSTEM->Message("Detected Settlers 3 CD 2");
-		this->gameVersion = VersionS3CD2;
-	}else if((Functions::FileExists(this->location + "S3MCD1.DAT" ))||(Functions::FileExists(this->location + "s3mcd1.dat" ))){
-		LOGSYSTEM->Message("Detected Settlers 3 Mission CD");
-		this->gameVersion = VersionS3MCD1;
-	}else if((Functions::FileExists(this->location + "S3QOTA1.DAT"))||(Functions::FileExists(this->location + "s3qota1.dat"))){
-		LOGSYSTEM->Message("Detected Settlers 3 Quest Of The Amazon CD");
-		this->gameVersion = VersionS3QOTA1;
-	}else{
-		LOGSYSTEM->Error("Detection of Version Failed");
-		this->gameVersion = VersionNONE;
 	}
 }
 
@@ -330,9 +283,9 @@ void Extractor::Settlers3::Extract::RAWSNDFolderExtract(std::string folder){
 
 void Extractor::Settlers3::Extract::RAWMAPFolderExtract(std::string folder, MapType mapType){
 	if(Functions::FolderExists(folder)){
-		std::vector<std::string> fileList = Functions::GetDir(folder);
-		for(unsigned int i=0; i < fileList.size(); i++){
-			this->RAWMAPFileExtract(folder,fileList[i],mapType);
+		std::vector<std::string>* fileList = Functions::GetFilesInDirectory(folder);
+		for(unsigned int i=0; i < fileList->size(); i++){
+			this->RAWMAPFileExtract(folder,fileList->at(i),mapType);
 		}
 	}
 }

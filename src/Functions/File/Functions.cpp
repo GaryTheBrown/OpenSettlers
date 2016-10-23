@@ -51,8 +51,8 @@ void Functions::RemoveFolder(std::string folder){
 		return;
 }
 
-std::vector<std::string> Functions::GetDir(std::string directory){
-	std::vector<std::string> outVector;
+std::vector<std::string>* Functions::GetFilesInDirectory(std::string directory){
+	std::vector<std::string>* outVector = new std::vector<std::string>();
 #ifdef _WIN32
 	HANDLE dir;
 	WIN32_FIND_DATA fileData;
@@ -61,7 +61,7 @@ std::vector<std::string> Functions::GetDir(std::string directory){
 		return 0; /* No files found */
 	do {
 		if ((fileData.cFileName[0] == '.')||((fileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)) continue;
-		outVector.push_back(fileData.cFileName);
+		outVector->push_back(fileData.cFileName);
 	} while (FindNextFile(dir, &fileData));
 
 	FindClose(dir);
@@ -73,9 +73,48 @@ std::vector<std::string> Functions::GetDir(std::string directory){
 	dir = opendir(directory.c_str());
 	while ((ent = readdir(dir)) != NULL) {
 		if ((ent->d_name[0] == '.')||(stat((directory + "/" + ent->d_name).c_str(), &st) == -1)||((st.st_mode & S_IFDIR) != 0)) continue;
-		outVector.push_back(ent->d_name);
+		outVector->push_back(ent->d_name);
 	}
 	closedir(dir);
 #endif
+	std::sort(outVector->begin(),outVector->end());
 	return outVector;
+}
+
+std::vector<std::string>* Functions::GetFoldersInDirectory(std::string directory, bool showDir){
+	std::vector<std::string>* outVector = new std::vector<std::string>();
+#ifdef _WIN32
+	HANDLE dir;
+	WIN32_FIND_DATA fileData;
+
+	if ((dir = FindFirstFile((directory + "/*").c_str(), &fileData)) == INVALID_HANDLE_VALUE)
+		return 0; /* No files found */
+	do {
+		if ((fileData.cFileName[0] == '.') != 0)) continue;
+		outVector->push_back(fileData.cFileName + (showDir?"/":""));
+	} while (FindNextFile(dir, &fileData));
+
+	FindClose(dir);
+#else
+	DIR *dir = opendir(directory.c_str());
+	struct dirent *entry = readdir(dir);
+	while (entry != NULL){
+		if (entry->d_type == DT_DIR){
+			if(entry->d_name[0] != '.'){
+				outVector->push_back(std::string(entry->d_name) + (showDir?"/":""));
+			}
+		}
+		entry = readdir(dir);
+	}
+#endif
+	closedir(dir);
+	std::sort(outVector->begin(),outVector->end());
+	return outVector;
+}
+
+std::vector<std::string>* Functions::GetFullDirectory(std::string directory){
+	std::vector<std::string>* directories = GetFoldersInDirectory(directory,true);
+	std::vector<std::string>* files = GetFilesInDirectory(directory);
+	directories->insert(directories->end(), files->begin(), files->end());
+	return directories;
 }

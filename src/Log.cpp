@@ -9,4 +9,4 @@
  *******************************************************************************/
 
 #include "Log.h"
-LogSystem *LOGSYSTEM = new LogSystem(4,5);
+LogSystem *LOGSYSTEM = new LogSystem(4);

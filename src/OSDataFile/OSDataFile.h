@@ -11,37 +11,54 @@
 #pragma once
 #include <string>
 #include <utility>
-#include "../Functions/File/DataReader.h"
-#include "../Functions/File/Functions.h"
-#include "../Functions/File/Save.h"
-#include "../Functions/To.h"
-#include "../Log.h"
-
-#include "APILEVELS.h"
-
+#include <algorithm>
+#include <vector>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
+#include "../Functions/File/DataReader.h"
+#include "../Functions/File/Functions.h"
+#include "../Functions/File/Save.h"
+#include "../Functions/Image/FileImage.h"
+#include "../Functions/Image/RGBImage.h"
+#include "../Functions/To.h"
+#include "../Log.h"
+#include "APILEVELS.h"
 #include "FileTypes/FileTypes.h"
+#include "FileTypes/GameType.h"
 #include "FileTypes/Layout/MenuLayout.h"
 
 namespace OSData{
 	class File {
 	private:
-		unsigned int APIVersion = APILEVEL::MASTER;
+		unsigned int APIVersion = 0;
 		unsigned short baseGame = 0;
-
 		FileTypes* dataType = NULL;
+		std::vector<Functions::RGBImage*>* images = NULL;
+		std::vector<std::string>* imageLocations = NULL;
 
 		bool fileOK = true;
-
+		bool imagesAreNumbers = false;
+		bool keepData = false;
 		void ConstructFromDataFile(std::string file);
 		void ConstructFromXMLFile(std::string file);
+		FileTypes::eFileType GetFileType(std::string data);
+		void DoFileType(FileTypes::eFileType fileType, void* data, bool xml = false);
+		void LoadImagesFromFile(Functions::DataReader* reader);
+		bool SaveImagesToData(std::vector<char>* data);
+
 	public:
 		File(std::string file);
+		File(FileTypes* data);
 		virtual ~File();
 
 		bool ToSaveToXML();
 		bool ToSaveToData(std::string file);
+		bool ImageLocationsToNumbers();
+		bool ImageDataToNumbers();
+		std::string ToString();
+		void KeepData(){this->keepData = true;};
+		MenuLayout* ReturnMenuLayout();
+		GameType* ReturnGameType();
 	};
 }

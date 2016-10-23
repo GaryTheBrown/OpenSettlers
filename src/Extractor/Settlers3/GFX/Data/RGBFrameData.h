@@ -31,7 +31,7 @@ namespace Extractor{
 			~RGBFrameData();
 
 			bool SaveToFile(std::string location);
-			RGBImageData* ReturnImage(unsigned char frame){return this->frames[frame];};
+			RGBImageData* ReturnImage(unsigned char frame){return this->frames[frame]->ReturnImage();};
 
 		};
 	}

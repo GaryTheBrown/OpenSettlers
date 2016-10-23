@@ -31,10 +31,10 @@ Extractor::Settlers3::GFXGUI::GFXGUI(Functions::DataReader* reader, unsigned int
 }
 
 Extractor::Settlers3::GFXGUI::~GFXGUI(){
-	//TODO for each delete that you can return data make sure that when it is deleted you can keep the image data needed
 	if(this->images != NULL){
 		for(unsigned short i = 0; i < this->count; i++){
-			delete this->images[i];
+			if(this->images[i]->Keep() == false)
+				delete this->images[i];
 		}
 		delete [] this->images;
 	}

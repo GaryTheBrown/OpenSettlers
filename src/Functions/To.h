@@ -12,7 +12,7 @@
 #include <iostream>
 #include <iomanip>
 #include <bitset>
-#include<sstream>
+#include <sstream>
 #include <string>
 
 namespace Functions{
@@ -23,6 +23,7 @@ namespace Functions{
 	}
 	extern std::string ToHex(int value,int bytes = 1);
 	extern std::string ToBinary(int value,int bytes = 1);
+	extern unsigned int StringToHex(std::string value);
 
 	template <class T> std::string OutputVar(std::string varName, T varValue,int bytes = 1, bool full = true){
 		std::string returnString;

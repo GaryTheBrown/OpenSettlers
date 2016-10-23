@@ -112,7 +112,7 @@ void Extractor::Settlers2::PlayerColouredBitmap::SaveToFile(std::string filename
 	PaletteImage::SaveToFile(filename);
 
 	if (this->image2 != NULL){
-		filename.append(".2.bmp");
+		filename.append(".2");
 		RGBA* RGBImage = Functions::ConvertPALToRGBA(this->image2,this->transparency2,this->palette,(this->width*this->height));
 		Functions::FileImage* fileImage = new Functions::FileImage();
 		fileImage->SaveToRGBImage(filename,RGBImage,this->width,this->height);

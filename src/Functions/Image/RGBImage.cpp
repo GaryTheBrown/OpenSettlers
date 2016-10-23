@@ -10,17 +10,17 @@
 
 #include "RGBImage.h"
 
-Functions::RGBImage::RGBImage(unsigned short height,unsigned short width)
+Functions::RGBImage::RGBImage(unsigned short width,unsigned short height)
 	:width(width),
 	 height(height){
 }
-Functions::RGBImage::RGBImage(RGBA* imageRGBA, unsigned short height,unsigned short width)
+Functions::RGBImage::RGBImage(RGBA* imageRGBA, unsigned short width,unsigned short height)
 	:width(width),
 	 height(height),
 	 imageRGBA(imageRGBA){
 }
 
-Functions::RGBImage::RGBImage(RGBA* imageRGBA, unsigned short height,unsigned short width,signed short xRel,signed short yRel)
+Functions::RGBImage::RGBImage(RGBA* imageRGBA, unsigned short width,unsigned short height,signed short xRel,signed short yRel)
 	:width(width),
 	 height(height),
 	 xRel(xRel),
@@ -32,21 +32,21 @@ Functions::RGBImage::~RGBImage(){
 		delete[] this->imageRGBA;
 }
 
-void Functions::RGBImage::SaveToRGBBMP(std::string filename){
-	std::string data = "";
-	data += "Width=" + Functions::ToString(this->width) + "\n";
-	data += "Height=" + Functions::ToString(this->height) + "\n";
-	data += "OffsetPositionX=" + Functions::ToString(this->xRel) + "\n";
-	data += "OffsetPositionY=" + Functions::ToString(this->yRel);
-	Functions::SaveToTextFile(filename + ".txt",data);
-
-	filename.append(".bmp");
+void Functions::RGBImage::SaveToFile(std::string filename){
+	if ((this->xRel != 0)||(this->yRel != 0)){
+		std::string data = "";
+		data += "Width=" + Functions::ToString(this->width) + "\n";
+		data += "Height=" + Functions::ToString(this->height) + "\n";
+		data += "OffsetPositionX=" + Functions::ToString(this->xRel) + "\n";
+		data += "OffsetPositionY=" + Functions::ToString(this->yRel);
+		Functions::SaveToTextFile(filename + ".txt",data);
+	}
 	Functions::FileImage* fileImage = new Functions::FileImage();
 	fileImage->SaveToRGBImage(filename,this->imageRGBA,this->width,this->height);
 	delete fileImage;
 }
 
-RGBA* Functions::RGBImage::CutOutSection(unsigned short X,unsigned short Y,unsigned short height,unsigned short width){
+RGBA* Functions::RGBImage::CutOutSection(unsigned short X,unsigned short Y,unsigned short width,unsigned short height){
 	RGBA* newImage = new RGBA[height*width];
 
 	for(unsigned short i = 0; i < height; i++){
@@ -62,7 +62,7 @@ RGBA* Functions::RGBImage::CutOutSection(unsigned short X,unsigned short Y,unsig
 void Functions::RGBImage::ChangeColour(RGBA from, RGBA to){
 	unsigned int size = this->height*this->width;
 	for(unsigned int i = 0; i < size; i++){
-		if ((this->imageRGBA[i].R == from.R)&&(this->imageRGBA[i].G == from.G)&&(this->imageRGBA[i].B == from.B)&&(this->imageRGBA[i].A == from.A)){
+		if (this->imageRGBA[i].ReturnInt() == from.ReturnInt()){
 			this->imageRGBA[i].R = to.R;
 			this->imageRGBA[i].G = to.G;
 			this->imageRGBA[i].B = to.B;
@@ -88,7 +88,7 @@ void Functions::RGBImage::ChangeColourRange(RGBA from, RGBA to, RGBA range){
 	}
 }
 
-void Functions::RGBImage::OverwriteSection(unsigned short X,unsigned short Y,unsigned short height,unsigned short width, RGBA colour){
+void Functions::RGBImage::OverwriteSection(unsigned short X,unsigned short Y,unsigned short width,unsigned short height, RGBA colour){
 	for(unsigned short i = 0; i < height; i++){
 		for(unsigned short j = 0; j < width; j++){
 			unsigned int fromImageLocation = ((X+i)*this->width)+(Y+j);
@@ -98,4 +98,15 @@ void Functions::RGBImage::OverwriteSection(unsigned short X,unsigned short Y,uns
 			this->imageRGBA[fromImageLocation].A = colour.A;
 		}
 	}
+}
+
+void Functions::RGBImage::FlipVertical(){
+	RGBA* newImage = new RGBA[height*width];
+
+	for (unsigned short up = 0, down = this->height-1; up < this->height;up++, down--){
+		for (unsigned int j = 0; j < this->width; j++){
+			newImage[up*this->width+j] = this->imageRGBA[down*this->width+j].ReturnInt();
+		}
+	}
+	this->imageRGBA = newImage;
 }

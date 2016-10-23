@@ -32,6 +32,7 @@ namespace Extractor{
 			~PaletteFrameData();
 
 			bool SaveToFile(std::string location);
+			PaletteImageData* ReturnImage(unsigned char frame){return this->frames[frame]->ReturnImage();};
 		};
 	}
 }

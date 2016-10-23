@@ -10,41 +10,17 @@
 
 #pragma once
 #include <string>
-#include <vector>
 #include "../../Log.h"
 #include "../../Functions/File/Functions.h"
 #include "../../Functions/File/Run.h"
 #include "../eType.h"
+#include "VersionCheck.h"
 #include "GFXDataType.h"
 #include "SNDDataType.h"
 #include "MAPDataType.h"
 
 namespace Extractor{
 	namespace Settlers3{
-	enum VersionS3{
-				VersionNONE,
-				VersionS3CD1,
-				VersionS3CD2,
-				VersionS3MCD1,
-				VersionS3QOTA1,
-				VersionS3GOLD1,
-				VersionS3GOLD2,
-				VersionS3GOG,
-				VersionS3DISCINSTALL,
-				VersionS3GOLDINSTALL,
-				VersionS3GOGINSTALL
-			};
-
-			enum MapType{
-				MT_UNKNOWN,
-				MT_ORIGINALMISSIONS,
-				MT_MCDMISSIONS,
-				MT_QOTAMISSIONS,
-				MT_MULTI,
-				MT_SINGLE,
-				MT_TUTORIAL,
-				MT_USER
-			};
 		class Extract{
 		private:
 			VersionS3 gameVersion = VersionNONE;
@@ -58,18 +34,13 @@ namespace Extractor{
 			void RAWSNDFolderExtract(std::string folder);
 			void RAWMAPFolderExtract(std::string folder, MapType mapType = MT_UNKNOWN);
 
-			void CheckGameVersion(bool GOG);
-
 		public:
 			Extract(std::string location,bool GOG);
 			Extract(){};
 			~Extract();
 
 			bool FullRAWExtract();
-			//bool SortedExtract();
 			bool ManualExtract(eType fileType,std::string location);
-
-
 		};
 	}
 }

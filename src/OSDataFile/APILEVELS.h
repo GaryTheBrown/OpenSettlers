@@ -11,6 +11,9 @@
 #pragma once
 namespace OSData{
 	namespace APILEVEL{
+	/*TODO FIGURE OUT A SYSTEM THAT CAN STORE DATA INCASE THE API OF DATA IS LOWER
+	 *This may be used by the Converter to also create the data.
+	 */
 		const unsigned int MASTER = 0;
 		const unsigned int ARCHIVE = 0; //Is This one really needed?
 

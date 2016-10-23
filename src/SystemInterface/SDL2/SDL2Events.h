@@ -24,12 +24,12 @@ namespace SystemInterface {
 		SDL2Events();
 		virtual ~SDL2Events();
 
-		virtual bool GetNextEvent();
-		virtual Events::eEvent GetEvent();
-		virtual Events::eKeyboardKey GetKey();
-		virtual Events::eKeyboardMod GetKeyMod();
-		virtual Events::eMouseButton GetMouseButton();
-		virtual std::pair<int,int> GetMouseLocation();
+		bool GetNextEvent();
+		eEvent GetEvent();
+		eKeyboardKey GetKey();
+		eKeyboardMod GetKeyMod();
+		eMouseButton GetMouseButton();
+		std::pair<int,int> GetMouseLocation();
 
 	};
 }

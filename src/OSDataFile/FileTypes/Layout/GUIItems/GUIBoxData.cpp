@@ -10,8 +10,8 @@
 
 #include "GUIBoxData.h"
 
-OSData::GUIBoxData::GUIBoxData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition verticalPosition,ePosition horizontalPosition, RGBA backgroundColour, eBoxType boxType, std::vector<GUIItemData*>* itemDataList,bool multiSelect)
-	:OSData::GUIItemData(GUIBoxType,location,size,verticalPosition,horizontalPosition){
+OSData::GUIBoxData::GUIBoxData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition, RGBA backgroundColour, eBoxType boxType, std::vector<GUIItemData*>* itemDataList,bool multiSelect)
+	:OSData::GUIItemData(GUIBoxType,location,size,horizontalPosition,verticalPosition){
 	this->backgroundColour = backgroundColour;
 	this->boxType = boxType;
     this->itemData = itemDataList;
@@ -22,102 +22,142 @@ OSData::GUIBoxData::GUIBoxData(Functions::DataReader* reader)
 	:OSData::GUIItemData(GUIBoxType,reader){
 
 	this->backgroundColour = reader->ReadInt();
-	this->boxType = static_cast<eBoxType>(reader->ReadShort());
+	this->boxType = static_cast<eBoxType>(reader->ReadChar());
 	this->multiSelect = reader->ReadChar() & 1;
 
-	unsigned short count = reader->ReadShort();
-	this->itemData = new std::vector<GUIItemData*>(count);
-	eGUIItemType itemDataType;
-	GUIItemData* item;
 
-	for (unsigned char i = 0; i < count; i++){
-		itemDataType = static_cast<eGUIItemType>(reader->ReadShort());
-		switch(itemDataType){
-		case GUIImageType:
-			item = new GUIImageData(reader);
-			break;
-		case GUIButtonType:
-			item = new GUIButtonData(reader);
-			break;
-		case GUITextType:
-			item = new GUITextData(reader);
-			break;
-		case GUIBoxType:
-			item = new GUIBoxData(reader);
-			break;
-		case GUINoneType:
+
+	switch(this->boxType){
+		case tGridView:
+		case tListView:
+		case tFreeView:{
+			unsigned short count = reader->ReadShort();
+			this->itemData = new std::vector<GUIItemData*>(count);
+			for (unsigned char i = 0; i < count; i++){
+				eGUIItemType itemDataType = static_cast<eGUIItemType>(reader->ReadShort());
+				this->itemData->push_back(DoItemType(itemDataType,reader));
+			}
 			break;
 		}
-		if(item != NULL){
-			this->itemData->push_back(item);
-			item = NULL;
+		case tListFullDir:
+		case tListFolderDir:
+		case tListFileDir:{
+			this->directoryData = new GUIBoxDirectoryData(reader);
+			this->DirCreation();
+			break;
+		}
+		case tEmpty:
+		default:{
+			break;
 		}
 	}
 }
-OSData::GUIBoxData::GUIBoxData(std::string line):GUIItemData(GUIButtonType,line){
-	this->boxType = Empty;
-	this->itemData = NULL;
-	this->multiSelect = false;
+OSData::GUIBoxData::GUIBoxData(xmlNode* node):GUIItemData(GUIBoxType,node){
+	if(node != NULL){
+		xmlAttr* xmlAttribute = node->properties;
+		while(xmlAttribute){
+			this->CheckValues(((char*)xmlAttribute->name),((char*)xmlAttribute->children->content));
+			xmlAttribute = xmlAttribute->next;
+		}
 
-	//extract special () buttons/Images
-	size_t posOpen, posClose;
+//		xmlNode* itemNode = node->children;
+//		while(itemNode){
+//			this->CheckValues(((char*)itemNode->name),((char*)itemNode->content));
+//			itemNode = itemNode->next;
+//		}
 
-	posOpen = line.find_first_of('(');
-	posClose = line.find_first_of(')');
-	std::string* item;
-	std::vector<std::string*>* items = new std::vector<std::string*>();
-	while(posClose < line.length()){
-		item = new std::string(line.substr(posOpen,posClose));
-		line.erase(posOpen,(posClose - posOpen));
-		posOpen = line.find_first_of('(');
-		posClose = line.find_first_of(')');
-		items->push_back(item);
+		switch(this->boxType){
+			case tGridView:
+			case tListView:
+			case tFreeView:{
+				xmlNode* itemNode = node->children;
+				if(itemNode != NULL){
+					this->itemData = new std::vector<GUIItemData*>();
+					while(itemNode){
+						GUIItemData::eGUIItemType itemDataType = GetItemType((char*)itemNode->name);
+						this->itemData->push_back(DoItemType(itemDataType,itemNode,true));
+						itemNode = itemNode->next;
+					}
+				}
+				break;
+			}
+			case tListFullDir:
+			case tListFolderDir:
+			case tListFileDir:{
+				std::string tmpName = (char*)node->children->name;
+				if (tmpName == "DirInfo"){
+					this->directoryData = new GUIBoxDirectoryData(node->children);
+					this->DirCreation();
+				}
+				break;
+			}
+			case tEmpty:
+			default:{
+				break;
+			}
+		}
 	}
+}
 
-	std::vector<std::pair<std::string,std::string>>* loadDataList = Functions::LoadFromTextLine(line);
-
-	for(unsigned int i = 0; i < loadDataList->size();i++){
-		if (loadDataList->at(i).first == "ListBoxType")
-			this->boxType = (eBoxType)atoi(loadDataList->at(i).second.c_str());
-		if (loadDataList->at(i).first == "BackgroundColour"){
-			//Special
-			std::string line = loadDataList->at(i).second;
-			int pos = line.find_first_of('-');
-			this->backgroundColour.R = (unsigned char)atoi(line.substr(0, pos).c_str());
-			std::string line2 = line.substr(pos+1);
-			pos = line2.find_first_of('-');
-			this->backgroundColour.G = (unsigned char)atoi(line2.substr(0, pos).c_str());
-			std::string line3 = line.substr(pos+1);
-			pos = line3.find_first_of('-');
-			this->backgroundColour.B = (unsigned char)atoi(line3.substr(0, pos).c_str());
-			this->backgroundColour.A = (unsigned char)atoi(line3.substr(pos+1).c_str());
+OSData::GUIBoxData::~GUIBoxData(){
+	if(this->itemData != NULL){
+		for(auto item=this->itemData->begin() ; item < this->itemData->end(); item++ ){
+			delete (*item);
 		}
-		if (loadDataList->at(i).first == "MultiSelect")
-			this->multiSelect = loadDataList->at(i).second=="true"?true:false;
-
+		this->itemData->clear();
+		delete this->itemData;
 	}
+	if(this->directoryData != NULL)
+		delete this->directoryData;
+};
 
-	delete loadDataList;
+void OSData::GUIBoxData::GetBoxType(std::string data){
+	if (data == "GridView")
+		this->boxType = tGridView;
+	else if (data == "ListView")
+		this->boxType = tListView;
+	else if (data == "FreeView")
+		this->boxType = tFreeView;
+	else if (data == "ListFullDir")
+		this->boxType = tListFullDir;
+	else if (data == "ListFolderDir")
+		this->boxType = tListFolderDir;
+	else if (data == "ListFileDir")
+		this->boxType = tListFileDir;
+	else
+		this->boxType = tEmpty;
+}
 
-	size_t posEquals;
-	std::string type;
-	GUIItemData* itemData;
-	for(unsigned int i = 0; i < items->size();i++){
-		posEquals = items->at(i)->find_first_of('=');
-		type = items->at(i)->substr(0,posEquals);
-		items->at(i)->erase(0,posEquals);
-		if (type == "Button"){
-			if (this->itemData == NULL) this->itemData = new std::vector<GUIItemData*>();
-			itemData = new GUIButtonData(*items->at(i));
+void OSData::GUIBoxData::CheckValues(std::string name, std::string value){
+	if (name == "ListBoxType")
+		this->GetBoxType(value);
+	else if (name == "BackgroundColour")
+		this->backgroundColour = Functions::StringToHex(value);
+	else if (name == "MultiSelect")
+		this->multiSelect = (value=="true")?true:false;
+}
+
+void OSData::GUIBoxData::DirCreation(){
+	std::vector<std::string>* list;
+	switch(this->boxType){
+		case tListFileDir:
+			list = Functions::GetFilesInDirectory(this->directoryData->FolderLocation());
+			break;
+		case tListFolderDir:
+			list = Functions::GetFoldersInDirectory(this->directoryData->FolderLocation());
+			break;
+		case tListFullDir:
+		default:
+			list = Functions::GetFullDirectory(this->directoryData->FolderLocation());
+			break;
+	}
+	if (this->directoryData != NULL){
+		this->itemData = new std::vector<GUIItemData*>();
+		for(auto item = list->begin() ; item < list->end(); item++ ){
+			GUIItemData* button = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(1,this->directoryData->VerticalSize()),GUIButtonData::pNone,GUIButtonData::pNone,(*item),this->directoryData->TextColour(),0,0,RGBA(0,0,0,0),this->directoryData->SelectColour(),RGBA(0,0,0,0),MMNothing,true);
+			this->itemData->push_back(button);
 		}
-		if (type == "Image"){
-			if (this->itemData == NULL) this->itemData = new std::vector<GUIItemData*>();
-			itemData = new GUIImageData(*items->at(i));
-
-		}
-
-		if(item != NULL)
-			this->itemData->push_back(itemData);
+		delete list;
 	}
 }
 
@@ -126,10 +166,10 @@ bool OSData::GUIBoxData::ToSaveToData(std::vector<char>* data){
 	if (GUIItemData::ToSaveToData(data) == false) return false;
 
 	//Background Colour (Int)(RGBA)
-	data->push_back(this->backgroundColour.R);
-	data->push_back(this->backgroundColour.G);
-	data->push_back(this->backgroundColour.B);
 	data->push_back(this->backgroundColour.A);
+	data->push_back(this->backgroundColour.B);
+	data->push_back(this->backgroundColour.G);
+	data->push_back(this->backgroundColour.R);
 
 	//Box Type (Short)(eBoxType)
 	data->push_back(static_cast<char>(this->boxType));
@@ -137,13 +177,127 @@ bool OSData::GUIBoxData::ToSaveToData(std::vector<char>* data){
 	//Multi Select (Bool)
 	data->push_back(static_cast<char>(this->multiSelect?1:0));
 
-	//Item count (Char)
-	unsigned char count = this->itemData->size();
-	data->push_back(count & 0xFF);
-	//All Items Here
-	for(std::vector<GUIItemData*>::iterator item = this->itemData->begin(); item != this->itemData->end(); item++) {
-		(*item)->ToSaveToData(data);
+	switch(this->boxType){
+			case tGridView:
+			case tListView:
+			case tFreeView:{
+				if (this->itemData != NULL){
+					//Item count (Char)
+					unsigned short count = this->itemData->size();
+					data->push_back(count & 0xFF);
+					data->push_back((count >> 8) & 0xFF);
+					for(auto item=this->itemData->begin() ; item < this->itemData->end(); item++ ){
+						(*item)->ToSaveToData(data);
+					}
+				} else{
+					data->push_back(0);
+					data->push_back(0);
+				}
+				break;
+			}
+			case tListFullDir:
+			case tListFolderDir:
+			case tListFileDir:{
+				if (this->directoryData != NULL)
+					this->directoryData->ToSaveToData(data);
+				break;
+			}
+			case tEmpty:
+			default:
+				break;
+		}
+	return true;
+}
+
+bool OSData::GUIBoxData::ImageToNumbers(std::vector<Functions::RGBImage*>* images, std::vector<std::string>* imageLocations){
+	if (images == NULL) return false;
+
+	//TODO ADD in system for Image Data here once data above updated
+	for(auto item = this->itemData->begin(); item != this->itemData->end(); item++) {
+		switch((*item)->ItemType()){
+		case GUIItemData::GUIBoxType:
+		case GUIItemData::GUIButtonType:
+		case GUIItemData::GUIImageType:
+			if((*item)->ImageToNumbers(images,imageLocations) == false) return false;
+			break;
+		default:
+			break;
+		}
+	}
+	return true;
+}
+
+bool OSData::GUIBoxData::LinkNumbers(std::vector<Functions::RGBImage*>* images){
+	if (images == NULL) return false;
+
+	for(auto item = this->itemData->begin(); item != this->itemData->end(); item++) {
+		switch((*item)->ItemType()){
+		case GUIItemData::GUIBoxType:
+		case GUIItemData::GUIButtonType:
+		case GUIItemData::GUIImageType:
+			if((*item)->LinkNumbers(images) == false) return false;
+			break;
+		default:
+			break;
+		}
+	}
+	return true;
+}
+std::string OSData::GUIBoxData::ToString(){
+	std::string data;
+	data += "GUIBOX\n";
+	data += GUIItemData::ToString();
+
+	data += "Background Colour = " + Functions::ToHex(this->backgroundColour.ReturnInt(),4) + "\n";
+	data += "Multi Select = " + (this->multiSelect?std::string("True"):std::string("False")) + "\n";
+	switch(this->boxType){
+		case tGridView:
+		case tListView:
+		case tFreeView:{
+			switch(this->boxType){
+				case tGridView:
+					data += "Box Type = Grid View\n";
+					break;
+				case tListView:
+					data += "Box Type = List View\n";
+					break;
+				case tFreeView:
+					data += "Box Type = Free View\n";
+					break;
+				default:
+					break;
+			}
+			if (this->itemData != NULL){
+				for(auto item=this->itemData->begin() ; item < this->itemData->end(); item++ ){
+					data += (*item)->ToString();
+				}
+			}
+			break;
+		}
+		case tListFullDir:
+		case tListFolderDir:
+		case tListFileDir:{
+			switch(this->boxType){
+				case tListFullDir:
+					data += "Box Type = List Full Directory\n";
+					break;
+				case tListFolderDir:
+					data += "Box Type = List Folder Directory\n";
+					break;
+				case tListFileDir:
+					data += "Box Type = List File Directory\n";
+					break;
+				default:
+					break;
+			}
+			if (this->directoryData != NULL)
+				data += this->directoryData->ToString();
+			break;
+		}
+		case tEmpty:
+		default:
+			break;
 	}
 
-	return true;
+	return data;
 }

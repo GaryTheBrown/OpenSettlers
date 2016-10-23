@@ -13,46 +13,49 @@
 #include <vector>
 #include <utility>
 #include <algorithm>
+#include <libxml/tree.h>
 
 #include "../../../Functions/Image/RGBA.h"
 #include "../../../Functions/File/DataReader.h"
-#include "../../../Functions/File/TextLoad.h"
+#include "../../../Functions/To.h"
+#include "../../../Log.h"
 #include "../../APILEVELS.h"
 #include "../FileTypes.h"
-#include "../../../Log.h"
-
 #include "GUIItems/GUIImageData.h"
 #include "GUIItems/GUIButtonData.h"
 #include "GUIItems/GUITextData.h"
 #include "GUIItems/GUIBoxData.h"
+#include "GUIItems/GUIItemNew.h"
 
 namespace OSData{
-	class MenuLayout : public FileTypes{
+	class MenuLayout : public FileTypes {
 	private:
-		bool fileOK = true;
 
 		unsigned int APIVersion = APILEVEL::MENULAYOUT;
 		int menuID = 0;
 		std::string title;
 		RGBA backgroundColour;
-
-	public:
 		std::vector<GUIItemData*>* itemData = NULL;
 
-		//constructors
+	public:
+
+
 		MenuLayout(int menuID,std::string title,RGBA backgroundColour,std::vector<GUIItemData*>* itemData);
 		MenuLayout(Functions::DataReader* reader);
-		MenuLayout(std::string file);
+		MenuLayout(xmlNode* node);
+
 		virtual ~MenuLayout();
 
-		//getters
 		int MenuID(){return menuID;}
 		std::string Title(){return title;}
 		RGBA BackgroundColour(){return backgroundColour;}
-
-		//functions
+		std::vector<GUIItemData*>* ItemData(){return this->itemData;};
 
 		bool ToSaveToData(std::vector<char>* data = NULL);
+		bool ImageToNumbers(std::vector<Functions::RGBImage*>* images, std::vector<std::string>* imageLocations = NULL);
+		bool LinkNumbers(std::vector<Functions::RGBImage*>* images);
+		std::string ToString();
 
+	    bool operator < (const MenuLayout& str) const {return (menuID < str.menuID);};
 	};
 }

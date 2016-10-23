@@ -31,7 +31,7 @@ namespace Extractor{
 			GFXLandscape(Functions::DataReader* reader, unsigned int offset,unsigned int colourCode);
 			~GFXLandscape();
 			bool SaveToFile(std::string location);
-			RGBImageData* ReturnImage(unsigned short image){return this->images[image];};
+			RGBImageData* ReturnImage(unsigned short image){return this->images[image]->ReturnImage();};
 		};
 	}
 }

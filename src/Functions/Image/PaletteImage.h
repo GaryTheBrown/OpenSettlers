@@ -13,7 +13,7 @@
 #include "../Image/RGBA.h"
 #include "../File/Save.h"
 #include "../To.h"
-#include "../File/Image.h"
+#include "../Image/FileImage.h"
 #include "../../Log.h"
 #include "ConvertPALtoRGB.h"
 

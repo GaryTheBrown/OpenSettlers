@@ -12,11 +12,7 @@
 
 #include <utility>
 namespace SystemInterface {
-	class Events {
-	protected:
-		std::pair<int,int> windowResizeSize = {0,0};
-	public:
-		enum eKeyboardMod{
+enum eKeyboardMod{
 			KEYBOARDMOD_NONE = 0x0000,
 			KEYBOARDMOD_LSHIFT = 0x0001,
 			KEYBOARDMOD_RSHIFT = 0x0002,
@@ -148,6 +144,11 @@ namespace SystemInterface {
 
 		enum eMouseButton{MBNone,MouseButtonLeft,MouseButtonMiddle,MouseButtonRight};
 		enum eEvent{eNone,eQuit,eWindow,eWindowResized,eWindowMinimized,eWindowMaximized,eWindowRestored,eKeyboardDown,eKeyboardUp,eMouseMotion,eMouseButtonDown,eMouseButtonUp,eMouseWheel};
+
+	class Events {
+	protected:
+		std::pair<int,int> windowResizeSize = {0,0};
+	public:
 		Events(){};
 		virtual ~Events(){};
 

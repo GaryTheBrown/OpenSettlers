@@ -51,6 +51,7 @@ namespace Functions{
 		unsigned int ReadInt();
 		unsigned long long ReadLongLong();
 		std::string ReadString(int size, unsigned int offset);
+		std::string ReadString(unsigned int size);
 		//Get signed Variables
 		signed short ReadSignedShort();
 

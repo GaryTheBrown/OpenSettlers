@@ -12,62 +12,57 @@
 #include <string>
 #include <vector>
 #include <utility>
+#include <libxml/tree.h>
 
+#include "../../../../MenuEvents.h"
 #include "../../../../Functions/Image/RGBA.h"
+#include "../../../../Functions/Image/RGBImage.h"
 #include "../../../../Functions/File/DataReader.h"
-#include "../../../../Functions/File/TextLoad.h"
 #include "../../../../Functions/To.h"
+#include "../../../../GFXInterface/GFXReturn.h"
 #include "../../../APILEVELS.h"
-#include "../../../eTypes.h"
 #include "../../FileTypes.h"
-
 #include "GUIItemData.h"
-
+#include "ImageData.h"
+//TODO ALLOW TEXT TO CHANGE COLOUR ADDING IN 2 more textures that will draw in the 3 states up pressed and down GFXButton Needs 2 more containers as well
 namespace OSData{
 	class GUIButtonData : public GUIItemData {
 	private:
-		std::string text;
-		RGBA textColour;
-		signed short fontSize;
-		signed short textBuffer;
+		std::string text = "";
+		RGBA textColour = 0xFFFFFFFF;
+		signed short fontSize = 0;
+		signed short textBuffer = 0;
+		ImageData image;
+		ImageData hover;
+		ImageData pressed;
+		eMenuEvent menuEvent = MMNothing;
+		bool multiSelect = false;
 
-		std::string imageLocation = "";
-		unsigned int imageNumber = 0;
-		std::string hoverImageLocation = "";
-		unsigned int hoverImageNumber = 0;
-		std::string pressedImageLocation = "";
-		unsigned int pressedImageNumber = 0;
-		RGBA buttonColour;
-		RGBA pressedButtonColour;
-		RGBA hoverButtonColour;
-		eMenuEvent menuEvent;
-		bool multiSelect;
-
+		void CheckValues(std::string name, std::string value);
 	public:
-
-		GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition verticalPosition,ePosition horizontalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,unsigned int imageNumber,unsigned int pressedNumber,unsigned int hoverNumber,eMenuEvent menuEvent,bool multiSelect);
-		GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition verticalPosition,ePosition horizontalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,RGBA buttonColour,RGBA pressedButtonColour,RGBA hoverButtonColour,eMenuEvent menuEvent,bool multiSelect);
+		GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,std::string imageLocation,std::string pressedLocation,std::string hoverLocation,eMenuEvent menuEvent,bool multiSelect);
+		GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,signed int imageNumber,signed int pressedNumber,signed int hoverNumber,eMenuEvent menuEvent,bool multiSelect);
+		GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,RGBA buttonColour,RGBA pressedButtonColour,RGBA hoverButtonColour,eMenuEvent menuEvent,bool multiSelect);
+		GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,Functions::RGBImage* button,Functions::RGBImage* pressedButton,Functions::RGBImage* hoverButton,eMenuEvent menuEvent,bool multiSelect);
 		GUIButtonData(Functions::DataReader* reader);
-		GUIButtonData(std::string line);
+		GUIButtonData(xmlNode* node);
 		virtual ~GUIButtonData(){};
 
 		std::string Text(){return this->text;}
 		RGBA TextColour(){return this->textColour;}
 		signed short FontSize(){return this->fontSize;}
 		signed short TextBuffer(){return this->textBuffer;}
-		std::string ImageLocation(){return this->imageLocation;}
-		std::string HoverLocation(){return this->hoverImageLocation;}
-		std::string PressedLocation(){return this->pressedImageLocation;};
-		unsigned int ImageNumber(){return this->imageNumber;}
-		unsigned int HoverNumber(){return this->hoverImageNumber;}
-		unsigned int PressedNumber(){return this->pressedImageNumber;};
-		RGBA ButtonColour(){return this->buttonColour;}
-		RGBA HoverButtonColour(){return this->hoverButtonColour;}
-		RGBA PressedButtonColour(){return this->pressedButtonColour;}
+
+		ImageData Image(){return this->image;}
+		ImageData Hover(){return this->hover;}
+		ImageData Pressed(){return this->pressed;}
+
 		eMenuEvent MenuEvent(){return this->menuEvent;}
 		bool MultiSelect(){return this->multiSelect;}
 
-		std::string ToSaveToText();
 		bool ToSaveToData(std::vector<char>* data = NULL);
+		bool ImageToNumbers(std::vector<Functions::RGBImage*>* images, std::vector<std::string>* imageLocations = NULL);
+		bool LinkNumbers(std::vector<Functions::RGBImage*>* images);
+		std::string ToString();
 	};
 }

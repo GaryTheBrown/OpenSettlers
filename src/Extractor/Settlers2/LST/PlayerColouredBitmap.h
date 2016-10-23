@@ -10,9 +10,8 @@
 
 #pragma once
 #include <string>
-#include <vector>
 #include "../../../Functions/File/DataReader.h"
-#include "../../../Functions/File/Image.h"
+#include "../../../Functions/Image/FileImage.h"
 #include "../../../Functions/Image/PaletteImage.h"
 #include "../../../Functions/To.h"
 #include "../../../Log.h"

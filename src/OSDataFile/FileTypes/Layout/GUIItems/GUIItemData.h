@@ -12,22 +12,25 @@
 
 #include <string>
 #include <utility>
+#include <vector>
+#include <libxml/tree.h>
 
-#include "../../../../Functions/File/TextLoad.h"
+#include "../../../../Functions/Image/RGBImage.h"
 #include "../../../../Functions/File/DataReader.h"
 #include "../../../../Functions/To.h"
 #include "../../../APILEVELS.h"
-#include "../../../../Log.h"
+
 
 namespace OSData{
 	class GUIItemData {
 	public:
 		enum eGUIItemType: unsigned char{
-			GUINoneType,
-			GUIImageType,
-			GUIButtonType,
-			GUITextType,
-			GUIBoxType
+			GUINoneType = 0,
+			GUIImageType = 1,
+			GUIButtonType = 2,
+			GUITextType = 3,
+			GUIBoxType = 4,
+			GUISpacerType = 5
 		};
 
 		enum ePosition: unsigned char{
@@ -43,23 +46,26 @@ namespace OSData{
 			StretchFromFrom = 7, //stretches from x from top/left to x from bottom/right
 			StretchPercent = 8,
 			AlignTL = (AlignLeft|AlignTop),
-			AlignBR = (AlignRight|AlignTop)
+			AlignBR = (AlignRight|AlignBottom)
 		};
+	private:
 
+		void CheckItemValues(std::string name, std::string value);
 	protected:
-		bool fileOK = true;
-
-		unsigned int APIVersion = APILEVEL::GUIITEMS;
 		eGUIItemType itemType;
-		std::pair<unsigned short,unsigned short> location;
-		std::pair<unsigned short,unsigned short> size;
-		ePosition verticalPosition;
-		ePosition horizontalPosition;
+		std::pair<unsigned short,unsigned short> location = {0,0};
+		std::pair<unsigned short,unsigned short> size = {0,0};
+		ePosition horizontalPosition = pNone;
+		ePosition verticalPosition = pNone;
 
+		bool fileOK = true;
+		unsigned int APIVersion = APILEVEL::GUIITEMS;
+
+		ePosition GetPositionType(std::string data);
 	public:
-		GUIItemData(eGUIItemType itemType,std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size, ePosition verticalPosition, ePosition horizontalPosition);
+		GUIItemData(eGUIItemType itemType,std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size, ePosition horizontalPosition, ePosition verticalPosition);
 		GUIItemData(eGUIItemType itemType,Functions::DataReader* reader);
-		GUIItemData(eGUIItemType itemType,std::string line);
+		GUIItemData(eGUIItemType itemType,xmlNode* node);
 		virtual ~GUIItemData(){};
 
 		eGUIItemType ItemType(){return this->itemType;}
@@ -69,5 +75,8 @@ namespace OSData{
 		std::pair<unsigned short,unsigned short> GetSize(){return this->size;}
 
 		virtual bool ToSaveToData(std::vector<char>* data = NULL);
+		virtual bool ImageToNumbers(std::vector<Functions::RGBImage*>* images, std::vector<std::string>* imageLocations = NULL){return true;};
+		virtual bool LinkNumbers(std::vector<Functions::RGBImage*>* images){return true;};
+		virtual std::string ToString();
 	};
 }

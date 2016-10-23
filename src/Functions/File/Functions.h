@@ -18,7 +18,9 @@
 #include <unistd.h>
 #include <errno.h>
 #include <sys/stat.h>
+#include "sys/dir.h"
 #include <vector>
+#include <algorithm>
 
 namespace Functions{
 	extern bool FileExists(std::string file);
@@ -26,5 +28,7 @@ namespace Functions{
 	extern void CreateDir(std::string FileName);
 	extern void Copy(std::string from, std::string to);
 	extern void RemoveFolder(std::string folder);
-	extern std::vector<std::string> GetDir(std::string directory);
+	extern std::vector<std::string>* GetFilesInDirectory(std::string directory);
+	extern std::vector<std::string>* GetFoldersInDirectory(std::string directory, bool showDir = false);
+	extern std::vector<std::string>* GetFullDirectory(std::string directory);
 }

@@ -10,51 +10,47 @@
 
 #include "GUITextData.h"
 
-OSData::GUITextData::GUITextData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition verticalPosition,ePosition horizontalPosition,std::string text,RGBA textColour,signed short fontSize)
-			:OSData::GUIItemData(GUITextType,location,{0,0},verticalPosition,horizontalPosition),
-			 text(text),
-			 textColour(textColour),
-			 fontSize(fontSize){
+OSData::GUITextData::GUITextData(std::pair<unsigned short,unsigned short> location,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,signed short fontSize)
+			:OSData::GUIItemData(GUITextType,location,{0,0},horizontalPosition,verticalPosition){
+			 this->text = text;
+			 this->textColour = textColour;
+			 this->fontSize = fontSize;
 }
 
-OSData::GUITextData::GUITextData(Functions::DataReader* reader)
-			:OSData::GUIItemData(GUITextType,reader){
+OSData::GUITextData::GUITextData(Functions::DataReader* reader):OSData::GUIItemData(GUITextType,reader){
 	unsigned int textSize = reader->ReadShort();
-	this->text = reader->ReadString(textSize,-1);
+	this->text = reader->ReadString(textSize);
 
 	this->textColour = reader->ReadInt();
 
 	this->fontSize = reader->ReadShort();
 
 }
-OSData::GUITextData::GUITextData(std::string line)
-					:GUIItemData(GUITextType,line),
-					text(""){
 
-	std::vector<std::pair<std::string,std::string>>* loadDataList = Functions::LoadFromTextLine(line);
-
-	for(unsigned int i = 0; i < loadDataList->size();i++){
-
-		if (loadDataList->at(i).first == "Text")
-			this->text = loadDataList->at(i).second;
-		if (loadDataList->at(i).first == "TextColour"){
-			//Special
-			std::string line = loadDataList->at(i).second;
-			int pos = line.find_first_of('-');
-			this->textColour.R = (unsigned char)atoi(line.substr(0, pos).c_str());
-			std::string line2 = line.substr(pos+1);
-			pos = line2.find_first_of('-');
-			this->textColour.G = (unsigned char)atoi(line2.substr(0, pos).c_str());
-			this->textColour.B = (unsigned char)atoi(line2.substr(pos+1).c_str());
+OSData::GUITextData::GUITextData(xmlNode* node):GUIItemData(GUITextType,node){
+	if(node != NULL){
+		xmlAttr* xmlAttribute = node->properties;
+		while(xmlAttribute){
+			this->CheckValues(((char*)xmlAttribute->name),((char*)xmlAttribute->children->content));
+			xmlAttribute = xmlAttribute->next;
 		}
-		if (loadDataList->at(i).first == "FontSize")
-			this->fontSize = atoi(loadDataList->at(i).second.c_str());
-	}
 
-	delete loadDataList;
+//		xmlNode* itemNode = node->children;
+//		while(itemNode){
+//			this->CheckValues(((char*)itemNode->name),((char*)itemNode->content));
+//			itemNode = itemNode->next;
+//		}
+	}
 }
 
-OSData::GUITextData::~GUITextData() {}
+void OSData::GUITextData::CheckValues(std::string name, std::string value){
+	if (name == "Text")
+		this->text = value;
+	else if (name == "TextColour")
+		this->textColour = Functions::StringToHex(value);
+	else if (name == "FontSize")
+		this->fontSize = atoi(value.c_str());
+}
 
 bool OSData::GUITextData::ToSaveToData(std::vector<char>* data){
 	if (data == NULL) data = new std::vector<char>;
@@ -62,19 +58,30 @@ bool OSData::GUITextData::ToSaveToData(std::vector<char>* data){
 
 	//textSize (Char);
 	data->push_back(this->text.size() & 0xFF);
+	data->push_back((this->text.size() >> 8) & 0xFF);
 
 	//text (String);
-	std::copy(this->text.begin(), this->text.end()-1, std::back_inserter(*data));
+	std::copy(this->text.begin(), this->text.end(), std::back_inserter(*data));
 
 	//textColour (Int);
-	data->push_back(this->textColour.R);
-	data->push_back(this->textColour.G);
-	data->push_back(this->textColour.B);
 	data->push_back(this->textColour.A);
+	data->push_back(this->textColour.B);
+	data->push_back(this->textColour.G);
+	data->push_back(this->textColour.R);
 
 	//fontSize (Short);
-	data->push_back((this->fontSize >> 8) & 0xFF);
 	data->push_back(this->fontSize & 0xFF);
+	data->push_back((this->fontSize >> 8) & 0xFF);
 
 	return true;
+}
+
+std::string OSData::GUITextData::ToString(){
+	std::string data;
+	data += "GUITEXT\n";
+	data += GUIItemData::ToString();
+	data += "Text = " + this->text + "\n";
+	data += "Colour = " + Functions::ToHex(this->textColour.ReturnInt(),4) + "\n";
+	data += "Size = " + Functions::ToString(this->fontSize) + "\n";
+	return data;
 }

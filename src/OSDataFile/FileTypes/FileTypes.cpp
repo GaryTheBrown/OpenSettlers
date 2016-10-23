@@ -13,7 +13,9 @@
 bool OSData::FileTypes::ToSaveToData(std::vector<char>* data){
 	if (data == NULL) return false;
 
-	data->push_back(static_cast<char>(this->fileType));
+	unsigned short fileTypeNumber = static_cast<short>(this->fileType);
+	data->push_back(fileTypeNumber & 0xFF);
+	data->push_back((fileTypeNumber >> 8) & 0xFF);
 
 	return true;
 }

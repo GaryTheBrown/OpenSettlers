@@ -10,53 +10,64 @@
 
 #include "GUIImageData.h"
 
-OSData::GUIImageData::GUIImageData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition verticalPosition,ePosition horizontalPosition,std::string imageLocation)
-	:OSData::GUIItemData(GUIImageType,location,size,verticalPosition,horizontalPosition),
-	imageLocation(imageLocation){
+OSData::GUIImageData::GUIImageData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string imageLocation)
+	:OSData::GUIItemData(GUIImageType,location,size,horizontalPosition,verticalPosition){
+	this->image.Location(imageLocation);
+}
+
+OSData::GUIImageData::GUIImageData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size, ePosition horizontalPosition,ePosition verticalPosition,Functions::RGBImage* image)
+:OSData::GUIItemData(GUIImageType,location,size,horizontalPosition,verticalPosition){
+	this->image.Data(image);
 }
 
 OSData::GUIImageData::GUIImageData(Functions::DataReader* reader)
 	:OSData::GUIItemData(GUIImageType,reader){
-	unsigned short count = reader->ReadShort();
-	if (count == 0)
-		this->imageNumber = reader->ReadShort();
-	else
-		this->imageLocation = reader->ReadString(count,-1);
+	this->image.ReadData(reader);
 }
 
-OSData::GUIImageData::GUIImageData(std::string line)
-	:GUIItemData(GUIImageType,line){
+OSData::GUIImageData::GUIImageData(xmlNode* node):GUIItemData(GUIImageType,node){
+	if(node != NULL){
+		xmlAttr* xmlAttribute = node->properties;
+		while(xmlAttribute){
+			this->CheckValues(((char*)xmlAttribute->name),((char*)xmlAttribute->children->content));
+			xmlAttribute = xmlAttribute->next;
+		}
 
-	std::vector<std::pair<std::string,std::string>>* loadDataList = Functions::LoadFromTextLine(line);
-
-	for(unsigned int i = 0; i < loadDataList->size();i++){
-		if (loadDataList->at(i).first == "ImageLocation")
-			this->imageLocation = loadDataList->at(i).second;
+//		xmlNode* itemNode = node->children;
+//		while(itemNode){
+//			this->CheckValues(((char*)itemNode->name),((char*)itemNode->content));
+//			itemNode = itemNode->next;
+//		}
 	}
-	delete loadDataList;
+}
+
+void OSData::GUIImageData::CheckValues(std::string name, std::string value){
+ 	if (name == "ImageLocation")
+		this->image.Location(value);
 }
 
 bool OSData::GUIImageData::ToSaveToData(std::vector<char>* data){
 	if (data == NULL) data = new std::vector<char>;
 	if (GUIItemData::ToSaveToData(data) == false) return false;
-
-	unsigned short stringSize = this->imageLocation.size();
-	if (stringSize > 0){
-		//count (Short)
-		data->push_back((stringSize >> 8) & 0xFF);
-		data->push_back(stringSize & 0xFF);
-
-		//string
-		std::copy(this->imageLocation.begin(), this->imageLocation.end()-1, std::back_inserter(*data));
-	}else{
-		//count (Short)
-		data->push_back(0);
-		data->push_back(0);
-
-		//ImageNumber (Short)
-		data->push_back((this->imageNumber >> 8) & 0xFF);
-		data->push_back(this->imageNumber & 0xFF);
-	}
+	if (this->image.ToSaveToData(data) == false) return false;
 
 	return true;
+}
+
+bool OSData::GUIImageData::ImageToNumbers(std::vector<Functions::RGBImage*>* images, std::vector<std::string>* imageLocations){
+	if (images == NULL) return false;
+	return this->image.ImageToNumbers(images,imageLocations);
+}
+
+bool OSData::GUIImageData::LinkNumbers(std::vector<Functions::RGBImage*>* images){
+	if (images == NULL) return false;
+	return this->image.LinkNumber(images);
+}
+
+std::string OSData::GUIImageData::ToString(){
+	std::string data;
+	data += "GUIIMAGE\n";
+	data += GUIItemData::ToString();
+	data += this->image.ToString();
+	return data;
 }

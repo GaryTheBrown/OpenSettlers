@@ -33,7 +33,10 @@ Extractor::Settlers3::RGBFrameData::RGBFrameData(Functions::DataReader* reader, 
 
 Extractor::Settlers3::RGBFrameData::~RGBFrameData() {
 	for(unsigned char i = 0; i < this->count; i++){
-		if(this->frames[i] != NULL) delete this->frames[i];
+		if(this->frames[i] != NULL){
+			if (this->frames[i]->Keep() == false)
+				delete this->frames[i];
+		}
 	}
 	delete[] this->frames;
 }

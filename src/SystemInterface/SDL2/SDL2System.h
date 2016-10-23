@@ -17,16 +17,15 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mouse.h>
 
-
+#include "../../Functions/Image/RGBImage.h"
 #include "../System.h"
 #include "SDL2Display.h"
 #include "SDL2ImageContainer.h"
 #include "SDL2Events.h"
 #include "SDL2Fonts.h"
 
-class SDL2Display;
-
 namespace SystemInterface {
+	class SDL2Display;
 	class SDL2System : public System {
 	private:
 
@@ -35,14 +34,15 @@ namespace SystemInterface {
 		SDL2Display* sdl2Display;
 
 		//Constructor
-		SDL2System(std::string windowName,bool fullscreen);
+		SDL2System(std::string windowName,std::pair<int,int> windowSize,bool fullscreen);
 		virtual ~SDL2System();
 
 		//Image functions
-		virtual ImageContainer* LoadTexture(std::string path);
-		virtual ImageContainer* CreateTexture(std::pair<int,int> size, RGBA colour);
-		virtual ImageContainer* TextToImage(std::string text, RGBA colour);
-		virtual void TextureToScreen(ImageContainer* imageContainer);
+		ImageContainer* LoadTexture(std::string path);
+		ImageContainer* LoadTexture(Functions::RGBImage* memoryImage);
+		ImageContainer* CreateTexture(std::pair<int,int> size, RGBA colour);
+		ImageContainer* TextToImage(std::string text, RGBA colour);
+		void TextureToScreen(ImageContainer* imageContainer);
 
 	};
 }

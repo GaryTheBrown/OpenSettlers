@@ -32,7 +32,8 @@ Extractor::Settlers3::PaletteFrameData::PaletteFrameData(Functions::DataReader* 
 Extractor::Settlers3::PaletteFrameData::~PaletteFrameData() {
 	for(unsigned char i = 0; i < this->count; i++){
 		if(this->frames[i] != NULL){
-			delete this->frames[i];
+			if (this->frames[i]->Keep() == false)
+				delete this->frames[i];
 		}
 	}
 	delete[] this->frames;

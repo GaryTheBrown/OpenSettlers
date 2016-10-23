@@ -21,7 +21,8 @@ public:
 	RGBA(unsigned char R,unsigned char G,unsigned char B,unsigned char A = 0);
 	RGBA(short colour, bool c565);
 	RGBA(unsigned int colour);
-	~RGBA(){};
+	virtual ~RGBA(){};
 
 	unsigned int ReturnInt();
+
 };

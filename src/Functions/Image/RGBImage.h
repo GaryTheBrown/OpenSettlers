@@ -10,8 +10,9 @@
 
 #pragma once
 #include <string>
+#include <algorithm>
 #include "../Image/RGBA.h"
-#include "../File/Image.h"
+#include "FileImage.h"
 
 
 namespace Functions{
@@ -28,21 +29,25 @@ namespace Functions{
 
 	public:
 		RGBImage(){};
-		RGBImage(unsigned short height,unsigned short width);
-		RGBImage(RGBA* imageRGBA, unsigned short height,unsigned short width);
-		RGBImage(RGBA* imageRGBA, unsigned short height,unsigned short width,signed short xRel,signed short yRel);
+		RGBImage(unsigned short width,unsigned short height);
+		RGBImage(RGBA* imageRGBA, unsigned short width, unsigned short height);
+		RGBImage(RGBA* imageRGBA, unsigned short width, unsigned short height, signed short xRel, signed short yRel);
 		virtual ~RGBImage();
 
-		virtual void SaveToFile(std::string filename){this->SaveToRGBBMP(filename);};
-		void SaveToRGBBMP(std::string filename);
+		void SaveToFile(std::string filename);
 
 		//Image Manipulation
-		RGBA* CutOutSection(unsigned short X,unsigned short Y,unsigned short height,unsigned short width);
+		RGBA* CutOutSection(unsigned short X,unsigned short Y,unsigned short width,unsigned short height);
 		void ChangeColour(RGBA From, RGBA To);
 		void ChangeColourRange(RGBA From, RGBA To, RGBA Range);
-		void OverwriteSection(unsigned short X,unsigned short Y,unsigned short height,unsigned short width, RGBA colour = {0,0,0,0});
-
+		void OverwriteSection(unsigned short X,unsigned short Y,unsigned short width,unsigned short height, RGBA colour = {0,0,0,0});
+		void FlipVertical();
 		void SetKeep(){this->keep = true;};
 		bool GetKeep(){return this->keep;};
+
+		unsigned short Width(){return this->width;};
+		unsigned short Height(){return this->height;};
+		RGBA* ImageRGBA(){return this->imageRGBA;};
+
 	};
 }

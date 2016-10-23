@@ -11,7 +11,7 @@
 #include "LBMImage.h"
 
 Extractor::Settlers2::LBMImage::LBMImage(Functions::DataReader* reader,unsigned short width,unsigned short height,RGBA* palette)
-	:Functions::PaletteImage(height,width){
+	:Functions::PaletteImage(width,height){
 
 	this->palette = palette;
 	this->image = new unsigned char[width*height];
@@ -49,7 +49,7 @@ void Extractor::Settlers2::LBMImage::SaveToFile(std::string filename){
 
 	RGBA* RGBImage = this->ConvertToRGBA();
 	Functions::FileImage* fileImage = new Functions::FileImage();
-	fileImage->SaveToPaletteImage(filename + "PAL.bmp",this->image,this->palette,this->width,this->height);
-	fileImage->SaveToRGBImage(filename + "RGB.bmp",RGBImage,this->width,this->height);
+	fileImage->SaveToPaletteImage(filename + "PAL",this->image,this->palette,this->width,this->height);
+	fileImage->SaveToRGBImage(filename + "RGB",RGBImage,this->width,this->height);
 	delete fileImage;
 }

@@ -22,31 +22,30 @@ namespace SystemInterface {
 
 			SDL_DisplayMode currentDesktopMode;
 			SDL_DisplayMode systemDesktopMode;
-			std::pair<int,int> windowSize; //for use when fullscreened and exited to remember the size.
 			SDL_Window* window;
 			SDL_Renderer* renderer;
 	public:
 
-		SDL2Display(System* system, bool fullscreen);
+		SDL2Display(System* system,std::pair<int,int> windowSize, bool fullscreen);
 		virtual ~SDL2Display();
 
 		//Window
-		virtual void SetWindowName(std::string name = "");
-		virtual std::pair<int,int> GetWindowSize();
-		virtual void SetWindowSize(std::pair<int,int> size);
-		virtual void SetWindowFullscreen();
+		void SetWindowName(std::string name = "");
+		std::pair<int,int> GetWindowSize();
+		void SetWindowSize(std::pair<int,int> size);
+		void SetWindowFullscreen();
 
 		//Screen
-		virtual std::pair<int,int> GetScreenSize();
-		virtual void ClearToColour(RGBA colour);
-		virtual void FlipScreen();
+		std::pair<int,int> GetScreenSize();
+		void ClearToColour(RGBA colour);
+		void FlipScreen();
 
 		//FPS
-		virtual void FPSWait();
-		virtual void FPSRestart();
-		virtual unsigned int GetTick();
-		virtual double CalculateFPS();
-		virtual void ShowFPSCounter();
+		void FPSWait();
+		void FPSRestart();
+		unsigned int GetTick();
+		double CalculateFPS();
+		void ShowFPSCounter();
 
 		//SDL FUNCTIONS to ensure renderer is kept private
 		SDL_Texture* SDLCreateTextureFromSurface(SDL_Surface* loadedSurface){return SDL_CreateTextureFromSurface(this->renderer, loadedSurface );};

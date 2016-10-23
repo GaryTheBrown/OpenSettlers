@@ -31,23 +31,34 @@ SystemInterface::SDL2ImageContainer::~SDL2ImageContainer() {
 bool SystemInterface::SDL2ImageContainer::LoadTexture(std::string path){
     if (this->texture != NULL) return false;
 	//Load image at specified path
-    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+    SDL_Surface* surface = IMG_Load(path.c_str());
 
-    //Create texture from surface pixels
-    this->texture = this->system->sdl2Display->SDLCreateTextureFromSurface(loadedSurface);
-
-    //transparency
-    SDL_SetTextureBlendMode(this->texture,SDL_BLENDMODE_BLEND);
-
-    //Get rid of old loaded surface
-    SDL_FreeSurface(loadedSurface);
-
-    //Get texture size
-    SDL_QueryTexture(this->texture, NULL, NULL, &this->sdlRect.w, &this->sdlRect.h);
-
-    if (this->texture != NULL) return false;
-    return true;
+    return this->SurfaceToTexture(surface);
 };
+
+bool SystemInterface::SDL2ImageContainer::LoadTexture(Functions::RGBImage* memoryImage){
+    if (this->texture != NULL) return false;
+
+    SDL_Surface* surface;
+
+    Uint32 rmask = 0x000000FF;
+    Uint32 gmask = 0x0000FF00;
+    Uint32 bmask = 0x00FF0000;
+    Uint32 amask = 0xFF000000;
+
+    unsigned int size = memoryImage->Width()*memoryImage->Height();
+    unsigned char* imageData = new unsigned char[size*4];
+
+       	for (unsigned int i = 0; i < size; i++){
+       		imageData[i*4] = memoryImage->ImageRGBA()[i].R;
+       		imageData[i*4+1] = memoryImage->ImageRGBA()[i].G;
+       		imageData[i*4+2] = memoryImage->ImageRGBA()[i].B;
+       		imageData[i*4+3] = memoryImage->ImageRGBA()[i].A;
+        }
+
+	surface = SDL_CreateRGBSurfaceFrom(imageData, memoryImage->Width(), memoryImage->Height(), 32, 4*memoryImage->Width(),  rmask, gmask, bmask, amask);
+	return this->SurfaceToTexture(surface);
+}
 
 bool SystemInterface::SDL2ImageContainer::CreateTexture(std::pair<int,int> size, RGBA colour){
 	if (this->texture != NULL) return false;
@@ -115,4 +126,23 @@ std::pair<int,int> SystemInterface::SDL2ImageContainer::GetTextureSize(){
 	std::pair<int,int> size;
 	SDL_QueryTexture(this->texture, NULL, NULL, &size.first, &size.second);
 	return size;
+}
+
+bool SystemInterface::SDL2ImageContainer::SurfaceToTexture(SDL_Surface* surface){
+	if (surface==NULL) return false;
+
+	//Create texture from surface pixels
+	this->texture = this->system->sdl2Display->SDLCreateTextureFromSurface(surface);
+
+	//transparency
+	SDL_SetTextureBlendMode(this->texture,SDL_BLENDMODE_BLEND);
+
+	//Get rid of old loaded surface
+	SDL_FreeSurface(surface);
+
+	//Get texture size
+	SDL_QueryTexture(this->texture, NULL, NULL, &this->sdlRect.w, &this->sdlRect.h);
+
+	if (this->texture != NULL) return false;
+	return true;
 }

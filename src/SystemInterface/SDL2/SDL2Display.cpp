@@ -10,7 +10,7 @@
 
 #include "SDL2Display.h"
 
-SystemInterface::SDL2Display::SDL2Display(System* system, bool fullscreen){
+SystemInterface::SDL2Display::SDL2Display(System* system, std::pair<int,int> windowSize,bool fullscreen){
 	this->system = system;
 		this->windowName = "OpenSettlers";
 
@@ -18,12 +18,14 @@ SystemInterface::SDL2Display::SDL2Display(System* system, bool fullscreen){
 		SDL_GetCurrentDisplayMode(0,&this->currentDesktopMode);
 		SDL_GetDesktopDisplayMode(0,&this->systemDesktopMode);
 
-		this->currentWindowSize = this->MINWINDOWSIZE;
+		//Checks for Inital Window Size (setting up from cli and eventually from config)
+		if(windowSize.first < this->MINWINDOWSIZE.first) windowSize.first = this->MINWINDOWSIZE.first;
+		if(windowSize.second < this->MINWINDOWSIZE.second) windowSize.second = this->MINWINDOWSIZE.second;
 
 		//create screen checking if fullscreen needed.
 	   	this->window = SDL_CreateWindow(this->windowName.c_str(),
 	   			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-				this->currentWindowSize.first, this->currentWindowSize.second,
+				windowSize.first, windowSize.second,
 				SDL_WINDOW_RESIZABLE);
 
 		if(fullscreen){
@@ -55,7 +57,7 @@ void SystemInterface::SDL2Display::SetWindowName(std::string name){
 
 std::pair<int,int> SystemInterface::SDL2Display::GetWindowSize(){
 	std::pair<int,int> size;
-	SDL_GetWindowSize(this->window,&size.first,&size.second);
+	SDL_GL_GetDrawableSize(this->window,&size.first,&size.second);
 	return size;
 }
 
@@ -68,11 +70,11 @@ void SystemInterface::SDL2Display::SetWindowSize(std::pair<int,int> size){
 void SystemInterface::SDL2Display::SetWindowFullscreen(){
 	if (this->fullScreen){
 		SDL_SetWindowFullscreen(this->window,SDL_FALSE);
-		this->SetWindowSize(this->windowSize);
+		this->SetWindowSize(this->tmpFullscreenWindowSize);
 		this->fullScreen = false;
 	}
 	else{
-		this->windowSize = this->GetWindowSize();
+		this->tmpFullscreenWindowSize = this->GetWindowSize();
 		SDL_SetWindowFullscreen(this->window,SDL_WINDOW_FULLSCREEN_DESKTOP);
 		this->fullScreen = true;
 	}

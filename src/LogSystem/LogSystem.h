@@ -24,7 +24,7 @@ private:
 	//-1 = no info 0 = errors and messages only 1-127 = all info
 
 	std::ofstream logFile;
-	std::string logFileName = "SettlersExtractor.log";
+	std::string logFileName = "OpenSettlers.log";
 
 	std::string TimeToString();
 	void Out(std::string Text, signed char verboseLevel = 0);

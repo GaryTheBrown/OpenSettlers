@@ -13,6 +13,7 @@
 #include <string>
 #include <utility>
 #include "../Functions/Image/RGBA.h"
+#include "../Functions/Image/RGBImage.h"
 
 namespace SystemInterface {
 	class ImageContainer {
@@ -23,6 +24,7 @@ namespace SystemInterface {
 		virtual ~ImageContainer(){};
 
 		virtual bool LoadTexture(std::string path) = 0;
+		virtual bool LoadTexture(Functions::RGBImage* memoryImage) = 0;
 		virtual bool CreateTexture(std::pair<int,int> size, RGBA colour) = 0;
 		virtual bool TextToImage(std::string text, RGBA colour) = 0;
 

@@ -10,19 +10,20 @@
 
 #include "GUIItemData.h"
 
-OSData::GUIItemData::GUIItemData(eGUIItemType itemType,std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition verticalPosition,ePosition horizontalPosition)
+OSData::GUIItemData::GUIItemData(eGUIItemType itemType,std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition)
 	:itemType(itemType),
 	location(location),
 	size(size),
-	verticalPosition(verticalPosition),
-	horizontalPosition(horizontalPosition){
+	horizontalPosition(horizontalPosition),
+	verticalPosition(verticalPosition){
 }
 
-OSData::GUIItemData::GUIItemData(eGUIItemType itemType,Functions::DataReader* reader){
-	this->itemType = itemType;
+OSData::GUIItemData::GUIItemData(eGUIItemType itemType,Functions::DataReader* reader):itemType(itemType){
+
 	this->APIVersion = reader->ReadInt();
-	if (this->APIVersion > APILEVEL::MASTER){
-			LOGSYSTEM->Error("Item API is Newer than Game API:" + Functions::ToString(this->APIVersion) + ">" + Functions::ToString(APILEVEL::MASTER));
+
+	if (this->APIVersion > APILEVEL::GUIITEMS){
+			LOGSYSTEM->Error("Item API is Newer than Game API:" + Functions::ToString(this->APIVersion) + ">" + Functions::ToString(APILEVEL::GUIITEMS));
 			 this->fileOK = false;
 			 return;
 	}
@@ -30,34 +31,56 @@ OSData::GUIItemData::GUIItemData(eGUIItemType itemType,Functions::DataReader* re
 	this->location.second = reader->ReadShort();
 	this->size.first = reader->ReadShort();
 	this->size.second = reader->ReadShort();
-	this->verticalPosition = static_cast<ePosition>(reader->ReadChar());
 	this->horizontalPosition = static_cast<ePosition>(reader->ReadChar());
+	this->verticalPosition = static_cast<ePosition>(reader->ReadChar());
+
 }
-OSData::GUIItemData::GUIItemData(eGUIItemType itemType,std::string line){
-	this->itemType = itemType;
-	this->verticalPosition = pNone;
-	this->horizontalPosition = pNone;
-	this->location = {0,0};
+OSData::GUIItemData::GUIItemData(eGUIItemType itemType,xmlNode* node):itemType(itemType){
+	if(node != NULL){
+		xmlAttr* xmlAttribute = node->properties;
+		while(xmlAttribute){
+			this->CheckItemValues(((char*)xmlAttribute->name),((char*)xmlAttribute->children->content));
+			xmlAttribute = xmlAttribute->next;
+		}
 
-	std::vector<std::pair<std::string,std::string>>* loadDataList = Functions::LoadFromTextLine(line);
-
-	for(unsigned int i = 0; i < loadDataList->size();i++){
-
-		if (loadDataList->at(i).first == "VerticalPosition")
-			this->verticalPosition = static_cast<ePosition>(atoi(loadDataList->at(i).second.c_str()));
-		if (loadDataList->at(i).first == "HorizontalPosition")
-			this->horizontalPosition = static_cast<ePosition>(atoi(loadDataList->at(i).second.c_str()));
-		if (loadDataList->at(i).first == "VerticalLocation")
-			this->location.second = atoi(loadDataList->at(i).second.c_str());
-		if (loadDataList->at(i).first == "HorizontalLocation")
-			this->location.first = atoi(loadDataList->at(i).second.c_str());
-		if (loadDataList->at(i).first == "VerticalSize")
-			this->size.second = atoi(loadDataList->at(i).second.c_str());
-		if (loadDataList->at(i).first == "HorizontalSize")
-			this->size.first = atoi(loadDataList->at(i).second.c_str());
+//		xmlNode* itemNode = node->children;
+//		while(itemNode){
+//			this->CheckItemValues(((char*)itemNode->name),((char*)itemNode->content));
+//			itemNode = itemNode->next;
+//		}
 	}
+}
+void OSData::GUIItemData::CheckItemValues(std::string name, std::string value){
+	if (name == "VerticalPosition")
+		this->verticalPosition = this->GetPositionType(value);
+	else if (name == "HorizontalPosition")
+		this->horizontalPosition = this->GetPositionType(value);
+	else if (name == "VerticalLocation")
+		this->location.second = atoi(value.c_str());
+	else if (name == "HorizontalLocation")
+		this->location.first = atoi(value.c_str());
+	else if (name == "HorizontalSize")
+		this->size.first = atoi(value.c_str());
+	else if (name == "VerticalSize")
+		this->size.second = atoi(value.c_str());
+}
+OSData::GUIItemData::ePosition OSData::GUIItemData::GetPositionType(std::string data){
+	if (data == "AlignLeft") return AlignLeft;
+	if (data == "AlignTop")	return AlignTop;
+	if (data == "AlignRight") return AlignRight;
+	if (data == "AlignBottom") return AlignBottom;
+	if (data == "AlignCentre") return AlignCentre;
+	if (data == "FullTile ") return FullTile;
+	if (data == "FullStretch") return FullStretch;
+	if (data == "StretchSetSize") return StretchSetSize;
+	if (data == "StretchFromFrom") return StretchFromFrom;
+	if (data == "StretchPercent") return StretchPercent;
+	if (data == "AlignTL") return AlignTL;
+	if (data == "AlignBR") return AlignBR;
 
-	delete loadDataList;
+	//if (data == "None")
+	return pNone;
+
 }
 
 bool OSData::GUIItemData::ToSaveToData(std::vector<char>* data){
@@ -65,26 +88,109 @@ bool OSData::GUIItemData::ToSaveToData(std::vector<char>* data){
 	// This order
 	//itemType (char)
 	data->push_back(static_cast<char>(this->itemType));
+
+	//API Version (int)
+	data->push_back(this->APIVersion & 0xFF);
+	data->push_back((this->APIVersion >> 8) & 0xFF);
+	data->push_back((this->APIVersion >> 16) & 0xFF);
+	data->push_back((this->APIVersion >> 24) & 0xFF);
+
 	//location.first (Short)
-	data->push_back((this->location.first >> 8) & 0xFF);
 	data->push_back(this->location.first & 0xFF);
+	data->push_back((this->location.first >> 8) & 0xFF);
 
 	//location.second (Short)
-	data->push_back((this->location.second >> 8) & 0xFF);
 	data->push_back(this->location.second & 0xFF);
+	data->push_back((this->location.second >> 8) & 0xFF);
 
 	//size.first (Short)
-	data->push_back((this->size.first >> 8) & 0xFF);
 	data->push_back(this->size.first & 0xFF);
+	data->push_back((this->size.first >> 8) & 0xFF);
 
 	//size.second (Short)
-	data->push_back((this->size.second >> 8) & 0xFF);
 	data->push_back(this->size.second & 0xFF);
+	data->push_back((this->size.second >> 8) & 0xFF);
 
-	//Vertical Position (Char)
-	data->push_back(static_cast<char>(this->verticalPosition));
+
 	//Horizontal Position (Char)
 	data->push_back(static_cast<char>(this->horizontalPosition));
+	//Vertical Position (Char)
+	data->push_back(static_cast<char>(this->verticalPosition));
 
 	return true;
+}
+
+std::string OSData::GUIItemData::ToString(){
+	std::string data;
+	data += "Location.X = " + Functions::ToString(this->location.first) + "\n";
+	data += "Location.Y = " + Functions::ToString(this->location.second) + "\n";
+	data += "Size.X = " + Functions::ToString(this->size.first) + "\n";
+	data += "Size.Y = " + Functions::ToString(this->size.second) + "\n";
+	data += "Horizontal Position = ";
+	switch(this->horizontalPosition){
+	case AlignLeft:
+		data += "AlignLeft";
+		break;
+	case AlignRight:
+		data += "AlignRight";
+		break;
+	case AlignCentre:
+		data += "AlignCentre";
+		break;
+	case FullTile:
+		data += "FullTile";
+		break;
+	case FullStretch:
+		data += "FullStretch";
+		break;
+	case StretchSetSize:
+		data += "StretchSizeSize";
+		break;
+	case StretchFromFrom:
+		data += "StretchFromFrom";
+		break;
+	case StretchPercent:
+		data += "StretchPercent";
+		break;
+	default:
+	case pNone:
+		data += "None";
+		break;
+	}
+	data += "\n";
+
+	data += "Vertical Position = ";
+	switch(this->verticalPosition){
+	case AlignTop:
+		data += "AlignTop";
+		break;
+	case AlignBottom:
+		data += "AlignBottom";
+		break;
+	case AlignCentre:
+		data += "AlignCentre";
+		break;
+	case FullTile:
+		data += "FullTile";
+		break;
+	case FullStretch:
+		data += "FullStretch";
+		break;
+	case StretchSetSize:
+		data += "StretchSetSize";
+		break;
+	case StretchFromFrom:
+		data += "StretchFromFrom";
+		break;
+	case StretchPercent:
+		data += "StretchPercent";
+		break;
+	default:
+	case pNone:
+		data += "None";
+		break;
+	}
+	data += "\n";
+
+	return data;
 }

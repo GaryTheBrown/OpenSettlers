@@ -10,20 +10,27 @@
 
 #pragma once
 
-#include <iostream>
-#include <fstream>
-#include <sys/stat.h>
-#include <stdlib.h>
+//Includes
 #include <string>
-#include <sstream>
-#include <vector>
+#include <stdio.h>
 #include <utility>
-#include <iterator>
-#include <iostream>
-#include <algorithm>
+#include "../../SystemInterface/System.h"
+#include "../../SystemInterface/ImageContainer.h"
+#include "../../OSDataFile/FileTypes/Layout/GUIItems/GUIImageData.h"
+#include "GFXItem.h"
 
-namespace Functions{
-	extern std::vector<std::pair<std::string,std::string>>* LoadFromTextFile(std::string file);
-	extern std::vector<std::pair<std::string,std::string>>* LoadFromTextLine(std::string line);
-	extern std::vector<std::pair<std::string,std::string>>* TextLinesToList(std::vector<std::string>* lines, char deliminator);
+namespace GFXInterface {
+	class GFXImage : public GFXItem{
+	private:
+		OSData::GUIImageData* imageData;
+
+	public:
+		//constructors
+		GFXImage(SystemInterface::System* system, OSData::GUIImageData* imageData);
+		virtual ~GFXImage(){};
+
+		//functions
+		void Draw();
+
+	};
 }

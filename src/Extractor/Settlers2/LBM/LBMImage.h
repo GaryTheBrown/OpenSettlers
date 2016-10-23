@@ -10,7 +10,7 @@
 
 #pragma once
 #include "../../../Functions/File/DataReader.h"
-#include "../../../Functions/File/Image.h"
+#include "../../../Functions/Image/FileImage.h"
 #include "../../../Functions/Image/PaletteImage.h"
 #include "../../../Log.h"
 #include "../../../Functions/To.h"

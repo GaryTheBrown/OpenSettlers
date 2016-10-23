@@ -143,11 +143,11 @@ bool Extractor::Main(std::string location){
 			}
 			else{//Not a Game Folder so scan and run this function on each file.
 				LOGSYSTEM->Log("No Game Detected Getting Directory List and checking each file.",1);
-				std::vector<std::string> fileList = Functions::GetDir(location);
+				std::vector<std::string>* fileList = Functions::GetFilesInDirectory(location);
 
-				for(unsigned int i=0; i < fileList.size(); i++){
-					LOGSYSTEM->Log("FILE:" + fileList[i],1);
-					if (Main(location + fileList[i])== false) return false;
+				for(unsigned int i=0; i < fileList->size(); i++){
+					LOGSYSTEM->Log("FILE:" + fileList->at(i),1);
+					if (Main(location + fileList->at(i))== false) return false;
 				}
 				return true;
 			}

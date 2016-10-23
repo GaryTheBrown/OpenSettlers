@@ -10,7 +10,7 @@
 
 #include "OGL21Display.h"
 
-SystemInterface::OGL21Display::OGL21Display(System* system, bool fullscreen) {
+SystemInterface::OGL21Display::OGL21Display(System* system,std::pair<int,int> windowSize, bool fullscreen) {
 	this->system = system;
 	this->windowName = "OpenSettlers";
 	this->fullScreen = fullscreen;
@@ -18,6 +18,10 @@ SystemInterface::OGL21Display::OGL21Display(System* system, bool fullscreen) {
 	//Gets Monitor resolution
 	SDL_GetCurrentDisplayMode(0,&this->currentDesktopMode);
 	SDL_GetDesktopDisplayMode(0,&this->systemDesktopMode);
+
+	//Checks for Inital Window Size (setting up from cli and eventually from config)
+ 	if(windowSize.first < this->MINWINDOWSIZE.first) windowSize.first = this->MINWINDOWSIZE.first;
+ 	if(windowSize.second < this->MINWINDOWSIZE.second) windowSize.second = this->MINWINDOWSIZE.second;
 
 	/*----------------------
 	 * SDL_OpenGL Attributes
@@ -30,19 +34,17 @@ SystemInterface::OGL21Display::OGL21Display(System* system, bool fullscreen) {
     /* This makes our buffer swap syncronized with the monitor's vertical refresh */
     SDL_GL_SetSwapInterval(1);
 
-
     //Set inital Window Size
     if(this->fullScreen){
-    	this->currentWindowSize.first = this->systemDesktopMode.w;
-    	this->currentWindowSize.second = this->systemDesktopMode.h;
-    	this->windowSize = this->MINWINDOWSIZE;
-    }else{
-    	this->currentWindowSize = this->MINWINDOWSIZE;
+    	this->tmpFullscreenWindowSize = windowSize;
+    	windowSize.first = this->systemDesktopMode.w;
+    	windowSize.second = this->systemDesktopMode.h;
     }
+
    	//create screen checking if fullscreen needed.
    	this->window = SDL_CreateWindow(this->windowName.c_str(),
    			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-			this->currentWindowSize.first, this->currentWindowSize.second,
+			windowSize.first, windowSize.second,
 			SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
 
 	if(this->fullScreen){
@@ -52,7 +54,7 @@ SystemInterface::OGL21Display::OGL21Display(System* system, bool fullscreen) {
 	this->mainContext = SDL_GL_CreateContext(this->window);
 	glLoadIdentity();
 	glMatrixMode(GL_PROJECTION);
-	glOrtho(0.0f, this->currentWindowSize.first, this->currentWindowSize.second, 0.0f, 0.0f, 1.0f);
+	glOrtho(0.0f, windowSize.first, windowSize.second, 0.0f, 0.0f, 1.0f);
 	glMatrixMode(GL_MODELVIEW);
 
 	//Initialize clear colour and depth settings
@@ -88,7 +90,9 @@ void SystemInterface::OGL21Display::SetWindowName(std::string name){
 }
 
 std::pair<int,int> SystemInterface::OGL21Display::GetWindowSize(){
-	return this->currentWindowSize;
+	std::pair<int,int> size;
+	SDL_GL_GetDrawableSize(this->window,&size.first,&size.second);
+	return size;
 }
 
 void SystemInterface::OGL21Display::SetWindowSize(std::pair<int,int> size){
@@ -96,7 +100,6 @@ void SystemInterface::OGL21Display::SetWindowSize(std::pair<int,int> size){
 	if (size.first == 0) size.first = 1;
 
 	SDL_SetWindowSize(this->window,size.first,size.second);
-
 	glViewport(0, 0, size.first, size.second);
 
 	glMatrixMode(GL_PROJECTION);
@@ -107,18 +110,17 @@ void SystemInterface::OGL21Display::SetWindowSize(std::pair<int,int> size){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	this->currentWindowSize = size;
 }
 
 void SystemInterface::OGL21Display::SetWindowFullscreen(){
 	if (this->fullScreen){
 		SDL_SetWindowFullscreen(this->window,SDL_FALSE);
-		this->SetWindowSize(this->windowSize);
+		this->SetWindowSize(this->tmpFullscreenWindowSize);
 		this->fullScreen = false;
 	}
 	else{
-		this->windowSize = this->GetWindowSize();
-		this->SetWindowSize({this->systemDesktopMode.h,this->systemDesktopMode.w});
+		this->tmpFullscreenWindowSize = this->GetWindowSize();
+		this->SetWindowSize({this->systemDesktopMode.w,this->systemDesktopMode.h});
 		SDL_SetWindowFullscreen(this->window,SDL_WINDOW_FULLSCREEN);
 		this->fullScreen = true;
 	}

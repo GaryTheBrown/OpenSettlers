@@ -14,8 +14,8 @@
 //SDL2
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-//TODO FINISH OFF THIS SYSTEM
-//TODO further improve the fonts to load all in system
+//TODO FINISH OFF FONT SYSTEM
+//further improve the fonts to load all in system
 // and allow any in Game/Data/Fonts/  or /Data/Fonts/
 namespace SystemInterface {
 	class Fonts {

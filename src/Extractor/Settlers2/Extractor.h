@@ -10,7 +10,6 @@
 
 #pragma once
 #include <string>
-#include <vector>
 #include "../../Log.h"
 #include "../../Functions/File/Functions.h"
 #include "../../Functions/File/Run.h"

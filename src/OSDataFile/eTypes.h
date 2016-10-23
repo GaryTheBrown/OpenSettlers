@@ -9,7 +9,7 @@
  *******************************************************************************/
 
 #pragma once
-
+/*
 namespace OSData{
 
 	enum eBuildingType: unsigned char{
@@ -45,25 +45,5 @@ namespace OSData{
 		BASEMachine,
 		AIRMachine
 	};
-
-	enum eMenuEvent: unsigned char{
-		MMNothing,
-		MMStartMenu,
-		MMStartGame,
-		MMMapEditor,
-		MMGameOptions,
-		MMAddGame,
-		MMCreateGame,
-		MMEditGame,
-		MMOptions,
-		MMAbout,
-		MMQuit
-	};//{Nothing,Quit,StartGame,About,Options,PlayGame,LoadGame,SaveGame,OpenMenu,OpenWindow,CloseWindow,LoadInternalData, TestData,SaveData};
-
-	enum eBoxType: unsigned char{
-		Empty,
-		GridView,
-		ListView,
-		FreeView
-	};
 }
+*/

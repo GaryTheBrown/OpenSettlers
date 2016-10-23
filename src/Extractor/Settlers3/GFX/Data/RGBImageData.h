@@ -31,12 +31,16 @@ namespace Extractor{
 
 		private:
 			enumIMGType gfxType;
-
+			bool keep = false;
 		public:
 			RGBImageData(Functions::DataReader* reader, unsigned int offset, enumIMGType gfxType, unsigned int colourCode);
-			RGBImageData(RGBA* imageRGBA, enumIMGType gfxType, unsigned short height, unsigned short width, signed short xRel,signed short yRel);
-			RGBImageData(RGBA* imageRGBA, unsigned short height,unsigned short width,signed short xRel,signed short yRel);
+			RGBImageData(RGBA* imageRGBA, enumIMGType gfxType, unsigned short width, unsigned short height, signed short xRel,signed short yRel);
+			RGBImageData(RGBA* imageRGBA, unsigned short width,unsigned short height,signed short xRel,signed short yRel);
 			virtual void SaveToFile(std::string filename);
+
+			bool Keep(){return this->keep;};
+
+			RGBImageData* ReturnImage(){this->keep = true; return this;}
 
 
 		};

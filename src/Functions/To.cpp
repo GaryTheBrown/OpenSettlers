@@ -36,3 +36,9 @@ std::string Functions::ToBinary(int value,int bytes){
 	else
 		return "";
 }
+
+unsigned int Functions::StringToHex(std::string value){
+	unsigned long temp;
+	temp = std::stoul(value, nullptr, 16);
+	return ((int) temp & 0xFFFFFFFF);
+}

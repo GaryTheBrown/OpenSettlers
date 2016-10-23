@@ -126,9 +126,9 @@ bool Extractor::Settlers2::Extract::RAWLBMFileExtract(std::string folder, std::s
 
 void Extractor::Settlers2::Extract::RAWLBMFolderExtract(std::string folder){
 	if(Functions::FolderExists(folder)){
-		std::vector<std::string> fileList = Functions::GetDir(folder);
-		for(unsigned int i=0; i < fileList.size(); i++){
-			this->RAWLBMFileExtract(folder,fileList[i]);
+		std::vector<std::string>* fileList = Functions::GetFilesInDirectory(folder);
+		for(unsigned int i=0; i < fileList->size(); i++){
+			this->RAWLBMFileExtract(folder,fileList->at(i));
 		}
 	}
 }
@@ -152,9 +152,9 @@ bool Extractor::Settlers2::Extract::RAWBBMFileExtract(std::string folder, std::s
 
 void Extractor::Settlers2::Extract::RAWBBMFolderExtract(std::string folder){
 	if(Functions::FolderExists(folder)){
-		std::vector<std::string> fileList = Functions::GetDir(folder);
-		for(unsigned int i=0; i < fileList.size(); i++){
-			this->RAWBBMFileExtract(folder,fileList[i]);
+		std::vector<std::string>* fileList = Functions::GetFilesInDirectory(folder);
+		for(unsigned int i=0; i < fileList->size(); i++){
+			this->RAWBBMFileExtract(folder,fileList->at(i));
 		}
 	}
 }
@@ -178,9 +178,9 @@ bool Extractor::Settlers2::Extract::RAWLSTFileExtract(std::string folder, std::s
 
 void Extractor::Settlers2::Extract::RAWLSTFolderExtract(std::string folder){
 	if(Functions::FolderExists(folder)){
-		std::vector<std::string> fileList = Functions::GetDir(folder);
-		for(unsigned int i=0; i < fileList.size(); i++){
-			this->RAWLSTFileExtract(folder,fileList[i]);
+		std::vector<std::string>* fileList = Functions::GetFilesInDirectory(folder);
+		for(unsigned int i=0; i < fileList->size(); i++){
+			this->RAWLSTFileExtract(folder,fileList->at(i));
 		}
 	}
 }
@@ -204,9 +204,9 @@ bool Extractor::Settlers2::Extract::RAWIDXFileExtract(std::string folder, std::s
 
 void Extractor::Settlers2::Extract::RAWIDXFolderExtract(std::string folder){
 	if(Functions::FolderExists(folder)){
-		std::vector<std::string> fileList = Functions::GetDir(folder);
-		for(unsigned int i=0; i < fileList.size(); i++){
-			this->RAWIDXFileExtract(folder,fileList[i]);
+		std::vector<std::string>* fileList = Functions::GetFilesInDirectory(folder);
+		for(unsigned int i=0; i < fileList->size(); i++){
+			this->RAWIDXFileExtract(folder,fileList->at(i));
 		}
 	}
 }
@@ -230,9 +230,9 @@ bool Extractor::Settlers2::Extract::RAWBOBFileExtract(std::string folder, std::s
 
 void Extractor::Settlers2::Extract::RAWBOBFolderExtract(std::string folder){
 	if(Functions::FolderExists(folder)){
-		std::vector<std::string> fileList = Functions::GetDir(folder);
-		for(unsigned int i=0; i < fileList.size(); i++){
-			this->RAWBOBFileExtract(folder,fileList[i]);
+		std::vector<std::string>* fileList = Functions::GetFilesInDirectory(folder);
+		for(unsigned int i=0; i < fileList->size(); i++){
+			this->RAWBOBFileExtract(folder,fileList->at(i));
 		}
 	}
 }

@@ -14,13 +14,14 @@
 
 #include <string>
 #include <utility>
+#include "../../Functions/Image/RGBImage.h"
 #include "../System.h"
 #include "../ImageContainer.h"
 
 #include "SDL2System.h"
-class SDL2System;
 
 namespace SystemInterface {
+	class SDL2System;
 	class SDL2ImageContainer: public ImageContainer {
 	private:
 		SDL2System* system;
@@ -33,15 +34,19 @@ namespace SystemInterface {
 		SDL2ImageContainer(SDL2System* system, SDL2ImageContainer* imageContainer);
 		virtual ~SDL2ImageContainer();
 
-		virtual bool LoadTexture(std::string path);
-		virtual bool CreateTexture(std::pair<int,int> size, RGBA colour);
-		virtual bool TextToImage(std::string text, RGBA colour);
+		bool LoadTexture(std::string path);
+		bool LoadTexture(Functions::RGBImage* memoryImage);
+		bool CreateTexture(std::pair<int,int> size, RGBA colour);
+		bool TextToImage(std::string text, RGBA colour);
 
-		virtual void TextureToScreen();
-		virtual void TextureToScreen(std::pair<int,int> location);
-		virtual void TextureToScreen(std::pair<int,int> location,std::pair<int,int> size);
+		void TextureToScreen();
+		void TextureToScreen(std::pair<int,int> location);
+		void TextureToScreen(std::pair<int,int> location,std::pair<int,int> size);
 
 		//Getters
 		virtual std::pair<int,int> GetTextureSize();
+
+	private:
+		bool SurfaceToTexture(SDL_Surface* surface);
 	};
 }

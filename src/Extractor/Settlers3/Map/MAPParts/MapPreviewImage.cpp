@@ -67,9 +67,9 @@ std::string Extractor::Settlers3::MAPPreviewImage::HeaderToString(){
 void Extractor::Settlers3::MAPPreviewImage::SaveToFile(std::string location){
 	Functions::FileImage* fileImage = new Functions::FileImage();
 	if (this->imageSquare != NULL)
-		fileImage->SaveToRGBImage(location + "/PreviewImageSquare.bmp",this->imageSquare,this->length,this->length);
+		fileImage->SaveToRGBImage(location + "/PreviewImageSquare",this->imageSquare,this->length,this->length);
 	if (this->imageSheared != NULL)
-		fileImage->SaveToRGBImage(location + "/PreviewImageSheer.bmp",this->imageSheared,this->shearWidth,this->length);
+		fileImage->SaveToRGBImage(location + "/PreviewImageSheer",this->imageSheared,this->shearWidth,this->length);
 	delete fileImage;
 }
 

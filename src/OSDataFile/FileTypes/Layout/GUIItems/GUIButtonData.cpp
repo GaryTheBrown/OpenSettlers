@@ -10,225 +10,183 @@
 
 #include "GUIButtonData.h"
 
-OSData::GUIButtonData::GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition verticalPosition,ePosition horizontalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,unsigned int imageNumber,unsigned int pressedNumber,unsigned int hoverNumber,eMenuEvent menuEvent,bool multiSelect)
-	:GUIItemData(GUIButtonType,location,size,verticalPosition,horizontalPosition){	this->text = text;
+OSData::GUIButtonData::GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,std::string imageLocation,std::string pressedLocation,std::string hoverLocation,eMenuEvent menuEvent,bool multiSelect)
+	:GUIItemData(GUIButtonType,location,size,horizontalPosition,verticalPosition){	this->text = text;
 	this->textColour = textColour;
 	this->fontSize = fontSize;
 	this->textBuffer = textBuffer;
-	this->imageNumber = imageNumber;
-	this->pressedImageNumber = pressedNumber;
-	this->hoverImageNumber = hoverNumber;
+	if (imageLocation != ""){
+		this->image.Location(imageLocation);
+	}else{
+		this->image.None();
+	}
+	if (pressedLocation != ""){
+	this->pressed.Location(pressedLocation);
+	} else {
+		this->pressed.None();
+	}
+	if (hoverLocation != ""){
+		this->hover.Location(hoverLocation);
+	} else {
+		this->hover.None();
+	}
 	this->menuEvent = menuEvent;
 	this->multiSelect = multiSelect;
 }
 
-OSData::GUIButtonData::GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition verticalPosition,ePosition horizontalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,RGBA buttonColour,RGBA pressedButtonColour,RGBA hoverButtonColour,eMenuEvent menuEvent,bool multiSelect)
-	:GUIItemData(GUIButtonType,location,size,verticalPosition,horizontalPosition){
+OSData::GUIButtonData::GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,signed int imageNumber,signed int pressedNumber,signed int hoverNumber,eMenuEvent menuEvent,bool multiSelect)
+	:GUIItemData(GUIButtonType,location,size,horizontalPosition,verticalPosition){
 	this->text = text;
 	this->textColour = textColour;
 	this->fontSize = fontSize;
 	this->textBuffer = textBuffer;
-	this->buttonColour = buttonColour;
-	this->pressedButtonColour = pressedButtonColour;
-	this->hoverButtonColour = hoverButtonColour;
+	if (imageNumber > -1){
+		this->image.Number(imageNumber);
+	} else {
+		this->image.None();
+	}
+	if (pressedNumber > -1){
+		this->pressed.Number(pressedNumber);
+	} else {
+		this->pressed.None();
+	}
+	if (hoverNumber > -1){
+		this->hover.Number(hoverNumber);
+	} else {
+		this->hover.None();
+	}
 	this->menuEvent = menuEvent;
 	this->multiSelect = multiSelect;
 }
 
-OSData::GUIButtonData::GUIButtonData(Functions::DataReader* reader)
-:OSData::GUIItemData(GUIButtonType,reader){
+OSData::GUIButtonData::GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,RGBA buttonColour,RGBA pressedButtonColour,RGBA hoverButtonColour,eMenuEvent menuEvent,bool multiSelect)
+	:GUIItemData(GUIButtonType,location,size,horizontalPosition,verticalPosition){
+	this->text = text;
+	this->textColour = textColour;
+	this->fontSize = fontSize;
+	this->textBuffer = textBuffer;
+	this->image.Colour(buttonColour);
+	this->pressed.Colour(pressedButtonColour);
+	this->hover.Colour(hoverButtonColour);
+	this->menuEvent = menuEvent;
+	this->multiSelect = multiSelect;
+}
 
-	unsigned int textSize = reader->ReadChar();
-	this->text = reader->ReadString(textSize,-1);
+OSData::GUIButtonData::GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,Functions::RGBImage* button,Functions::RGBImage* pressedButton,Functions::RGBImage* hoverButton,eMenuEvent menuEvent,bool multiSelect)
+:GUIItemData(GUIButtonType,location,size,horizontalPosition,verticalPosition){
+	this->text = text;
+	this->textColour = textColour;
+	this->fontSize = fontSize;
+	this->textBuffer = textBuffer;
+	if (button != NULL){
+		this->image.Data(button);
+	} else {
+		this->image.None();
+	}
+	if (pressedButton != NULL){
+		this->pressed.Data(pressedButton);
+	} else {
+		this->pressed.None();
+	}
+	if (hoverButton != NULL){
+		this->hover.Data(hoverButton);
+	} else {
+		this->hover.None();
+	}
+	this->menuEvent = menuEvent;
+	this->multiSelect = multiSelect;
+}
+
+
+OSData::GUIButtonData::GUIButtonData(Functions::DataReader* reader):OSData::GUIItemData(GUIButtonType,reader){
+	unsigned short textSize = reader->ReadShort();
+	this->text = reader->ReadString(textSize);
 	this->textColour = reader->ReadInt();
 	this->fontSize = reader->ReadSignedShort();
 	this->textBuffer = reader->ReadSignedShort();
 
-	unsigned int count = reader->ReadInt();
-	if (count == 1)
-		this->imageNumber = reader->ReadInt();
-	else if (count == 2)
-		this->buttonColour = reader->ReadInt();
-	else
-		this->imageLocation = reader->ReadString(count,-1);
-
-	count = reader->ReadInt();
-	if (count == 1)
-		this->hoverImageNumber = reader->ReadInt();
-	else if (count == 2)
-		this->hoverButtonColour = reader->ReadInt();
-	else
-		this->hoverImageLocation = reader->ReadString(count,-1);
-
-	count = reader->ReadInt();
-	if (count == 1)
-		this->pressedImageNumber = reader->ReadInt();
-	else if (count == 2)
-		this->pressedButtonColour = reader->ReadInt();
-	else
-		this->pressedImageLocation = reader->ReadString(count,-1);
+	this->image.ReadData(reader);
+	this->hover.ReadData(reader);
+	this->pressed.ReadData(reader);
 
 	this->menuEvent = static_cast<eMenuEvent>(reader->ReadChar());
 
 	this->multiSelect = reader->ReadChar() & 1;
 
 }
-OSData::GUIButtonData::GUIButtonData(std::string line)
-						:GUIItemData(GUIButtonType,line),
-						 menuEvent(MMNothing),
-						 multiSelect(false){
+OSData::GUIButtonData::GUIButtonData(xmlNode* node):GUIItemData(GUIButtonType,node){
+	if(node != NULL){
 
-	std::vector<std::pair<std::string,std::string>>* loadDataList = Functions::LoadFromTextLine(line);
+		xmlAttr* xmlAttribute = node->properties;
+		while(xmlAttribute){
+			this->CheckValues(((char*)xmlAttribute->name),((char*)xmlAttribute->children->content));
+			xmlAttribute = xmlAttribute->next;
+		}
 
-	for(unsigned int i = 0; i < loadDataList->size();i++){
-
-		if (loadDataList->at(i).first == "Text")
-			this->text = loadDataList->at(i).second;
-		if (loadDataList->at(i).first == "TextColour"){
-			//Special
-			std::string line = loadDataList->at(i).second;
-			int pos = line.find_first_of('-');
-			this->textColour.R = (unsigned char)atoi(line.substr(0, pos).c_str());
-			std::string line2 = line.substr(pos+1);
-			pos = line2.find_first_of('-');
-			this->textColour.G = (unsigned char)atoi(line2.substr(0, pos).c_str());
-			this->textColour.B = (unsigned char)atoi(line2.substr(pos+1).c_str());
-		}
-		if (loadDataList->at(i).first == "FontSize")
-			this->fontSize = atoi(loadDataList->at(i).second.c_str());
-		if (loadDataList->at(i).first == "TextBuffer")
-			this->textBuffer = atoi(loadDataList->at(i).second.c_str());
-		if (loadDataList->at(i).first == "ImageLocation")
-			this->imageLocation = loadDataList->at(i).second;
-		if (loadDataList->at(i).first == "HoverImageLocation")
-			this->hoverImageLocation = loadDataList->at(i).second;
-		if (loadDataList->at(i).first == "PressedImageLocation")
-			this->pressedImageLocation = loadDataList->at(i).second;
-		if (loadDataList->at(i).first == "ButtonColour"){
-			//Special
-			std::string line = loadDataList->at(i).second;
-			int pos = line.find_first_of('-');
-			this->buttonColour.R = (unsigned char)atoi(line.substr(0, pos).c_str());
-			std::string line2 = line.substr(pos+1);
-			pos = line2.find_first_of('-');
-			this->buttonColour.G = (unsigned char)atoi(line2.substr(0, pos).c_str());
-			std::string line3 = line.substr(pos+1);
-			pos = line3.find_first_of('-');
-			this->buttonColour.B = (unsigned char)atoi(line3.substr(0, pos).c_str());
-			this->buttonColour.A = (unsigned char)atoi(line3.substr(pos+1).c_str());
-		}
-		if (loadDataList->at(i).first == "HoverButtonColour"){
-			//Special
-			std::string line = loadDataList->at(i).second;
-			int pos = line.find_first_of('-');
-			this->hoverButtonColour.R = (unsigned char)atoi(line.substr(0, pos).c_str());
-			std::string line2 = line.substr(pos+1);
-			pos = line2.find_first_of('-');
-			this->hoverButtonColour.G = (unsigned char)atoi(line2.substr(0, pos).c_str());
-			std::string line3 = line.substr(pos+1);
-			pos = line3.find_first_of('-');
-			this->hoverButtonColour.B = (unsigned char)atoi(line3.substr(0, pos).c_str());
-			this->hoverButtonColour.A = (unsigned char)atoi(line3.substr(pos+1).c_str());
-		}
-		if (loadDataList->at(i).first == "PressedButtonColour"){
-			//Special
-			std::string line = loadDataList->at(i).second;
-			int pos = line.find_first_of('-');
-			this->pressedButtonColour.R = (unsigned char)atoi(line.substr(0, pos).c_str());
-			std::string line2 = line.substr(pos+1);
-			pos = line2.find_first_of('-');
-			this->pressedButtonColour.G = (unsigned char)atoi(line2.substr(0, pos).c_str());
-			std::string line3 = line.substr(pos+1);
-			pos = line3.find_first_of('-');
-			this->pressedButtonColour.B = (unsigned char)atoi(line3.substr(0, pos).c_str());
-			this->pressedButtonColour.A = (unsigned char)atoi(line3.substr(pos+1).c_str());
-		}
-		if (loadDataList->at(i).first == "MenuEvent")
-			this->menuEvent = (eMenuEvent)atoi(loadDataList->at(i).second.c_str());
-		if (loadDataList->at(i).first == "MultiSelect")
-			this->multiSelect = loadDataList->at(i).second=="true"?true:false;
+//		xmlNode* itemNode = node->children;
+//		while(itemNode){
+//			this->CheckValues(((char*)itemNode->name),((char*)itemNode->content));
+//			itemNode = itemNode->next;
+//		}
 	}
-
-	delete loadDataList;
 }
 
+void OSData::GUIButtonData::CheckValues(std::string name, std::string value){
+	if (name == "Text")
+		this->text = value;
+	else if (name == "TextColour")
+		this->textColour = Functions::StringToHex(value);
+	else if (name == "FontSize")
+		this->fontSize = atoi(value.c_str());
+	else if (name == "TextBuffer")
+		this->textBuffer = atoi(value.c_str());
+	else if (name == "ImageLocation")
+		this->image.Location(value);
+	else if (name == "ButtonColour")
+		this->image.Colour(Functions::StringToHex(value));
+	else if (name == "HoverImageLocation")
+		this->hover.Location(value);
+	else if (name == "HoverButtonColour")
+		this->hover.Colour(Functions::StringToHex(value));
+	else if (name == "PressedImageLocation")
+		this->pressed.Location(value);
+	else if (name == "PressedButtonColour")
+		this->pressed.Colour(Functions::StringToHex(value));
+	else if (name == "MenuEvent")
+		this->menuEvent = GetMenuEvent(value);
+	else if (name == "MultiSelect")
+		this->multiSelect = value=="true"?true:false;
+}
 bool OSData::GUIButtonData::ToSaveToData(std::vector<char>* data){
 	if (data == NULL) data = new std::vector<char>;
 	if (GUIItemData::ToSaveToData(data) == false) return false;
 
 	//Text Size (Char)
-	data->push_back(static_cast<char>(this->text.size()));
+	unsigned short textSize = this->text.size();
+	data->push_back(textSize & 0xFF);
+	data->push_back((textSize >> 8) & 0xFF);
 
 	//Text (string)
-	std::copy(this->text.begin(), this->text.end()-1, std::back_inserter(*data));
+	std::copy(this->text.begin(), this->text.end(), std::back_inserter(*data));
 
 	//Text Colour (int)(RGB)
-	data->push_back(this->textColour.R);
-	data->push_back(this->textColour.G);
-	data->push_back(this->textColour.B);
 	data->push_back(this->textColour.A);
+	data->push_back(this->textColour.B);
+	data->push_back(this->textColour.G);
+	data->push_back(this->textColour.R);
 
 	//Font Size (Signed Short)
-	data->push_back((this->fontSize >> 8) & 0xFF);
 	data->push_back(this->fontSize & 0xFF);
+	data->push_back((this->fontSize >> 8) & 0xFF);
+
 
 	//Text Buffer (Signed Short)
-	data->push_back((this->textBuffer >> 8) & 0xFF);
 	data->push_back(this->textBuffer & 0xFF);
+	data->push_back((this->textBuffer >> 8) & 0xFF);
 
-	unsigned short stringSize = this->imageLocation.size();
-	if (stringSize > 0){
-		//count (Short)
-		data->push_back((stringSize >> 8) & 0xFF);
-		data->push_back(stringSize & 0xFF);
-
-		//string
-		std::copy(this->imageLocation.begin(), this->imageLocation.end()-1, std::back_inserter(*data));
-	}else{
-		//count (Short)
-		data->push_back(0);
-		data->push_back(0);
-
-		//ImageNumber (Short)
-		data->push_back((this->imageNumber >> 8) & 0xFF);
-		data->push_back(this->imageNumber & 0xFF);
-	}
-
-	stringSize = this->hoverImageLocation.size();
-	if (stringSize > 0){
-		//count (Short)
-		data->push_back((stringSize >> 8) & 0xFF);
-		data->push_back(stringSize & 0xFF);
-
-		//string
-		std::copy(this->hoverImageLocation.begin(), this->hoverImageLocation.end()-1, std::back_inserter(*data));
-	}else{
-		//count (Short)
-		data->push_back(0);
-		data->push_back(0);
-
-		//ImageNumber (Short)
-		data->push_back((this->hoverImageNumber >> 8) & 0xFF);
-		data->push_back(this->hoverImageNumber & 0xFF);
-	}
-
-	stringSize = this->pressedImageLocation.size();
-	if (stringSize > 0){
-		//count (Short)
-		data->push_back((stringSize >> 8) & 0xFF);
-		data->push_back(stringSize & 0xFF);
-
-		//string
-		std::copy(this->pressedImageLocation.begin(), this->pressedImageLocation.end()-1, std::back_inserter(*data));
-	}else{
-		//count (Short)
-		data->push_back(0);
-		data->push_back(0);
-
-		//ImageNumber (Short)
-		data->push_back((this->pressedImageNumber >> 8) & 0xFF);
-		data->push_back(this->pressedImageNumber & 0xFF);
-	}
+	if (this->image.ToSaveToData(data) == false) return false;
+	if (this->hover.ToSaveToData(data) == false) return false;
+	if (this->pressed.ToSaveToData(data) == false) return false;
 
 	//Menu Event (Char)(eMenuEvent)
 	data->push_back(static_cast<char>(this->menuEvent));
@@ -236,4 +194,43 @@ bool OSData::GUIButtonData::ToSaveToData(std::vector<char>* data){
 	data->push_back(static_cast<char>(this->multiSelect?1:0));
 
 	return true;
+}
+
+bool OSData::GUIButtonData::ImageToNumbers(std::vector<Functions::RGBImage*>* images, std::vector<std::string>* imageLocations){
+	if (images == NULL) return false;
+
+	if(this->image.ImageToNumbers(images,imageLocations) == false) return false;
+	if(this->hover.ImageToNumbers(images,imageLocations) == false) return false;
+	if(this->pressed.ImageToNumbers(images,imageLocations) == false) return false;
+
+	return true;
+}
+
+bool OSData::GUIButtonData::LinkNumbers(std::vector<Functions::RGBImage*>* images){
+	if (images == NULL) return false;
+
+	if(this->image.LinkNumber(images) == false) return false;
+	if(this->hover.LinkNumber(images) == false) return false;
+	if(this->pressed.LinkNumber(images) == false) return false;
+
+	return true;
+}
+std::string OSData::GUIButtonData::ToString(){
+	std::string data;
+	data += "GUIBUTTON\n";
+	data += GUIItemData::ToString();
+
+	data += "Text = " + this->text + "\n";
+	data += "Text Colour = " + Functions::ToHex(this->textColour.ReturnInt(),4) + "\n";
+	data += "Font Size = " + Functions::ToString(this->fontSize) + "\n";
+	data += "Text Buffer = " + Functions::ToString(this->textBuffer) + "\n";
+
+	data += "Image = " + this->image.ToString();
+	data += "Hover = " + this->hover.ToString();
+	data += "Pressed = " + this->pressed.ToString();
+
+	data += "Event = " + MenuEventToString(this->menuEvent) + "\n";
+	data += "MultiSelect = " + (this->multiSelect?std::string("True"):std::string("False")) + "\n";
+
+	return data;
 }
