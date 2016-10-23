@@ -4,4 +4,7 @@
 .project
 Debug
 Extracted
-SettlersExtractor.log
+*.ttf
+*.log
+Games
+GFX

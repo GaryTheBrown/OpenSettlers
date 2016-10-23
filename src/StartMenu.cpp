@@ -13,15 +13,17 @@
 StartMenu::StartMenu(SystemInterface::System* system):system(system) {
 	OSData::File* file = NULL;
 
-	if (Functions::FileExists("StartMenu.xml"))
-		file = new OSData::File("StartMenu.xml");
-	else if (Functions::FileExists("StartMenu.dat"))
-		file = new OSData::File("StartMenu.dat");
+	if(Functions::FolderExists("Data")){
+		if (Functions::FileExists("Data/StartMenu.xml"))
+			file = new OSData::File("Data/StartMenu.xml");
+		else if (Functions::FileExists("Data/StartMenu.dat"))
+			file = new OSData::File("Data/StartMenu.dat");
 
-	this->layout = file->ReturnMenuLayout();
-	file->KeepData();
-	this->menu = new GFXInterface::GFXMenu(system,this->layout);
-	delete file;
+		this->layout = file->ReturnMenuLayout();
+		file->KeepData();
+		this->menu = new GFXInterface::GFXMenu(system,this->layout);
+		delete file;
+	}
 }
 
 StartMenu::~StartMenu() {
@@ -29,6 +31,10 @@ StartMenu::~StartMenu() {
 }
 
 GFXInterface::GFXReturn StartMenu::Loop(){
+	if (this->layout == NULL){
+		LOGSYSTEM->Error("Start Menu File not found Exiting!");
+		return GFXInterface::GFXReturn(MMQuit);
+	}
 	GFXInterface::GFXReturn gfxReturn = GFXInterface::GFXReturn(MMNothing);
 	while (true){
 		gfxReturn = this->menu->Loop();
