@@ -14,8 +14,10 @@ LogSystem::LogSystem(signed char verboseLevelCLI,signed char verboseLevelFile, s
 	:verboseLevelCLI(verboseLevelCLI),
 	verboseLevelFile(verboseLevelFile),
 	verboseLevelConsole(verboseLevelConsole){
-	logFile.open(this->logFileName.c_str(), std::ofstream::out);
-	logFile.close();
+	if(verboseLevelFile > 0){
+		logFile.open(this->logFileName.c_str(), std::ofstream::out);
+		logFile.close();
+	}
 }
 
 std::string LogSystem::TimeToString(){
@@ -24,7 +26,7 @@ std::string LogSystem::TimeToString(){
 	time_t t = time(0);
     struct tm * now = localtime( & t );
     std::string timeString = (now->tm_mday < 10?zero:blank) + Functions::ToString(now->tm_mday);
-    timeString += "/" + (now->tm_mon < 10?zero:blank) + Functions::ToString(now->tm_mon + 1);
+    timeString += "/" + (now->tm_mon < 9?zero:blank) + Functions::ToString(now->tm_mon + 1);
     timeString += '/' + Functions::ToString(now->tm_year + 1900);
     timeString += "-" + (now->tm_hour < 10?zero:blank) + Functions::ToString(now->tm_hour);
     timeString += ":" + (now->tm_min < 10?zero:blank) + Functions::ToString(now->tm_min);

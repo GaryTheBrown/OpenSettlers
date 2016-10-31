@@ -21,9 +21,10 @@ Converter::Settlers3::Convert::~Convert(){
 	delete this->GUIFunctions;
 }
 
-bool Converter::Settlers3::Convert::DoConvert(){
-	if (this->somethingToExtract == false) return false;
+OSData::GameType* Converter::Settlers3::Convert::DoConvert(){
+	if (this->somethingToExtract == false) return NULL;
+	OSData::GameType* gameType = new OSData::GameType("The Settlers 3",0);
 	//Menus First
-	this->GUIFunctions->Original();
-	return true;
+	this->GUIFunctions->Original(gameType);
+	return gameType;
 }

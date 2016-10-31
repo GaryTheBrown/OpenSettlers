@@ -32,7 +32,6 @@ namespace OSData{
 	class File {
 	private:
 		unsigned int APIVersion = 0;
-		unsigned short baseGame = 0;
 		FileTypes* dataType = NULL;
 		std::vector<Functions::RGBImage*>* images = NULL;
 		std::vector<std::string>* imageLocations = NULL;

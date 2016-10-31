@@ -10,8 +10,8 @@
 
 #include "GUIBoxData.h"
 
-OSData::GUIBoxData::GUIBoxData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition, RGBA backgroundColour, eBoxType boxType, std::vector<GUIItemData*>* itemDataList,bool multiSelect)
-	:OSData::GUIItemData(GUIBoxType,location,size,horizontalPosition,verticalPosition){
+OSData::GUIBoxData::GUIBoxData(GUIItemData baseData, RGBA backgroundColour, eBoxType boxType, std::vector<GUIItemData*>* itemDataList,bool multiSelect)
+	:OSData::GUIItemData(GUIBoxType,baseData){
 	this->backgroundColour = backgroundColour;
 	this->boxType = boxType;
     this->itemData = itemDataList;
@@ -25,16 +25,14 @@ OSData::GUIBoxData::GUIBoxData(Functions::DataReader* reader)
 	this->boxType = static_cast<eBoxType>(reader->ReadChar());
 	this->multiSelect = reader->ReadChar() & 1;
 
-
-
 	switch(this->boxType){
 		case tGridView:
 		case tListView:
 		case tFreeView:{
 			unsigned short count = reader->ReadShort();
-			this->itemData = new std::vector<GUIItemData*>(count);
+			this->itemData = new std::vector<GUIItemData*>();
 			for (unsigned char i = 0; i < count; i++){
-				eGUIItemType itemDataType = static_cast<eGUIItemType>(reader->ReadShort());
+				eGUIItemType itemDataType = static_cast<eGUIItemType>(reader->ReadChar());
 				this->itemData->push_back(DoItemType(itemDataType,reader));
 			}
 			break;
@@ -154,7 +152,7 @@ void OSData::GUIBoxData::DirCreation(){
 	if (this->directoryData != NULL){
 		this->itemData = new std::vector<GUIItemData*>();
 		for(auto item = list->begin() ; item < list->end(); item++ ){
-			GUIItemData* button = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(1,this->directoryData->VerticalSize()),GUIButtonData::pNone,GUIButtonData::pNone,(*item),this->directoryData->TextColour(),0,0,RGBA(0,0,0,0),this->directoryData->SelectColour(),RGBA(0,0,0,0),MMNothing,true);
+			GUIItemData* button = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(1,this->directoryData->VerticalSize()),GUIButtonData::pNone,GUIButtonData::pNone),(*item),this->directoryData->TextColour(),this->directoryData->FontSize(),RGBA(0,0,0,0),this->directoryData->SelectColour(),RGBA(0,0,0,0),MMNothing,true);
 			this->itemData->push_back(button);
 		}
 		delete list;
@@ -171,11 +169,11 @@ bool OSData::GUIBoxData::ToSaveToData(std::vector<char>* data){
 	data->push_back(this->backgroundColour.G);
 	data->push_back(this->backgroundColour.R);
 
-	//Box Type (Short)(eBoxType)
+	//Box Type (Short)(eBoxType)----
 	data->push_back(static_cast<char>(this->boxType));
 
 	//Multi Select (Bool)
-	data->push_back(static_cast<char>(this->multiSelect?1:0));
+	data->push_back(this->multiSelect?1:0);
 
 	switch(this->boxType){
 			case tGridView:
@@ -186,12 +184,14 @@ bool OSData::GUIBoxData::ToSaveToData(std::vector<char>* data){
 					unsigned short count = this->itemData->size();
 					data->push_back(count & 0xFF);
 					data->push_back((count >> 8) & 0xFF);
+
 					for(auto item=this->itemData->begin() ; item < this->itemData->end(); item++ ){
 						(*item)->ToSaveToData(data);
 					}
 				} else{
 					data->push_back(0);
 					data->push_back(0);
+					LOGSYSTEM->Error("SAVE::Box Item Data empty");
 				}
 				break;
 			}

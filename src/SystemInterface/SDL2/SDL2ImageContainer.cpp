@@ -78,11 +78,11 @@ bool SystemInterface::SDL2ImageContainer::CreateTexture(std::pair<int,int> size,
     if (this->texture != NULL) return false;
     return true;
 }
-bool SystemInterface::SDL2ImageContainer::TextToImage(std::string text, RGBA colour){
+bool SystemInterface::SDL2ImageContainer::TextToImage(std::string text, RGBA colour, unsigned short fontSize){
 	if (this->texture != NULL) return false;
 	SDL_Color SDLColour = {colour.R,colour.G,colour.B,255};
 
-	SDL_Surface* textSurface = TTF_RenderText_Solid(this->system->fonts->masterFont, text.c_str(), SDLColour);
+	SDL_Surface* textSurface = TTF_RenderText_Solid(this->system->fonts->MasterFont(fontSize), text.c_str(), SDLColour);
 	this->texture = this->system->sdl2Display->SDLCreateTextureFromSurface(textSurface);
 
 	//transparency

@@ -10,7 +10,7 @@
 
 #include "MenuLayout.h"
 
-OSData::MenuLayout::MenuLayout(int menuID,std::string title,RGBA backgroundColour,std::vector<GUIItemData*>* itemData)
+OSData::MenuLayout::MenuLayout(unsigned int menuID,std::string title,RGBA backgroundColour,std::vector<GUIItemData*>* itemData)
 	:FileTypes(eMenuLayout),
 	 menuID(menuID),
 	 title(title),
@@ -45,16 +45,7 @@ OSData::MenuLayout::MenuLayout(Functions::DataReader* reader):FileTypes(eMenuLay
 OSData::MenuLayout::MenuLayout(xmlNode* node):FileTypes(eMenuLayout){
 	xmlAttr* xmlAttribute = node->properties;
 	while(xmlAttribute){
-		std::string xmlAttributeName = ((char*)xmlAttribute->name);
-		std::string xmlAttributeValue = ((char*)xmlAttribute->children->content);
-
-		if (xmlAttributeName ==  "MenuID")
-			this->menuID = atoi(xmlAttributeValue.c_str());
-		else if (xmlAttributeName ==  "Title")
-			this->title = xmlAttributeValue;
-		else if (xmlAttributeName ==  "BackgroundColour")
-			this->backgroundColour = Functions::StringToHex(xmlAttributeValue);
-
+		this->CheckValues(((char*)xmlAttribute->name),((char*)xmlAttribute->children->content));
 		xmlAttribute = xmlAttribute->next;
 	}
 
@@ -79,6 +70,15 @@ OSData::MenuLayout::~MenuLayout(){
 		this->itemData->clear();
 		delete this->itemData;
 	}
+}
+
+void OSData::MenuLayout::CheckValues(std::string name, std::string value){
+	if (name ==  "MenuID")
+		this->menuID = atoi(value.c_str());
+	else if (name ==  "Title")
+		this->title = value;
+	else if (name ==  "BackgroundColour")
+		this->backgroundColour = Functions::StringToHex(value);
 }
 
 bool OSData::MenuLayout::ToSaveToData(std::vector<char>* data){

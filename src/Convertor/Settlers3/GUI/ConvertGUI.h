@@ -21,6 +21,7 @@
 #include "../../../Extractor/Settlers3/GFXDataType.h"
 #include "../../../OSDataFile/OSDataFile.h"
 #include "../../../OSDataFile/FileTypes/Layout/MenuLayout.h"
+#include "../../../OSDataFile/FileTypes/Layout/GUIItems/GUIItemData.h"
 #include "../../../OSDataFile/FileTypes/Layout/GUIItems/GUIImageData.h"
 #include "../../../OSDataFile/FileTypes/Layout/GUIItems/GUITextData.h"
 #include "../../../OSDataFile/FileTypes/Layout/GUIItems/GUIButtonData.h"
@@ -42,10 +43,10 @@ namespace Converter {
 
 
 			//Main Menu And Loading Screen
-			void Original();
-			void MissionCD();
-			void Amazon();
-			void Gold();
+			void Original(OSData::GameType* gameType);
+			void MissionCD(OSData::GameType* gameType);
+			void Amazon(OSData::GameType* gameType);
+			void Gold(OSData::GameType* gameType);
 		};
 	}
 }

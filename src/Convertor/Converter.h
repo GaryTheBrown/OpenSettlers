@@ -13,6 +13,8 @@
 #include <string>
 #include "../Log.h"
 #include "../Functions/File/Functions.h"
+#include "../OSDataFile/FileTypes/GameType.h"
+
 //#include "Settlers1/Convert.h"
 //#include "Settlers2/Convert.h"
 #include "Settlers3/Convert.h"

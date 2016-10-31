@@ -49,10 +49,10 @@ void GFXInterface::GFXItem::CalculateLocation(std::pair<int,int> location,std::p
 		break;
 	case OSData::GUIItemData::pNone:
 	case OSData::GUIItemData::AlignLeft:
-		this->location.first = location.first + this->itemData->GetLocation().first;
+		this->location.first = location.first + this->itemData->Location().first;
 		break;
 	case OSData::GUIItemData::AlignRight:
-		this->location.first = location.first + windowSize.first - this->size.first - this->itemData->GetLocation().first;
+		this->location.first = location.first + windowSize.first - this->size.first - this->itemData->Location().first;
 		break;
 	case OSData::GUIItemData::AlignCentre:
 		this->location.first = location.first + windowSize.first/2 - this->size.first/2;
@@ -62,16 +62,16 @@ void GFXInterface::GFXItem::CalculateLocation(std::pair<int,int> location,std::p
 		this->location.first += location.first;
 		break;
 	case OSData::GUIItemData::StretchSetSize://stretches from x from top/left for x size
-		this->size.first = this->itemData->GetSize().first;
+		this->size.first = this->itemData->Size().first;
 		this->location.first += location.first;
 		break;
 //TODO???
 	case OSData::GUIItemData::StretchFromFrom://stretches from x from top/left to x from bottom/right
-		this->size.first = windowSize.first - this->itemData->GetSize().first;
+		this->size.first = windowSize.first - this->itemData->Size().first;
 		this->location.first += location.first;
 		break;
 	case OSData::GUIItemData::StretchPercent://stretches for a percent of the screen size
-		this->size.first = windowSize.first/100*this->itemData->GetSize().first;
+		this->size.first = windowSize.first/100*this->itemData->Size().first;
 		this->location.first += location.first;
 		break;
 	}
@@ -83,10 +83,10 @@ void GFXInterface::GFXItem::CalculateLocation(std::pair<int,int> location,std::p
 		break;
 	case OSData::GUIItemData::pNone:
 	case OSData::GUIItemData::AlignTop:
-		this->location.second = location.second + this->itemData->GetLocation().second;
+		this->location.second = location.second + this->itemData->Location().second;
 		break;
 	case OSData::GUIItemData::AlignBottom:
-		this->location.second = location.second + windowSize.second - this->size.second - this->itemData->GetLocation().second;
+		this->location.second = location.second + windowSize.second - this->size.second - this->itemData->Location().second;
 		break;
 	case OSData::GUIItemData::AlignCentre:
 		this->location.second = location.second + windowSize.second/2 - this->size.second/2;
@@ -96,15 +96,15 @@ void GFXInterface::GFXItem::CalculateLocation(std::pair<int,int> location,std::p
 		this->location.second += location.second;
 		break;
 	case OSData::GUIItemData::StretchSetSize://stretches from x from top/left for x size
-		this->size.second = this->itemData->GetSize().second;
+		this->size.second = this->itemData->Size().second;
 		this->location.second += location.second;
 		break;
 	case OSData::GUIItemData::StretchFromFrom://stretches from x from top/left to x from bottom/right
-		this->size.second = windowSize.second - this->itemData->GetSize().second;
+		this->size.second = windowSize.second - this->itemData->Size().second;
 		this->location.second += location.second;
 		break;
 	case OSData::GUIItemData::StretchPercent://stretches for a percent of the screen size
-		this->size.second = windowSize.second/100*this->itemData->GetSize().second;
+		this->size.second = windowSize.second/100*this->itemData->Size().second;
 		this->location.second += location.second;
 		break;
 	}

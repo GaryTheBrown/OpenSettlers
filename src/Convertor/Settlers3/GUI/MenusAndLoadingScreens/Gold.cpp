@@ -10,7 +10,7 @@
 
 #include "../ConvertGUI.h"
 
-void Converter::Settlers3::ConvertGUI::Gold(){
+void Converter::Settlers3::ConvertGUI::Gold(OSData::GameType* gameType){
 /*	if (this->fileData->GFX->FileReturn("3_61.") != ""){
 
 		DataFile* imageFile = new DataFile(this->locationofGFXFiles + this->fileData->GFX->folder + this->fileData->GFX->FileReturn("3_61."));

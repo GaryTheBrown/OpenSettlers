@@ -10,7 +10,7 @@
 
 #include "../ConvertGUI.h"
 
-void Converter::Settlers3::ConvertGUI::Original(){
+void Converter::Settlers3::ConvertGUI::Original(OSData::GameType* gameType){
 //Original Menu
 	std::string originalMenusFile = this->data->locationofFiles + this->data->locationofGFXFiles + this->data->GFXFileName.first + "02" + this->data->GFXFileName.second;
 
@@ -144,84 +144,69 @@ void Converter::Settlers3::ConvertGUI::Original(){
 
 		std::vector<OSData::GUIItemData*>* guiItems= new std::vector<OSData::GUIItemData*>();
 
-		OSData::GUIImageData* MMSideBarsLeft = new OSData::GUIImageData(std::make_pair(0,0),std::make_pair(0,0),OSData::GUIItemData::AlignLeft,OSData::GUIItemData::FullTile,mainMenuSideBarsLeft);
+		OSData::GUIImageData* MMSideBarsLeft = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(0,0),OSData::GUIItemData::AlignLeft,OSData::GUIItemData::FullTile),mainMenuSideBarsLeft);
 		guiItems->push_back(MMSideBarsLeft);
-		OSData::GUIImageData* MMSideBarsRight = new OSData::GUIImageData(std::make_pair(0,0),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::FullTile,mainMenuSideBarsRight);
+		OSData::GUIImageData* MMSideBarsRight = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::FullTile),mainMenuSideBarsRight);
 		guiItems->push_back(MMSideBarsRight);
-		OSData::GUIImageData* MMMiddleBar = new OSData::GUIImageData(std::make_pair(192,0),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::FullStretch,mainMenuMiddleBar);
+		OSData::GUIImageData* MMMiddleBar = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(192,0),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::FullStretch),mainMenuMiddleBar);
 		guiItems->push_back(MMMiddleBar);
-		OSData::GUIImageData* MMBBLogo = new OSData::GUIImageData(std::make_pair(76,36),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::AlignBottom,mainMenuBBLogo);
+		OSData::GUIImageData* MMBBLogo = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(76,36),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::AlignBottom),mainMenuBBLogo);
 		guiItems->push_back(MMBBLogo);
-		OSData::GUIImageData* MMLogo = new OSData::GUIImageData(std::make_pair(148,40),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::pNone,mainMenuLogo);
+		OSData::GUIImageData* MMLogo = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(148,40),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::pNone),mainMenuLogo);
 		guiItems->push_back(MMLogo);
-		OSData::GUIImageData* MMLogo2 = new OSData::GUIImageData(std::make_pair(113,40),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::AlignBottom,mainMenuLogo2);
+		OSData::GUIImageData* MMLogo2 = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(113,40),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::AlignBottom),mainMenuLogo2);
 		guiItems->push_back(MMLogo2);
 
-		OSData::GUITextData* MMVersionText = new OSData::GUITextData(std::make_pair(36,5),OSData::GUIItemData::pNone,OSData::GUIItemData::AlignBottom,"Version:0.01os",RGBA(255,223,0,255),16);
+		OSData::GUITextData* MMVersionText = new OSData::GUITextData(OSData::GUIItemData(std::make_pair(36,5),std::make_pair(0,0),OSData::GUIItemData::pNone,OSData::GUIItemData::AlignBottom),"Version:0.01os",RGBA(255,223,0,255),12);
 		guiItems->push_back(MMVersionText);
 
 		std::vector<OSData::GUIItemData*>* boxItems= new std::vector<OSData::GUIItemData*>();
-		//OSData::GUISpacerData* MMSpacer1 = new OSData::GUISpacerData(std::make_pair(0,8));
-		//OSData::GUISpacerData* MMSpacer2 = new OSData::GUISpacerData(std::make_pair(0,28));
 
-//		OSData::GUIButtonData* MMButton1 = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,"Tutorial",RGBA(0,12,66,255),0,8,button1,button2,button1,MMNothing,false);
-//		boxItems->push_back(MMButton1);
-		//boxItems->push_back(MMSpacer1);
-/*		OSData::GUIButtonData* MMButton2 = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,"Campaign",RGBA(0,12,66,255),0,8,button1,button2,button1,MMNothing,false);
+		unsigned short fontSize = 12;
+		OSData::GUIButtonData* MMButton1 = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone),"Tutorial",RGBA(0,12,66,255),fontSize,button1,button2,button1,MMNothing,false);
+		boxItems->push_back(MMButton1);
+		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,8)));
+		OSData::GUIButtonData* MMButton2 = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone),"Campaign",RGBA(0,12,66,255),fontSize,button1,button2,button1,MMNothing,false);
 		boxItems->push_back(MMButton2);
-		//boxItems->push_back(MMSpacer1);
-		OSData::GUIButtonData* MMButton3 = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,"Mission CD Campaign",RGBA(0,12,66,255),0,8,button1,button2,button1,MMNothing,false);
+		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,8)));
+		OSData::GUIButtonData* MMButton3 = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone),"Mission CD Campaign",RGBA(0,12,66,255),fontSize,button1,button2,button1,MMNothing,false);
 		boxItems->push_back(MMButton3);
-		//boxItems->push_back(MMSpacer1);
-		OSData::GUIButtonData* MMButton4 = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,"Amazon Campaign",RGBA(0,12,66,255),0,8,button1,button2,button1,MMNothing,false);
+		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,8)));
+		OSData::GUIButtonData* MMButton4 = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone),"Amazon Campaign",RGBA(0,12,66,255),fontSize,button1,button2,button1,MMNothing,false);
 		boxItems->push_back(MMButton4);
-		//boxItems->push_back(MMSpacer1);
-		OSData::GUIButtonData* MMButton5 = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,"Campaign: Normal",RGBA(0,12,66,255),0,8,button1,button2,button1,MMNothing,false);
+		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,8)));
+		OSData::GUIButtonData* MMButton5 = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone),"Campaign: Normal",RGBA(0,12,66,255),fontSize,button1,button2,button1,MMNothing,false);
 		boxItems->push_back(MMButton5);
-		//boxItems->push_back(MMSpacer1);
-		OSData::GUIButtonData* MMButton6 = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,"Single Player: Scenario",RGBA(0,12,66,255),0,8,button1,button2,button1,MMNothing,false);
+		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,8)));
+		OSData::GUIButtonData* MMButton6 = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone),"Single Player: Scenario",RGBA(0,12,66,255),fontSize,button1,button2,button1,MMNothing,false);
 		boxItems->push_back(MMButton6);
-		//boxItems->push_back(MMSpacer1);
-		OSData::GUIButtonData* MMButton7 = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,"Multi-Player Game: LAN",RGBA(0,12,66,255),0,8,button1,button2,button1,MMNothing,false);
+		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,8)));
+		OSData::GUIButtonData* MMButton7 = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone),"Multi-Player Game: LAN",RGBA(0,12,66,255),fontSize,button1,button2,button1,MMNothing,false);
 		boxItems->push_back(MMButton7);
-		//boxItems->push_back(MMSpacer1);
-		OSData::GUIButtonData* MMButton8 = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,"Multi-Player Game: Internet",RGBA(0,12,66,255),0,8,button1,button2,button1,MMNothing,false);
+		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,8)));
+		OSData::GUIButtonData* MMButton8 = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone),"Multi-Player Game: Internet",RGBA(0,12,66,255),fontSize,button1,button2,button1,MMNothing,false);
 		boxItems->push_back(MMButton8);
-		//boxItems->push_back(MMSpacer1);
-		OSData::GUIButtonData* MMButton9 = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,"Load Game",RGBA(0,12,66,255),0,8,button1,button2,button1,MMNothing,false);
+		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,8)));
+		OSData::GUIButtonData* MMButton9 = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone),"Load Game",RGBA(0,12,66,255),fontSize,button1,button2,button1,MMNothing,false);
 		boxItems->push_back(MMButton9);
-		//boxItems->push_back(MMSpacer2);
-		OSData::GUIButtonData* MMButton10 = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,"Online Help",RGBA(0,12,66,255),0,8,button1,button2,button1,MMNothing,false);
+		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,28)));
+		OSData::GUIButtonData* MMButton10 = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone),"Online Help",RGBA(0,12,66,255),fontSize,button1,button2,button1,MMNothing,false);
 		boxItems->push_back(MMButton10);
-		//boxItems->push_back(MMSpacer1);
-		OSData::GUIButtonData* MMButton11 = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,"Tips & Tricks",RGBA(0,12,66,255),0,8,button1,button2,button1,MMNothing,false);
+		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,8)));
+		OSData::GUIButtonData* MMButton11 = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone),"Tips & Tricks",RGBA(0,12,66,255),fontSize,button1,button2,button1,MMNothing,false);
 		boxItems->push_back(MMButton11);
-		//boxItems->push_back(MMSpacer1);
-		OSData::GUIButtonData* MMButton12 = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,"Credits",RGBA(0,12,66,255),0,8,button1,button2,button1,MMNothing,false);
+		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,8)));
+		OSData::GUIButtonData* MMButton12 = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone),"Credits",RGBA(0,12,66,255),fontSize,button1,button2,button1,MMNothing,false);
 		boxItems->push_back(MMButton12);
-		//boxItems->push_back(MMSpacer2);
-*/
-		//TODO FIX THIS CRASHING WHEN TRYING TO LOAD. SOMETHING TO DO WITH THE BOXTYPE
-		OSData::GUIButtonData* MMButton13 = new OSData::GUIButtonData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,"Exit Game",RGBA(0,12,66,255),0,8,button1,button2,button1,MMQuit,false);
+		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,28)));
+		OSData::GUIButtonData* MMButton13 = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone),"Exit Game",RGBA(0,12,66,255),fontSize,button1,button2,button1,MMQuit,false);
 		boxItems->push_back(MMButton13);
-		OSData::GUIBoxData* MMButtonBox = new OSData::GUIBoxData(std::make_pair(60,20),std::make_pair(172,552),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,RGBA(0,0,0,0),OSData::GUIBoxData::tListView,boxItems,false);
+		OSData::GUIBoxData* MMButtonBox = new OSData::GUIBoxData(OSData::GUIItemData(std::make_pair(60,0),std::make_pair(172,552),OSData::GUIItemData::pNone,OSData::GUIItemData::AlignCentre),RGBA(0,0,0,0),OSData::GUIBoxData::tListView,boxItems,false);
 		guiItems->push_back(MMButtonBox);
 
-//		OSData::GUIButtonData* MMButton13 = new OSData::GUIButtonData(std::make_pair(60,50),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::AlignBottom,"Exit Game",RGBA(0,12,66,255),0,8,button1,button2,NULL,MMQuit,false);
-//		guiItems->push_back(MMButton13);
+		OSData::MenuLayout* MLMainMenu = new OSData::MenuLayout(0,"Main Menu - Original",RGBA(255,93,24,255),guiItems);
 
-
-		OSData::MenuLayout* MainMenu = new OSData::MenuLayout(0,"Main Menu - Original",RGBA(255,93,24,255),guiItems);
-
-
-		//TEMP TO CHECK IT WORKS.
-		OSData::File* osFile = new OSData::File(MainMenu);
-
-		osFile->ImageDataToNumbers();
-		LOGSYSTEM->Error("OSFILE Saving");
-		osFile->ToSaveToData("OriginalMainMenu");
-
-		delete osFile;
+		gameType->AddMenuLayout(MLMainMenu);
 
 		//TEMP SAVE TO FILES DELETE ONCE MENU LAYOUT IS SETUP
 

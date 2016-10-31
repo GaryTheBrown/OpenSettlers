@@ -36,5 +36,7 @@
 
 #include "OSDataFile/OSDataFile.h"
 
+#include "Game/Game.h"
+
 //Main Entry Point
 extern int main(int argc, char *argv[]);

@@ -26,12 +26,11 @@ namespace OSData{
 		unsigned short verticalSize = 25;
 		RGBA textColour = 0xFFFFFFFF;
 		signed short fontSize = 0;
-		signed short textBuffer = 0;
 		RGBA selectColour;
 
 		void CheckValues(std::string name, std::string value);
 	public:
-		GUIBoxDirectoryData(std::string folderLocation,unsigned short verticalSize,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,RGBA selectColour);
+		GUIBoxDirectoryData(std::string folderLocation,unsigned short verticalSize,RGBA textColour,unsigned short fontSize, RGBA selectColour);
 		GUIBoxDirectoryData(Functions::DataReader* reader);
 		GUIBoxDirectoryData(xmlNode* node);
 		virtual ~GUIBoxDirectoryData(){};
@@ -40,7 +39,6 @@ namespace OSData{
 		std::string FolderLocation(){return this->folderLocation;};
 		RGBA TextColour(){return this->textColour;};
 		signed short FontSize(){return this->fontSize;};
-		signed short TextBuffer(){return this->textBuffer;};
 		RGBA SelectColour(){return this->selectColour;};
 
 		std::string ToSaveToText();

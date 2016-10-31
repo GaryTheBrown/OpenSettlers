@@ -27,7 +27,7 @@ namespace GFXInterface {
 		OSData::GUITextData* textData;
 	public:
 		//constructors
-		GFXText(SystemInterface::System* system, std::string text, RGBA textColour, std::pair<int,int> location);
+		GFXText(SystemInterface::System* system, std::string text, RGBA textColour, unsigned short fontSize, std::pair<int,int> location);
 		GFXText(SystemInterface::System* system, OSData::GUITextData* textData);
 		virtual ~GFXText(){};
 

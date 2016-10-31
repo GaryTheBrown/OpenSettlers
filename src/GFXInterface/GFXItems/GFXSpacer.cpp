@@ -13,7 +13,7 @@
 GFXInterface::GFXSpacer::GFXSpacer(SystemInterface::System* system, OSData::GUISpacerData* spacerData)
 			:GFXItem(system,OSData::GUIItemData::GUISpacerType,(OSData::GUIItemData*)spacerData){
 	this->spacerData = spacerData;
-	this->location = this->spacerData->GetLocation();
-	this->size = this->spacerData->GetSize();
+	this->location = this->spacerData->Location();
+	this->size = this->spacerData->Size();
 	this->CalculateLocation();
 }

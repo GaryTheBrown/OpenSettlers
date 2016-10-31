@@ -13,37 +13,41 @@
 GFXInterface::GFXBox::GFXBox(SystemInterface::System* system,OSData::GUIBoxData* boxData)
 	:GFXItem(system,OSData::GUIItemData::GUIBoxType,(OSData::GUIItemData*)boxData){
 	this->boxData = boxData;
-	this->image = this->system->CreateTexture(boxData->GetSize(),boxData->BackgroundColour());
-	this->location = this->boxData->GetLocation();
-	this->size = this->boxData->GetSize();
+	this->image = this->system->CreateTexture(boxData->Size(),boxData->BackgroundColour());
+	this->location = this->boxData->Location();
+	this->size = this->boxData->Size();
 	this->boxType = this->boxData->BoxType();
 	this->multiSelect = this->boxData->MultiSelect();
 	this->selected = NULL;
 
 	if(this->boxData->ItemData() != NULL){
-		this->itemList  = new std::vector<GFXItem*>;
-		GFXButton* button;
-		GFXImage* image;
+		this->itemList  = new std::vector<GFXItem*>();
+		GFXItem* newItem;
 		for(auto item=this->boxData->ItemData()->begin() ; item < this->boxData->ItemData()->end(); item++ ){
 			switch ((*item)->ItemType()){
 			default:
 				break;
 			case OSData::GUIItemData::GUIButtonType:
-				button = new GFXButton(this->system,(OSData::GUIButtonData*)(*item));
-				this->itemList->push_back(button);
+				newItem = new GFXButton(this->system,(OSData::GUIButtonData*)(*item));
+				this->itemList->push_back(newItem);
 				break;
 			case OSData::GUIItemData::GUIImageType:
-				image = new GFXImage(this->system,(OSData::GUIImageData*)(*item));
-				this->itemList->push_back(image);
+				newItem = new GFXImage(this->system,(OSData::GUIImageData*)(*item));
+				this->itemList->push_back(newItem);
 				break;
-
+			case OSData::GUIItemData::GUISpacerType:
+				newItem = new GFXSpacer(this->system,(OSData::GUISpacerData*)(*item));
+				this->itemList->push_back(newItem);
+				break;
 			}
 		}
 
+	}else{
+		LOGSYSTEM->Error("No Item data to Link into GFXBox");
 	}
 
     //HERE CHECK FOR LIST TYPE AND SETUP
-	this->CalculateItems();
+	this->CalculateLocation();
 
 }
 //TODO Finish this off. list view (should be easy set each item to new line
@@ -88,7 +92,6 @@ void GFXInterface::GFXBox::CalculateItems(){
 	   		}
 	   		break;
 	   	case OSData::GUIBoxData::tFreeView:
-	   		//TODO: add in code to make all items conform to being inside the box. is this done?
 	   		for(auto item=this->itemList->begin() ; item < this->itemList->end(); item++ ){
 	   			(*item)->CalculateLocation(this->location,this->size);
 	   		}
@@ -116,8 +119,8 @@ void GFXInterface::GFXBox::Draw(){
     }
 
 }
-void GFXInterface::GFXBox::CalculateLocation(OSData::GUIItemData* data){
-	GFXItem::CalculateLocation();
+void GFXInterface::GFXBox::CalculateLocation(std::pair<int,int> location,std::pair<int,int> windowSize){
+	GFXItem::CalculateLocation(location,windowSize);
 	this->CalculateItems();
 }
 

@@ -11,6 +11,7 @@
 #include "Converter.h"
 
 bool Converter::Main(std::string location){
+	OSData::GameType* gameType = NULL;
 	char gameNo = 0;
 	bool GOG = false;
 
@@ -78,7 +79,6 @@ bool Converter::Main(std::string location){
 
 	switch(gameNo){
 		case 1:{
-			//temp message of version
 			LOGSYSTEM->Log("Settlers 1 Detected.",1);
 			LOGSYSTEM->Error("Settlers 1 not implemented yet.");
 			break;
@@ -91,17 +91,12 @@ bool Converter::Main(std::string location){
 		case 3:{
 			LOGSYSTEM->Log("Settlers 3 Detected.",1);
 			Settlers3::Convert* s3Converter = new Settlers3::Convert(location,GOG);
-			if(s3Converter->DoConvert() == false) return false;
+			gameType = s3Converter->DoConvert();
 			delete s3Converter;
-			return true;
+			break;
 		}
 		case 4:{
-			//temp message of version
-			if(GOG)
-				LOGSYSTEM->Log("Settlers 4 GOG Detected.",1);
-			else
-				LOGSYSTEM->Log("Settlers 4 Detected.",1);
-
+			LOGSYSTEM->Log("Settlers 4 Detected.",1);
 			LOGSYSTEM->Error("Settlers 4 not implemented yet.");
 			break;
 		}
@@ -111,5 +106,13 @@ bool Converter::Main(std::string location){
 			break;
 		}
 	}
-	return false;
+
+	if(gameType == NULL) return false;
+
+	OSData::File* file = new OSData::File(gameType);
+	file->ImageDataToNumbers();
+	file->ToSaveToData("Games/Settlers3");
+	delete file;
+
+	return true;
 }

@@ -45,17 +45,14 @@ void OSData::File::ConstructFromDataFile(std::string file){
 		this->fileOK = false;
 		return;
 	}
-	this->APIVersion = 0;
-	reader->ReadInt();
+	this->APIVersion = reader->ReadInt();
 	if (this->APIVersion > APILEVEL::MASTER){
 		LOGSYSTEM->Error(file + " is Newer than Game API:" + Functions::ToString(this->APIVersion) + ">" + Functions::ToString(APILEVEL::MASTER));
 		this->fileOK = false;
 		return;
 	}
 
-	this->baseGame = reader->ReadShort();
 	FileTypes::eFileType fileType = static_cast<FileTypes::eFileType>(reader->ReadShort());
-
 	this->DoFileType(fileType, reader);
 
 	if(reader->EndOfFile() == false){
@@ -100,27 +97,21 @@ void OSData::File::ConstructFromXMLFile(std::string file){
 		this->fileOK = false;
 		return;
 	}
-	FileTypes::eFileType fileType = FileTypes::eNone;
-	xmlAttr* xmlAttribute = rootNode->properties;
+
+/*	xmlAttr* xmlAttribute = rootNode->properties;
 	//ATTRIBUTES OF OPENSETTLERS TAB
 	while(xmlAttribute){
 		std::string xmlAttributeName = ((char*)xmlAttribute->name);
 		std::string xmlAttributeValue = ((char*)xmlAttribute->children->content);
-		if (xmlAttributeName ==  "BaseGame")
-			this->baseGame = atoi(xmlAttributeValue.c_str());
-		else if (xmlAttributeName ==  "FileType")
-			this->GetFileType(xmlAttributeValue);
+		if (xmlAttributeName ==  "")
+			something = xmlAttributeValue
 
 		xmlAttribute = xmlAttribute->next;
-	}
+	}*/
 
 	if(rootNode->children != NULL){
-
-		if(fileType == FileTypes::eNone){
-			fileType = this->GetFileType((char*)rootNode->children->name);
-		}
+		FileTypes::eFileType fileType = this->GetFileType((char*)rootNode->children->name);
 		this->DoFileType(fileType, rootNode->children,true);
-
 	}
 
 	xmlFreeDoc(xmlFile);
@@ -224,10 +215,6 @@ bool OSData::File::ToSaveToData(std::string file){
 	data->push_back((this->APIVersion >> 16) & 0xFF);
 	data->push_back((this->APIVersion >> 24) & 0xFF);
 
-	//Base Game Number (Short)
-	data->push_back(this->baseGame & 0xFF);
-	data->push_back((this->baseGame >> 8) & 0xFF);
-
 	//Data
 	if (this->dataType->ToSaveToData(data) == false) return false;
 
@@ -276,7 +263,6 @@ bool OSData::File::SaveImagesToData(std::vector<char>* data){
 std::string OSData::File::ToString(){
 	std::string data;
 	data += "Master API Level:" + Functions::ToString(this->APIVersion) + "\n";
-	data += "BaseGame:" + Functions::ToString(this->baseGame) + "\n";
 
 	if(this->dataType != NULL)
 		data += this->dataType->ToString();

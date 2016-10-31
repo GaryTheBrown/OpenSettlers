@@ -41,7 +41,7 @@ namespace SystemInterface {
 		virtual ImageContainer* LoadTexture(std::string path) = 0;
 		virtual ImageContainer* LoadTexture(Functions::RGBImage* memoryImage) = 0;
 		virtual ImageContainer* CreateTexture(std::pair<int,int> size, RGBA colour) = 0;
-		virtual ImageContainer* TextToImage(std::string text, RGBA colour) = 0;
+		virtual ImageContainer* TextToImage(std::string text, RGBA colour, unsigned short fontSize) = 0;
 		virtual void TextureToScreen(ImageContainer* imageContainer) = 0;
 
 	};

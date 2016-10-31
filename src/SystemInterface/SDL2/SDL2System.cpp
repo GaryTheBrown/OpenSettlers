@@ -58,9 +58,9 @@ SystemInterface::ImageContainer* SystemInterface::SDL2System::CreateTexture(std:
 	imageContainer->CreateTexture(size,colour);
     return imageContainer;
 }
-SystemInterface::ImageContainer* SystemInterface::SDL2System::TextToImage(std::string text, RGBA colour){
+SystemInterface::ImageContainer* SystemInterface::SDL2System::TextToImage(std::string text, RGBA colour, unsigned short fontSize){
     //Container
 	ImageContainer* imageContainer = new SDL2ImageContainer(this);
-	imageContainer->TextToImage(text,colour);
+	imageContainer->TextToImage(text,colour,fontSize);
     return imageContainer;
 }

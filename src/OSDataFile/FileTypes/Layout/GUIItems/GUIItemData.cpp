@@ -9,13 +9,23 @@
  *******************************************************************************/
 
 #include "GUIItemData.h"
-
-OSData::GUIItemData::GUIItemData(eGUIItemType itemType,std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition)
-	:itemType(itemType),
+OSData::GUIItemData::GUIItemData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,bool visible, bool enabled)
+	:itemType(GUINoneType),
 	location(location),
 	size(size),
 	horizontalPosition(horizontalPosition),
-	verticalPosition(verticalPosition){
+	verticalPosition(verticalPosition),
+	visible(visible),
+	enabled(enabled){
+}
+OSData::GUIItemData::GUIItemData(eGUIItemType itemType,GUIItemData baseData)
+	:itemType(itemType),
+	location(baseData.Location()),
+	size(baseData.Size()),
+	horizontalPosition(baseData.Horizontal()),
+	verticalPosition(baseData.Vertical()),
+	visible(baseData.Visible()),
+	enabled(baseData.Enabled()){
 }
 
 OSData::GUIItemData::GUIItemData(eGUIItemType itemType,Functions::DataReader* reader):itemType(itemType){
@@ -33,7 +43,8 @@ OSData::GUIItemData::GUIItemData(eGUIItemType itemType,Functions::DataReader* re
 	this->size.second = reader->ReadShort();
 	this->horizontalPosition = static_cast<ePosition>(reader->ReadChar());
 	this->verticalPosition = static_cast<ePosition>(reader->ReadChar());
-
+//	this->visible = reader->ReadChar() & 1;
+//	this->enabled = reader->ReadChar() & 1;
 }
 OSData::GUIItemData::GUIItemData(eGUIItemType itemType,xmlNode* node):itemType(itemType){
 	if(node != NULL){
@@ -63,6 +74,14 @@ void OSData::GUIItemData::CheckItemValues(std::string name, std::string value){
 		this->size.first = atoi(value.c_str());
 	else if (name == "VerticalSize")
 		this->size.second = atoi(value.c_str());
+	else if (name == "Visible")
+		this->visible = true;
+	else if (name == "Enabled")
+		this->enabled = true;
+	else if (name == "Hidden")
+		this->visible = false;
+	else if (name == "Disable")
+		this->enabled = false;
 }
 OSData::GUIItemData::ePosition OSData::GUIItemData::GetPositionType(std::string data){
 	if (data == "AlignLeft") return AlignLeft;
@@ -117,6 +136,11 @@ bool OSData::GUIItemData::ToSaveToData(std::vector<char>* data){
 	//Vertical Position (Char)
 	data->push_back(static_cast<char>(this->verticalPosition));
 
+	//Visible (Bool(Char))
+	data->push_back(static_cast<char>(this->visible?1:0));
+
+	//Enabled (Bool(Char))
+	data->push_back(static_cast<char>(this->enabled?1:0));
 	return true;
 }
 

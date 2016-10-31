@@ -18,6 +18,9 @@ StartMenu::StartMenu(SystemInterface::System* system):system(system) {
 			file = new OSData::File("Data/StartMenu.xml");
 		else if (Functions::FileExists("Data/StartMenu.dat"))
 			file = new OSData::File("Data/StartMenu.dat");
+		else
+			return;
+
 
 		this->layout = file->ReturnMenuLayout();
 		file->KeepData();

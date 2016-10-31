@@ -57,22 +57,27 @@ namespace OSData{
 		std::pair<unsigned short,unsigned short> size = {0,0};
 		ePosition horizontalPosition = pNone;
 		ePosition verticalPosition = pNone;
+		bool visible = true;
+		bool enabled = true;
 
 		bool fileOK = true;
 		unsigned int APIVersion = APILEVEL::GUIITEMS;
 
 		ePosition GetPositionType(std::string data);
 	public:
-		GUIItemData(eGUIItemType itemType,std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size, ePosition horizontalPosition, ePosition verticalPosition);
+		GUIItemData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size, ePosition horizontalPosition, ePosition verticalPosition,bool visible = true, bool enabled = true);
+		GUIItemData(eGUIItemType itemType,GUIItemData baseData);
 		GUIItemData(eGUIItemType itemType,Functions::DataReader* reader);
 		GUIItemData(eGUIItemType itemType,xmlNode* node);
 		virtual ~GUIItemData(){};
 
 		eGUIItemType ItemType(){return this->itemType;}
+		std::pair<unsigned short,unsigned short> Location(){return this->location;}
+		std::pair<unsigned short,unsigned short> Size(){return this->size;}
 		ePosition Vertical(){return this->verticalPosition;}
 		ePosition Horizontal(){return this->horizontalPosition;}
-		std::pair<unsigned short,unsigned short> GetLocation(){return this->location;}
-		std::pair<unsigned short,unsigned short> GetSize(){return this->size;}
+		bool Visible(){return this->visible;}
+		bool Enabled(){return this->enabled;}
 
 		virtual bool ToSaveToData(std::vector<char>* data = NULL);
 		virtual bool ImageToNumbers(std::vector<Functions::RGBImage*>* images, std::vector<std::string>* imageLocations = NULL){return true;};

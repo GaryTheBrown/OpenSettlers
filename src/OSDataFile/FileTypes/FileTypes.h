@@ -17,7 +17,7 @@
 namespace OSData{
 	class FileTypes {
 	public:
-		enum eFileType: unsigned char{
+		enum eFileType: unsigned short{
 			eNone = 0,
 			eFull = 1,
 			eArchive = 2,

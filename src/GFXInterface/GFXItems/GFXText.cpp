@@ -10,11 +10,11 @@
 
 #include "GFXText.h"
 
-GFXInterface::GFXText::GFXText(SystemInterface::System* system, std::string text, RGBA textColour, std::pair<int,int> location)
+GFXInterface::GFXText::GFXText(SystemInterface::System* system, std::string text, RGBA textColour, unsigned short fontSize, std::pair<int,int> location)
 		:GFXItem(system,OSData::GUIItemData::GUITextType,(OSData::GUIItemData*)textData){
 
 	this->textData = NULL;
-	this->image = this->system->TextToImage(text,textColour);
+	this->image = this->system->TextToImage(text,textColour,fontSize);
 	this->size = this->image->GetTextureSize();
 	this->location = location;
 
@@ -24,8 +24,8 @@ GFXInterface::GFXText::GFXText(SystemInterface::System* system, OSData::GUITextD
 		:GFXItem(system,OSData::GUIItemData::GUITextType,(OSData::GUIItemData*)textData){
 
 	this->textData = textData;
-	this->image = this->system->TextToImage(this->textData->Text(),this->textData->TextColour());
-	this->location = this->textData->GetLocation();
+	this->image = this->system->TextToImage(this->textData->Text(),this->textData->TextColour(),this->textData->FontSize());
+	this->location = this->textData->Location();
 	this->size = this->image->GetTextureSize();
 	this->CalculateLocation();
 }

@@ -31,7 +31,7 @@ namespace OSData{
 		GUISpacerData(std::pair<unsigned short,unsigned short> size);
 		GUISpacerData(Functions::DataReader* reader);
 		GUISpacerData(xmlNode* node);
-		virtual ~GUISpacerData(){};
+		//virtual ~GUISpacerData(){};
 
 		bool ToSaveToData(std::vector<char>* data = NULL);
 		std::string ToString();

@@ -13,8 +13,8 @@
 GFXInterface::GFXImage::GFXImage(SystemInterface::System* system, OSData::GUIImageData* imageData)
 			:GFXItem(system,OSData::GUIItemData::GUIImageType,(OSData::GUIItemData*)imageData){
 	this->imageData = imageData;
-	this->location = this->imageData->GetLocation();
-	this->size = this->imageData->GetSize();
+	this->location = this->imageData->Location();
+	this->size = this->imageData->Size();
 
 	switch(this->imageData->Image().Type()){
 	case OSData::ImageData::tLocation:

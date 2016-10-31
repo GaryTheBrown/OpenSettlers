@@ -56,8 +56,7 @@ namespace OSData{
 		void DirCreation();
 	public:
 
-
-		GUIBoxData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition, RGBA backgroundColour, eBoxType boxType, std::vector<GUIItemData*>* itemDataList,bool multiSelect = false);
+		GUIBoxData(GUIItemData baseData, RGBA backgroundColour, eBoxType boxType, std::vector<GUIItemData*>* itemDataList,bool multiSelect = false);
 		GUIBoxData(Functions::DataReader* reader);
 		GUIBoxData(xmlNode* node);
 		virtual ~GUIBoxData();

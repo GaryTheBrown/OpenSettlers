@@ -10,7 +10,7 @@
 
 #include "../ConvertGUI.h"
 
-void Converter::Settlers3::ConvertGUI::MissionCD(){
+void Converter::Settlers3::ConvertGUI::MissionCD(OSData::GameType* gameType){
 /*
 //Mission CD
 		if(extendible){

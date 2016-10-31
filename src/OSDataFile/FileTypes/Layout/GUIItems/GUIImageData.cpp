@@ -10,13 +10,14 @@
 
 #include "GUIImageData.h"
 
-OSData::GUIImageData::GUIImageData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string imageLocation)
-	:OSData::GUIItemData(GUIImageType,location,size,horizontalPosition,verticalPosition){
+
+OSData::GUIImageData::GUIImageData(GUIItemData baseData,std::string imageLocation)
+	:OSData::GUIItemData(GUIImageType,baseData){
 	this->image.Location(imageLocation);
 }
 
-OSData::GUIImageData::GUIImageData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size, ePosition horizontalPosition,ePosition verticalPosition,Functions::RGBImage* image)
-:OSData::GUIItemData(GUIImageType,location,size,horizontalPosition,verticalPosition){
+OSData::GUIImageData::GUIImageData(GUIItemData baseData,Functions::RGBImage* image)
+:OSData::GUIItemData(GUIImageType,baseData){
 	this->image.Data(image);
 }
 

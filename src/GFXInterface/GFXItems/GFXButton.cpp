@@ -13,8 +13,8 @@
 GFXInterface::GFXButton::GFXButton(SystemInterface::System* system, OSData::GUIButtonData* buttonData)
 				:GFXItem(system,OSData::GUIItemData::GUIButtonType,(OSData::GUIItemData*)buttonData){
 	this->buttonData = buttonData;
-	this->location = this->buttonData->GetLocation();
-	this->size = this->buttonData->GetSize();
+	this->location = this->buttonData->Location();
+	this->size = this->buttonData->Size();
 	this->text = this->buttonData->Text();
 
 	switch(this->buttonData->Image().Type()){
@@ -22,7 +22,7 @@ GFXInterface::GFXButton::GFXButton(SystemInterface::System* system, OSData::GUIB
 		this->image = this->system->LoadTexture(this->buttonData->Image().Location());
 		break;
 	case OSData::ImageData::tColour:
-		this->image = this->system->CreateTexture(this->buttonData->GetSize(),this->buttonData->Image().Colour());
+		this->image = this->system->CreateTexture(this->buttonData->Size(),this->buttonData->Image().Colour());
 		break;
 	case OSData::ImageData::tNumber:
 		this->image = this->system->LoadTexture(this->buttonData->Image().Image());
@@ -35,7 +35,7 @@ GFXInterface::GFXButton::GFXButton(SystemInterface::System* system, OSData::GUIB
 			this->hover = this->system->LoadTexture(this->buttonData->Hover().Location());
 			break;
 		case OSData::ImageData::tColour:
-			this->hover = this->system->CreateTexture(this->buttonData->GetSize(),this->buttonData->Hover().Colour());
+			this->hover = this->system->CreateTexture(this->buttonData->Size(),this->buttonData->Hover().Colour());
 			break;
 		case OSData::ImageData::tNumber:
 			this->hover = this->system->LoadTexture(this->buttonData->Hover().Image());
@@ -48,7 +48,7 @@ GFXInterface::GFXButton::GFXButton(SystemInterface::System* system, OSData::GUIB
 			this->pressed = this->system->LoadTexture(this->buttonData->Pressed().Location());
 			break;
 		case OSData::ImageData::tColour:
-			this->pressed = this->system->CreateTexture(this->buttonData->GetSize(),this->buttonData->Pressed().Colour());
+			this->pressed = this->system->CreateTexture(this->buttonData->Size(),this->buttonData->Pressed().Colour());
 			break;
 		case OSData::ImageData::tNumber:
 			this->pressed = this->system->LoadTexture(this->buttonData->Pressed().Image());
@@ -57,10 +57,13 @@ GFXInterface::GFXButton::GFXButton(SystemInterface::System* system, OSData::GUIB
 			break;
 	}
 	if(this->text != ""){
-		this->textImage = this->system->TextToImage(this->text,this->buttonData->TextColour());
+		this->textImage = this->system->TextToImage(this->text,this->buttonData->TextColour(), this->buttonData->FontSize());
 		this->textSize = this->textImage->GetTextureSize();
-		if (this->size.second < (this->textSize.second + this->buttonData->TextBuffer())) this->size.second = this->textSize.second + this->buttonData->TextBuffer();
-		if (this->size.first < (this->textSize.first + this->buttonData->TextBuffer())) this->size.first = this->textSize.first + this->buttonData->TextBuffer();
+		if (this->size.second < this->textSize.second)
+			this->size.second = this->textSize.second + 2;
+		if (this->size.first < this->textSize.first)
+			this->size.first = this->textSize.first + 2;
+
 		this->textLocation.first = (this->location.first + this->size.first/2 - this->textSize.first/2);
 		this->textLocation.second = (this->location.second + this->size.second/2 - this->textSize.second/2);
 	}
@@ -83,6 +86,13 @@ GFXInterface::GFXButton::~GFXButton() {
 		if (this->pressed != NULL)this->pressed->~ImageContainer();
 	}
 	if (this->textImage != NULL)this->textImage->~ImageContainer();
+}
+void GFXInterface::GFXButton::TextCorrection(){
+	if (this->buttonData->FontSize() == 0){
+		//button size - buffer size*2
+	}else {
+
+	}
 }
 
 void GFXInterface::GFXButton::SetLocation(std::pair<int,int> location){
@@ -114,7 +124,7 @@ void GFXInterface::GFXButton::Draw(){
 		this->image->TextureToScreen(this->location, this->size);
 
 	if (this->textImage != NULL)
-		this->textImage->TextureToScreen(this->textLocation,this->textSize);
+		this->textImage->TextureToScreen(this->textLocation, this->textSize);
 
 }
 

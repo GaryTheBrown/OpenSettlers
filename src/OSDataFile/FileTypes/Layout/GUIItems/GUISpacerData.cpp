@@ -12,12 +12,12 @@
 
 
 OSData::GUISpacerData::GUISpacerData(std::pair<unsigned short,unsigned short> size)
-:OSData::GUIItemData(GUISpacerType,std::make_pair(0,0),size,GUIItemData::pNone,GUIItemData::pNone){
+:OSData::GUIItemData(GUISpacerType,GUIItemData(std::make_pair(0,0),size,GUIItemData::pNone,GUIItemData::pNone,true,true)){
 
 }
 
 OSData::GUISpacerData::GUISpacerData(Functions::DataReader* reader)
-	:OSData::GUIItemData(GUISpacerType,std::make_pair(0,0),std::make_pair(0,0),GUIItemData::pNone,GUIItemData::pNone){
+	:OSData::GUIItemData(GUISpacerType,GUIItemData(std::make_pair(0,0),std::make_pair(0,0),GUIItemData::pNone,GUIItemData::pNone,true,true)){
 
 	this->APIVersion = reader->ReadInt();
 
@@ -31,7 +31,7 @@ OSData::GUISpacerData::GUISpacerData(Functions::DataReader* reader)
 }
 
 OSData::GUISpacerData::GUISpacerData(xmlNode* node)
-:GUIItemData(GUISpacerType,std::make_pair(0,0),std::make_pair(0,0),GUIItemData::pNone,GUIItemData::pNone){
+:GUIItemData(GUISpacerType,GUIItemData(std::make_pair(0,0),std::make_pair(0,0),GUIItemData::pNone,GUIItemData::pNone,true,true)){
 	if(node != NULL){
 		xmlAttr* xmlAttribute = node->properties;
 		while(xmlAttribute){
@@ -54,8 +54,26 @@ void OSData::GUISpacerData::CheckValues(std::string name, std::string value){
 }
 
 bool OSData::GUISpacerData::ToSaveToData(std::vector<char>* data){
-	if (data == NULL) data = new std::vector<char>;
-	return GUIItemData::ToSaveToData(data);
+	if (data == NULL) return false;
+	// This order
+	//itemType (char)
+	data->push_back(static_cast<char>(this->itemType));
+
+	//API Version (int)
+	data->push_back(this->APIVersion & 0xFF);
+	data->push_back((this->APIVersion >> 8) & 0xFF);
+	data->push_back((this->APIVersion >> 16) & 0xFF);
+	data->push_back((this->APIVersion >> 24) & 0xFF);
+
+	//size.first (Short)
+	data->push_back(this->size.first & 0xFF);
+	data->push_back((this->size.first >> 8) & 0xFF);
+
+	//size.second (Short)
+	data->push_back(this->size.second & 0xFF);
+	data->push_back((this->size.second >> 8) & 0xFF);
+
+	return true;
 }
 
 std::string OSData::GUISpacerData::ToString(){

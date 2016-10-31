@@ -10,11 +10,11 @@
 
 #include "GUIButtonData.h"
 
-OSData::GUIButtonData::GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,std::string imageLocation,std::string pressedLocation,std::string hoverLocation,eMenuEvent menuEvent,bool multiSelect)
-	:GUIItemData(GUIButtonType,location,size,horizontalPosition,verticalPosition){	this->text = text;
+OSData::GUIButtonData::GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, std::string imageLocation,std::string pressedLocation,std::string hoverLocation,eMenuEvent menuEvent,bool multiSelect)
+	:GUIItemData(GUIButtonType,baseData){
+	this->text = text;
 	this->textColour = textColour;
 	this->fontSize = fontSize;
-	this->textBuffer = textBuffer;
 	if (imageLocation != ""){
 		this->image.Location(imageLocation);
 	}else{
@@ -34,12 +34,11 @@ OSData::GUIButtonData::GUIButtonData(std::pair<unsigned short,unsigned short> lo
 	this->multiSelect = multiSelect;
 }
 
-OSData::GUIButtonData::GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,signed int imageNumber,signed int pressedNumber,signed int hoverNumber,eMenuEvent menuEvent,bool multiSelect)
-	:GUIItemData(GUIButtonType,location,size,horizontalPosition,verticalPosition){
+OSData::GUIButtonData::GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, signed int imageNumber,signed int pressedNumber,signed int hoverNumber,eMenuEvent menuEvent,bool multiSelect)
+	:GUIItemData(GUIButtonType,baseData){
 	this->text = text;
 	this->textColour = textColour;
 	this->fontSize = fontSize;
-	this->textBuffer = textBuffer;
 	if (imageNumber > -1){
 		this->image.Number(imageNumber);
 	} else {
@@ -59,12 +58,11 @@ OSData::GUIButtonData::GUIButtonData(std::pair<unsigned short,unsigned short> lo
 	this->multiSelect = multiSelect;
 }
 
-OSData::GUIButtonData::GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,RGBA buttonColour,RGBA pressedButtonColour,RGBA hoverButtonColour,eMenuEvent menuEvent,bool multiSelect)
-	:GUIItemData(GUIButtonType,location,size,horizontalPosition,verticalPosition){
+OSData::GUIButtonData::GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, RGBA buttonColour,RGBA pressedButtonColour,RGBA hoverButtonColour,eMenuEvent menuEvent,bool multiSelect)
+	:GUIItemData(GUIButtonType,baseData){
 	this->text = text;
 	this->textColour = textColour;
 	this->fontSize = fontSize;
-	this->textBuffer = textBuffer;
 	this->image.Colour(buttonColour);
 	this->pressed.Colour(pressedButtonColour);
 	this->hover.Colour(hoverButtonColour);
@@ -72,12 +70,11 @@ OSData::GUIButtonData::GUIButtonData(std::pair<unsigned short,unsigned short> lo
 	this->multiSelect = multiSelect;
 }
 
-OSData::GUIButtonData::GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,Functions::RGBImage* button,Functions::RGBImage* pressedButton,Functions::RGBImage* hoverButton,eMenuEvent menuEvent,bool multiSelect)
-:GUIItemData(GUIButtonType,location,size,horizontalPosition,verticalPosition){
+OSData::GUIButtonData::GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour, unsigned short fontSize, Functions::RGBImage* button,Functions::RGBImage* pressedButton,Functions::RGBImage* hoverButton,eMenuEvent menuEvent,bool multiSelect)
+:GUIItemData(GUIButtonType,baseData){
 	this->text = text;
 	this->textColour = textColour;
 	this->fontSize = fontSize;
-	this->textBuffer = textBuffer;
 	if (button != NULL){
 		this->image.Data(button);
 	} else {
@@ -97,13 +94,11 @@ OSData::GUIButtonData::GUIButtonData(std::pair<unsigned short,unsigned short> lo
 	this->multiSelect = multiSelect;
 }
 
-
 OSData::GUIButtonData::GUIButtonData(Functions::DataReader* reader):OSData::GUIItemData(GUIButtonType,reader){
 	unsigned short textSize = reader->ReadShort();
 	this->text = reader->ReadString(textSize);
 	this->textColour = reader->ReadInt();
-	this->fontSize = reader->ReadSignedShort();
-	this->textBuffer = reader->ReadSignedShort();
+	this->fontSize = reader->ReadShort();
 
 	this->image.ReadData(reader);
 	this->hover.ReadData(reader);
@@ -115,6 +110,7 @@ OSData::GUIButtonData::GUIButtonData(Functions::DataReader* reader):OSData::GUII
 
 }
 OSData::GUIButtonData::GUIButtonData(xmlNode* node):GUIItemData(GUIButtonType,node){
+
 	if(node != NULL){
 
 		xmlAttr* xmlAttribute = node->properties;
@@ -138,8 +134,6 @@ void OSData::GUIButtonData::CheckValues(std::string name, std::string value){
 		this->textColour = Functions::StringToHex(value);
 	else if (name == "FontSize")
 		this->fontSize = atoi(value.c_str());
-	else if (name == "TextBuffer")
-		this->textBuffer = atoi(value.c_str());
 	else if (name == "ImageLocation")
 		this->image.Location(value);
 	else if (name == "ButtonColour")
@@ -178,11 +172,6 @@ bool OSData::GUIButtonData::ToSaveToData(std::vector<char>* data){
 	//Font Size (Signed Short)
 	data->push_back(this->fontSize & 0xFF);
 	data->push_back((this->fontSize >> 8) & 0xFF);
-
-
-	//Text Buffer (Signed Short)
-	data->push_back(this->textBuffer & 0xFF);
-	data->push_back((this->textBuffer >> 8) & 0xFF);
 
 	if (this->image.ToSaveToData(data) == false) return false;
 	if (this->hover.ToSaveToData(data) == false) return false;
@@ -223,7 +212,6 @@ std::string OSData::GUIButtonData::ToString(){
 	data += "Text = " + this->text + "\n";
 	data += "Text Colour = " + Functions::ToHex(this->textColour.ReturnInt(),4) + "\n";
 	data += "Font Size = " + Functions::ToString(this->fontSize) + "\n";
-	data += "Text Buffer = " + Functions::ToString(this->textBuffer) + "\n";
 
 	data += "Image = " + this->image.ToString();
 	data += "Hover = " + this->hover.ToString();

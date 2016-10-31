@@ -33,7 +33,7 @@ namespace GFXInterface {
 		//visible ->Show(true)+Hide(false)
 		//enable ->enable(true)+disable(false)
 		//some why of mass disabling of buttons
-		//bool Visible
+		//bool visible
 		//bool enabled
 
 	public:

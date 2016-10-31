@@ -26,7 +26,7 @@ namespace SystemInterface {
 		virtual bool LoadTexture(std::string path) = 0;
 		virtual bool LoadTexture(Functions::RGBImage* memoryImage) = 0;
 		virtual bool CreateTexture(std::pair<int,int> size, RGBA colour) = 0;
-		virtual bool TextToImage(std::string text, RGBA colour) = 0;
+		virtual bool TextToImage(std::string text, RGBA colour, unsigned short fontSize) = 0;
 
 		//Texture Draw Functions
 		virtual void TextureToScreen() = 0;

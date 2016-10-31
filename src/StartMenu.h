@@ -36,6 +36,5 @@ public:
 	virtual ~StartMenu();
 
 	OSData::MenuLayout* CreateLayout();
-
 	GFXInterface::GFXReturn Loop();
 };

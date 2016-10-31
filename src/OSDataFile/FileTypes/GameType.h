@@ -34,29 +34,27 @@
 namespace OSData {
 	class GameType : public FileTypes {
 	private:
-	//TODO: ADD IN VARIABLE MAYBE FLOAT TO GET VERSION FROM.
-		std::string gameName;
+	//TODO ADD IN VARIABLE MAYBE FLOAT TO GET VERSION FROM.
+		std::string gameName = "";
+		unsigned int startMenuNumber = 0;
 		//std::string baseGame; 	//TODO Look into this base game option to allow people to add to a base game rather than have to download all base graphics too (could be illegal?)
-		//bool hasGameIcon; //location relative to "game"/GFX/ = icon.png
-
+		//bool hasGameIcon;
 		std::vector<MenuLayout*>* menuLayouts = NULL;
 		//GameOptions* gameOptions;
-		//Layout* layout;
 		//List<Race>* raceList;
 		//List<Resource>* resourceList;
 		//MapSetup* mapSetup;
 
 		void CheckValues(std::string name, std::string value);
-		void GetFileType(std::string data);
-		void DoFileType(void* data, bool xml = false);
+		FileTypes::eFileType GetFileType(std::string data);
+		void DoFileType(FileTypes::eFileType fileType, void* data, bool xml = false);
 	public:
 
 
 		GameType();
-		GameType(std::string gameName,
-			std::vector<MenuLayout*>* menuLayouts
+		GameType(std::string gameName, unsigned int startMenuNumber = 0);
+		GameType(std::string gameName, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts
 	//			GameOptions* gameOptions,
-	//			Layout* layout,
 	//			MapSetup* mapSetup,
 	//			std::vector<Resource*>* resourceList,
 	//			std::vector<Race*>* raceList
@@ -67,14 +65,16 @@ namespace OSData {
 
 		virtual ~GameType();
 
-		std::string GameName(){return this->gameName;}
-		std::vector<MenuLayout*>* MenuLayouts(){return this->menuLayouts;};
-		//GameOptions* GameOptions;
-		//Layout* Layout;
-		//List<Race>* RaceList;
-		//List<Resource>* ResourceList;
-		//MapSetup* MapSetup;
+		void StartMenuNumber(unsigned int startMenuNumber){this->startMenuNumber = startMenuNumber;};
+		void AddMenuLayout(MenuLayout* menuLayout){this->menuLayouts->push_back(menuLayout);}
 
+		std::string GameName(){return this->gameName;}
+		unsigned int StartMenuNumber(){return this->startMenuNumber;}
+		std::vector<MenuLayout*>* MenuLayouts(){return this->menuLayouts;};
+
+		bool ToSaveToData(std::vector<char>* data);
+		bool ImageToNumbers(std::vector<Functions::RGBImage*>* images, std::vector<std::string>* imageLocations = NULL);
+		bool LinkNumbers(std::vector<Functions::RGBImage*>* images);
 		std::string ToString();
 
 	};

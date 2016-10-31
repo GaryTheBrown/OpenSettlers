@@ -11,20 +11,31 @@
 #include "GameType.h"
 
 OSData::GameType::GameType():FileTypes(eFull){
-this->gameName = "";
-this->menuLayouts = NULL;
+	this->menuLayouts = new std::vector<MenuLayout*>();
 }
-OSData::GameType::GameType(std::string gameName,
-		std::vector<MenuLayout*>* menuLayouts
-//				   GameOptions* gameOptions,
-//				   Layout* layout,
-//				   MapSetup* mapSetup,
-//				   List<Resource>* resourceList,
-//				   List<Race>* raceList
-				   ):FileTypes(eFull) {
-	this->gameName = gameName;
-	this->menuLayouts = menuLayouts;
+
+OSData::GameType::GameType(std::string gameName, unsigned int startMenuNumber):
+		FileTypes(eFull),
+		gameName(gameName),
+		startMenuNumber(startMenuNumber){
+
+	this->menuLayouts = new std::vector<MenuLayout*>();
+}
+
+OSData::GameType::GameType(std::string gameName, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts
+//		GameOptions* gameOptions,
+//		Layout* layout,
+//		MapSetup* mapSetup,
+//		List<Resource>* resourceList,
+//		List<Race>* raceList
+		):
+		FileTypes(eFull),
+		gameName(gameName),
+		startMenuNumber(startMenuNumber),
+		menuLayouts(menuLayouts){
+
 	std::sort(this->menuLayouts->begin(),this->menuLayouts->end());
+
 //	this->gameOptions = gameOptions;
 //	this->layout = layout;
 //	this->mapSetup = mapSetup;
@@ -34,17 +45,17 @@ OSData::GameType::GameType(std::string gameName,
 }
 
 OSData::GameType::GameType(Functions::DataReader* reader)
-	:FileTypes(eMenuLayout){
+	:FileTypes(eFull){
 
 	unsigned int textSize = reader->ReadChar();
-	this->gameName = reader->ReadString(textSize,-1);
+	this->gameName = reader->ReadString(textSize);
+	this->startMenuNumber = reader->ReadInt();
 
 	unsigned int itemCount = reader->ReadInt();
-	for (unsigned int i = 0; i < itemCount; i++){
-		this->fileType = static_cast<FileTypes::eFileType>(reader->ReadShort());
-		this->DoFileType(reader);
+		for (unsigned int i = 0; i < itemCount; i++){
+		OSData::FileTypes::eFileType fileType = static_cast<FileTypes::eFileType>(reader->ReadShort());
+		this->DoFileType(fileType, reader);
 	}
-
 }
 
 OSData::GameType::GameType(xmlNode* node):FileTypes(eFull){
@@ -63,8 +74,8 @@ OSData::GameType::GameType(xmlNode* node):FileTypes(eFull){
 
 		xmlNode* itemNode = node->children;
 		while(itemNode){
-			this->GetFileType((char*)node->children->name);
-			this->DoFileType(node->children,true);
+			FileTypes::eFileType fileType = GetFileType((char*)node->children->name);
+			this->DoFileType(fileType, node->children,true);
 		}
 	}
 }
@@ -88,20 +99,22 @@ OSData::GameType::~GameType() {
 void OSData::GameType::CheckValues(std::string name, std::string value){
 	if (name == "Name")
 		this->gameName = value;
+	if (name == "StartMenu")
+		this->startMenuNumber = atoi(value.c_str());
 }
 
-void OSData::GameType::GetFileType(std::string data){
+OSData::FileTypes::eFileType OSData::GameType::GetFileType(std::string data){
 	if (data == "MenuLayout")
-		this->fileType = FileTypes::eMenuLayout;
+		return FileTypes::eMenuLayout;
 	else if (data == "LoadScreen")
-		this->fileType = FileTypes::eLoadScreen;
+		return FileTypes::eLoadScreen;
 	else //Includes Full and Archive
-		this->fileType = FileTypes::eNone;
+		return FileTypes::eNone;
 }
 
-void OSData::GameType::DoFileType(void* data, bool xml){
+void OSData::GameType::DoFileType(FileTypes::eFileType fileType, void* data, bool xml){
 
-	switch(this->fileType){
+	switch(fileType){
 
 	case FileTypes::eMenuLayout:
 		if(this->menuLayouts == NULL)
@@ -121,6 +134,57 @@ void OSData::GameType::DoFileType(void* data, bool xml){
 		break;
 	}
 }
+
+bool OSData::GameType::ToSaveToData(std::vector<char>* data){
+	if (data == NULL) data = new std::vector<char>;
+
+	FileTypes::ToSaveToData(data);
+
+	//text Size (char)
+	data->push_back(static_cast<char>(this->gameName.size()));
+	//Text
+	std::copy(this->gameName.begin(), this->gameName.end(), std::back_inserter(*data));
+
+	//Start Menu Number (int)
+	data->push_back(this->startMenuNumber & 0xFF);
+	data->push_back((this->startMenuNumber >> 8) & 0xFF);
+	data->push_back((this->startMenuNumber >> 16) & 0xFF);
+	data->push_back((this->startMenuNumber >> 24) & 0xFF);
+
+	//Data Count (Short)
+	unsigned int count = this->menuLayouts->size(); //+ all others added on when added
+
+	data->push_back(count & 0xFF);
+	data->push_back((count >> 8) & 0xFF);
+	data->push_back((count >> 16) & 0xFF);
+	data->push_back((count >> 24) & 0xFF);
+
+	//MenuLayout Data
+	for(auto menuLayout = this->menuLayouts->begin(); menuLayout < this->menuLayouts->end(); menuLayout++) {
+		if((*menuLayout)->ToSaveToData(data) == false) return false;
+	}
+
+	return true;
+}
+
+bool OSData::GameType::ImageToNumbers(std::vector<Functions::RGBImage*>* images, std::vector<std::string>* imageLocations){
+	if (images == NULL) return false;
+	if (this->menuLayouts == NULL) return false;
+
+	for(auto item = this->menuLayouts->begin(); item < this->menuLayouts->end(); item++) {
+		if((*item)->ImageToNumbers(images,imageLocations) == false) return false;
+	}
+	return true;
+}
+
+bool OSData::GameType::LinkNumbers(std::vector<Functions::RGBImage*>* images){
+	if (images == NULL) return false;
+	for(auto item = this->menuLayouts->begin(); item != this->menuLayouts->end(); item++) {
+		if((*item)->LinkNumbers(images) == false) return false;
+	}
+	return true;
+}
+
 
 std::string OSData::GameType::ToString(){
 

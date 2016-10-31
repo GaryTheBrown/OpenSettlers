@@ -18,6 +18,7 @@ int main(int argc,char* argv[]){
 		return 0; //if comes back true exits
 
 	OSData::GameType* gameType = NULL;
+	OSData::File* file = NULL;
 	GFXInterface::GFXReturn startMenuReturn = GFXInterface::GFXReturn(MMStartMenu);
 ///CLI FUNCTIONS
 	//CLI Converter
@@ -34,10 +35,11 @@ int main(int argc,char* argv[]){
 		LOGSYSTEM->Log("Open Settlers Extractor Completed",1);
 		return 0;
 	}
+	//TODO Create a Function to call for this to keep it clean
 	if(startupArguments->Test()){ //Temp XML To Dat FUNCTION OR DAT READER.
 		LOGSYSTEM->Log("Open Settlers Test Started",1);
 
-		OSData::File* file = new OSData::File(startupArguments->Location());
+		file = new OSData::File(startupArguments->Location());
 
 		std::string extension = startupArguments->Location().substr(startupArguments->Location().find_last_of(".") + 1);
 		std::transform(extension.begin(), extension.end(), extension.begin(), toupper);
@@ -56,7 +58,6 @@ int main(int argc,char* argv[]){
 
 		delete file;
 
-//Create a Function to call for this to keep it clean
 		LOGSYSTEM->Log("Open Settlers Test Completed",1);
 		return 0;
 	}
@@ -88,50 +89,24 @@ int main(int argc,char* argv[]){
 			//DO StartMenu Loop
 			startMenuReturn = startMenu->Loop();
 			// Cleanup window
-			startMenu->~StartMenu();
-
-			switch(startMenuReturn.MenuEvent()){
-			case MMStartGame:
-				LOGSYSTEM->Log("TO LOAD " + startMenuReturn.String(),1);
-				return 0;
-			default:
-				break;
-			}
+			delete startMenu;
 		}
-
-			//FROM START MENU CORRECT IT. (LOAD Game Type from return String and temp function (Prob not needed)
-
-			//			if((gameType == NULL)){
-			//				gameTypeLoad = new Functions::GameTypeLoad(guiReturn->RString());
-			//				gameType = gameTypeLoad->Load();
-			//				gameTypeLoad->~GameTypeLoad();
-			//			}
-			//			if((gameType != NULL)){
-			//				GFXInterface::GFXReturn* guiReturn = new GFXInterface::GFXReturn(GFXInterface::GFXReturn::MMStartGame,gameType);
-			//				return guiReturn;
-			//			}
-			//			break;
-			//		case MMAddGame:
-			//			gameType = TempCreate();
-			//			gameTypeSave = new Functions::GameTypeSave(gameType);
-			//			gameTypeSave->Save();
-			//			gameTypeSave->~GameTypeSave();
-			//			break;
-						//Pass Data Back to main function
-
-		//If gameType has been loaded then open up main menu
-//		if(((startMenuReturn == NULL)&&(gameType != NULL))||
-//			((startMenuReturn != NULL)&&(gameType != NULL)&&(startMenuReturn->RMenuEvent() == MMStartGame))){
-//			Game* game = new Game(system,gameType);
-//			system->display->SetWindowName(ENGINENAME + " - " + gameType->GameName());
-//			startMenuReturn = game->Loop();
-//			game->~Game();
-//		}
+		switch(startMenuReturn.MenuEvent()){
+		case MMStartGame:{
+			file = new OSData::File("Games/" + startMenuReturn.String());
+			gameType = file->ReturnGameType();
+			GameInterface::Game* game = new GameInterface::Game(system,gameType);
+			system->display->SetWindowName(ENGINENAME + " - " + gameType->GameName());
+			startMenuReturn = game->Loop();
+			delete game;
+			return 0;
+		}
+		default:
+			break;
+		}
 	}
-
-
-
 	LOGSYSTEM->Log("Closing Down");
-	delete system;
+	if (file != NULL) delete file;
+	if (system != NULL) delete system;
 	return 0;
 }

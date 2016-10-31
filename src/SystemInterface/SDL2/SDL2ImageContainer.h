@@ -37,7 +37,7 @@ namespace SystemInterface {
 		bool LoadTexture(std::string path);
 		bool LoadTexture(Functions::RGBImage* memoryImage);
 		bool CreateTexture(std::pair<int,int> size, RGBA colour);
-		bool TextToImage(std::string text, RGBA colour);
+		bool TextToImage(std::string text, RGBA colour, unsigned short fontSize);
 
 		void TextureToScreen();
 		void TextureToScreen(std::pair<int,int> location);

@@ -11,20 +11,29 @@
 #pragma once
 
 #include <string>
-//SDL2
-#include <SDL2/SDL.h>
+#include <map>
 #include <SDL2/SDL_ttf.h>
+
 //TODO FINISH OFF FONT SYSTEM
 //further improve the fonts to load all in system
+//	/usr/share/fonts
+//	/usr/local/share/fonts
 // and allow any in Game/Data/Fonts/  or /Data/Fonts/
+//http://www.cplusplus.com/forum/windows/148218/
+
 namespace SystemInterface {
 	class Fonts {
 	protected:
+		struct Font{
+			std::string fontLocation;
+			std::string fontName;
+			std::map<int, TTF_Font*> fontSizes;
+		} masterFont;
 
 	public:
-		TTF_Font* masterFont;
+		virtual ~Fonts(){
 
-		Fonts(){this->masterFont = NULL;};
-		virtual ~Fonts(){};
+		}
+		virtual TTF_Font* MasterFont(unsigned short fontSize) = 0;
 	};
 }

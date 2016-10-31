@@ -10,14 +10,24 @@
 
 #pragma once
 
-#include <SDL2/SDL_ttf.h>
-#include "../Fonts.h"
+#include "../SystemInterface/System.h"
+#include "../OSDataFile/FileTypes/GameType.h"
+#include "../GFXInterface/GFXMenu.h"
+#include "../GFXInterface/GFXReturn.h"
+#include "../OSDataFile/FileTypes/Layout/MenuLayout.h"
 
-namespace SystemInterface {
-	class SDL2Fonts : public Fonts {
+#include "GameMenu.h"
+
+namespace GameInterface {
+	class Game {
+	private:
+		SystemInterface::System* system;
+		OSData::GameType* gameType;
+		GameMenu* menu;
 	public:
-		SDL2Fonts();
-		virtual ~SDL2Fonts();
-		TTF_Font* MasterFont(unsigned short fontSize);
+		Game(SystemInterface::System* system,OSData::GameType* gameType);
+		virtual ~Game();
+
+		GFXInterface::GFXReturn Loop();
 	};
 }

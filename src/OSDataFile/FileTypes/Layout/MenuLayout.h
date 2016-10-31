@@ -32,21 +32,22 @@ namespace OSData{
 	private:
 
 		unsigned int APIVersion = APILEVEL::MENULAYOUT;
-		int menuID = 0;
+		unsigned int menuID = 0;
 		std::string title;
 		RGBA backgroundColour;
 		std::vector<GUIItemData*>* itemData = NULL;
 
+		void CheckValues(std::string name, std::string value);
 	public:
 
 
-		MenuLayout(int menuID,std::string title,RGBA backgroundColour,std::vector<GUIItemData*>* itemData);
+		MenuLayout(unsigned int menuID,std::string title,RGBA backgroundColour,std::vector<GUIItemData*>* itemData);
 		MenuLayout(Functions::DataReader* reader);
 		MenuLayout(xmlNode* node);
 
 		virtual ~MenuLayout();
 
-		int MenuID(){return menuID;}
+		unsigned int MenuID(){return menuID;}
 		std::string Title(){return title;}
 		RGBA BackgroundColour(){return backgroundColour;}
 		std::vector<GUIItemData*>* ItemData(){return this->itemData;};

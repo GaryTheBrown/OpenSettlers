@@ -10,12 +10,11 @@
 
 #include "GUIBoxDirectoryData.h"
 
-OSData::GUIBoxDirectoryData::GUIBoxDirectoryData(std::string folderLocation,unsigned short verticalSize,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,RGBA selectColour){
+OSData::GUIBoxDirectoryData::GUIBoxDirectoryData(std::string folderLocation,unsigned short verticalSize,RGBA textColour,unsigned short fontSize, RGBA selectColour){
 		this->folderLocation = folderLocation;
 		this->verticalSize = verticalSize;
 		this->textColour = textColour;
 		this->fontSize = fontSize;
-		this->textBuffer = textBuffer;
 		this->selectColour = selectColour;
 }
 
@@ -27,7 +26,6 @@ OSData::GUIBoxDirectoryData::GUIBoxDirectoryData(Functions::DataReader* reader){
 	this->verticalSize = reader->ReadShort();
 	this->textColour = reader->ReadInt();
 	this->fontSize = reader->ReadSignedShort();
-	this->textBuffer = reader->ReadSignedShort();
 	this->selectColour = reader->ReadInt();
 }
 
@@ -56,8 +54,6 @@ void OSData::GUIBoxDirectoryData::CheckValues(std::string name, std::string valu
 		this->textColour = Functions::StringToHex(value);
 	else if (name == "FontSize")
 	this->fontSize = atoi(value.c_str());
-	else if (name == "TextBuffer")
-		this->textBuffer = atoi(value.c_str());
 	else if (name == "SelectColour")
 		this->selectColour = Functions::StringToHex(value);
 }
@@ -84,10 +80,6 @@ bool OSData::GUIBoxDirectoryData::ToSaveToData(std::vector<char>* data){
 	data->push_back(this->fontSize & 0xFF);
 	data->push_back((this->fontSize >> 8) & 0xFF);
 
-	//Text Buffer (Signed Short)
-	data->push_back(this->textBuffer & 0xFF);
-	data->push_back((this->textBuffer >> 8) & 0xFF);
-
 	//Image Colour
 	data->push_back(this->selectColour.A);
 	data->push_back(this->selectColour.B);
@@ -105,7 +97,6 @@ std::string OSData::GUIBoxDirectoryData::ToString(){
 	data += "Vetical Size = " + Functions::ToString(this->verticalSize) + "\n";
 	data += "Text Colour = " + Functions::ToHex(this->textColour.ReturnInt(),4) + "\n";
 	data += "Font Size = " + Functions::ToString(this->fontSize) + "\n";
-	data += "Text Buffer = " + Functions::ToString(this->textBuffer) + "\n";
 	data += "Selected Colour = " + Functions::ToHex(this->selectColour.ReturnInt(),4) + "\n";
 
 	return data;

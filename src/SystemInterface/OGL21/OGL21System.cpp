@@ -58,10 +58,10 @@ SystemInterface::ImageContainer* SystemInterface::OGL21System::CreateTexture(std
 	imageContainer->CreateTexture(size,colour);
     return imageContainer;
 }
-SystemInterface::ImageContainer* SystemInterface::OGL21System::TextToImage(std::string text, RGBA colour){
+SystemInterface::ImageContainer* SystemInterface::OGL21System::TextToImage(std::string text, RGBA colour, unsigned short fontSize){
     //Container
 	ImageContainer* imageContainer = new OGL21ImageContainer(this);
-	imageContainer->TextToImage(text,colour);
+	imageContainer->TextToImage(text,colour,fontSize);
     return imageContainer;
 }
 

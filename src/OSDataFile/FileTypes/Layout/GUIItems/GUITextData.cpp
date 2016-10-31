@@ -10,13 +10,12 @@
 
 #include "GUITextData.h"
 
-OSData::GUITextData::GUITextData(std::pair<unsigned short,unsigned short> location,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,signed short fontSize)
-			:OSData::GUIItemData(GUITextType,location,{0,0},horizontalPosition,verticalPosition){
+OSData::GUITextData::GUITextData(GUIItemData baseData,std::string text,RGBA textColour,signed short fontSize)
+	:OSData::GUIItemData(GUITextType,baseData){
 			 this->text = text;
 			 this->textColour = textColour;
 			 this->fontSize = fontSize;
 }
-
 OSData::GUITextData::GUITextData(Functions::DataReader* reader):OSData::GUIItemData(GUITextType,reader){
 	unsigned int textSize = reader->ReadShort();
 	this->text = reader->ReadString(textSize);

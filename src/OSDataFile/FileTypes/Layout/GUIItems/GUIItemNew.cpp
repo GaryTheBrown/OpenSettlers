@@ -63,9 +63,10 @@ OSData::GUIItemData* OSData::DoItemType(GUIItemData::eGUIItemType itemDataType, 
 			return new GUISpacerData((Functions::DataReader*)data);
 		}
 		break;
-	default:
+	default:{
 		return NULL;
 		break;
+	}
 	}
 }
 

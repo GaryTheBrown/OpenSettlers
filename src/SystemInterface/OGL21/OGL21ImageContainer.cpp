@@ -85,10 +85,10 @@ bool SystemInterface::OGL21ImageContainer::CreateTexture(std::pair<int,int> size
 	return this->TextureToGPU(surface);
 }
 
-bool SystemInterface::OGL21ImageContainer::TextToImage(std::string text, RGBA colour){
+bool SystemInterface::OGL21ImageContainer::TextToImage(std::string text, RGBA colour, unsigned short fontSize){
 	if (this->textureID != 0) return false;
-	SDL_Color SDLColour = {colour.B, colour.G, colour.R,255};//This is reversed onl here for some reason.
-	SDL_Surface* surface = TTF_RenderText_Blended(this->system->fonts->masterFont, text.c_str(), SDLColour);
+	SDL_Color SDLColour = {colour.B, colour.G, colour.R,255};//This is reversed only here for some reason.
+	SDL_Surface* surface = TTF_RenderText_Blended(this->system->fonts->MasterFont(fontSize), text.c_str(), SDLColour);
 	this->size = {surface->w,surface->h};
 	return this->TextureToGPU(surface);
 }

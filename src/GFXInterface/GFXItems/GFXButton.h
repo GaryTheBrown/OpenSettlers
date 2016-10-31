@@ -39,6 +39,8 @@ namespace GFXInterface {
 		bool selected;
 		eMenuEvent call;
 
+		//TextCorrection
+		void TextCorrection();
 	public:
 
 		//Constructor

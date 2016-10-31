@@ -21,6 +21,7 @@
 #include "../../OSDataFile/FileTypes/Layout/GUIItems/GUIItemData.h"
 #include "GFXButton.h"
 #include "GFXImage.h"
+#include "GFXSpacer.h"
 #include "GFXItem.h"
 #include "../GFXReturn.h"
 
@@ -46,9 +47,9 @@ namespace GFXInterface {
 
 		//functions
 		void CalculateItems();
-		virtual void Draw();
-		virtual void CalculateLocation(OSData::GUIItemData* data);
-		virtual eMenuEvent EventHandler();
+		void Draw();
+		void CalculateLocation(std::pair<int,int> location = {0,0},std::pair<int,int> windowSize = {0,0});
+		eMenuEvent EventHandler();
 
 	};
 }

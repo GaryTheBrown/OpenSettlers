@@ -24,14 +24,13 @@
 #include "../../FileTypes.h"
 #include "GUIItemData.h"
 #include "ImageData.h"
-//TODO ALLOW TEXT TO CHANGE COLOUR ADDING IN 2 more textures that will draw in the 3 states up pressed and down GFXButton Needs 2 more containers as well
+
 namespace OSData{
 	class GUIButtonData : public GUIItemData {
 	private:
 		std::string text = "";
 		RGBA textColour = 0xFFFFFFFF;
-		signed short fontSize = 0;
-		signed short textBuffer = 0;
+		unsigned short fontSize = 10;
 		ImageData image;
 		ImageData hover;
 		ImageData pressed;
@@ -40,18 +39,18 @@ namespace OSData{
 
 		void CheckValues(std::string name, std::string value);
 	public:
-		GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,std::string imageLocation,std::string pressedLocation,std::string hoverLocation,eMenuEvent menuEvent,bool multiSelect);
-		GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,signed int imageNumber,signed int pressedNumber,signed int hoverNumber,eMenuEvent menuEvent,bool multiSelect);
-		GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,RGBA buttonColour,RGBA pressedButtonColour,RGBA hoverButtonColour,eMenuEvent menuEvent,bool multiSelect);
-		GUIButtonData(std::pair<unsigned short,unsigned short> location,std::pair<unsigned short,unsigned short> size,ePosition horizontalPosition,ePosition verticalPosition,std::string text,RGBA textColour,unsigned short fontSize, unsigned short textBuffer,Functions::RGBImage* button,Functions::RGBImage* pressedButton,Functions::RGBImage* hoverButton,eMenuEvent menuEvent,bool multiSelect);
+
+		GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, std::string imageLocation,std::string pressedLocation,std::string hoverLocation,eMenuEvent menuEvent,bool multiSelect);
+		GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, signed int imageNumber,signed int pressedNumber,signed int hoverNumber,eMenuEvent menuEvent,bool multiSelect);
+		GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, RGBA buttonColour,RGBA pressedButtonColour,RGBA hoverButtonColour,eMenuEvent menuEvent,bool multiSelect);
+		GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, Functions::RGBImage* button,Functions::RGBImage* pressedButton,Functions::RGBImage* hoverButton,eMenuEvent menuEvent,bool multiSelect);
 		GUIButtonData(Functions::DataReader* reader);
 		GUIButtonData(xmlNode* node);
 		virtual ~GUIButtonData(){};
 
 		std::string Text(){return this->text;}
 		RGBA TextColour(){return this->textColour;}
-		signed short FontSize(){return this->fontSize;}
-		signed short TextBuffer(){return this->textBuffer;}
+		unsigned short FontSize(){return this->fontSize;}
 
 		ImageData Image(){return this->image;}
 		ImageData Hover(){return this->hover;}
