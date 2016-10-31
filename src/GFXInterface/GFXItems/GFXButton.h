@@ -29,9 +29,9 @@ namespace GFXInterface {
 		OSData::GUIButtonData* buttonData;
 		std::string text;
 		std::pair<int,int> textLocation;
-		SystemInterface::ImageContainer* pressed;
-		SystemInterface::ImageContainer* hover;
-		SystemInterface::ImageContainer* textImage;
+		SystemInterface::ImageContainer* pressed = NULL;
+		SystemInterface::ImageContainer* hover = NULL;
+		SystemInterface::ImageContainer* textImage = NULL;
 		std::pair<int,int> textSize;
 		bool uniqueImage;
 		bool selectable;

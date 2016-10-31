@@ -28,6 +28,12 @@ namespace OSData{
 		RGBA colour;
 		Functions::RGBImage* image = NULL;
 	public:
+		ImageData(std::string location){this->type = tLocation;this->location = location;}
+		ImageData(unsigned int number){this->type = tNumber;this->number = number;}
+		ImageData(RGBA colour){this->type = tColour;this->colour = colour;}
+		ImageData(Functions::RGBImage* image){this->type = tData;this->image = image;}
+		ImageData(){this->type = tNone;};
+
 		void Location(std::string location){this->type = tLocation;this->location = location;}
 		void Number(unsigned int number){this->type = tNumber;this->number = number;}
 		void Colour(RGBA colour){this->type = tColour;this->colour = colour;}

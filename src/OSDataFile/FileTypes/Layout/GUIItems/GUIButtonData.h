@@ -40,10 +40,7 @@ namespace OSData{
 		void CheckValues(std::string name, std::string value);
 	public:
 
-		GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, std::string imageLocation,std::string pressedLocation,std::string hoverLocation,eMenuEvent menuEvent,bool multiSelect);
-		GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, signed int imageNumber,signed int pressedNumber,signed int hoverNumber,eMenuEvent menuEvent,bool multiSelect);
-		GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, RGBA buttonColour,RGBA pressedButtonColour,RGBA hoverButtonColour,eMenuEvent menuEvent,bool multiSelect);
-		GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, Functions::RGBImage* button,Functions::RGBImage* pressedButton,Functions::RGBImage* hoverButton,eMenuEvent menuEvent,bool multiSelect);
+		GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, ImageData image, ImageData pressed,ImageData hover,eMenuEvent menuEvent,bool multiSelect);
 		GUIButtonData(Functions::DataReader* reader);
 		GUIButtonData(xmlNode* node);
 		virtual ~GUIButtonData(){};

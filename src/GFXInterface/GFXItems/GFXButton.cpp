@@ -116,12 +116,17 @@ void GFXInterface::GFXButton::SetSize(std::pair<int,int> size){
 
 void GFXInterface::GFXButton::Draw(){
 
-	if(((this->clicked)||(this->selected))&&(this->pressed != NULL))
-		this->pressed->TextureToScreen(this->location, this->size);
+	SystemInterface::ImageContainer* buttonToDraw = this->image;
+
+	if((this->clicked)&&(this->IsMouseOver())&&(this->pressed != NULL))
+		buttonToDraw = this->pressed;
+	else if((this->selected)&&(this->pressed != NULL))
+		buttonToDraw = this->pressed;
 	else if((this->IsMouseOver())&&(this->hover != NULL))
-		this->hover->TextureToScreen(this->location, this->size);
-	else
-		this->image->TextureToScreen(this->location, this->size);
+		buttonToDraw = this->hover;
+
+	buttonToDraw->TextureToScreen(this->location, this->size);
+
 
 	if (this->textImage != NULL)
 		this->textImage->TextureToScreen(this->textLocation, this->textSize);
@@ -148,6 +153,7 @@ bool GFXInterface::GFXButton::Released(){
 			return true;
 		}
 	}
+	this->clicked = false;
 	return false;
 }
 

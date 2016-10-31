@@ -43,8 +43,8 @@ OSData::GUIItemData::GUIItemData(eGUIItemType itemType,Functions::DataReader* re
 	this->size.second = reader->ReadShort();
 	this->horizontalPosition = static_cast<ePosition>(reader->ReadChar());
 	this->verticalPosition = static_cast<ePosition>(reader->ReadChar());
-//	this->visible = reader->ReadChar() & 1;
-//	this->enabled = reader->ReadChar() & 1;
+	this->visible = reader->ReadChar() & 1;
+	this->enabled = reader->ReadChar() & 1;
 }
 OSData::GUIItemData::GUIItemData(eGUIItemType itemType,xmlNode* node):itemType(itemType){
 	if(node != NULL){

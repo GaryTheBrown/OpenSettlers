@@ -10,88 +10,11 @@
 
 #include "GUIButtonData.h"
 
-OSData::GUIButtonData::GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, std::string imageLocation,std::string pressedLocation,std::string hoverLocation,eMenuEvent menuEvent,bool multiSelect)
-	:GUIItemData(GUIButtonType,baseData){
-	this->text = text;
-	this->textColour = textColour;
-	this->fontSize = fontSize;
-	if (imageLocation != ""){
-		this->image.Location(imageLocation);
-	}else{
-		this->image.None();
-	}
-	if (pressedLocation != ""){
-	this->pressed.Location(pressedLocation);
-	} else {
-		this->pressed.None();
-	}
-	if (hoverLocation != ""){
-		this->hover.Location(hoverLocation);
-	} else {
-		this->hover.None();
-	}
-	this->menuEvent = menuEvent;
-	this->multiSelect = multiSelect;
-}
-
-OSData::GUIButtonData::GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, signed int imageNumber,signed int pressedNumber,signed int hoverNumber,eMenuEvent menuEvent,bool multiSelect)
-	:GUIItemData(GUIButtonType,baseData){
-	this->text = text;
-	this->textColour = textColour;
-	this->fontSize = fontSize;
-	if (imageNumber > -1){
-		this->image.Number(imageNumber);
-	} else {
-		this->image.None();
-	}
-	if (pressedNumber > -1){
-		this->pressed.Number(pressedNumber);
-	} else {
-		this->pressed.None();
-	}
-	if (hoverNumber > -1){
-		this->hover.Number(hoverNumber);
-	} else {
-		this->hover.None();
-	}
-	this->menuEvent = menuEvent;
-	this->multiSelect = multiSelect;
-}
-
-OSData::GUIButtonData::GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, RGBA buttonColour,RGBA pressedButtonColour,RGBA hoverButtonColour,eMenuEvent menuEvent,bool multiSelect)
-	:GUIItemData(GUIButtonType,baseData){
-	this->text = text;
-	this->textColour = textColour;
-	this->fontSize = fontSize;
-	this->image.Colour(buttonColour);
-	this->pressed.Colour(pressedButtonColour);
-	this->hover.Colour(hoverButtonColour);
-	this->menuEvent = menuEvent;
-	this->multiSelect = multiSelect;
-}
-
-OSData::GUIButtonData::GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour, unsigned short fontSize, Functions::RGBImage* button,Functions::RGBImage* pressedButton,Functions::RGBImage* hoverButton,eMenuEvent menuEvent,bool multiSelect)
-:GUIItemData(GUIButtonType,baseData){
-	this->text = text;
-	this->textColour = textColour;
-	this->fontSize = fontSize;
-	if (button != NULL){
-		this->image.Data(button);
-	} else {
-		this->image.None();
-	}
-	if (pressedButton != NULL){
-		this->pressed.Data(pressedButton);
-	} else {
-		this->pressed.None();
-	}
-	if (hoverButton != NULL){
-		this->hover.Data(hoverButton);
-	} else {
-		this->hover.None();
-	}
-	this->menuEvent = menuEvent;
-	this->multiSelect = multiSelect;
+OSData::GUIButtonData::GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, ImageData image, ImageData pressed,ImageData hover,eMenuEvent menuEvent,bool multiSelect)
+	:GUIItemData(GUIButtonType,baseData),
+	text(text),	textColour(textColour), fontSize(fontSize),
+	image(image), pressed(pressed), hover(hover),
+	menuEvent(menuEvent), multiSelect(multiSelect){
 }
 
 OSData::GUIButtonData::GUIButtonData(Functions::DataReader* reader):OSData::GUIItemData(GUIButtonType,reader){

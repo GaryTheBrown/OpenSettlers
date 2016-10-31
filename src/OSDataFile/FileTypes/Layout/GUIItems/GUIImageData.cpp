@@ -10,15 +10,10 @@
 
 #include "GUIImageData.h"
 
+OSData::GUIImageData::GUIImageData(GUIItemData baseData,ImageData image)
+	:OSData::GUIItemData(GUIImageType,baseData),
+	image(image){
 
-OSData::GUIImageData::GUIImageData(GUIItemData baseData,std::string imageLocation)
-	:OSData::GUIItemData(GUIImageType,baseData){
-	this->image.Location(imageLocation);
-}
-
-OSData::GUIImageData::GUIImageData(GUIItemData baseData,Functions::RGBImage* image)
-:OSData::GUIItemData(GUIImageType,baseData){
-	this->image.Data(image);
 }
 
 OSData::GUIImageData::GUIImageData(Functions::DataReader* reader)
