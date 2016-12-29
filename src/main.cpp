@@ -17,9 +17,14 @@ int main(int argc,char* argv[]){
 	if(startupArguments->CheckArguments())
 		return 0; //if comes back true exits
 
+	Config* config = new Config(startupArguments->ConfigLocation());
+	//finish adding in config system. by making the startup arguments write to the config. maybe don't auto save on exit?
+	if (startupArguments->Fullscreen())	config->SetFullscreen();
+	config->SetWindowSize(startupArguments->WindowSize());
+
 	OSData::GameType* gameType = NULL;
 	OSData::File* file = NULL;
-	GFXInterface::GFXReturn startMenuReturn = GFXInterface::GFXReturn(MMStartMenu);
+	ReturnData startMenuReturn = ReturnData(MMStartMenu);
 ///CLI FUNCTIONS
 	//CLI Converter
 	if(startupArguments->Converter()){
@@ -68,11 +73,11 @@ int main(int argc,char* argv[]){
 //GRAPHICAL FUNCTIONS
 //SETUP SYSTEM
 	switch(startupArguments->SystemType()){
-	case StartupArguments::ST_SDL2://BROKEN MAYBE REMOVE THIS?
-		system = new SystemInterface::SDL2System(windowName,startupArguments->WindowSize(),startupArguments->Fullscreen());
+	case StartupArguments::ST_SDL2://MAYBE REMOVE THIS?
+		system = new SystemInterface::SDL2System(windowName,config->WindowSize(),config->Fullscreen());
 		break;
 	case StartupArguments::ST_OGL21:
-		system = new SystemInterface::OGL21System(windowName,startupArguments->WindowSize(),startupArguments->Fullscreen());
+		system = new SystemInterface::OGL21System(windowName,config->WindowSize(),config->Fullscreen());
 		break;
 	default:
 		LOGSYSTEM->Error("System Interface Not Recognised Quitting");
@@ -108,5 +113,7 @@ int main(int argc,char* argv[]){
 	LOGSYSTEM->Log("Closing Down");
 	if (file != NULL) delete file;
 	if (system != NULL) delete system;
+	if (startupArguments != NULL) delete startupArguments;
+	if (config != NULL) delete config;
 	return 0;
 }

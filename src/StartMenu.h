@@ -19,8 +19,7 @@
 #include "MenuEvents.h"
 
 #include "GFXInterface/GFXMenu.h"
-#include "GFXInterface/GFXReturn.h"
-
+#include "ReturnData.h"
 #include "OSDataFile/OSDataFile.h"
 #include "OSDataFile/FileTypes/Layout/MenuLayout.h"
 
@@ -36,5 +35,5 @@ public:
 	virtual ~StartMenu();
 
 	OSData::MenuLayout* CreateLayout();
-	GFXInterface::GFXReturn Loop();
+	ReturnData Loop();
 };

@@ -45,7 +45,10 @@ bool Extractor::Settlers3::GFXGUI::SaveToFile(std::string location){
 		location += "/GUI/";
 		Functions::CreateDir(location);
 		for(unsigned short i = 0; i < this->count; i++){
-			if(this->images[i] != NULL) this->images[i]->SaveToFile(location + Functions::ToString(i));
+			if(this->images[i] != NULL){
+				this->images[i]->ChangeColourRange(RGBA(242,20,226,255),RGBA(0,0,0,0),RGBA(13,20,29,0));
+				this->images[i]->SaveToFile(location + Functions::ToString((int)i));
+			}
 		}
 		return true;
 	}

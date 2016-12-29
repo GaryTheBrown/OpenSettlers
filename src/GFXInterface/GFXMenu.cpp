@@ -10,7 +10,7 @@
 
 #include "GFXMenu.h"
 
-GFXInterface::GFXMenu::GFXMenu(SystemInterface::System* system, OSData::MenuLayout* menuLayout){
+GFXInterface::GFXMenu::GFXMenu(SystemInterface::System* system, OSData::MenuLayout* menuLayout, OSData::GameAddons addons){
 	if(menuLayout != NULL){
 		this->system = system;
 		this->menuLayout = menuLayout;
@@ -29,19 +29,19 @@ GFXInterface::GFXMenu::GFXMenu(SystemInterface::System* system, OSData::MenuLayo
 				default:
 					break;
 				case OSData::GUIItemData::GUIImageType:
-					image = new GFXImage(this->system,(OSData::GUIImageData*)(*item));
+					image = new GFXImage(this->system,(OSData::GUIImageData*)(*item),addons);
 					this->itemList->push_back(image);
 					break;
 				case OSData::GUIItemData::GUIButtonType:
-					button = new GFXButton(this->system,(OSData::GUIButtonData*)(*item));
+					button = new GFXButton(this->system,(OSData::GUIButtonData*)(*item),addons);
 					this->itemList->push_back(button);
 					break;
 				case OSData::GUIItemData::GUIBoxType:
-					box = new GFXBox(this->system,(OSData::GUIBoxData*)(*item));
+					box = new GFXBox(this->system,(OSData::GUIBoxData*)(*item),addons);
 					this->itemList->push_back(box);
 					break;
 				case OSData::GUIItemData::GUITextType:
-					text = new GFXText(this->system,(OSData::GUITextData*)(*item));
+					text = new GFXText(this->system,(OSData::GUITextData*)(*item),addons);
 					this->itemList->push_back(text);
 					break;
 				case OSData::GUIItemData::GUISpacerType:
@@ -82,7 +82,7 @@ void GFXInterface::GFXMenu::ResizedWindow(){
 	}
 }
 
-eMenuEvent GFXInterface::GFXMenu::EventHandler(){
+ReturnData GFXInterface::GFXMenu::EventHandler(){
 	//Handle events on queue
 	while(this->system->events->GetNextEvent()){
 		switch(this->system->events->GetEvent()){
@@ -110,13 +110,13 @@ eMenuEvent GFXInterface::GFXMenu::EventHandler(){
 		case SystemInterface::eMouseWheel:
 		  	if(this->itemList != NULL){
 		   		//Works Backwards through Items to work from top down
-		   		eMenuEvent returnEvent = MMNothing;
+		   		ReturnData returnEvent = MMNothing;
 		   		for(auto item=this->itemList->end() -1 ; item > this->itemList->begin() -1; item-- ){
 	    			switch((*item)->GetItemType()){
 	    			case OSData::GUIItemData::GUIButtonType:
 	    			case OSData::GUIItemData::GUIBoxType:
 	    				returnEvent = (*item)->EventHandler();
-	    				if (returnEvent != MMNothing) return returnEvent;
+	    				if (returnEvent != ReturnData(MMNothing)) return returnEvent;
 	    				break;
 	    			default:
 	    				break;
@@ -143,21 +143,21 @@ eMenuEvent GFXInterface::GFXMenu::EventHandler(){
 	return MMNothing;
 }
 
-GFXInterface::GFXReturn GFXInterface::GFXMenu::Loop(){
+ReturnData GFXInterface::GFXMenu::Loop(){
 
 	while (true){
 
 		this->system->display->FPSRestart();
 
-		eMenuEvent event = this->EventHandler();
-		switch (event){
+		ReturnData event = this->EventHandler();
+		switch (event.MenuEvent()){
 		//Commands ran outside of menu
 		case MMStartGame:
 			for(auto item=this->itemList->begin() ; item < this->itemList->end(); item++ ){
 				if ((*item)->GetItemType() == OSData::GUIItemData::GUIBoxType){
 					GFXItem* fetched = (*item)->GetSelected();
 					if(fetched != NULL){
-						return GFXReturn(event,fetched->GetText());
+						return ReturnData(event.MenuEvent(),fetched->GetText());
 					}
 				}
 			}
@@ -165,8 +165,9 @@ GFXInterface::GFXReturn GFXInterface::GFXMenu::Loop(){
 		case MMAddGame:
 		case MMEditGame:
 		case MMQuit:
+		case GMGotoMenu:
 		case MMOptions: //TMP
-			return  GFXReturn(event);
+			return event;
 
 		//Functions inside menu system
 		case MMAbout:
@@ -197,5 +198,5 @@ GFXInterface::GFXReturn GFXInterface::GFXMenu::Loop(){
 
 	    this->system->display->FPSWait();
 	}
-	return GFXReturn(MMNothing);
+	return ReturnData(MMNothing);
 }

@@ -13,7 +13,7 @@
 #include "../SystemInterface/System.h"
 #include "../OSDataFile/FileTypes/GameType.h"
 #include "../GFXInterface/GFXMenu.h"
-#include "../GFXInterface/GFXReturn.h"
+#include "../ReturnData.h"
 #include "../OSDataFile/FileTypes/Layout/MenuLayout.h"
 
 #include "GameMenu.h"
@@ -25,9 +25,9 @@ namespace GameInterface {
 		OSData::GameType* gameType;
 		GameMenu* menu;
 	public:
-		Game(SystemInterface::System* system,OSData::GameType* gameType);
+		Game(SystemInterface::System* system,OSData::GameType* gameType, signed int startMenuNumberOverride = -1);
 		virtual ~Game();
 
-		GFXInterface::GFXReturn Loop();
+		ReturnData Loop();
 	};
 }

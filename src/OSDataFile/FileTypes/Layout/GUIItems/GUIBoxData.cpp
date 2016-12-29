@@ -73,7 +73,8 @@ OSData::GUIBoxData::GUIBoxData(xmlNode* node):GUIItemData(GUIBoxType,node){
 					this->itemData = new std::vector<GUIItemData*>();
 					while(itemNode){
 						GUIItemData::eGUIItemType itemDataType = GetItemType((char*)itemNode->name);
-						this->itemData->push_back(DoItemType(itemDataType,itemNode,true));
+						if (itemDataType != GUIItemData::GUINoneType)
+							this->itemData->push_back(DoItemType(itemDataType,itemNode,true));
 						itemNode = itemNode->next;
 					}
 				}
@@ -152,7 +153,7 @@ void OSData::GUIBoxData::DirCreation(){
 	if (this->directoryData != NULL){
 		this->itemData = new std::vector<GUIItemData*>();
 		for(auto item = list->begin() ; item < list->end(); item++ ){
-			GUIItemData* button = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(1,this->directoryData->VerticalSize()),GUIButtonData::pNone,GUIButtonData::pNone),(*item),this->directoryData->TextColour(),this->directoryData->FontSize(),OSData::ImageData(RGBA(0,0,0,0)),this->directoryData->SelectColour(),OSData::ImageData(),MMNothing,true);
+			GUIItemData* button = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(1,this->directoryData->VerticalSize()),GUIButtonData::pNone,GUIButtonData::pNone,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),(*item),this->directoryData->TextColour(),this->directoryData->FontSize(),OSData::ImageData(RGBA(0,0,0,0)),this->directoryData->SelectColour(),OSData::ImageData(),OSData::GUIButtonData::eNone,MMNothing,true);
 			this->itemData->push_back(button);
 		}
 		delete list;

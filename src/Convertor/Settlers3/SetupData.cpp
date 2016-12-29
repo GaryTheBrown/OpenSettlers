@@ -19,9 +19,9 @@ void Converter::Settlers3::Convert::SetupData(){
 			break;
 		}
 		case Extractor::Settlers3::VersionS3CD1:{
-			this->data.locationofGFXFiles = "s3/gfx/";
+			this->data.locationofGFXFiles = this->data.locationofFiles + "s3/gfx/";
 			this->data.GFXFileName = std::make_pair("s3_",".dat");
-			this->data.locationofSNDFiles = "s3/snd/";
+			this->data.locationofSNDFiles = this->data.locationofFiles + "s3/snd/";
 			this->data.SNDFileName = std::make_pair("s3_",".dat");
 			//this->RAWMAPFolderExtract(this->location + "s3/map/multi/", MT_MULTI);
 			//this->RAWMAPFolderExtract(this->location + "s3/map/single/", MT_SINGLE);
@@ -36,7 +36,7 @@ void Converter::Settlers3::Convert::SetupData(){
 			break;
 		}
 		case Extractor::Settlers3::VersionS3MCD1:{
-			this->data.locationofGFXFiles = "s3update/";
+			this->data.locationofGFXFiles = this->data.locationofFiles + "s3update/";
 			this->data.GFXFileName = std::make_pair("s3_",".dat");
 
 			//this->RAWMAPFolderExtract(this->location + "s3mcd/map/mis_m/a/", MT_MCDMISSIONS);
@@ -47,9 +47,9 @@ void Converter::Settlers3::Convert::SetupData(){
 			break;
 		}
 		case Extractor::Settlers3::VersionS3QOTA1:{
-			this->data.locationofGFXFiles = "S3UPDATE/";
+			this->data.locationofGFXFiles = this->data.locationofFiles + "S3UPDATE/";
 			this->data.GFXFileName = std::make_pair("S3_",".DAT");
-			this->data.locationofSNDFiles = "S3UPDATE/";
+			this->data.locationofSNDFiles = this->data.locationofFiles + "S3UPDATE/";
 			this->data.SNDFileName = std::make_pair("SND3_",".DAT");
 
 			//this->RAWMAPFolderExtract(this->location + "S3QOTA/MIS_M/G/", MT_QOTAMISSIONS);
@@ -126,9 +126,9 @@ void Converter::Settlers3::Convert::SetupData(){
 			break;
 		}
 		case Extractor::Settlers3::VersionS3GOGINSTALL:{
-			this->data.locationofGFXFiles = "GFX/";
+			this->data.locationofGFXFiles = this->data.locationofFiles + "GFX/";
 			this->data.GFXFileName = std::make_pair("Siedler3_",".f8007e01f.dat");
-			this->data.locationofSNDFiles = "SND/";
+			this->data.locationofSNDFiles = this->data.locationofFiles + "SND/";
 			this->data.SNDFileName = std::make_pair("Siedler3_",".dat");
 
 			//this->RAWMAPFolderExtract(this->location + "S3/MIS_M/A/", MT_ORIGINALMISSIONS);
@@ -146,9 +146,9 @@ void Converter::Settlers3::Convert::SetupData(){
 			break;
 		}
 		case Extractor::Settlers3::VersionS3DISCINSTALL:{
-			this->data.locationofGFXFiles = "Gfx/";
+			this->data.locationofGFXFiles = this->data.locationofFiles + "Gfx/";
 			this->data.GFXFileName = std::make_pair("siedler3_",".f8007e01f.dat");
-			this->data.locationofSNDFiles = "Snd/";
+			this->data.locationofSNDFiles = this->data.locationofFiles + "Snd/";
 			this->data.SNDFileName = std::make_pair("siedler3_",".dat");
 
 			//this->RAWMAPFolderExtract(this->location + "Map/multi/", MT_MULTI);
@@ -158,9 +158,9 @@ void Converter::Settlers3::Convert::SetupData(){
 			break;
 		}
 		case Extractor::Settlers3::VersionS3GOLDINSTALL:{
-			this->data.locationofGFXFiles = "GFX/";
+			this->data.locationofGFXFiles = this->data.locationofFiles + "GFX/";
 			this->data.GFXFileName = std::make_pair("Siedler3_",".f8007e01f.dat");
-			this->data.locationofSNDFiles = "SND/";
+			this->data.locationofSNDFiles = this->data.locationofFiles + "SND/";
 			this->data.SNDFileName = std::make_pair("Siedler3_",".dat");
 
 			//this->RAWMAPFolderExtract(this->location + "Map/MULTI/", MT_MULTI);

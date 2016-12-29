@@ -19,6 +19,7 @@
 #include "../../SystemInterface/System.h"
 #include "../../SystemInterface/ImageContainer.h"
 #include "../../OSDataFile/FileTypes/Layout/GUIItems/GUITextData.h"
+#include "../../OSDataFile/FileTypes/GameData.h"
 #include "GFXItem.h"
 
 namespace GFXInterface {
@@ -27,10 +28,10 @@ namespace GFXInterface {
 		OSData::GUITextData* textData;
 	public:
 		//constructors
-		GFXText(SystemInterface::System* system, std::string text, RGBA textColour, unsigned short fontSize, std::pair<int,int> location);
-		GFXText(SystemInterface::System* system, OSData::GUITextData* textData);
+		GFXText(SystemInterface::System* system, std::string text, RGBA textColour, unsigned short fontSize, std::pair<int,int> location, OSData::GameAddons addons);
+		GFXText(SystemInterface::System* system, OSData::GUITextData* textData, OSData::GameAddons addons);
 		virtual ~GFXText(){};
 
-		virtual void Draw();
+		void Draw();
 	};
 }

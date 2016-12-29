@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <libxml/tree.h>
 
+#include "GameData.h"
 #include "FileTypes.h"
 
 #include "../../Functions/File/DataReader.h"
@@ -23,21 +24,14 @@
 
 #include "Layout/MenuLayout.h"
 
-//#include "GameOptions.h"
-//#include "Layout.h"
-//#include "MapSetup.h"
-//#include "Resource.h"
-//#include "Race.h"
-//#include "Building.h"
-//#include "../Functions/LoadFunctions.h"
-
 namespace OSData {
 	class GameType : public FileTypes {
 	private:
-	//TODO ADD IN VARIABLE MAYBE FLOAT TO GET VERSION FROM.
 		std::string gameName = "";
+		unsigned char gameNumber = 0;
+		GameAddons addonsIncluded = eS2None; // BITSHIFT CODES
 		unsigned int startMenuNumber = 0;
-		//std::string baseGame; 	//TODO Look into this base game option to allow people to add to a base game rather than have to download all base graphics too (could be illegal?)
+
 		//bool hasGameIcon;
 		std::vector<MenuLayout*>* menuLayouts = NULL;
 		//GameOptions* gameOptions;
@@ -52,8 +46,8 @@ namespace OSData {
 
 
 		GameType();
-		GameType(std::string gameName, unsigned int startMenuNumber = 0);
-		GameType(std::string gameName, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts
+		GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber);
+		GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts
 	//			GameOptions* gameOptions,
 	//			MapSetup* mapSetup,
 	//			std::vector<Resource*>* resourceList,
@@ -65,11 +59,16 @@ namespace OSData {
 
 		virtual ~GameType();
 
+		void SortAll();
 		void StartMenuNumber(unsigned int startMenuNumber){this->startMenuNumber = startMenuNumber;};
-		void AddMenuLayout(MenuLayout* menuLayout){this->menuLayouts->push_back(menuLayout);}
+		void AddMenuLayout(MenuLayout* menuLayout);//see GameType.cpp
+		//void GameNumber(unsigned char gameNumber){this->gameNumber = gameNumber;}//Should this be available? thinking no can comment back in if so
+		void AddonsIncluded(GameAddons addonsIncluded){this->addonsIncluded = static_cast<GameAddons>(static_cast<unsigned char>(this->addonsIncluded) | static_cast<unsigned char>(addonsIncluded));}
 
 		std::string GameName(){return this->gameName;}
 		unsigned int StartMenuNumber(){return this->startMenuNumber;}
+		unsigned char GameNumber(){return this->gameNumber;}
+		GameAddons AddonsIncluded(){return this->addonsIncluded;}
 		std::vector<MenuLayout*>* MenuLayouts(){return this->menuLayouts;};
 
 		bool ToSaveToData(std::vector<char>* data);

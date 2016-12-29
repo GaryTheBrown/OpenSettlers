@@ -40,6 +40,7 @@ private:
 	int gameNumber = 0;
 	SystemType systemType = ST_OGL21;
 	std::string location = "";
+	std::string configLocation = "";
 	std::pair<int,int> windowSize = std::make_pair(800,600);
 
 public:
@@ -59,5 +60,6 @@ public:
 	int GameNumber(){return this->gameNumber;}
 	SystemType SystemType(){return this->systemType;}
 	std::string Location(){return this->location;}
+	std::string ConfigLocation(){return this->configLocation;}
 	std::pair<int,int> WindowSize(){return this->windowSize;};
 };

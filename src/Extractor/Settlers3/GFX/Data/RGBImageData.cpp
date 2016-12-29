@@ -99,7 +99,7 @@ void Extractor::Settlers3::RGBImageData::SaveToFile(std::string filename){
 		data += "OffsetPositionY=" + Functions::ToString(this->yRel) + "\n";
 		Functions::SaveToTextFile((filename  + ".txt"),data);
 	}
-
+	LOGSYSTEM->Error(filename);
 	if (this->height > 0 && this->width > 0)
-		this->SaveToFile(filename);
+		RGBImage::SaveToFile(filename);
 }

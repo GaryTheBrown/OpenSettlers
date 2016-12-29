@@ -17,6 +17,7 @@
 #include "../../SystemInterface/System.h"
 #include "../../SystemInterface/ImageContainer.h"
 #include "../../OSDataFile/FileTypes/Layout/GUIItems/GUIImageData.h"
+#include "../../OSDataFile/FileTypes/GameData.h"
 #include "GFXItem.h"
 
 namespace GFXInterface {
@@ -26,7 +27,7 @@ namespace GFXInterface {
 
 	public:
 		//constructors
-		GFXImage(SystemInterface::System* system, OSData::GUIImageData* imageData);
+		GFXImage(SystemInterface::System* system, OSData::GUIImageData* imageData, OSData::GameAddons addons);
 		virtual ~GFXImage(){};
 
 		//functions

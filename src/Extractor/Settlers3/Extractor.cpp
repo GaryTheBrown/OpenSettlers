@@ -144,30 +144,7 @@ bool Extractor::Settlers3::Extract::FullRAWExtract(){
 	}
 	return true;
 }
-/*
-bool Extractor::Settlers3::Extract::SortedExtract(){
-	if(this->gameVersion == (VersionS3GOG)){//GOG not installed
-		Functions::ExternalProgram* program = new Functions::ExternalProgram(this->location);
-		if(Functions::FolderExists("app") == false){
-			if(program->GOGExtract() == false) return false;
-		}else
-			LOGSYSTEM->Log("GOG Extract: Already Extracted",1);
-		delete program;
-	}else if(this->gameVersion == (VersionS3GOLD2)){//GOLD CD 2
-		Functions::ExternalProgram* program = new Functions::ExternalProgram(this->location);
-		if(Functions::FolderExists("EXE") == false){
-			if(program->CABExtract("s3/install/data.cab") == false) return false;
-		}else
-			LOGSYSTEM->Log("CABExtract: Already Extracted",1);
-		delete program;
-	}
 
-	SortedExtractor* sortedExtract = new SortedExtractor(this->location, this->gameVersion);
-	sortedExtract->Extract();
-	delete sortedExtract;
-	return true;
-}
-*/
 bool Extractor::Settlers3::Extract::RAWGFXFileExtract(std::string folder, std::string file){
 	if(Functions::FileExists(folder+file)){
 		LOGSYSTEM->Log("Open GFX Data File: "+ file,1);

@@ -170,9 +170,8 @@ void Functions::FileImage::SaveToPaletteBMPv2(std::string filename,unsigned char
 	ofile.close();
 }
 
-RGBA* Functions::FileImage::LoadBMPv2ToRGBA(DataReader* reader, unsigned short* width, unsigned short* height){
+RGBA* Functions::FileImage::LoadBMPv2ToRGBA(DataReader* reader, unsigned short* width, unsigned short* height, unsigned int dataOffset){
 
-	reader->MoveOffset(4);
 	*width = reader->ReadInt();
 	*height = reader->ReadInt();
 	reader->MoveOffset(2);
@@ -191,9 +190,11 @@ RGBA* Functions::FileImage::LoadBMPv2ToRGBA(DataReader* reader, unsigned short* 
 			palette[i].B = reader->ReadChar();
 			palette[i].G = reader->ReadChar();
 			palette[i].R = reader->ReadChar();
-			palette[i].A = reader->ReadChar();
+			palette[i].A = 255;
+			reader->ReadChar();
 		}
 	}
+	reader->SetOffset(dataOffset);
 
 	int pixel = 0;
 	for (unsigned short y=(*height); y>0; y-- ){

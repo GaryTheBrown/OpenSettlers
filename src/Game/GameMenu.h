@@ -12,8 +12,9 @@
 
 #include "../SystemInterface/System.h"
 #include "../OSDataFile/FileTypes/GameType.h"
+#include "../OSDataFile/FileTypes/GameData.h"
 #include "../GFXInterface/GFXMenu.h"
-#include "../GFXInterface/GFXReturn.h"
+#include "../ReturnData.h"
 #include "../OSDataFile/FileTypes/Layout/MenuLayout.h"
 
 namespace GameInterface {
@@ -23,10 +24,11 @@ namespace GameInterface {
 		std::vector<OSData::MenuLayout*>* menuLayouts;
 		unsigned int startMenuNumber;
 		GFXInterface::GFXMenu* menu;
+		OSData::GameAddons addons;
 	public:
-		GameMenu(SystemInterface::System* system, std::vector<OSData::MenuLayout*>* menuLayouts, unsigned int startMenuNumber);
+		GameMenu(SystemInterface::System* system, std::vector<OSData::MenuLayout*>* menuLayouts, unsigned int startMenuNumber, OSData::GameAddons addons);
 		virtual ~GameMenu();
 
-		GFXInterface::GFXReturn Loop();
+		ReturnData Loop();
 	};
 }

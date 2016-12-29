@@ -19,11 +19,12 @@
 #include "../../Functions/To.h"
 #include "../../OSDataFile/FileTypes/Layout/GUIItems/GUIBoxData.h"
 #include "../../OSDataFile/FileTypes/Layout/GUIItems/GUIItemData.h"
+#include "../../OSDataFile/FileTypes/GameData.h"
 #include "GFXButton.h"
 #include "GFXImage.h"
 #include "GFXSpacer.h"
 #include "GFXItem.h"
-#include "../GFXReturn.h"
+#include "../../ReturnData.h"
 
 
 namespace GFXInterface {
@@ -38,18 +39,18 @@ namespace GFXInterface {
 
 	public:
 
-		GFXBox(SystemInterface::System* system,OSData::GUIBoxData* BoxData);
+		GFXBox(SystemInterface::System* system,OSData::GUIBoxData* BoxData, OSData::GameAddons addons);
 		virtual ~GFXBox();
 
 		//getters
 		bool GetMultiSelect(){return this->multiSelect;}
-		virtual GFXItem* GetSelected(){return this->selected;}
+		GFXItem* GetSelected(){return this->selected;}
 
 		//functions
 		void CalculateItems();
 		void Draw();
 		void CalculateLocation(std::pair<int,int> location = {0,0},std::pair<int,int> windowSize = {0,0});
-		eMenuEvent EventHandler();
+		ReturnData EventHandler();
 
 	};
 }

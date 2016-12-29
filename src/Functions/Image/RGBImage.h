@@ -30,14 +30,13 @@ namespace Functions{
 	public:
 		RGBImage(){};
 		RGBImage(unsigned short width,unsigned short height);
-		RGBImage(RGBA* imageRGBA, unsigned short width, unsigned short height);
-		RGBImage(RGBA* imageRGBA, unsigned short width, unsigned short height, signed short xRel, signed short yRel);
+		RGBImage(RGBA* imageRGBA, unsigned short width, unsigned short height, signed short xRel = 0, signed short yRel = 0);
 		virtual ~RGBImage();
 
 		void SaveToFile(std::string filename);
 
 		//Image Manipulation
-		RGBA* CutOutSection(unsigned short X,unsigned short Y,unsigned short width,unsigned short height);
+		RGBImage* CutOutSection(unsigned short X,unsigned short Y,unsigned short width,unsigned short height);
 		void ChangeColour(RGBA From, RGBA To);
 		void ChangeColourRange(RGBA From, RGBA To, RGBA Range);
 		void OverwriteSection(unsigned short X,unsigned short Y,unsigned short width,unsigned short height, RGBA colour = {0,0,0,0});

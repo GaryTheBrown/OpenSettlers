@@ -16,12 +16,13 @@
 #include "../Functions/Image/RGBA.h"
 #include "../SystemInterface/System.h"
 #include "../OSDataFile/FileTypes/Layout/MenuLayout.h"
+#include "../OSDataFile/FileTypes/GameData.h"
 #include "GFXItems/GFXBox.h"
 #include "GFXItems/GFXButton.h"
 #include "GFXItems/GFXImage.h"
 #include "GFXItems/GFXText.h"
 #include "GFXItems/GFXSpacer.h"
-#include "GFXReturn.h"
+#include "../ReturnData.h"
 
 namespace GFXInterface {
 	class GFXMenu {
@@ -33,7 +34,7 @@ namespace GFXInterface {
 		std::vector<GFXItem*>* itemList = NULL;
 
 	public:
-		GFXMenu(SystemInterface::System* system, OSData::MenuLayout* menuLayout);
+		GFXMenu(SystemInterface::System* system, OSData::MenuLayout* menuLayout, OSData::GameAddons addons);
 		virtual ~GFXMenu();
 
 		std::string Title(){return title;}
@@ -41,8 +42,8 @@ namespace GFXInterface {
 		void Draw();
 		void ResizedWindow();
 
-		virtual GFXReturn Loop();
-		virtual eMenuEvent EventHandler();
+		virtual ReturnData Loop();
+		virtual ReturnData EventHandler();
 
 	};
 }

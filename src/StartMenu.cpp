@@ -24,7 +24,7 @@ StartMenu::StartMenu(SystemInterface::System* system):system(system) {
 
 		this->layout = file->ReturnMenuLayout();
 		file->KeepData();
-		this->menu = new GFXInterface::GFXMenu(system,this->layout);
+		this->menu = new GFXInterface::GFXMenu(system,this->layout,OSData::eS2None);
 		delete file;
 	}
 }
@@ -33,12 +33,12 @@ StartMenu::~StartMenu() {
 	delete this->layout;
 }
 
-GFXInterface::GFXReturn StartMenu::Loop(){
+ReturnData StartMenu::Loop(){
 	if (this->layout == NULL){
 		LOGSYSTEM->Error("Start Menu File not found Exiting!");
-		return GFXInterface::GFXReturn(MMQuit);
+		return ReturnData(MMQuit);
 	}
-	GFXInterface::GFXReturn gfxReturn = GFXInterface::GFXReturn(MMNothing);
+	ReturnData gfxReturn = ReturnData(MMNothing);
 	while (true){
 		gfxReturn = this->menu->Loop();
 		switch(gfxReturn.MenuEvent()){
@@ -49,5 +49,5 @@ GFXInterface::GFXReturn StartMenu::Loop(){
     		break;
 		}
 	}
-	return GFXInterface::GFXReturn(MMNothing);
+	return ReturnData(MMNothing);
 }

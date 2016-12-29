@@ -10,8 +10,8 @@
 
 #include "GFXButton.h"
 
-GFXInterface::GFXButton::GFXButton(SystemInterface::System* system, OSData::GUIButtonData* buttonData)
-				:GFXItem(system,OSData::GUIItemData::GUIButtonType,(OSData::GUIItemData*)buttonData){
+GFXInterface::GFXButton::GFXButton(SystemInterface::System* system, OSData::GUIButtonData* buttonData, OSData::GameAddons addons)
+				:GFXItem(system,OSData::GUIItemData::GUIButtonType,(OSData::GUIItemData*)buttonData,addons){
 	this->buttonData = buttonData;
 	this->location = this->buttonData->Location();
 	this->size = this->buttonData->Size();
@@ -72,7 +72,7 @@ GFXInterface::GFXButton::GFXButton(SystemInterface::System* system, OSData::GUIB
 
 	this->uniqueImage = true;
 	this->selectable = this->buttonData->MultiSelect();
-	this->call = this->buttonData->MenuEvent();
+	//this->call = this->buttonData->MenuEvent();
 
 	this->selected = false;
 	this->clicked = false;
@@ -116,21 +116,23 @@ void GFXInterface::GFXButton::SetSize(std::pair<int,int> size){
 
 void GFXInterface::GFXButton::Draw(){
 
-	SystemInterface::ImageContainer* buttonToDraw = this->image;
+	if(this->visible){
+		SystemInterface::ImageContainer* buttonToDraw = this->image;
 
-	if((this->clicked)&&(this->IsMouseOver())&&(this->pressed != NULL))
-		buttonToDraw = this->pressed;
-	else if((this->selected)&&(this->pressed != NULL))
-		buttonToDraw = this->pressed;
-	else if((this->IsMouseOver())&&(this->hover != NULL))
-		buttonToDraw = this->hover;
+		if(this->enabled){
+			if((this->clicked)&&(this->IsMouseOver())&&(this->pressed != NULL))
+				buttonToDraw = this->pressed;
+			else if((this->selected)&&(this->pressed != NULL))
+				buttonToDraw = this->pressed;
+			else if((this->IsMouseOver())&&(this->hover != NULL))
+				buttonToDraw = this->hover;
+		}
+		buttonToDraw->TextureToScreen(this->location, this->size);
 
-	buttonToDraw->TextureToScreen(this->location, this->size);
 
-
-	if (this->textImage != NULL)
-		this->textImage->TextureToScreen(this->textLocation, this->textSize);
-
+		if (this->textImage != NULL)
+			this->textImage->TextureToScreen(this->textLocation, this->textSize);
+	}
 }
 
 void GFXInterface::GFXButton::Pressed(){
@@ -140,6 +142,7 @@ void GFXInterface::GFXButton::Pressed(){
 		else
 			this->clicked = true;
 	}
+
 }
 
 void GFXInterface::GFXButton::Unselect(){
@@ -166,7 +169,7 @@ void GFXInterface::GFXButton::CalculateLocation(std::pair<int,int> location,std:
 	}
 }
 
-eMenuEvent GFXInterface::GFXButton::EventHandler(){
+ReturnData GFXInterface::GFXButton::EventHandler(){
 
 		// If a button on the mouse is pressed.
 		if (this->system->events->GetEvent() == SystemInterface::eMouseButtonDown){
@@ -183,7 +186,7 @@ eMenuEvent GFXInterface::GFXButton::EventHandler(){
 		// If the left button was pressed.
 	   	if (this->system->events->GetMouseButton() == SystemInterface::MouseButtonLeft){
 	   		if(this->Released())
-	   	    	return this->Call();
+	   	    	return this->buttonData->MenuEvent();
 	   	}
 	}
 		return MMNothing;

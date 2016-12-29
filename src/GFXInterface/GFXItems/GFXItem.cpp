@@ -10,11 +10,26 @@
 
 #include "GFXItem.h"
 
-GFXInterface::GFXItem::GFXItem(SystemInterface::System* system, OSData::GUIItemData::eGUIItemType itemType, OSData::GUIItemData* itemData) {
+GFXInterface::GFXItem::GFXItem(SystemInterface::System* system, OSData::GUIItemData::eGUIItemType itemType, OSData::GUIItemData* itemData, OSData::GameAddons addons) {
 	this->itemType = itemType;
 	this->itemData = itemData;
 	this->system = system;
 	this->image = NULL;
+
+	switch(this->itemData->VisibilityData().Type()){
+	case OSData::GUIVisibilityData::vBasic:
+		this->enabled = this->itemData->VisibilityData().Enabled();
+		this->visible = this->itemData->VisibilityData().Visible();
+		break;
+	case OSData::GUIVisibilityData::vAddonRequired:
+		this->enabled = this->itemData->VisibilityData().Enabled();
+		//this->visible =
+		break;
+	default:
+		this->enabled = true;
+		this->visible = true;
+		break;
+	}
 }
 
 GFXInterface::GFXItem::~GFXItem() {
@@ -26,7 +41,8 @@ bool GFXInterface::GFXItem::IsMouseOver(){
 	std::pair<int,int> mouseLocation = this->system->events->GetMouseLocation();
 
 		if ((mouseLocation.first > this->location.first) && (mouseLocation.first < (this->location.first + this->size.first))&&
-			(mouseLocation.second > this->location.second) && (mouseLocation.second < (this->location.second + this->size.second)))
+			(mouseLocation.second > this->location.second) && (mouseLocation.second < (this->location.second + this->size.second))&&
+			this->enabled&&this->visible)
 			return true;
 		else return false;
 }

@@ -18,11 +18,13 @@
 #include <png.h>
 
 #include "RGBA.h"
+#include "RGBImage.h"
 #include "../File/DataReader.h"
 #include "../../Log.h"
 #include "../File/Save.h"
 
 namespace Functions{
+class RGBImage;
 	class FileImage{
 	public:
 		enum SaveType{
@@ -39,17 +41,17 @@ namespace Functions{
 
 			void SaveToRGBImage(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height);
 			void SaveToPaletteImage(std::string filename,unsigned char* image, RGBA* palette, unsigned short width, unsigned short height);
-			RGBA* LoadImageToRGBA(std::string filename, unsigned short* width, unsigned short* height);
+			RGBImage* LoadImageToRGBA(std::string filename);
 
 		private:
 			//BMPv2 NO TRANSPANRENCY OUTSIDE OF OPENSETTLERS AS ALPHA IGNORED
 			void SaveToRGBBMPv2(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height);
 			void SaveToPaletteBMPv2(std::string filename,unsigned char* image, RGBA* palette, unsigned short width, unsigned short height);
-			RGBA* LoadBMPv2ToRGBA(DataReader* reader, unsigned short* width, unsigned short* height);
+			RGBA* LoadBMPv2ToRGBA(DataReader* reader, unsigned short* width, unsigned short* height,unsigned int dataOffset);
 
 			//BMPv4 TRANSPANRENCY OUTSIDE OF OPENSETTLERS AS ALPHA USED
 			void SaveToRGBBMPv4(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height);
-			RGBA* LoadBMPv4ToRGBA(DataReader* reader, unsigned short* width, unsigned short* height);
+			RGBA* LoadBMPv4ToRGBA(DataReader* reader, unsigned short* width, unsigned short* height,unsigned int dataOffset);
 
 			//PNG USING LIBPNG
 			void SaveToPNG(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height);

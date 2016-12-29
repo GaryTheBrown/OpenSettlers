@@ -11,7 +11,6 @@
 #include "Converter.h"
 
 bool Converter::Main(std::string location){
-	OSData::GameType* gameType = NULL;
 	char gameNo = 0;
 	bool GOG = false;
 
@@ -28,7 +27,10 @@ bool Converter::Main(std::string location){
 				Functions::ExternalProgram* program = new Functions::ExternalProgram(location);
 				std::string returnstring = program->GOGGameCheck();
 
-				std::string gameName = returnstring.substr(returnstring.find("\"") + 1, (returnstring.find_last_of("\"") - returnstring.find("\"") + 1));
+				int spos = returnstring.find("\"") + 1;
+				int epos = returnstring.find_last_of("\"");
+
+				std::string gameName = returnstring.substr(spos, (epos - spos));
 
 				if (gameName == "Settlers 2 GOLD"){
 					gameNo = 2;
@@ -81,38 +83,31 @@ bool Converter::Main(std::string location){
 		case 1:{
 			LOGSYSTEM->Log("Settlers 1 Detected.",1);
 			LOGSYSTEM->Error("Settlers 1 not implemented yet.");
-			break;
+			return true;
 		}
 		case 2:{
 			LOGSYSTEM->Log("Settlers 2 Detected.",1);
 			LOGSYSTEM->Error("Settlers 2 not implemented yet.");
-			break;
+			return true;
 		}
 		case 3:{
 			LOGSYSTEM->Log("Settlers 3 Detected.",1);
 			Settlers3::Convert* s3Converter = new Settlers3::Convert(location,GOG);
-			gameType = s3Converter->DoConvert();
+			bool passed = s3Converter->DoConvert();
 			delete s3Converter;
-			break;
+			return passed;
 		}
 		case 4:{
 			LOGSYSTEM->Log("Settlers 4 Detected.",1);
 			LOGSYSTEM->Error("Settlers 4 not implemented yet.");
-			break;
+			return true;
 		}
 		default:{
 			// If nothing above found then
 			LOGSYSTEM->Error("No game Detected.");
-			break;
+			return false;
 		}
 	}
 
-	if(gameType == NULL) return false;
-
-	OSData::File* file = new OSData::File(gameType);
-	file->ImageDataToNumbers();
-	file->ToSaveToData("Games/Settlers3");
-	delete file;
-
-	return true;
+	return false;
 }

@@ -18,13 +18,51 @@ Converter::Settlers3::Convert::Convert(std::string locationOfFiles, bool gog){
 }
 
 Converter::Settlers3::Convert::~Convert(){
-	delete this->GUIFunctions;
+	if (this->GUIFunctions != NULL)
+		delete this->GUIFunctions;
+
+	if(Functions::FolderExists("EXE")){
+		LOGSYSTEM->Log("Cleaning up Extracted Cab Data",1);
+		Functions::RemoveFolder("EXE");
+	}
+	if(Functions::FolderExists("app")){
+		LOGSYSTEM->Log("Cleaning up Extracted GOG Data",1);
+		Functions::RemoveFolder("app");
+		Functions::RemoveFolder("sys");
+		Functions::RemoveFolder("tmp");
+		if(Functions::FolderExists("commonappdata")) Functions::RemoveFolder("commonappdata");
+	}
+
 }
 
-OSData::GameType* Converter::Settlers3::Convert::DoConvert(){
+bool Converter::Settlers3::Convert::DoConvert(){
 	if (this->somethingToExtract == false) return NULL;
-	OSData::GameType* gameType = new OSData::GameType("The Settlers 3",0);
+	OSData::GameType* gameType = NULL;
+	OSData::File* file = NULL;
+
+	if (Functions::FileExists("Games/Settlers3.dat")){
+		file = new OSData::File("Games/Settlers3.dat");
+		gameType = file->ReturnGameType();
+	}else{
+		gameType = new OSData::GameType("The Settlers 3",3,OSData::eS3None,3);
+	}
 	//Menus First
 	this->GUIFunctions->Original(gameType);
-	return gameType;
+	this->GUIFunctions->MissionCD(gameType);
+	this->GUIFunctions->Amazon(gameType);
+	this->GUIFunctions->Gold(gameType);
+
+	//Sort Data
+	gameType->SortAll();
+
+	//TODO:Update Addons
+	gameType->AddonsIncluded(this->data.addons);
+
+	if (file == NULL) file = new OSData::File(gameType);
+
+	file->ImageDataToNumbers();
+	file->ToSaveToData("Games/Settlers3");
+	delete file;
+
+	return true;
 }

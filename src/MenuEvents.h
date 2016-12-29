@@ -12,18 +12,28 @@
 #include <string>
 
 enum eMenuEvent {
-			MMNothing,
-			MMStartMenu,
-			MMStartGame,
-			MMMapEditor,
-			MMGameOptions,
-			MMAddGame,
-			MMCreateGame,
-			MMEditGame,
-			MMOptions,
-			MMAbout,
-			MMQuit
+	//These return nothing
+			MMNothing = 0,
+			MMStartMenu = 1,
+			MMStartGame = 2,
+			MMMapEditor = 3,
+			MMGameOptions = 4,
+			MMAddGame = 5,
+			MMCreateGame = 6,
+			MMEditGame = 7,
+			MMOptions = 8,
+			MMAbout = 9,
+			MMQuit = 10,
+			GMGotoMenu = 11 //Return Int
+
 		};//{Nothing,Quit,StartGame,About,Options,PlayGame,LoadGame,SaveGame,OpenMenu,OpenWindow,CloseWindow,LoadInternalData, TestData,SaveData};
+
+enum eReturnExtra : unsigned char {
+	RDNone = 0,
+	RDInt = 1,
+	RDString = 2
+};
 
 extern std::string MenuEventToString(eMenuEvent event);
 extern eMenuEvent GetMenuEvent(std::string data);
+extern eReturnExtra MenuEventReturnType(eMenuEvent menuEvent);

@@ -11,6 +11,7 @@
 #pragma once
 #include <string>
 #include "../../Extractor/Settlers3/VersionCheck.h"
+#include "../../OSDataFile/FileTypes/GameData.h"
 
 namespace Converter {
 	namespace Settlers3{
@@ -23,6 +24,7 @@ namespace Converter {
 		std::pair <std::string,std::string> GFXFileName;
 		std::string locationofMAPFiles = "";
 		std::pair <std::string,std::string> MAPFileName;
+		OSData::GameAddons addons = OSData::eS3None;
 		};
 	}
 }

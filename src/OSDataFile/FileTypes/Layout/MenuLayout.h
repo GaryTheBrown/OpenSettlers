@@ -57,6 +57,8 @@ namespace OSData{
 		bool LinkNumbers(std::vector<Functions::RGBImage*>* images);
 		std::string ToString();
 
-	    bool operator < (const MenuLayout& str) const {return (menuID < str.menuID);};
+		//Search and sort functions
+	    bool operator < (const MenuLayout& str) const {return (this->menuID < str.menuID);};
+
 	};
 }

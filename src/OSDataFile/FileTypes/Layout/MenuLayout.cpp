@@ -54,7 +54,8 @@ OSData::MenuLayout::MenuLayout(xmlNode* node):FileTypes(eMenuLayout){
 		this->itemData = new std::vector<GUIItemData*>();
 		while(itemNode){
 			GUIItemData::eGUIItemType itemDataType = GetItemType((char*)itemNode->name);
-			this->itemData->push_back(DoItemType(itemDataType,itemNode,true));
+			if (itemDataType != GUIItemData::GUINoneType)
+				this->itemData->push_back(DoItemType(itemDataType,itemNode,true));
 			itemNode = itemNode->next;
 		}
 

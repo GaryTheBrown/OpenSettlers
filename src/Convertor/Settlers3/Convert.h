@@ -24,6 +24,7 @@
 #include "../../Extractor/Settlers3/GFXDataType.h"
 #include "../../Extractor/Settlers3/MAPDataType.h"
 #include "../../OSDataFile/FileTypes/GameType.h"
+#include "../../ReturnData.h"
 #include "GUI/ConvertGUI.h"
 #include "ConvertData.h"
 
@@ -41,7 +42,7 @@ namespace Converter {
 		public:
 			Convert(std::string locationofFiles, bool GOG);
 			virtual ~Convert();
-			OSData::GameType* DoConvert();
+			bool DoConvert();
 		};
 	}
 }

@@ -95,10 +95,8 @@ bool OSData::ImageData::ImageToNumbers(std::vector<Functions::RGBImage*>* images
 		if (imageLocation == imageLocations->end()){
 			//Image not already loaded
 			Functions::FileImage* imageFile = new Functions::FileImage();
-			unsigned short* width = new unsigned short(0);
-			unsigned short* height = new unsigned short(0);
-			RGBA* rgbaData = imageFile->LoadImageToRGBA(this->location,width,height);
-			this->image = new Functions::RGBImage(rgbaData,*width,*height);
+			this->image = imageFile->LoadImageToRGBA(this->location);
+
 			images->push_back(this->image);
 			imageLocations->push_back(this->location);
 			this->Number(images->size() - 1);

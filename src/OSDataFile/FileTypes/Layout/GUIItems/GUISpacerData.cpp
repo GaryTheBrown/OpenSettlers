@@ -12,12 +12,12 @@
 
 
 OSData::GUISpacerData::GUISpacerData(std::pair<unsigned short,unsigned short> size)
-:OSData::GUIItemData(GUISpacerType,GUIItemData(std::make_pair(0,0),size,GUIItemData::pNone,GUIItemData::pNone,true,true)){
+:OSData::GUIItemData(GUISpacerType,GUIItemData(std::make_pair(0,0),size,GUIItemData::pNone,GUIItemData::pNone,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone))){
 
 }
 
 OSData::GUISpacerData::GUISpacerData(Functions::DataReader* reader)
-	:OSData::GUIItemData(GUISpacerType,GUIItemData(std::make_pair(0,0),std::make_pair(0,0),GUIItemData::pNone,GUIItemData::pNone,true,true)){
+	:OSData::GUIItemData(GUISpacerType,GUIItemData(std::make_pair(0,0),std::make_pair(0,0),GUIItemData::pNone,GUIItemData::pNone,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone))){
 
 	this->APIVersion = reader->ReadInt();
 
@@ -31,7 +31,7 @@ OSData::GUISpacerData::GUISpacerData(Functions::DataReader* reader)
 }
 
 OSData::GUISpacerData::GUISpacerData(xmlNode* node)
-:GUIItemData(GUISpacerType,GUIItemData(std::make_pair(0,0),std::make_pair(0,0),GUIItemData::pNone,GUIItemData::pNone,true,true)){
+:GUIItemData(GUISpacerType,GUIItemData(std::make_pair(0,0),std::make_pair(0,0),GUIItemData::pNone,GUIItemData::pNone,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone))){
 	if(node != NULL){
 		xmlAttr* xmlAttribute = node->properties;
 		while(xmlAttribute){

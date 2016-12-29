@@ -10,12 +10,17 @@
 
 #include "Game.h"
 
-GameInterface::Game::Game(SystemInterface::System* system, OSData::GameType* gameType) {
+GameInterface::Game::Game(SystemInterface::System* system, OSData::GameType* gameType, signed int startMenuNumberOverride) {
 	this->system = system;
 
 	this->system->SetGameLocation("Games/TheSettlers3/");
 	this->gameType = gameType;
-	this->menu = new GameMenu(this->system,this->gameType->MenuLayouts(),this->gameType->StartMenuNumber());
+
+	unsigned int startMenuNumber = startMenuNumberOverride;
+	if(startMenuNumberOverride == -1){
+		startMenuNumber = this->gameType->StartMenuNumber();
+	}
+	this->menu = new GameMenu(this->system,this->gameType->MenuLayouts(),startMenuNumber,this->gameType->AddonsIncluded());
 
 }
 
@@ -23,12 +28,12 @@ GameInterface::Game::~Game() {
 	if (this->menu != NULL) this->menu->~GameMenu();
 }
 
-GFXInterface::GFXReturn GameInterface::Game::Loop(){
+ReturnData GameInterface::Game::Loop(){
 	//MENU LOOP UNTIL EXIT
 	bool quit = false;
 	while (!quit){
 		if (this->menu != NULL){
-			GFXInterface::GFXReturn gfxReturn = this->menu->Loop();
+			ReturnData gfxReturn = this->menu->Loop();
 			switch(gfxReturn.MenuEvent()){
 			case MMQuit:
 				return gfxReturn;
@@ -39,5 +44,5 @@ GFXInterface::GFXReturn GameInterface::Game::Loop(){
 		}
 		else quit = true;
 	}
-	return GFXInterface::GFXReturn(MMNothing);
+	return ReturnData(MMNothing);
 }

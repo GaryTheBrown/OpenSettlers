@@ -19,9 +19,9 @@
 #include "../../SystemInterface/ImageContainer.h"
 #include "../../OSDataFile/FileTypes/Layout/GUIItems/GUIButtonData.h"
 #include "../../OSDataFile/FileTypes/Layout/GUIItems/ImageData.h"
-#include "../GFXReturn.h"
+#include "../../OSDataFile/FileTypes/GameData.h"
+#include "../../ReturnData.h"
 #include "GFXItem.h"
-
 
 namespace GFXInterface {
 	class GFXButton : public GFXItem{
@@ -37,33 +37,33 @@ namespace GFXInterface {
 		bool selectable;
 		bool clicked;
 		bool selected;
-		eMenuEvent call;
+		//ReturnData call;
 
 		//TextCorrection
 		void TextCorrection();
 	public:
 
 		//Constructor
-		GFXButton(SystemInterface::System* system, OSData::GUIButtonData* buttonData);
+		GFXButton(SystemInterface::System* system, OSData::GUIButtonData* buttonData, OSData::GameAddons addons);
 		virtual ~GFXButton();
 
 		//Getters
-		virtual	std::string GetText(){return this->text;}
-		eMenuEvent Call(){return this->call;}
-		virtual bool Selected(){return this->selected;}
+		std::string GetText(){return this->text;}
+		//ReturnData Call(){return this->call;}
+		bool Selected(){return this->selected;}
 
 		//Setters
-		virtual void SetLocation(std::pair<int,int> location);
-		virtual void SetSize(std::pair<int,int> size);
+		void SetLocation(std::pair<int,int> location);
+		void SetSize(std::pair<int,int> size);
 
 		//functions
 		void Pressed();
 		void Unselect();
 		bool Released();
 
-		virtual void Draw();
-		virtual void CalculateLocation(std::pair<int,int> location = {0,0},std::pair<int,int> windowSize = {0,0});
-		virtual eMenuEvent EventHandler();
+		void Draw();
+		void CalculateLocation(std::pair<int,int> location = {0,0},std::pair<int,int> windowSize = {0,0});
+		ReturnData EventHandler();
 
 
 	};

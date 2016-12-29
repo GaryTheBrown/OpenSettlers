@@ -17,6 +17,7 @@
 #include "../../SystemInterface/System.h"
 #include "../../SystemInterface/ImageContainer.h"
 #include "../../OSDataFile/FileTypes/Layout/GUIItems/GUISpacerData.h"
+#include "../../OSDataFile/FileTypes/GameData.h"
 #include "GFXItem.h"
 
 namespace GFXInterface {

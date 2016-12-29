@@ -14,15 +14,17 @@ OSData::GameType::GameType():FileTypes(eFull){
 	this->menuLayouts = new std::vector<MenuLayout*>();
 }
 
-OSData::GameType::GameType(std::string gameName, unsigned int startMenuNumber):
+OSData::GameType::GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber):
 		FileTypes(eFull),
 		gameName(gameName),
+		gameNumber(gameNumber),
+		addonsIncluded(addonsIncluded),
 		startMenuNumber(startMenuNumber){
 
 	this->menuLayouts = new std::vector<MenuLayout*>();
 }
 
-OSData::GameType::GameType(std::string gameName, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts
+OSData::GameType::GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts
 //		GameOptions* gameOptions,
 //		Layout* layout,
 //		MapSetup* mapSetup,
@@ -31,6 +33,8 @@ OSData::GameType::GameType(std::string gameName, unsigned int startMenuNumber, s
 		):
 		FileTypes(eFull),
 		gameName(gameName),
+		gameNumber(gameNumber),
+		addonsIncluded(addonsIncluded),
 		startMenuNumber(startMenuNumber),
 		menuLayouts(menuLayouts){
 
@@ -49,6 +53,8 @@ OSData::GameType::GameType(Functions::DataReader* reader)
 
 	unsigned int textSize = reader->ReadChar();
 	this->gameName = reader->ReadString(textSize);
+	this->gameNumber = reader->ReadChar();
+	this->addonsIncluded = static_cast<GameAddons>(reader->ReadChar());
 	this->startMenuNumber = reader->ReadInt();
 
 	unsigned int itemCount = reader->ReadInt();
@@ -74,8 +80,10 @@ OSData::GameType::GameType(xmlNode* node):FileTypes(eFull){
 
 		xmlNode* itemNode = node->children;
 		while(itemNode){
-			FileTypes::eFileType fileType = GetFileType((char*)node->children->name);
-			this->DoFileType(fileType, node->children,true);
+			FileTypes::eFileType fileType = GetFileType((char*)itemNode->name);
+			if (fileType != FileTypes::eNone)
+				this->DoFileType(fileType, itemNode,true);
+			itemNode = itemNode->next;
 		}
 	}
 }
@@ -101,6 +109,8 @@ void OSData::GameType::CheckValues(std::string name, std::string value){
 		this->gameName = value;
 	if (name == "StartMenu")
 		this->startMenuNumber = atoi(value.c_str());
+	if (name == "gameNumber")
+		this->gameName = atoi(value.c_str());
 }
 
 OSData::FileTypes::eFileType OSData::GameType::GetFileType(std::string data){
@@ -135,6 +145,23 @@ void OSData::GameType::DoFileType(FileTypes::eFileType fileType, void* data, boo
 	}
 }
 
+void OSData::GameType::AddMenuLayout(OSData::MenuLayout* menuLayout){
+
+	//First Check the Image is not already Loaded
+	for(auto ml = this->menuLayouts->begin() ; ml < this->menuLayouts->end(); ml++ ){
+		if (menuLayout->MenuID() == (*ml)->MenuID()){
+			LOGSYSTEM->Error("MENU LAYOUT ALREADY IN FILE");
+			return;
+		}
+	}
+	this->menuLayouts->push_back(menuLayout);
+}
+
+void OSData::GameType::SortAll(){
+	//TODO FIX THIS FUNCTION
+	std::sort(this->menuLayouts->begin(),this->menuLayouts->end());
+}
+
 bool OSData::GameType::ToSaveToData(std::vector<char>* data){
 	if (data == NULL) data = new std::vector<char>;
 
@@ -145,6 +172,11 @@ bool OSData::GameType::ToSaveToData(std::vector<char>* data){
 	//Text
 	std::copy(this->gameName.begin(), this->gameName.end(), std::back_inserter(*data));
 
+	//Game Number (char)
+	data->push_back(this->gameNumber);
+
+	//Game Addons (GameAddons)(char)
+	data->push_back(static_cast<char>(this->addonsIncluded));
 	//Start Menu Number (int)
 	data->push_back(this->startMenuNumber & 0xFF);
 	data->push_back((this->startMenuNumber >> 8) & 0xFF);
@@ -191,6 +223,29 @@ std::string OSData::GameType::ToString(){
 	std::string data;
 
 	data += "GameName=" + this->gameName + "\n";
+	data += "GameNumber=" + Functions::ToString((int)this->gameNumber) + "\n";
+	data += "AddonsIncluded=";
+	switch(this->gameNumber){
+	case 2:
+		data += ((this->addonsIncluded & OSData::eS2MissionCD)?"S2MCD ":"");
+		data += ((this->addonsIncluded & OSData::eS2Gold)?"S2GOLD ":"");
+		break;
+	case 3:
+		data += ((this->addonsIncluded & OSData::eS3MissionCD)?"S3MCD ":"");
+		data += ((this->addonsIncluded & OSData::eS3Amazon)?"S3AMAZON ":"");
+		data += ((this->addonsIncluded & OSData::eS3Gold)?"S3GOLD ":"");
+		break;
+	case 4:
+		data += ((this->addonsIncluded & OSData::eS4MissionCD)?"S4MCD ":"");
+		data += ((this->addonsIncluded & OSData::eS4Trojan)?"S4TROJAN ":"");
+		data += ((this->addonsIncluded & OSData::eS4Gold)?"S4GOLD ":"");
+		data += ((this->addonsIncluded & OSData::eS4NewWorld)?"S4NEWWORLD ":"");
+		data += ((this->addonsIncluded & OSData::eS4Community)?"S4COMMUNITY ":"");
+		break;
+	default:
+		break;
+	}
+	data +=  "\n";
 
 	if(this->menuLayouts != NULL){
 		for(auto item=this->menuLayouts->begin() ; item < this->menuLayouts->end(); item++ ){

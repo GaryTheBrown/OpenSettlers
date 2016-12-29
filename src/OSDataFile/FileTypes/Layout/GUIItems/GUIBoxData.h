@@ -21,13 +21,13 @@
 #include "../../../../Functions/To.h"
 #include "../../../APILEVELS.h"
 #include "../../FileTypes.h"
+#include "ExtraData/GUIBoxDirectoryData.h"
 #include "GUIItemNew.h"
 #include "GUIItemData.h"
 #include "GUIButtonData.h"
 #include "GUIImageData.h"
 #include "GUITextData.h"
 #include "GUISpacerData.h"
-#include "BoxExtraData/GUIBoxDirectoryData.h"
 
 
 namespace OSData{

@@ -10,8 +10,8 @@
 
 #include "GFXText.h"
 
-GFXInterface::GFXText::GFXText(SystemInterface::System* system, std::string text, RGBA textColour, unsigned short fontSize, std::pair<int,int> location)
-		:GFXItem(system,OSData::GUIItemData::GUITextType,(OSData::GUIItemData*)textData){
+GFXInterface::GFXText::GFXText(SystemInterface::System* system, std::string text, RGBA textColour, unsigned short fontSize, std::pair<int,int> location, OSData::GameAddons addons)
+		:GFXItem(system,OSData::GUIItemData::GUITextType,(OSData::GUIItemData*)textData,addons){
 
 	this->textData = NULL;
 	this->image = this->system->TextToImage(text,textColour,fontSize);
@@ -20,8 +20,8 @@ GFXInterface::GFXText::GFXText(SystemInterface::System* system, std::string text
 
 }
 
-GFXInterface::GFXText::GFXText(SystemInterface::System* system, OSData::GUITextData* textData)
-		:GFXItem(system,OSData::GUIItemData::GUITextType,(OSData::GUIItemData*)textData){
+GFXInterface::GFXText::GFXText(SystemInterface::System* system, OSData::GUITextData* textData, OSData::GameAddons addons)
+		:GFXItem(system,OSData::GUIItemData::GUITextType,(OSData::GUIItemData*)textData,addons){
 
 	this->textData = textData;
 	this->image = this->system->TextToImage(this->textData->Text(),this->textData->TextColour(),this->textData->FontSize());
@@ -31,6 +31,8 @@ GFXInterface::GFXText::GFXText(SystemInterface::System* system, OSData::GUITextD
 }
 
 void GFXInterface::GFXText::Draw(){
-	if(this->image != NULL)
+	if(this->image != NULL){
+		if (this->visible&&this->enabled)
 			this->image->TextureToScreen(this->location);
+	}
 }

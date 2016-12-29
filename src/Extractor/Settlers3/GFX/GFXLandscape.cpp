@@ -44,7 +44,7 @@ bool Extractor::Settlers3::GFXLandscape::SaveToFile(std::string location){
 		location += "/Landscape/";
 		Functions::CreateDir(location);
 		for(unsigned short i = 0; i < this->count; i++){
-			if(this->images[i] != NULL) this->images[i]->SaveToFile(location + Functions::ToString(i));
+			if(this->images[i] != NULL) this->images[i]->SaveToFile(location + Functions::ToString((int)i));
 		}
 		return true;
 	}

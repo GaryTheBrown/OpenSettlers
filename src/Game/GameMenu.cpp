@@ -10,15 +10,19 @@
 
 #include "GameMenu.h"
 
-GameInterface::GameMenu::GameMenu(SystemInterface::System* system, std::vector<OSData::MenuLayout*>* menuLayouts, unsigned int startMenuNumber):
+GameInterface::GameMenu::GameMenu(SystemInterface::System* system, std::vector<OSData::MenuLayout*>* menuLayouts, unsigned int startMenuNumber, OSData::GameAddons addons):
 	system(system),
 	menuLayouts(menuLayouts),
-	startMenuNumber(startMenuNumber){
+	startMenuNumber(startMenuNumber),
+	addons(addons){
 
-	for(auto layout = this->menuLayouts->begin() ; layout < this->menuLayouts->end(); layout++){
-		if ((*layout)->MenuID() == this->startMenuNumber){
-			this->menu = new GFXInterface::GFXMenu(system,(*layout));
-			return;
+
+	for (unsigned int startNumber = this->startMenuNumber; startNumber >= 0; startNumber--){
+		for(auto layout = this->menuLayouts->begin() ; layout < this->menuLayouts->end(); layout++){
+			if ((*layout)->MenuID() == startNumber){
+				this->menu = new GFXInterface::GFXMenu(system,(*layout),this->addons);
+				return;
+			}
 		}
 	}
 	LOGSYSTEM->Error("Starting Menu ID Not Found");
@@ -29,19 +33,33 @@ GameInterface::GameMenu::~GameMenu(){
 		delete this->menu;
 }
 
-GFXInterface::GFXReturn GameInterface::GameMenu::Loop(){
+ReturnData GameInterface::GameMenu::Loop(){
 	if (this->menu != NULL){
 		//MENU LOOP
 		while (true){
-			GFXInterface::GFXReturn gfxReturn = this->menu->Loop();
+			ReturnData gfxReturn = this->menu->Loop();
 			switch(gfxReturn.MenuEvent()){
 			case MMQuit:
 				return gfxReturn;
+			case GMGotoMenu:{
+				bool found = false;
+				for(auto layout = this->menuLayouts->begin() ; layout < this->menuLayouts->end(); layout++){
+					if ((*layout)->MenuID() == gfxReturn.Int()){
+						delete this->menu;
+						this->menu = new GFXInterface::GFXMenu(system,(*layout),addons);
+						found = true;
+						break;
+					}
+				}
+				//If Not Found
+				if (found == false)	LOGSYSTEM->Error("GOTO Menu not found");
+				break;
+			}
 			default:
 				break;
 			}
 		}
 	}
 	//if while loop where to ever fail return nothing or if the menu ID was not found.
-	return GFXInterface::GFXReturn(MMNothing);
+	return ReturnData(MMNothing);
 }

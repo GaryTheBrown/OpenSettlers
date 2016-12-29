@@ -9,9 +9,10 @@
  *******************************************************************************/
 
 #pragma once
-/*
+
 namespace OSData{
 
+/*
 	enum eBuildingType: unsigned char{
 		HEADBUILDING,
 		HEADResource,
@@ -45,5 +46,6 @@ namespace OSData{
 		BASEMachine,
 		AIRMachine
 	};
+	*/
 }
-*/
+

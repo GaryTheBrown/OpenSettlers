@@ -12,6 +12,8 @@
 
 std::string MenuEventToString(eMenuEvent event){
 	switch(event){
+	case MMNothing:
+		return "Nothing";
 	case MMStartMenu:
 		return "StartMenu";
 	case MMStartGame:
@@ -32,24 +34,50 @@ std::string MenuEventToString(eMenuEvent event){
 		return "About";
 	case MMQuit:
 		return "Quit";
-	case MMNothing:
+	case GMGotoMenu:
+		return "GoToMenu";
 	default:
-		return "Nothing";
+		return "";
 	}
 }
 
 eMenuEvent GetMenuEvent(std::string data){
-	if(data == "StartMenu") return MMStartMenu;
-	if(data == "StartGame") return MMStartGame;
-	if(data == "MapEditor") return MMMapEditor;
-	if(data == "GameOptions") return MMGameOptions;
-	if(data == "AddGame") return MMAddGame;
-	if(data == "CreateGame") return MMCreateGame;
-	if(data == "EditGame") return MMEditGame;
-	if(data == "Options") return MMOptions;
-	if(data == "About") return MMAbout;
-	if(data == "Quit") return MMQuit;
+	if(data == "Nothing")		return MMNothing;
+	if(data == "StartMenu")		return MMStartMenu;
+	if(data == "StartGame")		return MMStartGame;
+	if(data == "MapEditor")		return MMMapEditor;
+	if(data == "GameOptions")	return MMGameOptions;
+	if(data == "AddGame")		return MMAddGame;
+	if(data == "CreateGame")	return MMCreateGame;
+	if(data == "EditGame")		return MMEditGame;
+	if(data == "Options")		return MMOptions;
+	if(data == "About")			return MMAbout;
+	if(data == "Quit")			return MMQuit;
+	if(data == "GoToMenu")		return GMGotoMenu;
 
-	//if(data == "Nothing")
+	//if not found return MMNothing
 	return MMNothing;
+}
+
+eReturnExtra MenuEventReturnType(eMenuEvent menuEvent){
+		switch(menuEvent){
+
+		case MMAbout:
+		case MMAddGame:
+		case MMCreateGame:
+		case MMEditGame:
+		case MMGameOptions:
+		case MMMapEditor:
+		case MMNothing:
+		case MMOptions:
+		case MMQuit:
+		case MMStartGame:
+		case MMStartMenu:
+		default:
+			return RDNone;
+
+		case GMGotoMenu:
+			return RDInt;
+		}
+		return RDNone;
 }

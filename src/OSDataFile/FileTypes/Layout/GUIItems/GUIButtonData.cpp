@@ -10,15 +10,15 @@
 
 #include "GUIButtonData.h"
 
-OSData::GUIButtonData::GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, ImageData image, ImageData pressed,ImageData hover,eMenuEvent menuEvent,bool multiSelect)
+OSData::GUIButtonData::GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, ImageData image, ImageData pressed,ImageData hover,eButtonType buttonType,ReturnData returnData,bool multiSelect)
 	:GUIItemData(GUIButtonType,baseData),
 	text(text),	textColour(textColour), fontSize(fontSize),
-	image(image), pressed(pressed), hover(hover),
-	menuEvent(menuEvent), multiSelect(multiSelect){
+	image(image), hover(hover), pressed(pressed),buttonType(buttonType),
+	returnData(returnData), multiSelect(multiSelect){
 }
 
 OSData::GUIButtonData::GUIButtonData(Functions::DataReader* reader):OSData::GUIItemData(GUIButtonType,reader){
-	unsigned short textSize = reader->ReadShort();
+	unsigned char textSize = reader->ReadChar();
 	this->text = reader->ReadString(textSize);
 	this->textColour = reader->ReadInt();
 	this->fontSize = reader->ReadShort();
@@ -26,8 +26,8 @@ OSData::GUIButtonData::GUIButtonData(Functions::DataReader* reader):OSData::GUII
 	this->image.ReadData(reader);
 	this->hover.ReadData(reader);
 	this->pressed.ReadData(reader);
-
-	this->menuEvent = static_cast<eMenuEvent>(reader->ReadChar());
+	this->buttonType = static_cast<eButtonType>(reader->ReadChar());
+	this->returnData = ReturnData(reader);
 
 	this->multiSelect = reader->ReadChar() & 1;
 
@@ -49,7 +49,24 @@ OSData::GUIButtonData::GUIButtonData(xmlNode* node):GUIItemData(GUIButtonType,no
 //		}
 	}
 }
+void OSData::GUIButtonData::GetButtonType(std::string value){
+	if (value == "None")
+		this->buttonType = eNone;
+	else if(value == "Action")
+		this->buttonType = eAction;
+	else if(value == "SwitchBool")
+		this->buttonType = eSwitchBool;
+}
+std::string OSData::GUIButtonData::ButtonTypeString(){
+	if (this->buttonType == eNone)
+		return "None";
+	else if(this->buttonType == eAction)
+		return "Action";
+	else if(this->buttonType == eSwitchBool)
+		return "SwitchBool";
 
+	return "None";
+}
 void OSData::GUIButtonData::CheckValues(std::string name, std::string value){
 	if (name == "Text")
 		this->text = value;
@@ -69,8 +86,14 @@ void OSData::GUIButtonData::CheckValues(std::string name, std::string value){
 		this->pressed.Location(value);
 	else if (name == "PressedButtonColour")
 		this->pressed.Colour(Functions::StringToHex(value));
+	else if (name == "ButtonType")
+			this->GetButtonType(value);
 	else if (name == "MenuEvent")
-		this->menuEvent = GetMenuEvent(value);
+		this->returnData.MenuEvent(GetMenuEvent(value));
+	else if (name == "MenuEventNumber")
+		this->returnData.Int(atoi(value.c_str()));
+	else if (name == "MenuEventString")
+		this->returnData.String(value);
 	else if (name == "MultiSelect")
 		this->multiSelect = value=="true"?true:false;
 }
@@ -78,10 +101,9 @@ bool OSData::GUIButtonData::ToSaveToData(std::vector<char>* data){
 	if (data == NULL) data = new std::vector<char>;
 	if (GUIItemData::ToSaveToData(data) == false) return false;
 
-	//Text Size (Char)
+	//Text Size (char)
 	unsigned short textSize = this->text.size();
 	data->push_back(textSize & 0xFF);
-	data->push_back((textSize >> 8) & 0xFF);
 
 	//Text (string)
 	std::copy(this->text.begin(), this->text.end(), std::back_inserter(*data));
@@ -100,8 +122,11 @@ bool OSData::GUIButtonData::ToSaveToData(std::vector<char>* data){
 	if (this->hover.ToSaveToData(data) == false) return false;
 	if (this->pressed.ToSaveToData(data) == false) return false;
 
-	//Menu Event (Char)(eMenuEvent)
-	data->push_back(static_cast<char>(this->menuEvent));
+	//Button Type
+	data->push_back(static_cast<char>(this->buttonType));
+	//Return Data
+	this->returnData.ToSaveToData(data);
+
 	//MultiSelect (Bool(Char))
 	data->push_back(static_cast<char>(this->multiSelect?1:0));
 
@@ -140,7 +165,8 @@ std::string OSData::GUIButtonData::ToString(){
 	data += "Hover = " + this->hover.ToString();
 	data += "Pressed = " + this->pressed.ToString();
 
-	data += "Event = " + MenuEventToString(this->menuEvent) + "\n";
+	data += this->ButtonTypeString();
+	data += this->returnData.ToString();
 	data += "MultiSelect = " + (this->multiSelect?std::string("True"):std::string("False")) + "\n";
 
 	return data;

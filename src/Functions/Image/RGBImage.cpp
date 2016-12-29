@@ -14,11 +14,6 @@ Functions::RGBImage::RGBImage(unsigned short width,unsigned short height)
 	:width(width),
 	 height(height){
 }
-Functions::RGBImage::RGBImage(RGBA* imageRGBA, unsigned short width,unsigned short height)
-	:width(width),
-	 height(height),
-	 imageRGBA(imageRGBA){
-}
 
 Functions::RGBImage::RGBImage(RGBA* imageRGBA, unsigned short width,unsigned short height,signed short xRel,signed short yRel)
 	:width(width),
@@ -46,7 +41,7 @@ void Functions::RGBImage::SaveToFile(std::string filename){
 	delete fileImage;
 }
 
-RGBA* Functions::RGBImage::CutOutSection(unsigned short X,unsigned short Y,unsigned short width,unsigned short height){
+Functions::RGBImage* Functions::RGBImage::CutOutSection(unsigned short X,unsigned short Y,unsigned short width,unsigned short height){
 	RGBA* newImage = new RGBA[height*width];
 
 	for(unsigned short i = 0; i < height; i++){
@@ -56,7 +51,7 @@ RGBA* Functions::RGBImage::CutOutSection(unsigned short X,unsigned short Y,unsig
 			newImage[newImageLocation] = this->imageRGBA[fromImageLocation];
 		}
 	}
-	return newImage;
+	return new RGBImage(newImage,width,height);
 }
 
 void Functions::RGBImage::ChangeColour(RGBA from, RGBA to){

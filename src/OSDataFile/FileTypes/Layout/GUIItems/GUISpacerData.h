@@ -20,6 +20,7 @@
 #include "../../../APILEVELS.h"
 #include "../../FileTypes.h"
 #include "GUIItemData.h"
+#include "../../GameData.h"
 
 
 namespace OSData{

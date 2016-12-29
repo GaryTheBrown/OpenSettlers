@@ -10,8 +10,8 @@
 
 #include "GFXImage.h"
 
-GFXInterface::GFXImage::GFXImage(SystemInterface::System* system, OSData::GUIImageData* imageData)
-			:GFXItem(system,OSData::GUIItemData::GUIImageType,(OSData::GUIItemData*)imageData){
+GFXInterface::GFXImage::GFXImage(SystemInterface::System* system, OSData::GUIImageData* imageData, OSData::GameAddons addons)
+			:GFXItem(system,OSData::GUIItemData::GUIImageType,(OSData::GUIItemData*)imageData,addons){
 	this->imageData = imageData;
 	this->location = this->imageData->Location();
 	this->size = this->imageData->Size();
@@ -32,26 +32,27 @@ GFXInterface::GFXImage::GFXImage(SystemInterface::System* system, OSData::GUIIma
 }
 
 void GFXInterface::GFXImage::Draw(){
+	if(this->enabled&&this->visible){
+		std::pair<int,int> windowSize = this->system->display->GetWindowSize();
+		std::pair<int,int> location = this->location;
+		std::pair<int,int> size = this->image->GetTextureSize();
 
-	std::pair<int,int> windowSize = this->system->display->GetWindowSize();
-	std::pair<int,int> location = this->location;
-	std::pair<int,int> size = this->image->GetTextureSize();
-
-	if((this->imageData->Horizontal() == OSData::GUIItemData::FullTile)&&(this->imageData->Vertical() == OSData::GUIItemData::FullTile)){
-		for(location.second = 0; location.second < windowSize.second; location.second += size.second){
-			for(location.first = 0; location.first < windowSize.first; location.first += size.first){
+		if((this->imageData->Horizontal() == OSData::GUIItemData::FullTile)&&(this->imageData->Vertical() == OSData::GUIItemData::FullTile)){
+			for(location.second = 0; location.second < windowSize.second; location.second += size.second){
+				for(location.first = 0; location.first < windowSize.first; location.first += size.first){
+					this->image->TextureToScreen(location);
+				}
+			}
+		}else if (this->imageData->Horizontal() == OSData::GUIItemData::FullTile){
+			for(location.first = 0; location.first < windowSize.first;location.first += size.first){
 				this->image->TextureToScreen(location);
 			}
-		}
-	}else if (this->imageData->Horizontal() == OSData::GUIItemData::FullTile){
-		for(location.first = 0; location.first < windowSize.first;location.first += size.first){
-			this->image->TextureToScreen(location);
-		}
 
-	}else if (this->imageData->Vertical() == OSData::GUIItemData::FullTile){
-		for(location.second = 0; location.second < windowSize.second;location.second += size.second){
-			this->image->TextureToScreen(location);
-		}
-	}else
-	this->image->TextureToScreen(this->location,this->size);
+		}else if (this->imageData->Vertical() == OSData::GUIItemData::FullTile){
+			for(location.second = 0; location.second < windowSize.second;location.second += size.second){
+				this->image->TextureToScreen(location);
+			}
+		}else
+			this->image->TextureToScreen(this->location,this->size);
+	}
 }

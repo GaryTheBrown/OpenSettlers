@@ -91,7 +91,8 @@ void OSData::File::ConstructFromXMLFile(std::string file){
 
 	xmlFile = xmlReadFile(file.c_str(),NULL,XML_PARSE_NOBLANKS);
 	rootNode = xmlDocGetRootElement(xmlFile);
-	std::string rootNodeName = ((char *)rootNode->name);
+	std::string rootNodeName = ((char*)rootNode->name);
+		//CHecks root Node only contains "OpenSettlers Data" anything else will cause it to fail
 	if (rootNodeName != "OpenSettlers"){
 		LOGSYSTEM->Error("Root Node Not 'OpenSettlers':" + rootNodeName);
 		this->fileOK = false;
@@ -157,20 +158,14 @@ void OSData::File::DoFileType(FileTypes::eFileType fileType,void* data, bool xml
 
 
 OSData::File::~File() {
-	if(keepData == true){
-		if(this->images != NULL){
-			delete this->images;
+	if((this->keepData == false)&&(this->dataType != NULL)){
+		delete this->dataType;
+	}
+	if((this->keepImages == false)&&(this->images != NULL)){
+		for(auto item = this->images->begin(); item != this->images->end(); item++) {
+			delete (*item);
 		}
-	} else{
-		if(this->dataType != NULL){
-			delete this->dataType;
-		}
-		if(this->images != NULL){
-			for(auto item = this->images->begin(); item != this->images->end(); item++) {
-				delete (*item);
-			}
-			delete this->images;
-		}
+		delete this->images;
 	}
 }
 

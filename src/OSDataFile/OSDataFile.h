@@ -39,6 +39,7 @@ namespace OSData{
 		bool fileOK = true;
 		bool imagesAreNumbers = false;
 		bool keepData = false;
+		bool keepImages = false;
 		void ConstructFromDataFile(std::string file);
 		void ConstructFromXMLFile(std::string file);
 		FileTypes::eFileType GetFileType(std::string data);
@@ -57,6 +58,7 @@ namespace OSData{
 		bool ImageDataToNumbers();
 		std::string ToString();
 		void KeepData(){this->keepData = true;};
+		void KeepImages(){this->keepImages = true;};
 		MenuLayout* ReturnMenuLayout();
 		GameType* ReturnGameType();
 	};

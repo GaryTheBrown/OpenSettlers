@@ -15,7 +15,8 @@
 #include "../../SystemInterface/System.h"
 #include "../../SystemInterface/ImageContainer.h"
 #include "../../OSDataFile/FileTypes/Layout/GUIItems/GUIItemData.h"
-#include "../GFXReturn.h"
+#include "../../OSDataFile/FileTypes/GameData.h"
+#include "../../ReturnData.h"
 
 namespace GFXInterface {
 	class GFXItem {
@@ -29,15 +30,11 @@ namespace GFXInterface {
 		SystemInterface::ImageContainer* image;
 		std::pair<int,int> location;
 		std::pair<int,int> size;
-		//TODO THE BOOLS BELOW NEED FUNCTIONS TO WORK WITH THEM
-		//visible ->Show(true)+Hide(false)
-		//enable ->enable(true)+disable(false)
-		//some why of mass disabling of buttons
-		//bool visible
-		//bool enabled
+		bool visible;
+		bool enabled;
 
 	public:
-		GFXItem(SystemInterface::System* system, OSData::GUIItemData::eGUIItemType itemType, OSData::GUIItemData* itemData);
+		GFXItem(SystemInterface::System* system, OSData::GUIItemData::eGUIItemType itemType, OSData::GUIItemData* itemData, OSData::GameAddons addons);
 		virtual ~GFXItem();
 
 		//Getters
@@ -55,7 +52,7 @@ namespace GFXInterface {
 		virtual void CalculateLocation(std::pair<int,int> location = {0,0},std::pair<int,int> windowSize = {0,0});
 		virtual void Draw(){};
 
-		virtual eMenuEvent EventHandler(){return MMNothing;}
+		virtual ReturnData EventHandler(){return ReturnData(MMNothing);}
 
 		bool IsMouseOver();
 	};

@@ -10,8 +10,8 @@
 
 #include "GFXBox.h"
 
-GFXInterface::GFXBox::GFXBox(SystemInterface::System* system,OSData::GUIBoxData* boxData)
-	:GFXItem(system,OSData::GUIItemData::GUIBoxType,(OSData::GUIItemData*)boxData){
+GFXInterface::GFXBox::GFXBox(SystemInterface::System* system,OSData::GUIBoxData* boxData, OSData::GameAddons addons)
+	:GFXItem(system,OSData::GUIItemData::GUIBoxType,(OSData::GUIItemData*)boxData,addons){
 	this->boxData = boxData;
 	this->image = this->system->CreateTexture(boxData->Size(),boxData->BackgroundColour());
 	this->location = this->boxData->Location();
@@ -28,11 +28,11 @@ GFXInterface::GFXBox::GFXBox(SystemInterface::System* system,OSData::GUIBoxData*
 			default:
 				break;
 			case OSData::GUIItemData::GUIButtonType:
-				newItem = new GFXButton(this->system,(OSData::GUIButtonData*)(*item));
+				newItem = new GFXButton(this->system,(OSData::GUIButtonData*)(*item),addons);
 				this->itemList->push_back(newItem);
 				break;
 			case OSData::GUIItemData::GUIImageType:
-				newItem = new GFXImage(this->system,(OSData::GUIImageData*)(*item));
+				newItem = new GFXImage(this->system,(OSData::GUIImageData*)(*item),addons);
 				this->itemList->push_back(newItem);
 				break;
 			case OSData::GUIItemData::GUISpacerType:
@@ -111,22 +111,23 @@ GFXInterface::GFXBox::~GFXBox() {
 }
 
 void GFXInterface::GFXBox::Draw(){
-	this->image->TextureToScreen(this->location,this->size);
-    if(this->itemList != NULL){
-    	for(auto item=this->itemList->begin() ; item < this->itemList->end(); item++ ){
-    		(*item)->Draw();
-    	}
-    }
-
+	if(this->visible){
+		this->image->TextureToScreen(this->location,this->size);
+		if(this->itemList != NULL){
+			for(auto item=this->itemList->begin() ; item < this->itemList->end(); item++ ){
+				(*item)->Draw();
+			}
+		}
+	}
 }
 void GFXInterface::GFXBox::CalculateLocation(std::pair<int,int> location,std::pair<int,int> windowSize){
 	GFXItem::CalculateLocation(location,windowSize);
 	this->CalculateItems();
 }
 
-eMenuEvent GFXInterface::GFXBox::EventHandler(){
+ReturnData GFXInterface::GFXBox::EventHandler(){
 	if(this->IsMouseOver()){
-		eMenuEvent returnEvent = MMNothing;
+		ReturnData returnEvent = ReturnData(MMNothing);
 		if(this->itemList != NULL){
 			for(auto item=this->itemList->end() -1 ; item > this->itemList->begin() -1; item-- ){
 				returnEvent = (*item)->EventHandler();

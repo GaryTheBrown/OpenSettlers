@@ -20,6 +20,9 @@
 //Startup Arguments
 #include "StartupArguments.h"
 
+//Config
+#include "Config.h"
+
 //Converter
 #include "Convertor/Converter.h"
 //Extractor
@@ -32,11 +35,10 @@
 
 #include "StartMenu.h"
 #include "MenuEvents.h"
-#include "GFXInterface/GFXReturn.h"
-
 #include "OSDataFile/OSDataFile.h"
 
 #include "Game/Game.h"
+#include "ReturnData.h"
 
 //Main Entry Point
 extern int main(int argc, char *argv[]);

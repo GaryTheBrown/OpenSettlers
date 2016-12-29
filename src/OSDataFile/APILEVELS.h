@@ -15,6 +15,7 @@ namespace OSData{
 	 *This may be used by the Converter to also create the data.
 	 */
 		const unsigned int MASTER = 0;
+		const unsigned int MAP = 0;
 		const unsigned int ARCHIVE = 0; //Is This one really needed?
 
 		const unsigned int MENULAYOUT = 0;
