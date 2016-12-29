@@ -22,17 +22,14 @@
 #include "../../../../ReturnData.h"
 #include "../../../APILEVELS.h"
 #include "../../FileTypes.h"
+#include "ExtraData/GUIButtonTypeData.h"
 #include "GUIItemData.h"
 #include "ImageData.h"
 
 namespace OSData{
 	class GUIButtonData : public GUIItemData {
 	public:
-		enum eButtonType : unsigned char {
-			eNone = 0,
-			eAction = 1,
-			eSwitchBool = 2
-		};
+
 	private:
 		std::string text = "";
 		RGBA textColour = 0xFFFFFFFF;
@@ -40,7 +37,7 @@ namespace OSData{
 		ImageData image;
 		ImageData hover;
 		ImageData pressed;
-		eButtonType buttonType = eNone;
+		GUIButtonTypeData buttonType = GUIButtonTypeData(GUIButtonTypeData::eNone);
 		ReturnData returnData = MMNothing;
 		bool multiSelect = false;
 
@@ -49,7 +46,7 @@ namespace OSData{
 		std::string ButtonTypeString();
 	public:
 
-		GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, ImageData image, ImageData pressed,ImageData hover,eButtonType buttonType,ReturnData returnData,bool multiSelect);
+		GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, ImageData image, ImageData pressed,ImageData hover,GUIButtonTypeData buttonType,ReturnData returnData,bool multiSelect);
 		GUIButtonData(Functions::DataReader* reader);
 		GUIButtonData(xmlNode* node);
 		virtual ~GUIButtonData(){};
@@ -61,7 +58,7 @@ namespace OSData{
 		ImageData Image(){return this->image;}
 		ImageData Hover(){return this->hover;}
 		ImageData Pressed(){return this->pressed;}
-		eButtonType ButtonType(){return this->buttonType;}
+		GUIButtonTypeData ButtonType(){return this->buttonType;}
 		ReturnData MenuEvent(){return this->returnData;}
 		bool MultiSelect(){return this->multiSelect;}
 

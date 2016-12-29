@@ -153,7 +153,7 @@ void OSData::GUIBoxData::DirCreation(){
 	if (this->directoryData != NULL){
 		this->itemData = new std::vector<GUIItemData*>();
 		for(auto item = list->begin() ; item < list->end(); item++ ){
-			GUIItemData* button = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(1,this->directoryData->VerticalSize()),GUIButtonData::pNone,GUIButtonData::pNone,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),(*item),this->directoryData->TextColour(),this->directoryData->FontSize(),OSData::ImageData(RGBA(0,0,0,0)),this->directoryData->SelectColour(),OSData::ImageData(),OSData::GUIButtonData::eNone,MMNothing,true);
+			GUIItemData* button = new OSData::GUIButtonData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(1,this->directoryData->VerticalSize()),GUIButtonData::pNone,GUIButtonData::pNone,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),(*item),this->directoryData->TextColour(),this->directoryData->FontSize(),OSData::ImageData(RGBA(0,0,0,0)),this->directoryData->SelectColour(),OSData::ImageData(),OSData::GUIButtonTypeData(OSData::GUIButtonTypeData::eNone),MMNothing,true);
 			this->itemData->push_back(button);
 		}
 		delete list;

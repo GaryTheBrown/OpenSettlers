@@ -22,6 +22,7 @@
 #include "../../../APILEVELS.h"
 #include "../../FileTypes.h"
 #include "ExtraData/GUIBoxDirectoryData.h"
+#include "ExtraData/GUIButtonTypeData.h"
 #include "GUIItemNew.h"
 #include "GUIItemData.h"
 #include "GUIButtonData.h"

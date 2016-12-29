@@ -10,7 +10,7 @@
 
 #include "GUIButtonData.h"
 
-OSData::GUIButtonData::GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, ImageData image, ImageData pressed,ImageData hover,eButtonType buttonType,ReturnData returnData,bool multiSelect)
+OSData::GUIButtonData::GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, ImageData image, ImageData pressed,ImageData hover,GUIButtonTypeData buttonType,ReturnData returnData,bool multiSelect)
 	:GUIItemData(GUIButtonType,baseData),
 	text(text),	textColour(textColour), fontSize(fontSize),
 	image(image), hover(hover), pressed(pressed),buttonType(buttonType),
@@ -26,7 +26,7 @@ OSData::GUIButtonData::GUIButtonData(Functions::DataReader* reader):OSData::GUII
 	this->image.ReadData(reader);
 	this->hover.ReadData(reader);
 	this->pressed.ReadData(reader);
-	this->buttonType = static_cast<eButtonType>(reader->ReadChar());
+	this->buttonType = GUIButtonTypeData(reader);
 	this->returnData = ReturnData(reader);
 
 	this->multiSelect = reader->ReadChar() & 1;
@@ -49,24 +49,7 @@ OSData::GUIButtonData::GUIButtonData(xmlNode* node):GUIItemData(GUIButtonType,no
 //		}
 	}
 }
-void OSData::GUIButtonData::GetButtonType(std::string value){
-	if (value == "None")
-		this->buttonType = eNone;
-	else if(value == "Action")
-		this->buttonType = eAction;
-	else if(value == "SwitchBool")
-		this->buttonType = eSwitchBool;
-}
-std::string OSData::GUIButtonData::ButtonTypeString(){
-	if (this->buttonType == eNone)
-		return "None";
-	else if(this->buttonType == eAction)
-		return "Action";
-	else if(this->buttonType == eSwitchBool)
-		return "SwitchBool";
 
-	return "None";
-}
 void OSData::GUIButtonData::CheckValues(std::string name, std::string value){
 	if (name == "Text")
 		this->text = value;
@@ -86,8 +69,8 @@ void OSData::GUIButtonData::CheckValues(std::string name, std::string value){
 		this->pressed.Location(value);
 	else if (name == "PressedButtonColour")
 		this->pressed.Colour(Functions::StringToHex(value));
-	else if (name == "ButtonType")
-			this->GetButtonType(value);
+	else if (name == "ButtonType") //TODO FIX THIS FOR FUNCTIONS
+			this->buttonType = GUIButtonTypeData(GUIButtonTypeData::eNone);//this->GetButtonType(value);
 	else if (name == "MenuEvent")
 		this->returnData.MenuEvent(GetMenuEvent(value));
 	else if (name == "MenuEventNumber")
@@ -123,7 +106,7 @@ bool OSData::GUIButtonData::ToSaveToData(std::vector<char>* data){
 	if (this->pressed.ToSaveToData(data) == false) return false;
 
 	//Button Type
-	data->push_back(static_cast<char>(this->buttonType));
+	this->buttonType.ToSaveToData(data);
 	//Return Data
 	this->returnData.ToSaveToData(data);
 
@@ -165,7 +148,7 @@ std::string OSData::GUIButtonData::ToString(){
 	data += "Hover = " + this->hover.ToString();
 	data += "Pressed = " + this->pressed.ToString();
 
-	data += this->ButtonTypeString();
+	data += this->buttonType.ButtonTypeString();
 	data += this->returnData.ToString();
 	data += "MultiSelect = " + (this->multiSelect?std::string("True"):std::string("False")) + "\n";
 
