@@ -8,3 +8,5 @@ Extracted
 *.log
 Games
 GFX
+*.cfg
+*.txt
