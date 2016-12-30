@@ -14,6 +14,10 @@ OSData::GUIButtonTypeData::GUIButtonTypeData(eType type)
 	:type(type){
 }
 
+OSData::GUIButtonTypeData::GUIButtonTypeData(std::string type){
+	this->GetButtonType(type);
+}
+
 OSData::GUIButtonTypeData::GUIButtonTypeData(eType type,std::string text,RGBA textColour,unsigned short fontSize)
 	:type(type),text(text),	textColour(textColour), fontSize(fontSize){
 }

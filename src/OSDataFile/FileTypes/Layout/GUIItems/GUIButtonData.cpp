@@ -42,11 +42,16 @@ OSData::GUIButtonData::GUIButtonData(xmlNode* node):GUIItemData(GUIButtonType,no
 			xmlAttribute = xmlAttribute->next;
 		}
 
-//		xmlNode* itemNode = node->children;
-//		while(itemNode){
-//			this->CheckValues(((char*)itemNode->name),((char*)itemNode->content));
-//			itemNode = itemNode->next;
-//		}
+		//Extra Data In New Node
+		xmlNode* itemNode = node->children;
+		while(itemNode){
+			std::string name = (char*)itemNode->name;
+			std::string content = (char*)itemNode->content;
+			if(name == "ButtonType"){
+				this->buttonType = GUIButtonTypeData(itemNode);
+			}
+			itemNode = itemNode->next;
+		}
 	}
 }
 
@@ -69,8 +74,8 @@ void OSData::GUIButtonData::CheckValues(std::string name, std::string value){
 		this->pressed.Location(value);
 	else if (name == "PressedButtonColour")
 		this->pressed.Colour(Functions::StringToHex(value));
-	else if (name == "ButtonType") //TODO FIX THIS FOR FUNCTIONS
-			this->buttonType = GUIButtonTypeData(GUIButtonTypeData::eNone);//this->GetButtonType(value);
+	else if (name == "ButtonType") //ONLY IF NO EXTRA DATA NEEDED
+			this->buttonType = GUIButtonTypeData(value);
 	else if (name == "MenuEvent")
 		this->returnData.MenuEvent(GetMenuEvent(value));
 	else if (name == "MenuEventNumber")

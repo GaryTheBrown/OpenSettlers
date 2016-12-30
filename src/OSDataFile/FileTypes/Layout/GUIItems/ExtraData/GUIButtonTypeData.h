@@ -37,6 +37,7 @@ namespace OSData{
 	public:
 
 		GUIButtonTypeData(eType type);
+		GUIButtonTypeData(std::string type);
 		GUIButtonTypeData(eType type,std::string text,RGBA textColour,unsigned short fontSize);
 		GUIButtonTypeData(Functions::DataReader* reader);
 		GUIButtonTypeData(xmlNode* node);
