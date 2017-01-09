@@ -18,7 +18,7 @@
 #include "Functions/To.h"
 #include "Log.h"
 
-class Config {
+class ConfigFile {
 	private:
 		//Defaults (consts)
 		const std::string DEFAULT_Location = "Config.cfg";
@@ -39,8 +39,8 @@ class Config {
 
 
 	public:
-		Config(std::string file = "");
-		virtual ~Config();
+		ConfigFile(std::string file = "");
+		virtual ~ConfigFile();
 
 		bool ReadConfigFile(std::string file);
 

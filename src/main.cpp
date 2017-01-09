@@ -17,7 +17,7 @@ int main(int argc,char* argv[]){
 	if(startupArguments->CheckArguments())
 		return 0; //if comes back true exits
 
-	Config* config = new Config(startupArguments->ConfigLocation());
+	ConfigFile* config = new ConfigFile(startupArguments->ConfigLocation());
 	//finish adding in config system. by making the startup arguments write to the config. maybe don't auto save on exit?
 	if (startupArguments->Fullscreen())	config->SetFullscreen();
 	config->SetWindowSize(startupArguments->WindowSize());
@@ -68,7 +68,7 @@ int main(int argc,char* argv[]){
 	}
 
 	SystemInterface::System* system;
-	std::string windowName = ENGINENAME;
+	std::string windowName = PACKAGE_NAME;
 
 //GRAPHICAL FUNCTIONS
 //SETUP SYSTEM
@@ -101,7 +101,7 @@ int main(int argc,char* argv[]){
 			file = new OSData::File("Games/" + startMenuReturn.String());
 			gameType = file->ReturnGameType();
 			GameInterface::Game* game = new GameInterface::Game(system,gameType);
-			system->display->SetWindowName(ENGINENAME + " - " + gameType->GameName());
+			system->display->SetWindowName(std::string(PACKAGE_NAME) + "- " + gameType->GameName());
 			startMenuReturn = game->Loop();
 			delete game;
 			return 0;

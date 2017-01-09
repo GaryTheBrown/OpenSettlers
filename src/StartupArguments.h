@@ -15,7 +15,7 @@
 #include <algorithm>
 
 #include "Log.h"
-#include "GlobalStrings.h"
+#include "config.h"
 
 class StartupArguments {
 public:

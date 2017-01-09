@@ -76,7 +76,7 @@ GFXInterface::GFXButton::GFXButton(SystemInterface::System* system, OSData::GUIB
 
 	this->selected = false;
 	this->clicked = false;
-
+	//configure
 	this->CalculateLocation();
 }
 

@@ -14,14 +14,16 @@
 #include <string>
 #include <iostream>
 
+//config from autotools
+#include "config.h"
 //Log System
 #include "Log.h"
 
 //Startup Arguments
 #include "StartupArguments.h"
 
-//Config
-#include "Config.h"
+//Config File
+#include "ConfigFile.h"
 
 //Converter
 #include "Convertor/Converter.h"

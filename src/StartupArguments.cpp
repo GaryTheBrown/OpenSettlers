@@ -43,7 +43,7 @@ bool StartupArguments::CheckArguments(){
 			//Help Command
 			else if (argument == "-H"||argument == "--HELP"){
 				std::string fileName = argv[0];
-				std::cout <<	ENGINENAME << " - Open Source Game Engine for Settlers type games" << std::endl;
+				std::cout <<	PACKAGE_NAME << " - Open Source Game Engine for Settlers type games" << std::endl;
 				std::cout <<	"Usage: " << fileName << " [FIRST OPTION] [OTHER OPTIONS]" << std::endl;
 				std::cout <<	" [FIRST OPTION]" << std::endl;
 				std::cout <<	"	-c, --converter		: CLI Converter Mode" << std::endl;
@@ -77,7 +77,7 @@ bool StartupArguments::CheckArguments(){
 			}
 			//Version Info
 			else if (argument == "-V"||argument == "--VERSION"){
-				std::cout << ENGINENAME << ": VERSION V" << VERSIONNUMBER << std::endl;
+				std::cout << PACKAGE_NAME << ": VERSION V" << PACKAGE_VERSION << std::endl;
 				return true;
 			}
 		}

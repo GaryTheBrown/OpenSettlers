@@ -13,7 +13,6 @@
 #include <vector>
 #include <algorithm>
 
-#include "GlobalStrings.h"
 #include "SystemInterface/System.h"
 
 #include "MenuEvents.h"

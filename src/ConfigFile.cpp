@@ -8,9 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#include "Config.h"
+#include "ConfigFile.h"
 
-Config::Config(std::string file){
+ConfigFile::ConfigFile(std::string file){
 	if (file != "")
 		this->location = file;
 	else
@@ -41,7 +41,7 @@ Config::Config(std::string file){
 
 }
 
-Config::~Config() {
+ConfigFile::~ConfigFile() {
 	if ((this->fileOK)&&(this->configChanged)){
 		std::string data = "#OpenSettlers Config\n";
 
