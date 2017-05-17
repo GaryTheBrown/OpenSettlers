@@ -18,13 +18,11 @@
 #include <png.h>
 
 #include "RGBA.h"
-#include "RGBImage.h"
 #include "../File/DataReader.h"
 #include "../../Log.h"
 #include "../File/Save.h"
 
 namespace Functions{
-class RGBImage;
 	class FileImage{
 	public:
 		enum SaveType{
@@ -41,7 +39,7 @@ class RGBImage;
 
 			void SaveToRGBImage(std::string filename, RGBA* imageRGBA, unsigned short width, unsigned short height);
 			void SaveToPaletteImage(std::string filename,unsigned char* image, RGBA* palette, unsigned short width, unsigned short height);
-			RGBImage* LoadImageToRGBA(std::string filename);
+			RGBA* LoadImageToRGBA(std::string filename,unsigned short* width,unsigned short* height);
 
 		private:
 			//BMPv2 NO TRANSPANRENCY OUTSIDE OF OPENSETTLERS AS ALPHA IGNORED

@@ -44,9 +44,8 @@ void Functions::FileImage::SaveToPaletteImage(std::string filename,unsigned char
 	};
 }
 
-Functions::RGBImage* Functions::FileImage::LoadImageToRGBA(std::string filename){
+RGBA* Functions::FileImage::LoadImageToRGBA(std::string filename,unsigned short* width,unsigned short* height){
 	RGBA* imageRGBA = NULL;
-	unsigned short width, height;
 	if(FileExists(filename)){
 		std::string extension = filename.substr(filename.find_last_of(".") + 1);
 		std::transform(extension.begin(), extension.end(), extension.begin(), toupper);
@@ -66,10 +65,10 @@ Functions::RGBImage* Functions::FileImage::LoadImageToRGBA(std::string filename)
 				unsigned int dataOffset = reader->ReadInt();
 				unsigned int headerSize = reader->ReadInt();
 				if (headerSize == 40){
-					imageRGBA = LoadBMPv2ToRGBA(reader,&width,&height,dataOffset);
+					imageRGBA = LoadBMPv2ToRGBA(reader,width,height,dataOffset);
 				}
 				else if (headerSize == 108){
-					imageRGBA = LoadBMPv4ToRGBA(reader,&width,&height,dataOffset);
+					imageRGBA = LoadBMPv4ToRGBA(reader,width,height,dataOffset);
 				}
 			}
 			else{
@@ -77,11 +76,11 @@ Functions::RGBImage* Functions::FileImage::LoadImageToRGBA(std::string filename)
 				LOGSYSTEM->Error("BMP Version NOT Recognised.");
 			}
 		}else if (extension == "PNG"){
-			imageRGBA = LoadPNGToRGBA(filename,&width,&height);
+			imageRGBA = LoadPNGToRGBA(filename,width,height);
 		}else
 			LOGSYSTEM->Error("FILE TYPE NOT Recognised.");
 	}else
 		LOGSYSTEM->Error("FILE NOT Found.");
 
-	return new Functions::RGBImage(imageRGBA,width,height);
+	return imageRGBA;
 }

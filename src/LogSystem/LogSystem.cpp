@@ -25,12 +25,12 @@ std::string LogSystem::TimeToString(){
 	std::string blank = "";
 	time_t t = time(0);
     struct tm * now = localtime( & t );
-    std::string timeString = (now->tm_mday < 10?zero:blank) + Functions::ToString(now->tm_mday);
-    timeString += "/" + (now->tm_mon < 9?zero:blank) + Functions::ToString(now->tm_mon + 1);
-    timeString += '/' + Functions::ToString(now->tm_year + 1900);
-    timeString += "-" + (now->tm_hour < 10?zero:blank) + Functions::ToString(now->tm_hour);
-    timeString += ":" + (now->tm_min < 10?zero:blank) + Functions::ToString(now->tm_min);
-	timeString += ":" + (now->tm_sec < 10?zero:blank) + Functions::ToString(now->tm_sec);
+    std::string timeString = (now->tm_mday < 10?zero:blank) + this->ToString(now->tm_mday);
+    timeString += "/" + (now->tm_mon < 9?zero:blank) + this->ToString(now->tm_mon + 1);
+    timeString += '/' + this->ToString(now->tm_year + 1900);
+    timeString += "-" + (now->tm_hour < 10?zero:blank) + this->ToString(now->tm_hour);
+    timeString += ":" + (now->tm_min < 10?zero:blank) + this->ToString(now->tm_min);
+	timeString += ":" + (now->tm_sec < 10?zero:blank) + this->ToString(now->tm_sec);
 
 	return timeString;
 }
@@ -47,7 +47,7 @@ void LogSystem::Out(std::string text, signed char verboseLevel){
 }
 
 void LogSystem::Log(std::string info, signed char verboseLevel, bool newLine){
-	std::string text = this->TimeToString() + ":LOG(" + Functions::ToString((int)verboseLevel) + "):" + info;
+	std::string text = this->TimeToString() + ":LOG(" + this->ToString((int)verboseLevel) + "):" + info;
 	if (newLine) text += "\n";
 	this->Out(text, verboseLevel);
 }

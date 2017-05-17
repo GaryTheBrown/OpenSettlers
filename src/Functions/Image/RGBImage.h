@@ -11,7 +11,7 @@
 #pragma once
 #include <string>
 #include <algorithm>
-#include "../Image/RGBA.h"
+#include "RGBA.h"
 #include "FileImage.h"
 
 

@@ -13,10 +13,16 @@
 #include <iostream>
 #include <fstream>
 #include <ctime>
-#include "../Functions/To.h"
+#include <sstream>
 
 class LogSystem{
 private:
+
+	template <typename T> std::string ToString(T value){
+		std::ostringstream os;
+		os << value ;
+		return os.str() ;
+	}
 
 	signed char verboseLevelCLI;
 	signed char verboseLevelFile = -1;

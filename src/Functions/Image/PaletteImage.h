@@ -10,10 +10,10 @@
 
 #pragma once
 #include <string>
-#include "../Image/RGBA.h"
+#include "RGBA.h"
 #include "../File/Save.h"
 #include "../To.h"
-#include "../Image/FileImage.h"
+#include "FileImage.h"
 #include "../../Log.h"
 #include "ConvertPALtoRGB.h"
 

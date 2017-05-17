@@ -22,7 +22,7 @@
 #include "../../../../ReturnData.h"
 #include "../../../APILEVELS.h"
 #include "../../FileTypes.h"
-#include "ExtraData/GUIButtonTypeData.h"
+#include "GUIButtonTypeData.h"
 #include "GUIItemData.h"
 #include "ImageData.h"
 

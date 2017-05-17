@@ -13,7 +13,6 @@
 
 #include <string>
 #include <utility>
-#include "../../Log.h"
 #include "../../Functions/Image/RGBImage.h"
 #include "../System.h"
 #include "../ImageContainer.h"

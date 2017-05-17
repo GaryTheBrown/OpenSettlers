@@ -40,9 +40,18 @@ void Converter::Settlers3::ConvertGUI::MissionCD(OSData::GameType* gameType){
 		LOGSYSTEM->Log("Mission CD Main Menu Found Converting...",2);
 		this->data->addons = static_cast<OSData::GameAddons>(static_cast<char>(this->data->addons) | static_cast<char>(OSData::eS3MissionCD));
 		Functions::FileImage* fileImage = new Functions::FileImage();
-		mainMenu = fileImage->LoadImageToRGBA(this->data->locationofFiles + "s3mcd/install/english/missionm.bmp");
-		button1 = fileImage->LoadImageToRGBA(this->data->locationofFiles + "s3mcd/install/button1.bmp");
-		button2 = fileImage->LoadImageToRGBA(this->data->locationofFiles + "s3mcd/install/button2.bmp");
+		unsigned short* width = new unsigned short(0);
+		unsigned short* height = new unsigned short(0);
+		RGBA* rgbaImage = imageFile->LoadImageToRGBA(this->data->locationofFiles + "s3mcd/install/english/missionm.bmp", width, height);
+		mainMenu = Functions::RGBImage(rgbaImage,*width,*height);
+		unsigned short* width = new unsigned short(0);
+		unsigned short* height = new unsigned short(0);
+		RGBA* rgbaImage = imageFile->LoadImageToRGBA(this->data->locationofFiles + "s3mcd/install/button1.bmp", width, height);
+		button1 = Functions::RGBImage(rgbaImage,*width,*height);
+		unsigned short* width = new unsigned short(0);
+		unsigned short* height = new unsigned short(0);
+		RGBA* rgbaImage = imageFile->LoadImageToRGBA(this->data->locationofFiles + "s3mcd/install/button2.bmp", width, height);
+		button2 = Functions::RGBImage(rgbaImage,*width,*height);
 		delete fileImage;
 		RGBA from,to,range;
 

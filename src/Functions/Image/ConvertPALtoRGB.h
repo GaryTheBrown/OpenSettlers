@@ -10,8 +10,7 @@
 
 #pragma once
 #include <string>
-#include "../Image/RGBA.h"
-//#include "../File/Image.h"
+#include "RGBA.h"
 
 namespace Functions{
 	RGBA* ConvertPALToRGBA(unsigned char* fromImage, bool* fromTransparency, RGBA* fromPalette, unsigned int size);

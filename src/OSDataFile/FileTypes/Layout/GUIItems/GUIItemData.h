@@ -19,7 +19,7 @@
 #include "../../../../Functions/File/DataReader.h"
 #include "../../../../Functions/To.h"
 #include "../../../APILEVELS.h"
-#include "ExtraData/GUIVisibilityData.h"
+#include "GUIVisibilityData.h"
 
 
 namespace OSData{
