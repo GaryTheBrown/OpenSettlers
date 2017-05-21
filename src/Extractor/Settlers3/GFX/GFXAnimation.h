@@ -13,7 +13,7 @@
 #include "../../../Functions/To.h"
 #include "../../../Functions/File/Functions.h"
 
-#include "Data/AnimationData.h"
+#include "AnimationData.h"
 
 namespace Extractor{
 	namespace Settlers3{

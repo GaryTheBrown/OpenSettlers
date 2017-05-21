@@ -160,6 +160,10 @@ bool Extractor::Main(std::string location){
 		return false;
 	}
 
+	if(Functions::FolderExists("Extracted")){
+		Functions::CreateDir("Extracted");
+	}
+
 	switch(fileType){
 	case SKIP:{//This is to allow the skipping of a file if the file is a paired file (Settlers 2 IDX & DAT)
 		return true;

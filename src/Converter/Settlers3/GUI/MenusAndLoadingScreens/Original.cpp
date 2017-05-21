@@ -10,8 +10,8 @@
 
 #include "../ConvertGUI.h"
 
-void Converter::Settlers3::ConvertGUI::Amazon(OSData::GameType* gameType){
-	std::string originalMenusFile = this->data->locationofGFXFiles + this->data->GFXFileName.first + "48" + this->data->GFXFileName.second;
+void Converter::Settlers3::ConvertGUI::Original(OSData::GameType* gameType){
+	std::string originalMenusFile = this->data->locationofGFXFiles + this->data->GFXFileName.first + "02" + this->data->GFXFileName.second;
 
 	//Buttons
 	Functions::RGBImage* button1 = NULL;
@@ -35,9 +35,7 @@ void Converter::Settlers3::ConvertGUI::Amazon(OSData::GameType* gameType){
 	Functions::RGBImage* loadingScreenLogo = NULL;
 
 	if(Functions::FileExists(originalMenusFile)){
-		gameType->AddonsIncluded(OSData::eS3Amazon);
-		LOGSYSTEM->Log("Amazon Main Menu Found Converting...",2);
-		this->data->addons = static_cast<OSData::GameAddons>(static_cast<char>(this->data->addons) | static_cast<char>(OSData::eS3Amazon));
+		LOGSYSTEM->Log("Original Main Menu Found Converting...",1);
 		Extractor::Settlers3::GFXDataType* file = new Extractor::Settlers3::GFXDataType(originalMenusFile);
 
 		//Get Images From File
@@ -46,62 +44,102 @@ void Converter::Settlers3::ConvertGUI::Amazon(OSData::GameType* gameType){
 		button2 = file->ReturnObjectImage(0,1);
 
 		//menu
-		mainMenu = file->ReturnGUIImage(3);
+		mainMenu = file->ReturnGUIImage(5);
 		//Load Screen
-		loadingScreen = file->ReturnGUIImage(0);
+		loadingScreen = file->ReturnGUIImage(28);
 
 		delete file;
 
 		//Main Menu
 		//main colour
-		RGBA from = {140,105,255,255};
+		RGBA from = {255,93,24,255};
 		RGBA to = {0,0,0,0};
 		mainMenu->ChangeColour(from,to);
 		//left pattern
-		mainMenuSideBarsLeft = mainMenu->CutOutSection(0,0,31,63);
+		mainMenuSideBarsLeft = mainMenu->CutOutSection(0,0,31,38);
 		//right pattern
-		mainMenuSideBarsRight = mainMenu->CutOutSection(0,769,31,63);
-		//BBLogo
-		mainMenuBBLogo = mainMenu->CutOutSection(478,671,55,91);
-		mainMenu->OverwriteSection(478,671,55,91);
+		mainMenuSideBarsRight = mainMenu->CutOutSection(0,769,31,38);
 		//Middle Bar
-		mainMenuMiddleBar = mainMenu->CutOutSection(0,397,204,1);
+		mainMenuMiddleBar = mainMenu->CutOutSection(0,390,218,1);
 		//Remove Middle Bar
 		//outer1 colour
-		from = {90,68,164,255};
+		from = {123,40,8,255};
 		mainMenu->ChangeColour(from,to);
 		//outer2 colour
-		from = {181,157,255,255};
+		from = {255,157,115,255};
+		mainMenu->ChangeColour(from,to);
+		//outer3 colour
+		from = {255,129,74,255};
+		mainMenu->ChangeColour(from,to);
+		from = {255,125,74,255};
 		mainMenu->ChangeColour(from,to);
 		//Main colour
-		from = {164,133,255,255};
+		from = {255,109,49,255};
 		mainMenu->ChangeColour(from,to);
+		//BB Logo
+		mainMenuBBLogo = mainMenu->CutOutSection(481,672,52,83);
+		mainMenu->OverwriteSection(481,672,52,83);
 		//Game Logo 1
-		mainMenuLogo = mainMenu->CutOutSection(13,358,280,168);
+		mainMenuLogo = mainMenu->CutOutSection(40,347,305,183);
 		//Game Logo 2
-		mainMenuLogo2 = mainMenu->CutOutSection(181,368,260,407);
+		mainMenuLogo2 = mainMenu->CutOutSection(272,304,383,288);
 
-
-		//Load Screen
-		from = {140,105,255,255};
+		//Loading Screen
+		from = {255,93,24,255};
 		to = {0,0,0,0};
 		loadingScreen->ChangeColour(from,to);
 		//Middle Bar
-		loadingScreenMiddleBar = loadingScreen->CutOutSection(0,365,301,1);
+		loadingScreenMiddleBar = loadingScreen->CutOutSection(0,357,314,1);
 		//Remove Middle Bar
 		//outer1 colour
-		from = {90,68,164,255};
+		from = {123,44,8,255};
 		loadingScreen->ChangeColour(from,to);
 		//outer2 colour
-		from = {181,157,255,255};
+		from = {255,157,115,255};
 		loadingScreen->ChangeColour(from,to);
-		//Main colour
-		from = {164,133,255,255};
+		//Main Colour
+		from = {255,109,49,255};
+		loadingScreen->ChangeColour(from,to);
+		//extra clean up of orange colour
+		//1
+		from = {255,129,74,255};
+		loadingScreen->ChangeColour(from,to);
+		//2
+		from = {255,125,74,255};
+		loadingScreen->ChangeColour(from,to);
+		//3
+		from = {255,109,41,255};
+		loadingScreen->ChangeColour(from,to);
+		//4
+		from = {255,105,41,255};
+		loadingScreen->ChangeColour(from,to);
+		//5
+		from = {255,101,32,255};
+		loadingScreen->ChangeColour(from,to);
+		//6
+		from = {255,97,24,255};
+		loadingScreen->ChangeColour(from,to);
+		//7
+		from = {255,93,16,255};
+		loadingScreen->ChangeColour(from,to);
+		//8
+		from = {255,89,24,255};
+		loadingScreen->ChangeColour(from,to);
+		//9
+		from = {255,89,16,255};
+		loadingScreen->ChangeColour(from,to);
+		//10
+		from = {255,85,16,255};
+		loadingScreen->ChangeColour(from,to);
+		//11
+		from = {255,85,8,255};
 		loadingScreen->ChangeColour(from,to);
 		//BB Logo
-		loadingScreenBBLogo = loadingScreen->CutOutSection(490,734,52,87);
+		loadingScreenBBLogo = loadingScreen->CutOutSection(494,697,52,87);
+		loadingScreen->OverwriteSection(494,697,52,87);
 		//Game Logo 1
-		loadingScreenLogo = loadingScreen->CutOutSection(257,386,260,320);
+		loadingScreenLogo = loadingScreen->CutOutSection(161,213,600,451);
+
 
 		std::vector<OSData::GUIItemData*>* guiItems= new std::vector<OSData::GUIItemData*>();
 
@@ -113,9 +151,9 @@ void Converter::Settlers3::ConvertGUI::Amazon(OSData::GameType* gameType){
 		guiItems->push_back(MMMiddleBar);
 		OSData::GUIImageData* MMBBLogo = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(76,36),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::AlignBottom,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),OSData::ImageData(mainMenuBBLogo));
 		guiItems->push_back(MMBBLogo);
-		OSData::GUIImageData* MMLogo = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(154,15),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::pNone,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),OSData::ImageData(mainMenuLogo));
+		OSData::GUIImageData* MMLogo = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(148,40),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::pNone,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),OSData::ImageData(mainMenuLogo));
 		guiItems->push_back(MMLogo);
-		OSData::GUIImageData* MMLogo2 = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(165,15),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::AlignBottom,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),OSData::ImageData(mainMenuLogo2));
+		OSData::GUIImageData* MMLogo2 = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(113,40),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::AlignBottom,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),OSData::ImageData(mainMenuLogo2));
 		guiItems->push_back(MMLogo2);
 
 		OSData::GUITextData* MMVersionText = new OSData::GUITextData(OSData::GUIItemData(std::make_pair(36,5),std::make_pair(0,0),OSData::GUIItemData::pNone,OSData::GUIItemData::AlignBottom,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),"Version:0.01os",RGBA(255,223,0,255),12);
@@ -126,19 +164,20 @@ void Converter::Settlers3::ConvertGUI::Amazon(OSData::GameType* gameType){
 		unsigned short fontSize = 12;
 		OSData::GUIItemData buttonData = OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone));
 		OSData::GUIItemData buttonData1 = OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vAddonRequired,OSData::eS3MissionCD));
+		OSData::GUIItemData buttonData2 = OSData::GUIItemData(std::make_pair(0,0),std::make_pair(172,32),OSData::GUIItemData::pNone,OSData::GUIItemData::pNone,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vAddonRequired,OSData::eS3Amazon));
 		OSData::ImageData blank = OSData::ImageData();
 
 
-		OSData::GUIButtonData* MMButton1 = new OSData::GUIButtonData(buttonData,"Tutorial",RGBA(0,12,66,255),fontSize,button1,button2,blank,OSData::GUIButtonTypeData(OSData::GUIButtonTypeData::eAction),ReturnData(GMGotoMenu,3),false);
+		OSData::GUIButtonData* MMButton1 = new OSData::GUIButtonData(buttonData,"Tutorial",RGBA(0,12,66,255),fontSize,button1,button2,blank,OSData::GUIButtonTypeData(OSData::GUIButtonTypeData::eAction),ReturnData(GMGotoMenu,1),false);
 		boxItems->push_back(MMButton1);
 		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,8)));
-		OSData::GUIButtonData* MMButton2 = new OSData::GUIButtonData(buttonData,"Campaign",RGBA(0,12,66,255),fontSize,button1,button2,blank,OSData::GUIButtonTypeData(OSData::GUIButtonTypeData::eAction),ReturnData(GMGotoMenu,1),false);
+		OSData::GUIButtonData* MMButton2 = new OSData::GUIButtonData(buttonData,"Campaign",RGBA(0,12,66,255),fontSize,button1,button2,blank,OSData::GUIButtonTypeData(OSData::GUIButtonTypeData::eAction),ReturnData(GMGotoMenu,3),false);
 		boxItems->push_back(MMButton2);
 		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,8)));
 		OSData::GUIButtonData* MMButton3 = new OSData::GUIButtonData(buttonData1,"Mission CD Campaign",RGBA(0,12,66,255),fontSize,button1,button2,blank,OSData::GUIButtonTypeData(OSData::GUIButtonTypeData::eNone),MMNothing,false);
 		boxItems->push_back(MMButton3);
 		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,8)));
-		OSData::GUIButtonData* MMButton4 = new OSData::GUIButtonData(buttonData,"Amazon Campaign",RGBA(0,12,66,255),fontSize,button1,button2,blank,OSData::GUIButtonTypeData(OSData::GUIButtonTypeData::eNone),MMNothing,false);
+		OSData::GUIButtonData* MMButton4 = new OSData::GUIButtonData(buttonData2,"Amazon Campaign",RGBA(0,12,66,255),fontSize,button1,button2,blank,OSData::GUIButtonTypeData(OSData::GUIButtonTypeData::eNone),MMNothing,false);
 		boxItems->push_back(MMButton4);
 
 		boxItems->push_back(new OSData::GUISpacerData(std::make_pair(0,8)));
@@ -171,18 +210,18 @@ void Converter::Settlers3::ConvertGUI::Amazon(OSData::GameType* gameType){
 		OSData::GUIBoxData* MMButtonBox = new OSData::GUIBoxData(OSData::GUIItemData(std::make_pair(60,0),std::make_pair(172,552),OSData::GUIItemData::pNone,OSData::GUIItemData::AlignCentre,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),RGBA(0,0,0,0),OSData::GUIBoxData::tListView,boxItems,false);
 		guiItems->push_back(MMButtonBox);
 
-		OSData::MenuLayout* MLMainMenu = new OSData::MenuLayout(2,"Main Menu - Quest Of The Amazon",RGBA(140,105,255,255),guiItems);
+		OSData::MenuLayout* MLMainMenu = new OSData::MenuLayout(0,"Main Menu - Original",RGBA(255,93,24,255),guiItems);
 
 		gameType->AddMenuLayout(MLMainMenu);
 
 		//TEMP SAVE TO FILES DELETE ONCE MENU LAYOUT IS SETUP
 
-
+/*
 		//Loading Screen
-		loadingScreenMiddleBar->SaveToFile("GFX/AmazLSMiddleBar");
-		loadingScreenBBLogo->SaveToFile("GFX/AmazLSBBLogo");
-		loadingScreenLogo->SaveToFile("GFX/AmazLSLogo");
-
+		loadingScreenMiddleBar->SaveToFile("GFX/OrigLSMiddleBar");
+		loadingScreenBBLogo->SaveToFile("GFX/OrigLSBBLogo");
+		loadingScreenLogo->SaveToFile("GFX/OrigLSLogo");
+*/
 		//Loading Screen
 		if (loadingScreenMiddleBar != NULL)delete loadingScreenMiddleBar;
 		if (loadingScreenBBLogo != NULL)delete loadingScreenBBLogo;

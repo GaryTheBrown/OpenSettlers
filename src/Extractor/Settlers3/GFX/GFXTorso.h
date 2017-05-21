@@ -12,7 +12,7 @@
 #include <string>
 #include "../../../Functions/To.h"
 #include "../../../Functions/File/Functions.h"
-#include "Data/PaletteFrameData.h"
+#include "PaletteFrameData.h"
 
 namespace Extractor{
 	namespace Settlers3{

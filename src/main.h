@@ -26,7 +26,7 @@
 #include "ConfigFile.h"
 
 //Converter
-#include "Convertor/Converter.h"
+#include "Converter/Converter.h"
 //Extractor
 #include "Extractor/Extractor.h"
 

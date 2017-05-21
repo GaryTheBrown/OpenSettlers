@@ -12,9 +12,6 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-
-#include <SDL2/SDL_image.h>
-
 #include <png.h>
 
 #include "RGBA.h"

@@ -71,7 +71,6 @@ void Extractor::Settlers2::Extract::CheckGameVersion(bool GOG){
 
 bool Extractor::Settlers2::Extract::FullRAWExtract(){
 	if(this->gameVersion == VersionNONE) return false;
-	Functions::CreateDir("Extracted");
 	Functions::CreateDir("Extracted/S2");
 
 

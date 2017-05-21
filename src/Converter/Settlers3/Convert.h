@@ -33,6 +33,9 @@ namespace Converter {
 	namespace Settlers3{
 		class Convert {
 		private:
+			std::string saveLocation;
+			std::string saveGameName = "Settlers3";
+			std::string gameName = "The Settlers 3";
 			bool somethingToExtract = true;
 			Data data;
 			ConvertGUI* GUIFunctions;
@@ -40,7 +43,7 @@ namespace Converter {
 			void SetupData();
 
 		public:
-			Convert(std::string locationofFiles, bool GOG);
+			Convert(std::string locationofFiles, bool GOG, std::string saveLocation);
 			virtual ~Convert();
 			bool DoConvert();
 		};

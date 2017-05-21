@@ -20,7 +20,9 @@ Extractor::Settlers2::LBMImage::LBMImage(Functions::DataReader* reader,unsigned 
 	unsigned int imageLocation = 0;
 
 	while (exitLoop == false){
-		if (imageLocation < width*height){
+		if (imageLocation < (unsigned int)width*height){
+//			warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+
 			unsigned char code = reader->ReadChar();
 			if(code > 128){
 				unsigned char count = (257 - code);

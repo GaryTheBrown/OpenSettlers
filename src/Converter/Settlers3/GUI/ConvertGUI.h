@@ -27,7 +27,7 @@
 #include "../../../OSDataFile/FileTypes/Layout/GUIItems/GUIButtonData.h"
 #include "../../../OSDataFile/FileTypes/Layout/GUIItems/GUIBoxData.h"
 #include "../../../OSDataFile/FileTypes/Layout/GUIItems/GUISpacerData.h"
-#include "../../../OSDataFile/FileTypes/Layout/GUIItems/ExtraData/GUIButtonTypeData.h"
+#include "../../../OSDataFile/FileTypes/Layout/GUIItems/GUIButtonTypeData.h"
 
 namespace Converter {
 	namespace Settlers3{

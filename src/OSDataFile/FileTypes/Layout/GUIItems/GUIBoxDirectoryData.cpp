@@ -8,7 +8,7 @@
  * of the License.
  *******************************************************************************/
 
-#include "../ExtraData/GUIBoxDirectoryData.h"
+#include "GUIBoxDirectoryData.h"
 
 OSData::GUIBoxDirectoryData::GUIBoxDirectoryData(std::string folderLocation,unsigned short verticalSize,RGBA textColour,unsigned short fontSize, RGBA selectColour){
 		this->folderLocation = folderLocation;

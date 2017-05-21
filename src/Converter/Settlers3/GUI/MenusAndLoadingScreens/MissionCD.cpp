@@ -42,16 +42,16 @@ void Converter::Settlers3::ConvertGUI::MissionCD(OSData::GameType* gameType){
 		Functions::FileImage* fileImage = new Functions::FileImage();
 		unsigned short* width = new unsigned short(0);
 		unsigned short* height = new unsigned short(0);
-		RGBA* rgbaImage = imageFile->LoadImageToRGBA(this->data->locationofFiles + "s3mcd/install/english/missionm.bmp", width, height);
-		mainMenu = Functions::RGBImage(rgbaImage,*width,*height);
-		unsigned short* width = new unsigned short(0);
-		unsigned short* height = new unsigned short(0);
-		RGBA* rgbaImage = imageFile->LoadImageToRGBA(this->data->locationofFiles + "s3mcd/install/button1.bmp", width, height);
-		button1 = Functions::RGBImage(rgbaImage,*width,*height);
-		unsigned short* width = new unsigned short(0);
-		unsigned short* height = new unsigned short(0);
-		RGBA* rgbaImage = imageFile->LoadImageToRGBA(this->data->locationofFiles + "s3mcd/install/button2.bmp", width, height);
-		button2 = Functions::RGBImage(rgbaImage,*width,*height);
+		RGBA* rgbaImage = fileImage->LoadImageToRGBA(this->data->locationofFiles + "s3mcd/install/english/missionm.bmp", width, height);
+		mainMenu = new Functions::RGBImage(rgbaImage,*width,*height);
+		//width = new unsigned short(0);
+		//height = new unsigned short(0);
+		rgbaImage = fileImage->LoadImageToRGBA(this->data->locationofFiles + "s3mcd/install/button1.bmp", width, height);
+		button1 = new Functions::RGBImage(rgbaImage,*width,*height);
+		//width = new unsigned short(0);
+		//height = new unsigned short(0);
+		rgbaImage = fileImage->LoadImageToRGBA(this->data->locationofFiles + "s3mcd/install/button2.bmp", width, height);
+		button2 = new Functions::RGBImage(rgbaImage,*width,*height);
 		delete fileImage;
 		RGBA from,to,range;
 
@@ -261,14 +261,14 @@ void Converter::Settlers3::ConvertGUI::MissionCD(OSData::GameType* gameType){
 		loadingScreenLogo = loadingScreen->CutOutSection(161,213,600,451);
 
 		//TEMP SAVE TO FILES DELETE ONCE MENU LAYOUT IS SETUP
-
+/*
 		//Loading Screen
 		if ((loadingScreenMiddleBar != NULL)&&(loadingScreenBBLogo != NULL)&&(loadingScreenLogo != NULL)){
 			loadingScreenMiddleBar->SaveToFile("GFX/MCDLSMiddleBar");
 			loadingScreenBBLogo->SaveToFile("GFX/MCDLSBBLogo");
 			loadingScreenLogo->SaveToFile("GFX/MCDLSLogo");
 		}
-
+*/
 	}else
 	//Loading Screen
 	if (loadingScreenMiddleBar != NULL)delete loadingScreenMiddleBar;

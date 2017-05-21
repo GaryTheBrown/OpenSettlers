@@ -14,7 +14,7 @@
 #include "../../../Functions/To.h"
 #include "../../../Functions/File/Functions.h"
 
-#include "Data/RGBImageData.h"
+#include "RGBImageData.h"
 
 namespace Extractor{
 	namespace Settlers3{

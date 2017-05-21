@@ -50,7 +50,7 @@ bool StartupArguments::CheckArguments(){
 				std::cout <<	"	-e, --extractor		: CLI Extractor Mode" << std::endl;
 //				std::cout <<	"	-g, --gameeditor	: Go Direct to the Game Editor" << std::endl;
 				std::cout <<	"	-h, --help			: Display a brief help text and exit" << std::endl;
-//				std::cout <<	"	-m, --mapeditor		: Go Direct to the Map editor [GAME] Required" << std::endl;
+//				std::cout <<	"	-m, --mapeditor		: Go Direct to the Map editor" << std::endl;
 				std::cout <<	"	-t, --test			: TESTING Stuff (create and display some info)" << std::endl;
 				std::cout <<	"	-v, --version		: Display version information and exit" << std::endl;
 				std::cout << std::endl;

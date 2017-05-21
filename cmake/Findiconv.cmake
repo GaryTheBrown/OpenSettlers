@@ -1,89 +1,57 @@
-
-# Copyright (C) 2012-2014 Daniel Scharrer
-#
-# This software is provided 'as-is', without any express or implied
-# warranty.  In no event will the author(s) be held liable for any damages
-# arising from the use of this software.
-#
-# Permission is granted to anyone to use this software for any purpose,
-# including commercial applications, and to alter it and redistribute it
-# freely, subject to the following restrictions:
-#
-# 1. The origin of this software must not be misrepresented; you must not
-#    claim that you wrote the original software. If you use this software
-#    in a product, an acknowledgment in the product documentation would be
-#    appreciated but is not required.
-# 2. Altered source versions must be plainly marked as such, and must not be
-#    misrepresented as being the original software.
-# 3. This notice may not be removed or altered from any source distribution.
-
-# Try to find the iconv library and include path for iconv.h.
+# - Try to find Iconv
 # Once done this will define
 #
-# ICONV_FOUND
-# iconv_INCLUDE_DIR   Where to find iconv.h
-# iconv_LIBRARIES     The libiconv library or empty if none was found
-# iconv_DEFINITIONS   Definitions to use when compiling code that uses iconv
+#  ICONV_FOUND - system has Iconv
+#  ICONV_INCLUDE_DIR - the Iconv include directory
+#  ICONV_LIBRARIES - Link these to use Iconv
+#  ICONV_SECOND_ARGUMENT_IS_CONST - the second argument for iconv() is const
 #
-# An empty iconv_LIBRARIES is not an error as iconv is often included in the system libc.
-#
-# Typical usage could be something like:
-#   find_package(iconv REQUIRED)
-#   include_directories(SYSTEM ${iconv_INCLUDE_DIR})
-#   add_definitions(${iconv_DEFINITIONS})
-#   ...
-#   target_link_libraries(myexe ${iconv_LIBRARIES})
-#
-# The following additional options can be defined before the find_package() call:
-# iconv_USE_STATIC_LIBS  Statically link against libiconv (default: OFF)
+include(CheckCXXSourceCompiles)
 
-include(UseStaticLibs)
-use_static_libs(iconv)
+IF (ICONV_INCLUDE_DIR AND ICONV_LIBRARIES)
+  # Already in cache, be silent
+  SET(ICONV_FIND_QUIETLY TRUE)
+ENDIF (ICONV_INCLUDE_DIR AND ICONV_LIBRARIES)
 
-if(APPLE)
-	# Prefer local iconv.h location over the system iconv.h location as /opt/local/include
-	# may be added to the include path by other libraries, resulting in the #include
-	# statements finding the local copy while we will link agains the system lib.
-	# This way we always find both include file and library in /opt/local/ if there is one.
-	find_path(iconv_INCLUDE_DIR iconv.h
-		PATHS /opt/local/include
-		DOC "The directory where iconv.h resides"
-		NO_CMAKE_SYSTEM_PATH
-	)
-endif(APPLE)
+FIND_PATH(ICONV_INCLUDE_DIR iconv.h)
 
-find_path(iconv_INCLUDE_DIR iconv.h
-	PATHS /opt/local/include
-	DOC "The directory where iconv.h resides"
+FIND_LIBRARY(ICONV_LIBRARIES NAMES iconv libiconv libiconv-2 c)
+
+IF(ICONV_INCLUDE_DIR AND ICONV_LIBRARIES)
+   SET(ICONV_FOUND TRUE)
+ENDIF(ICONV_INCLUDE_DIR AND ICONV_LIBRARIES)
+
+set(CMAKE_REQUIRED_INCLUDES ${ICONV_INCLUDE_DIR})
+set(CMAKE_REQUIRED_LIBRARIES ${ICONV_LIBRARIES})
+IF(ICONV_FOUND)
+  check_cxx_source_compiles("
+  #include <iconv.h>
+  int main(){
+    iconv_t conv = 0;
+    const char* in = 0;
+    size_t ilen = 0;
+    char* out = 0;
+    size_t olen = 0;
+    iconv(conv, &in, &ilen, &out, &olen);
+    return 0;
+  }
+" ICONV_SECOND_ARGUMENT_IS_CONST )
+ENDIF(ICONV_FOUND)
+set(CMAKE_REQUIRED_INCLUDES)
+set(CMAKE_REQUIRED_LIBRARIES)
+
+IF(ICONV_FOUND)
+  IF(NOT ICONV_FIND_QUIETLY)
+    MESSAGE(STATUS "Found Iconv: ${ICONV_LIBRARIES}")
+  ENDIF(NOT ICONV_FIND_QUIETLY)
+ELSE(ICONV_FOUND)
+  IF(Iconv_FIND_REQUIRED)
+    MESSAGE(FATAL_ERROR "Could not find Iconv")
+  ENDIF(Iconv_FIND_REQUIRED)
+ENDIF(ICONV_FOUND)
+
+MARK_AS_ADVANCED(
+  ICONV_INCLUDE_DIR
+  ICONV_LIBRARIES
+  ICONV_SECOND_ARGUMENT_IS_CONST
 )
-mark_as_advanced(iconv_INCLUDE_DIR)
-
-# Prefer libraries in the same prefix as the include files
-string(REGEX REPLACE "(.*)/include/?" "\\1" iconv_BASE_DIR ${iconv_INCLUDE_DIR})
-
-find_library(iconv_LIBRARY iconv libiconv
-	HINTS "${iconv_BASE_DIR}/lib"
-	PATHS /opt/local/lib
-	DOC "The iconv library"
-)
-mark_as_advanced(iconv_LIBRARY)
-
-use_static_libs_restore()
-
-set(iconv_DEFINITIONS)
-if(WIN32 AND iconv_USE_STATIC_LIBS)
-	set(iconv_DEFINITIONS -DLIBICONV_STATIC -DUSING_STATIC_LIBICONV)
-endif()
-
-# handle the QUIETLY and REQUIRED arguments and set iconv_FOUND to TRUE if 
-# all listed variables are TRUE
-include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(iconv DEFAULT_MSG iconv_INCLUDE_DIR)
-
-# For some reason, find_package_... uppercases it's first argument. Nice!
-if(ICONV_FOUND)
-	set(iconv_LIBRARIES)
-	if(iconv_LIBRARY)
-		list(APPEND iconv_LIBRARIES ${iconv_LIBRARY})
-	endif()
-endif(ICONV_FOUND)

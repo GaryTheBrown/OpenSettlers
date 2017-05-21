@@ -171,11 +171,11 @@ void Converter::Settlers3::ConvertGUI::Gold(OSData::GameType* gameType){
 		gameType->AddMenuLayout(MLMainMenu);
 
 		//TEMP SAVE TO FILES DELETE ONCE MENU LAYOUT IS SETUP
-
+/*
 		//Loading Screen
 		loadingScreenMiddleBar->SaveToFile("GFX/GoldLSMiddleBar");
 		loadingScreenLogo->SaveToFile("GFX/GoldLSLogo");
-
+*/
 		//Loading Screen
 		if (loadingScreenMiddleBar != NULL)delete loadingScreenMiddleBar;
 		if (loadingScreenLogo != NULL)delete loadingScreenLogo;

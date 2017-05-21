@@ -10,7 +10,7 @@
 
 #include "Convert.h"
 
-Converter::Settlers3::Convert::Convert(std::string locationOfFiles, bool gog){
+Converter::Settlers3::Convert::Convert(std::string locationOfFiles, bool gog,std::string saveLocation){
 	this->data.locationofFiles = locationOfFiles;
 	this->GUIFunctions = new ConvertGUI(&data);
 	this->data.version = Extractor::Settlers3::CheckGameVersion(locationOfFiles, gog);
@@ -40,11 +40,11 @@ bool Converter::Settlers3::Convert::DoConvert(){
 	OSData::GameType* gameType = NULL;
 	OSData::File* file = NULL;
 
-	if (Functions::FileExists("Games/Settlers3.dat")){
-		file = new OSData::File("Games/Settlers3.dat");
+	if (Functions::FileExists(this->saveLocation + "/" + this->saveGameName + ".dat")){
+		file = new OSData::File(this->saveLocation + "/" + this->saveGameName + ".dat");
 		gameType = file->ReturnGameType();
 	}else{
-		gameType = new OSData::GameType("The Settlers 3",3,OSData::eS3None,3);
+		gameType = new OSData::GameType(this->gameName,3,OSData::eS3None,3);
 	}
 	//Menus First
 	this->GUIFunctions->Original(gameType);
@@ -59,9 +59,8 @@ bool Converter::Settlers3::Convert::DoConvert(){
 	gameType->AddonsIncluded(this->data.addons);
 
 	if (file == NULL) file = new OSData::File(gameType);
-
 	file->ImageDataToNumbers();
-	file->ToSaveToData("Games/Settlers3");
+	file->ToSaveToData(this->saveLocation + "/" + this->saveGameName + ".dat");
 	delete file;
 
 	return true;

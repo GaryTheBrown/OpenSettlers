@@ -31,7 +31,6 @@ Extractor::Settlers3::Extract::~Extract(){
 
 bool Extractor::Settlers3::Extract::FullRAWExtract(){
 	if(this->gameVersion == VersionNONE) return false;
-	Functions::CreateDir("Extracted/");
 	Functions::CreateDir("Extracted/S3/");
 	Functions::CreateDir("Extracted/S3/GFX/");
 	if(this->gameVersion != VersionS3MCD1) Functions::CreateDir("Extracted/S3/SND/");
