@@ -80,7 +80,7 @@ bool Converter::Main(std::string location){
 		return false;
 	}
 
-	if(Functions::FolderExists(saveLocation)){
+	if(!Functions::FolderExists(saveLocation)){
 		Functions::CreateDir(saveLocation);
 	}
 

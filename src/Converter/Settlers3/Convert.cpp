@@ -12,6 +12,7 @@
 
 Converter::Settlers3::Convert::Convert(std::string locationOfFiles, bool gog,std::string saveLocation){
 	this->data.locationofFiles = locationOfFiles;
+	this->saveLocation = saveLocation;
 	this->GUIFunctions = new ConvertGUI(&data);
 	this->data.version = Extractor::Settlers3::CheckGameVersion(locationOfFiles, gog);
 	this->SetupData();
@@ -60,7 +61,7 @@ bool Converter::Settlers3::Convert::DoConvert(){
 
 	if (file == NULL) file = new OSData::File(gameType);
 	file->ImageDataToNumbers();
-	file->ToSaveToData(this->saveLocation + "/" + this->saveGameName + ".dat");
+	file->ToSaveToData(this->saveLocation + "/" + this->saveGameName);
 	delete file;
 
 	return true;

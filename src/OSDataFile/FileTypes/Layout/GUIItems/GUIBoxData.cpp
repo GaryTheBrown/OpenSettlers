@@ -138,17 +138,19 @@ void OSData::GUIBoxData::CheckValues(std::string name, std::string value){
 
 void OSData::GUIBoxData::DirCreation(){
 	std::vector<std::string>* list;
-	switch(this->boxType){
-		case tListFileDir:
-			list = Functions::GetFilesInDirectory(this->directoryData->FolderLocation());
-			break;
-		case tListFolderDir:
-			list = Functions::GetFoldersInDirectory(this->directoryData->FolderLocation());
-			break;
-		case tListFullDir:
-		default:
-			list = Functions::GetFullDirectory(this->directoryData->FolderLocation());
-			break;
+	if(Functions::FolderExists(this->directoryData->FolderLocation())){
+		switch(this->boxType){
+			case tListFileDir:
+				list = Functions::GetFilesInDirectory(this->directoryData->FolderLocation());
+				break;
+			case tListFolderDir:
+				list = Functions::GetFoldersInDirectory(this->directoryData->FolderLocation());
+				break;
+			case tListFullDir:
+			default:
+				list = Functions::GetFullDirectory(this->directoryData->FolderLocation());
+				break;
+		}
 	}
 	if (this->directoryData != NULL){
 		this->itemData = new std::vector<GUIItemData*>();

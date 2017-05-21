@@ -12,8 +12,8 @@ const std::string PACKAGE_NAME = "OpenSettlers";
 //VERSION NUMBER
 const std::string PACKAGE_VERSION_MAJOR = "0";
 const std::string PACKAGE_VERSION_MINOR = "0";
-const std::string PACKAGE_VERSION_PATCH = "0";
-const std::string PACKAGE_VERSION = "0.0.0";
+const std::string PACKAGE_VERSION_PATCH = "1 ALPHA";
+const std::string PACKAGE_VERSION = "0.0.1 ALPHA";
 
 //GIT INFO
 const std::string GIT_SHA1 = "";
