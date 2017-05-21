@@ -20,5 +20,5 @@
 //#include "Settlers4/Extractor.h"
 
 namespace Extractor{
-	extern bool Main(std::string location);
+	extern bool Main(std::string location,std::string saveLocation = "Extractor");
 }

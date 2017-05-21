@@ -40,6 +40,7 @@ namespace Extractor{
 			VersionS2 gameVersion = VersionNONE;
 			std::string location = "";
 			std::string locationExtra = "";
+			std::string saveLocation;
 
 			bool RAWLBMFileExtract(std::string folder, std::string file);
 			void RAWLBMFolderExtract(std::string folder);
@@ -59,7 +60,7 @@ namespace Extractor{
 			void CheckGameVersion(bool GOG);
 
 		public:
-			Extract(std::string location,bool GOG);
+			Extract(std::string location,bool GOG,std::string saveLocation);
 			Extract(){};
 			~Extract();
 

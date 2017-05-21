@@ -10,7 +10,7 @@
 
 #include "Extractor.h"
 
-bool Extractor::Main(std::string location){
+bool Extractor::Main(std::string location,std::string saveLocation){
 	eType fileType = FULL;
 	char gameNo = 0;
 	bool GOG = false;
@@ -160,8 +160,8 @@ bool Extractor::Main(std::string location){
 		return false;
 	}
 
-	if(Functions::FolderExists("Extracted")){
-		Functions::CreateDir("Extracted");
+	if(!Functions::FolderExists(saveLocation)){
+		Functions::CreateDir(saveLocation);
 	}
 
 	switch(fileType){
@@ -177,13 +177,13 @@ bool Extractor::Main(std::string location){
 			return false;
 		}
 		case 2:{
-			Settlers2::Extract* s2Extract = new Settlers2::Extract(location,GOG);
+			Settlers2::Extract* s2Extract = new Settlers2::Extract(location,GOG,saveLocation);
 			if(s2Extract->FullRAWExtract() == false) return false;
 			delete s2Extract;
 			return true;
 		}
 		case 3:{
-			Settlers3::Extract* s3Extract = new Settlers3::Extract(location,GOG);
+			Settlers3::Extract* s3Extract = new Settlers3::Extract(location,GOG,saveLocation);
 			if(s3Extract->FullRAWExtract() == false) return false;
 			delete s3Extract;
 			return true;

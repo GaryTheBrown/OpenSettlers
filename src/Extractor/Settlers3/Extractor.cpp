@@ -10,8 +10,8 @@
 
 #include "Extractor.h"
 
-Extractor::Settlers3::Extract::Extract(std::string location,bool GOG)
-	:location(location){
+Extractor::Settlers3::Extract::Extract(std::string location,bool GOG,std::string saveLocation)
+	:location(location),saveLocation(saveLocation){
 	this->gameVersion = CheckGameVersion(location,GOG);
 }
 
@@ -31,10 +31,10 @@ Extractor::Settlers3::Extract::~Extract(){
 
 bool Extractor::Settlers3::Extract::FullRAWExtract(){
 	if(this->gameVersion == VersionNONE) return false;
-	Functions::CreateDir("Extracted/S3/");
-	Functions::CreateDir("Extracted/S3/GFX/");
-	if(this->gameVersion != VersionS3MCD1) Functions::CreateDir("Extracted/S3/SND/");
-	Functions::CreateDir("Extracted/S3/MAP/");
+	Functions::CreateDir(this->saveLocation + "/S3/");
+	Functions::CreateDir(this->saveLocation + "/S3/GFX/");
+	if(this->gameVersion != VersionS3MCD1) Functions::CreateDir(this->saveLocation + "/S3/SND/");
+	Functions::CreateDir(this->saveLocation + "/S3/MAP/");
 
 	if(this->gameVersion == VersionS3CD2){//Original CD 2
 		this->RAWMAPFolderExtract(this->location + "s3/mis_m/a/", MT_ORIGINALMISSIONS);
@@ -150,11 +150,11 @@ bool Extractor::Settlers3::Extract::RAWGFXFileExtract(std::string folder, std::s
 		LOGSYSTEM->Log("Extracting...",1);
 		GFXDataType* GFXFile = new GFXDataType(folder+file);
 		LOGSYSTEM->Log("Saving...",1);
-		Functions::CreateDir("Extracted/");
-		Functions::CreateDir("Extracted/S3/");
-		Functions::CreateDir("Extracted/S3/GFX/");
-		Functions::CreateDir("Extracted/S3/GFX/"+ file);
-		GFXFile->SaveToFile("Extracted/S3/GFX/" + file);
+
+		Functions::CreateDir(this->saveLocation + "/S3/");
+		Functions::CreateDir(this->saveLocation + "/S3/GFX/");
+		Functions::CreateDir(this->saveLocation + "/S3/GFX/"+ file);
+		GFXFile->SaveToFile(this->saveLocation + "/S3/GFX/" + file);
 		LOGSYSTEM->Log("Closing...",1);
 		delete GFXFile;
 		return true;
@@ -167,11 +167,11 @@ bool Extractor::Settlers3::Extract::RAWSNDFileExtract(std::string folder, std::s
 		LOGSYSTEM->Log("Extracting...",1);
 		SNDDataType* SNDFile = new SNDDataType(folder+file);
 		LOGSYSTEM->Log("Saving...",1);
-		Functions::CreateDir("Extracted/");
-		Functions::CreateDir("Extracted/S3/");
-		Functions::CreateDir("Extracted/S3/SND/");
-		Functions::CreateDir("Extracted/S3/SND/"+ file);
-		SNDFile->SaveToFile("Extracted/S3/SND/" + file);
+		Functions::CreateDir(this->saveLocation + "/");
+		Functions::CreateDir(this->saveLocation + "/S3/");
+		Functions::CreateDir(this->saveLocation + "/S3/SND/");
+		Functions::CreateDir(this->saveLocation + "/S3/SND/"+ file);
+		SNDFile->SaveToFile(this->saveLocation + "/S3/SND/" + file);
 		LOGSYSTEM->Log("Closing...",1);
 		delete SNDFile;
 		return true;
@@ -185,9 +185,9 @@ bool Extractor::Settlers3::Extract::RAWMAPFileExtract(std::string folder, std::s
 		LOGSYSTEM->Log("Extracting...",1);
 		MAPDataType* MAPFile = new MAPDataType(folder+file);
 		LOGSYSTEM->Log("Saving...",1);
-		Functions::CreateDir("Extracted/");
-		Functions::CreateDir("Extracted/S3/");
-		Functions::CreateDir("Extracted/S3/MAP/");
+		Functions::CreateDir(this->saveLocation + "/");
+		Functions::CreateDir(this->saveLocation + "/S3/");
+		Functions::CreateDir(this->saveLocation + "/S3/MAP/");
 		if(mapType != MT_UNKNOWN){
 			std::string outFolder = "";
 			switch (mapType){
@@ -215,15 +215,15 @@ bool Extractor::Settlers3::Extract::RAWMAPFileExtract(std::string folder, std::s
 			case MT_UNKNOWN:
 				break;
 			}
-			Functions::CreateDir("Extracted/S3/MAP/" + outFolder);
-			Functions::CreateDir("Extracted/S3/MAP/"+ outFolder + file);
-			MAPFile->SaveToFile("Extracted/S3/MAP/" + outFolder + file);
-			MAPFile->SaveHeaderData("Extracted/S3/MAP/" + outFolder + file);
+			Functions::CreateDir(this->saveLocation + "/S3/MAP/" + outFolder);
+			Functions::CreateDir(this->saveLocation + "/S3/MAP/"+ outFolder + file);
+			MAPFile->SaveToFile(this->saveLocation + "/S3/MAP/" + outFolder + file);
+			MAPFile->SaveHeaderData(this->saveLocation + "/S3/MAP/" + outFolder + file);
 
 		}else{
-			Functions::CreateDir("Extracted/S3/MAP/" + file);
-			MAPFile->SaveToFile("Extracted/S3/MAP/" + file);
-			MAPFile->SaveHeaderData("Extracted/S3/MAP/" + file);
+			Functions::CreateDir(this->saveLocation + "/S3/MAP/" + file);
+			MAPFile->SaveToFile(this->saveLocation + "/S3/MAP/" + file);
+			MAPFile->SaveHeaderData(this->saveLocation + "/S3/MAP/" + file);
 		}
 		LOGSYSTEM->Log("Closing...",1);
 		delete MAPFile;

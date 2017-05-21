@@ -26,6 +26,7 @@ namespace Extractor{
 			VersionS3 gameVersion = VersionNONE;
 			std::string location = "";
 			std::string locationExtra = "";
+			std::string saveLocation;
 
 			bool RAWGFXFileExtract(std::string folder, std::string file);
 			bool RAWSNDFileExtract(std::string folder, std::string file);
@@ -35,7 +36,7 @@ namespace Extractor{
 			void RAWMAPFolderExtract(std::string folder, MapType mapType = MT_UNKNOWN);
 
 		public:
-			Extract(std::string location,bool GOG);
+			Extract(std::string location,bool GOG,std::string saveLocation);
 			Extract(){};
 			~Extract();
 

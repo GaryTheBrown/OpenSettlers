@@ -10,8 +10,7 @@
 
 #include "Converter.h"
 
-bool Converter::Main(std::string location){
-	std::string saveLocation = "Games";
+bool Converter::Main(std::string location,std::string saveLocation){
 	char gameNo = 0;
 	bool GOG = false;
 
