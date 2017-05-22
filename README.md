@@ -4,7 +4,7 @@ Open Settlers
 Synopsis
 --------
 
-A open source Game Engine to run the Settlers Series (1-4 Planned) 
+A open source Game Engine to run the Settlers Series (1-4 Planned)
 
 Usage
 -----
@@ -16,9 +16,10 @@ To Extract
 
 Installation
 ------------
-
-IMPORT INTO ECLIPSE AND COMPILE.
-A AUTOMAKE SYSTEM WILL BE ADDED AT SOME POINT FOR BUILDING
+mkdir build
+cd build
+cmake ../
+make
 
 License
 -------
