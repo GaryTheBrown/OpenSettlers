@@ -9,7 +9,6 @@
  *******************************************************************************/
 
 #pragma once
-
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -41,6 +40,7 @@ private:
 	SystemType systemType = ST_OGL21;
 	std::string location = "";
 	std::string configLocation = "";
+	std::string outputLocation = "";
 	std::pair<int,int> windowSize = std::make_pair(800,600);
 
 public:
@@ -61,5 +61,6 @@ public:
 	SystemType SystemType(){return this->systemType;}
 	std::string Location(){return this->location;}
 	std::string ConfigLocation(){return this->configLocation;}
+	std::string OutputLocation(){return this->outputLocation;}
 	std::pair<int,int> WindowSize(){return this->windowSize;};
 };

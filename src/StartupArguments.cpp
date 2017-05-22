@@ -23,15 +23,37 @@ bool StartupArguments::CheckArguments(){
 		if (argument[0] == '-'){
 			//CLI Converter
 			if (argument == "-C"||argument == "--CONVERTER"){
+				if(argc == 2){
+					std::string fileName = argv[0];
+					std::cout <<	PACKAGE_NAME << " - Open Source Game Engine for Settlers type games" << std::endl;
+					std::cout << "CONVERTER MODE" << std::endl;
+					std::cout <<	"Usage: " << fileName << "--(c)onverter  [Input File/Folder] [Output Folder]" << std::endl;
+					std::cout << std::endl;
+					return true;
+				}
 				this->converter = true;
 				this->location = argv[2];
+				if(argc >= 4){
+					this->outputLocation = argv[3];
+				}
 				return false;
 			}
 
 			//CLI Extractor
 			else if (argument == "-E"||argument == "--EXTRACTOR"){
+				if(argc == 2){
+					std::string fileName = argv[0];
+					std::cout <<	PACKAGE_NAME << " - Open Source Game Engine for Settlers type games" << std::endl;
+					std::cout << "EXTRACTOR MODE" << std::endl;
+					std::cout <<	"Usage: " << fileName << "--(e)xtractor  [Input File/Folder] [Output Folder]" << std::endl;
+					std::cout << std::endl;
+					return true;
+				}
 				this->extractor = true;
 				this->location = argv[2];
+				if(argc >= 4){
+					this->outputLocation = argv[3];
+				}
 				return false;
 			}
 /*
@@ -56,7 +78,7 @@ bool StartupArguments::CheckArguments(){
 				std::cout << std::endl;
 				std::cout <<	" [OTHER OPTIONS]" << std::endl;
 				std::cout <<	"	-f, --fullscreen	: Start in full screen" << std::endl;
-				std::cout <<	"	-r, --resolution	: Window Resolution [Width Height}" << std::endl;
+				std::cout <<	"	-r, --resolution	: Window Resolution {Width Height}" << std::endl;
 				std::cout <<	"	-s, --settlers		: Settlers Game Number [1-4]" << std::endl;
 				std::cout <<	"	-w, --windowengine	: Sets the Engine Used [SDL2/OGL21]" << std::endl;
 				std::cout << std::endl;

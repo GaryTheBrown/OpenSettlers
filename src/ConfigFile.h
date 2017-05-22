@@ -35,9 +35,6 @@ class ConfigFile {
 		bool fullscreen = DEFAULT_Fullscreen;
 		std::pair<int,int> windowSize = DEFAULT_WindowSize;
 
-
-
-
 	public:
 		ConfigFile(std::string file = "");
 		virtual ~ConfigFile();
