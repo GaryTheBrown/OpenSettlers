@@ -29,10 +29,10 @@ int main(int argc,char* argv[]){
 	//CLI Converter
 	if(startupArguments->Converter()){
 		LOGSYSTEM->Log("Open Settlers Converter Started",1);
-		if(startupArguments->outputLocation() == ""){
+		if(startupArguments->OutputLocation() == ""){
 			if (Converter::Main(startupArguments->Location()) == false) return 1;
 		}else{
-			if (Converter::Main(startupArguments->Location(),startupArguments->outputLocation()) == false) return 1;
+			if (Converter::Main(startupArguments->Location(),startupArguments->OutputLocation()) == false) return 1;
 		}
 		LOGSYSTEM->Log("Open Settlers Converter Completed",1);
 		return 0;
@@ -40,10 +40,10 @@ int main(int argc,char* argv[]){
 	//CLI Extractor
 	if(startupArguments->Extractor()){
 		LOGSYSTEM->Log("Open Settlers Extractor Started",1);
-		if(startupArguments->outputLocation() == ""){
+		if(startupArguments->OutputLocation() == ""){
 			if (Extractor::Main(startupArguments->Location()) == false) return 1;
 		}else{
-			if (Extractor::Main(startupArguments->Location(),startupArguments->outputLocation()) == false) return 1;
+			if (Extractor::Main(startupArguments->Location(),startupArguments->OutputLocation()) == false) return 1;
 		}
 		LOGSYSTEM->Log("Open Settlers Extractor Completed",1);
 		return 0;
