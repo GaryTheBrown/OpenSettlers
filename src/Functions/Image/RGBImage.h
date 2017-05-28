@@ -23,6 +23,7 @@ namespace Functions{
 		signed short xRel = 0;
 		signed short yRel = 0;
 
+		bool keep = false;
 		RGBA* imageRGBA = NULL;
 
 	public:

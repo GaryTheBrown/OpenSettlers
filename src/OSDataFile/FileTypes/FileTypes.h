@@ -28,7 +28,7 @@ namespace OSData{
 	protected:
 		eFileType fileType;
 	public:
-		FileTypes(eFileType fileType):fileType(fileType){};
+		explicit FileTypes(eFileType fileType):fileType(fileType){};
 		virtual ~FileTypes(){};
 
 		virtual bool ToSaveToData(std::vector<char>* data);

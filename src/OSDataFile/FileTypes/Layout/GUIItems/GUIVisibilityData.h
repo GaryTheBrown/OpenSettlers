@@ -32,10 +32,10 @@ namespace OSData{
 
 	public:
 		GUIVisibilityData();
-		GUIVisibilityData(VisibilityOptions type);
+		explicit GUIVisibilityData(VisibilityOptions type);
 		GUIVisibilityData(VisibilityOptions type, bool visible, bool enabled);
 		GUIVisibilityData(VisibilityOptions type, OSData::GameAddons addonRequired);
-		GUIVisibilityData(Functions::DataReader* reader);
+		explicit GUIVisibilityData(Functions::DataReader* reader);
 		~GUIVisibilityData(){};
 
 		VisibilityOptions Type(){return this->type;};

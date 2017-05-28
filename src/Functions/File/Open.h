@@ -27,7 +27,7 @@ namespace Functions{
 		std::string fileExt;
 
 	public:
-		File(std::string file);
+		explicit File(std::string file);
 		~File();
 
 		const char* FetchBuffer(unsigned int offset,unsigned int size);
