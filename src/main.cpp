@@ -93,7 +93,7 @@ std::string configLocation2 = "~/Opensettlers/config.cfg"; //TO BE SYSTEM LOCATI
 		system = new SystemInterface::SDL2System(windowName,configList);
 		break;
 	case StartupArguments::ST_OGL21:
-		system = new SystemInterface::OGL21System(windowName,windowSize,fullscreen);
+		system = new SystemInterface::OGL21System(windowName,configList);
 		break;
 	default:
 		LOGSYSTEM->Error("System Interface Not Recognised Quitting");

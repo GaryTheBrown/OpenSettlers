@@ -42,7 +42,6 @@ class System;
 
 		//Display Options
 		std::string windowName;
-		bool fullScreen = false;
 
 	public:
 		virtual ~Display(){};

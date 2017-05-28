@@ -11,7 +11,7 @@
 #include "SDL2System.h"
 
 SystemInterface::SDL2System::SDL2System(std::string windowName,ConfigList* configList) {
-
+	this->configList = configList;
 	//Start SDL2
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER);
 	this->sdl2Display = new SDL2Display(this,configList);

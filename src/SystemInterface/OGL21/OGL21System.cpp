@@ -11,6 +11,7 @@
 #include "OGL21System.h"
 
 SystemInterface::OGL21System::OGL21System(std::string windowName,ConfigList* configList) {
+	this->configList = configList;
 	// Start SDL2
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER);
 	this->events = new SDL2Events();

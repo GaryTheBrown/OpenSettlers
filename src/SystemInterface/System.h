@@ -24,6 +24,7 @@ namespace SystemInterface {
 	class System {
 	private:
 	protected:
+		ConfigList* configList;
 		std::string gameLocation = "";
 	public:
 		Events* events = NULL;

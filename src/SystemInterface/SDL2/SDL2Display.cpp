@@ -66,13 +66,15 @@ std::pair<int,int> SystemInterface::SDL2Display::GetWindowSize(){
 }
 
 void SystemInterface::SDL2Display::SetWindowSize(std::pair<int,int> size){
+	//std::pair<int,int> size = this->configList->GetValue<std::pair<int,int> >("windowSize");
 	if(size.second == 0) size.second = this->GetWindowSize().second;
 	if(size.first == 0) size.first = this->GetWindowSize().first;
 	SDL_SetWindowSize(this->window,size.first,size.second);
+	this->configList->SetValue<std::pair<int,int> >("windowSize",size);
 }
 
 void SystemInterface::SDL2Display::SetWindowFullscreen(){
-	bool fullscreen = configList->GetValue<bool>("fullscreen");
+	bool fullScreen = this->configList->GetValue<bool>("fullscreen");
 	if (fullScreen){
 		SDL_SetWindowFullscreen(this->window,SDL_FALSE);
 		this->SetWindowSize(this->tmpFullscreenWindowSize);
@@ -83,7 +85,7 @@ void SystemInterface::SDL2Display::SetWindowFullscreen(){
 		SDL_SetWindowFullscreen(this->window,SDL_WINDOW_FULLSCREEN_DESKTOP);
 		fullScreen = true;
 	}
-	configList->SetValue<bool>("fullscreen",fullScreen);
+	this->configList->SetValue<bool>("fullscreen",fullScreen);
 }
 
 std::pair<int,int> SystemInterface::SDL2Display::GetScreenSize(){
