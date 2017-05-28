@@ -98,7 +98,6 @@ std::string configLocation2 = "~/Opensettlers/config.cfg"; //TO BE SYSTEM LOCATI
 
 	switch(startupArguments->SystemType()){
 	case StartupArguments::ST_SDL2://MAYBE REMOVE THIS?
-//		system = new SystemInterface::SDL2System(windowName,configList->GetValue<std::pair<int,int> >("windowsize"),configList->GetValue<bool>("fullscreen"));
 		system = new SystemInterface::SDL2System(windowName,windowSize,fullscreen);
 		break;
 	case StartupArguments::ST_OGL21:
