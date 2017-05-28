@@ -24,13 +24,13 @@ namespace OSData{
 		enum eType : unsigned char {
 			eNone = 0,
 			eAction = 1,
-			eSwitchBool = 2
+			eChangeGlobalSetting = 2,
+			eChangeSetting = 3,
 		};
+
 	private:
 		eType type = eNone;
 		std::string text = "";
-		RGBA textColour = 0xFFFFFFFF;
-		unsigned short fontSize = 10;
 		void GetButtonType(std::string value);
 		void CheckValues(std::string name, std::string value);
 
@@ -38,7 +38,7 @@ namespace OSData{
 
 		GUIButtonTypeData(eType type);
 		GUIButtonTypeData(std::string type);
-		GUIButtonTypeData(eType type,std::string text,RGBA textColour,unsigned short fontSize);
+		GUIButtonTypeData(eType type,std::string text);
 		GUIButtonTypeData(Functions::DataReader* reader);
 		GUIButtonTypeData(xmlNode* node);
 		virtual ~GUIButtonTypeData(){};
@@ -47,9 +47,6 @@ namespace OSData{
 
 		std::string ButtonTypeString();
 		std::string Text(){return this->text;}
-		RGBA TextColour(){return this->textColour;}
-		unsigned short FontSize(){return this->fontSize;}
-
 
 		bool ToSaveToData(std::vector<char>* data = NULL);
 		std::string ToString();

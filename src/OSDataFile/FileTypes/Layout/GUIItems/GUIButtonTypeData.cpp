@@ -18,8 +18,8 @@ OSData::GUIButtonTypeData::GUIButtonTypeData(std::string type){
 	this->GetButtonType(type);
 }
 
-OSData::GUIButtonTypeData::GUIButtonTypeData(eType type,std::string text,RGBA textColour,unsigned short fontSize)
-	:type(type),text(text),	textColour(textColour), fontSize(fontSize){
+OSData::GUIButtonTypeData::GUIButtonTypeData(eType type,std::string text)
+	:type(type),text(text){
 }
 
 OSData::GUIButtonTypeData::GUIButtonTypeData(Functions::DataReader* reader){
@@ -30,11 +30,10 @@ OSData::GUIButtonTypeData::GUIButtonTypeData(Functions::DataReader* reader){
 	case eAction:
 	default:
 		break;
-	case eSwitchBool:
+	case eChangeGlobalSetting:
+	case eChangeSetting:
 		unsigned char textSize = reader->ReadChar();
 		this->text = reader->ReadString(textSize);
-		this->textColour = reader->ReadInt();
-		this->fontSize = reader->ReadShort();
 		break;
 	}
 }
@@ -60,26 +59,26 @@ void OSData::GUIButtonTypeData::GetButtonType(std::string value){
 		this->type = eNone;
 	else if(value == "Action")
 		this->type = eAction;
-	else if(value == "SwitchBool")
-		this->type = eSwitchBool;
+	else if(value == "ChangeGlobalSetting")
+		this->type = eChangeGlobalSetting;
+	else if(value == "ChangeSetting")
+		this->type = eChangeSetting;
 }
 std::string OSData::GUIButtonTypeData::ButtonTypeString(){
 	if (this->type == eNone)
 		return "None";
 	else if(this->type == eAction)
 		return "Action";
-	else if(this->type == eSwitchBool)
-		return "SwitchBool";
+	else if(this->type == eChangeGlobalSetting)
+		return "ChangeGlobalSetting";
+	else if(this->type == eChangeSetting)
+		return "ChangeSetting";
 
 	return "None";
 }
 void OSData::GUIButtonTypeData::CheckValues(std::string name, std::string value){
 	if (name == "Text")
 		this->text = value;
-	else if (name == "TextColour")
-		this->textColour = Functions::StringToHex(value);
-	else if (name == "FontSize")
-		this->fontSize = atoi(value.c_str());
 	else if (name == "ButtonType")
 			this->GetButtonType(value);
 }
@@ -93,24 +92,14 @@ bool OSData::GUIButtonTypeData::ToSaveToData(std::vector<char>* data){
 	case eAction:
 	default:
 		break;
-	case eSwitchBool:
+	case eChangeGlobalSetting:
+	case eChangeSetting:
 		//Text Size (char)
 		unsigned short textSize = this->text.size();
 		data->push_back(textSize & 0xFF);
 
 		//Text (string)
 		std::copy(this->text.begin(), this->text.end(), std::back_inserter(*data));
-
-		//Text Colour (int)(RGB)
-		data->push_back(this->textColour.A);
-		data->push_back(this->textColour.B);
-		data->push_back(this->textColour.G);
-		data->push_back(this->textColour.R);
-
-		//Font Size (Signed Short)
-		data->push_back(this->fontSize & 0xFF);
-		data->push_back((this->fontSize >> 8) & 0xFF);
-
 		break;
 	}
 	return true;
@@ -126,11 +115,10 @@ std::string OSData::GUIButtonTypeData::ToString(){
 	case eAction:
 	default:
 		break;
-	case eSwitchBool:
+	case eChangeGlobalSetting:
+	case eChangeSetting:
 
 		data += "Text = " + this->text + "\n";
-		data += "Text Colour = " + Functions::ToHex(this->textColour.ReturnInt(),4) + "\n";
-		data += "Font Size = " + Functions::ToString(this->fontSize) + "\n";
 		break;
 	}
 	return data;
