@@ -20,6 +20,7 @@
 #include <SDL2/SDL_opengl.h>
 #include <GL/glu.h>
 
+#include "../../ConfigList.h"
 #include "../../Functions/Image/RGBImage.h"
 #include "../System.h"
 #include "../SDL2/SDL2Events.h"
@@ -38,7 +39,7 @@ namespace SystemInterface {
 		OGL21Display* oGL21Display;
 
 		//Constructor
-		OGL21System(std::string windowName,std::pair<int,int> windowSize,bool fullscreen);
+		OGL21System(std::string windowName,ConfigList* configList);
 		virtual ~OGL21System();
 
 		//Image functions

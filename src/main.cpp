@@ -86,12 +86,11 @@ std::string configLocation2 = "~/Opensettlers/config.cfg"; //TO BE SYSTEM LOCATI
 
 //GRAPHICAL FUNCTIONS
 //SETUP SYSTEM
-	auto windowSize =  configList->GetValue<std::pair<int,int> >("windowsize");
-	bool fullscreen = configList->GetValue<bool>("fullscreen");
+
 
 	switch(startupArguments->SystemType()){
 	case StartupArguments::ST_SDL2://MAYBE REMOVE THIS?
-		system = new SystemInterface::SDL2System(windowName,windowSize,fullscreen);
+		system = new SystemInterface::SDL2System(windowName,configList);
 		break;
 	case StartupArguments::ST_OGL21:
 		system = new SystemInterface::OGL21System(windowName,windowSize,fullscreen);

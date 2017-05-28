@@ -10,13 +10,13 @@
 
 #include "OGL21System.h"
 
-SystemInterface::OGL21System::OGL21System(std::string windowName, std::pair<int,int> windowSize, bool fullscreen) {
+SystemInterface::OGL21System::OGL21System(std::string windowName,ConfigList* configList) {
 	// Start SDL2
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER);
 	this->events = new SDL2Events();
 	this->fonts = new SDL2Fonts();
 
-	this->oGL21Display = new OGL21Display(this, windowSize, fullscreen);
+	this->oGL21Display = new OGL21Display(this,configList);
 	this->display = this->oGL21Display;
 	this->display->SetWindowName(windowName);
 }

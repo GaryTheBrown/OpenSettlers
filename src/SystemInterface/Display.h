@@ -12,6 +12,7 @@
 #include <SDL2/SDL.h>
 #include <string>
 #include <utility>
+#include "../ConfigList.h"
 #include "../Functions/Timer.h"
 #include "../Functions/Image/RGBA.h"
 
@@ -24,6 +25,7 @@ class System;
 	protected:
 
 		System* system = NULL;
+		ConfigList* configList;
 
 		//Constant System Settings.
 		const std::pair<int,int> MINWINDOWSIZE = {800,600};

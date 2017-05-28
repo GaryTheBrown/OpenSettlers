@@ -26,7 +26,7 @@ namespace SystemInterface {
 			SDL_Renderer* renderer;
 	public:
 
-		SDL2Display(System* system,std::pair<int,int> windowSize, bool fullscreen);
+		SDL2Display(System* system,ConfigList* configList);
 		virtual ~SDL2Display();
 
 		//Window

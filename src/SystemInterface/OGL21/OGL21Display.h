@@ -14,6 +14,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "../Display.h"
+#include "../../ConfigList.h"
 #include "../../Functions/To.h"
 #include "OGL21ImageContainer.h"
 namespace SystemInterface {
@@ -28,7 +29,7 @@ namespace SystemInterface {
 
 	public:
 
-		OGL21Display(System* system, std::pair<int,int> windowSize, bool fullscreen);
+		OGL21Display(System* system,ConfigList* configList);
 		virtual ~OGL21Display();
 
 		//Window

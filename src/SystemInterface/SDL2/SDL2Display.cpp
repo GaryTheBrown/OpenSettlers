@@ -10,35 +10,39 @@
 
 #include "SDL2Display.h"
 
-SystemInterface::SDL2Display::SDL2Display(System* system, std::pair<int,int> windowSize,bool fullscreen){
+SystemInterface::SDL2Display::SDL2Display(System* system,ConfigList* configList){
 	this->system = system;
-		this->windowName = "OpenSettlers";
+	this->configList = configList;
+	this->windowName = "OpenSettlers";
 
-		//Gets Monitor resolution
-		SDL_GetCurrentDisplayMode(0,&this->currentDesktopMode);
-		SDL_GetDesktopDisplayMode(0,&this->systemDesktopMode);
+	//Gets Monitor resolution
+	SDL_GetCurrentDisplayMode(0,&this->currentDesktopMode);
+	SDL_GetDesktopDisplayMode(0,&this->systemDesktopMode);
 
-		//Checks for Inital Window Size (setting up from cli and eventually from config)
-		if(windowSize.first < this->MINWINDOWSIZE.first) windowSize.first = this->MINWINDOWSIZE.first;
-		if(windowSize.second < this->MINWINDOWSIZE.second) windowSize.second = this->MINWINDOWSIZE.second;
+	auto windowSize =  configList->GetValue<std::pair<int,int> >("windowsize");
+	bool fullscreen = configList->GetValue<bool>("fullscreen");
 
-		//create screen checking if fullscreen needed.
-	   	this->window = SDL_CreateWindow(this->windowName.c_str(),
-	   			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-				windowSize.first, windowSize.second,
-				SDL_WINDOW_RESIZABLE);
+	//Checks for Inital Window Size (setting up from cli and eventually from config)
+	if(windowSize.first < this->MINWINDOWSIZE.first) windowSize.first = this->MINWINDOWSIZE.first;
+	if(windowSize.second < this->MINWINDOWSIZE.second) windowSize.second = this->MINWINDOWSIZE.second;
 
-		if(fullscreen){
-			SDL_SetWindowFullscreen(this->window,SDL_WINDOW_FULLSCREEN_DESKTOP);
-		}
+	//create screen checking if fullscreen needed.
+	this->window = SDL_CreateWindow(this->windowName.c_str(),
+			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+			windowSize.first, windowSize.second,
+			SDL_WINDOW_RESIZABLE);
 
-		this->renderer = SDL_CreateRenderer( this->window, -1, SDL_RENDERER_ACCELERATED );
+	if(fullscreen){
+		SDL_SetWindowFullscreen(this->window,SDL_WINDOW_FULLSCREEN_DESKTOP);
+	}
 
-		IMG_Init(IMG_INIT_PNG);
+	this->renderer = SDL_CreateRenderer( this->window, -1, SDL_RENDERER_ACCELERATED );
 
-		//Start FPS Timers
-		this->FPS.Start(this->GetTick());
-	    this->update.Start(this->GetTick());
+	IMG_Init(IMG_INIT_PNG);
+
+	//Start FPS Timers
+	this->FPS.Start(this->GetTick());
+	this->update.Start(this->GetTick());
 }
 
 SystemInterface::SDL2Display::~SDL2Display() {
@@ -68,16 +72,18 @@ void SystemInterface::SDL2Display::SetWindowSize(std::pair<int,int> size){
 }
 
 void SystemInterface::SDL2Display::SetWindowFullscreen(){
-	if (this->fullScreen){
+	bool fullscreen = configList->GetValue<bool>("fullscreen");
+	if (fullScreen){
 		SDL_SetWindowFullscreen(this->window,SDL_FALSE);
 		this->SetWindowSize(this->tmpFullscreenWindowSize);
-		this->fullScreen = false;
+		fullScreen = false;
 	}
 	else{
 		this->tmpFullscreenWindowSize = this->GetWindowSize();
 		SDL_SetWindowFullscreen(this->window,SDL_WINDOW_FULLSCREEN_DESKTOP);
-		this->fullScreen = true;
+		fullScreen = true;
 	}
+	configList->SetValue<bool>("fullscreen",fullScreen);
 }
 
 std::pair<int,int> SystemInterface::SDL2Display::GetScreenSize(){

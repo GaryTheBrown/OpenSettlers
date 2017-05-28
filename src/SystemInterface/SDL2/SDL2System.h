@@ -17,6 +17,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mouse.h>
 
+#include "../../ConfigList.h"
 #include "../../Functions/Image/RGBImage.h"
 #include "../System.h"
 #include "SDL2Display.h"
@@ -34,7 +35,7 @@ namespace SystemInterface {
 		SDL2Display* sdl2Display;
 
 		//Constructor
-		SDL2System(std::string windowName,std::pair<int,int> windowSize,bool fullscreen);
+		SDL2System(std::string windowName,ConfigList* configList);
 		virtual ~SDL2System();
 
 		//Image functions
