@@ -87,14 +87,12 @@ std::string configLocation2 = "~/Opensettlers/config.cfg"; //TO BE SYSTEM LOCATI
 //GRAPHICAL FUNCTIONS
 //SETUP SYSTEM
 
-
 	auto wsOptionBase =  configList->GetConfigOptionBase(std::string("windowsize"));
 	auto wsOption = static_cast<ConfigTemplate<std::pair<int,int> >*>(wsOptionBase) ;
-	auto windowSize = wsOption->GetValue();
+	std::pair<int,int> windowSize = wsOption->GetValue();
 
-	auto fsOptionBase =  configList->GetConfigOptionBase(std::string("fullscreen"));
-	auto fsOption = static_cast<ConfigTemplate<bool>*>(fsOptionBase) ;;
-	bool fullscreen = fsOption->GetValue();
+	bool fullscreen = configList->GetValue<bool>("fullscreen");
+
 
 	switch(startupArguments->SystemType()){
 	case StartupArguments::ST_SDL2://MAYBE REMOVE THIS?

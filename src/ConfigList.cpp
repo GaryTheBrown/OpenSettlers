@@ -15,22 +15,20 @@ ConfigList::ConfigList(){
 	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<bool>("fullscreen","FullScreen",ConfigTemplateBase::cDisplay,false,ConfigTemplate<bool>::eBool)));
 //Window Size
 	unsigned int windowCount = 4;
-	std::pair<std::string,std::pair<int,int>> *data = new std::pair<std::string,std::pair<int,int> >[windowCount];
+	std::pair<std::string,std::pair<int,int> > *data = new std::pair<std::string,std::pair<int,int> >[windowCount];
 	data[0] = std::make_pair("640x480",std::make_pair(640,480));
 	data[1] = std::make_pair("800x600",std::make_pair(800,600));
 	data[2] = std::make_pair("1024x768",std::make_pair(1024,768));
 	data[3] = std::make_pair("1366x768",std::make_pair(1366,768));
 	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<std::pair<int,int> >("windowsize","Window Size",ConfigTemplateBase::cDisplay,std::make_pair(800,600),windowCount, data)));
-
-//list options here
+//list more options here
 }
 
 ConfigList::~ConfigList() {
-	for (unsigned int i = 0; i < this->configList.size(); i++ )
-    {
-        delete this->configList[i];
-    }
-    this->configList.clear();
+	for (unsigned int i = 0; i < this->configList.size(); i++ ){
+		delete this->configList[i];
+	}
+	this->configList.clear();
 }
 
 bool ConfigList::ConfigFile(std::string file){
@@ -74,25 +72,6 @@ bool ConfigList::OptionExists(std::string code){
 		if ((*item)->CheckCode(code)) return true;
 	}
 	return false;
-}
-
-template <typename T> T ConfigList::GetValue(std::string code){
-	ConfigTemplateBase* option = this->GetConfigOptionBase(code);
-	ConfigTemplate<T>* returnOption = static_cast<ConfigTemplate<T>*>(option);
-	T returnValue = returnOption->GetValue();
-	return returnValue;
-}
-
-template <typename T> void ConfigList::SetValue(std::string code,T value){
-	ConfigTemplateBase* option = this->GetConfigOptionBase(code);
-	ConfigTemplate<T>* returnOption = static_cast<ConfigTemplate<T>*>(option);
-	returnOption->SetValue(value);
-}
-
-template <typename T> T ConfigList::GetConfigOption(std::string code){
-						ConfigTemplateBase* option = this->GetConfigOptionBase(code);
-						ConfigTemplate<T>* returnOption = static_cast<ConfigTemplate<T> *>(option);
-						return returnOption;
 }
 
 void ConfigList::AddConfigOption(ConfigTemplateBase* configTemplateBase){

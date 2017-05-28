@@ -30,23 +30,22 @@ class ConfigTemplateBase{
 		std::string code;
 		std::string name;
 		configGroup group = cGeneral;
+
 	public:
-	ConfigTemplateBase(){};
-	ConfigTemplateBase(std::string code, std::string name):code(code),name(name){};
-	ConfigTemplateBase(std::string code, std::string name,configGroup group):code(code),name(name),group(group){};
-	virtual ~ConfigTemplateBase(){};
+		ConfigTemplateBase(){};
+		ConfigTemplateBase(std::string code, std::string name):code(code),name(name){};
+		ConfigTemplateBase(std::string code, std::string name,configGroup group):code(code),name(name),group(group){};
+		virtual ~ConfigTemplateBase(){};
 
-	bool CheckCode(std::string checkCode){if(this->code==checkCode)return true; else return false;}
-	std::string GetName(){return this->name;}
-	configGroup GetGroup(){return group;}
-
+		bool CheckCode(std::string checkCode){if(this->code==checkCode)return true; else return false;}
+		std::string GetName(){return this->name;}
+		configGroup GetGroup(){return group;}
 };
 
 template <class T> class ConfigTemplate : public ConfigTemplateBase{
 	public:
 
 	private:
-
 		T value;
 		T defaultValue;
 		unsigned int count;

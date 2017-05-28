@@ -39,9 +39,26 @@ class ConfigList {
 
 		bool ConfigFile(std::string file);
 		bool OptionExists(std::string code);
-		template <typename T> T GetValue(std::string code);
-		template <typename T> void SetValue(std::string code,T value);
+		template <typename T> T GetValue(std::string code){
+			auto optionBase =  this->GetConfigOptionBase(code);
+			auto option = static_cast<ConfigTemplate<T>*>(optionBase) ;
+			auto value = option->GetValue();
+			return value;
+//			ConfigTemplateBase* option = this->GetConfigOptionBase(code);
+//			ConfigTemplate<T>* returnOption = static_cast<ConfigTemplate<T>*>(option);
+//			T returnValue = returnOption->GetValue();
+//			return returnValue;
+		};
+		template <typename T> void SetValue(std::string code,T value){
+			ConfigTemplateBase* option = this->GetConfigOptionBase(code);
+			ConfigTemplate<T>* returnOption = static_cast<ConfigTemplate<T>*>(option);
+			returnOption->SetValue(value);
+		};
 		ConfigTemplateBase* GetConfigOptionBase(std::string code);
-		template <typename T> T GetConfigOption(std::string code);
+		template <typename T> ConfigTemplate<T>* GetConfigOption(std::string code){
+			ConfigTemplateBase* option = this->GetConfigOptionBase(code);
+			ConfigTemplate<T>* returnOption = static_cast<ConfigTemplate<T> *>(option);
+			return returnOption;
+		};
 		void AddConfigOption(ConfigTemplateBase* configTemplateBase);
 };
