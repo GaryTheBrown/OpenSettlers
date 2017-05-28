@@ -42,12 +42,8 @@ class ConfigList {
 		template <typename T> T GetValue(std::string code){
 			auto optionBase =  this->GetConfigOptionBase(code);
 			auto option = static_cast<ConfigTemplate<T>*>(optionBase) ;
-			auto value = option->GetValue();
+			T value = option->GetValue();
 			return value;
-//			ConfigTemplateBase* option = this->GetConfigOptionBase(code);
-//			ConfigTemplate<T>* returnOption = static_cast<ConfigTemplate<T>*>(option);
-//			T returnValue = returnOption->GetValue();
-//			return returnValue;
 		};
 		template <typename T> void SetValue(std::string code,T value){
 			ConfigTemplateBase* option = this->GetConfigOptionBase(code);
