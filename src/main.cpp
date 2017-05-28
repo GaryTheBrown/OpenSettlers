@@ -12,15 +12,21 @@
 
 int main(int argc,char* argv[]){
 
+	ConfigList* configList = new ConfigList();
 	//Startup Arguments Setup
 	StartupArguments* startupArguments = new StartupArguments(argc,argv);
-	if(startupArguments->CheckArguments())
+	if(startupArguments->CheckArguments(configList))
 		return 0; //if comes back true exits
 
-	ConfigFile* config = new ConfigFile(startupArguments->ConfigLocation());
-	//finish adding in config system. by making the startup arguments write to the config. maybe don't auto save on exit?
-	if (startupArguments->Fullscreen())	config->SetFullscreen();
-	config->SetWindowSize(startupArguments->WindowSize());
+std::string configLocation1 = "config.cfg"; //TO BE SYSTEM LOCATION
+std::string configLocation2 = "~/Opensettlers/config.cfg"; //TO BE SYSTEM LOCATION
+
+	if(Functions::FileExists(configLocation1)){
+		if(!configList->ConfigFile(configLocation1)) return 0;
+	}
+	if(Functions::FileExists(configLocation2)){
+		if(!configList->ConfigFile(configLocation2)) return 0;
+	}
 
 	OSData::GameType* gameType = NULL;
 	OSData::File* file = NULL;
@@ -80,12 +86,23 @@ int main(int argc,char* argv[]){
 
 //GRAPHICAL FUNCTIONS
 //SETUP SYSTEM
+
+
+	auto wsOptionBase =  configList->GetConfigOptionBase(std::string("windowsize"));
+	auto wsOption = static_cast<ConfigTemplate<std::pair<int,int> >*>(wsOptionBase) ;
+	auto windowSize = wsOption->GetValue();
+
+	auto fsOptionBase =  configList->GetConfigOptionBase(std::string("fullscreen"));
+	auto fsOption = static_cast<ConfigTemplate<bool>*>(fsOptionBase) ;;
+	bool fullscreen = fsOption->GetValue();
+
 	switch(startupArguments->SystemType()){
 	case StartupArguments::ST_SDL2://MAYBE REMOVE THIS?
-		system = new SystemInterface::SDL2System(windowName,config->WindowSize(),config->Fullscreen());
+//		system = new SystemInterface::SDL2System(windowName,configList->GetValue<std::pair<int,int> >("windowsize"),configList->GetValue<bool>("fullscreen"));
+		system = new SystemInterface::SDL2System(windowName,windowSize,fullscreen);
 		break;
 	case StartupArguments::ST_OGL21:
-		system = new SystemInterface::OGL21System(windowName,config->WindowSize(),config->Fullscreen());
+		system = new SystemInterface::OGL21System(windowName,windowSize,fullscreen);
 		break;
 	default:
 		LOGSYSTEM->Error("System Interface Not Recognised Quitting");
@@ -122,6 +139,6 @@ int main(int argc,char* argv[]){
 	if (file != NULL) delete file;
 	if (system != NULL) delete system;
 	if (startupArguments != NULL) delete startupArguments;
-	if (config != NULL) delete config;
+	if (configList != NULL) delete configList;
 	return 0;
 }

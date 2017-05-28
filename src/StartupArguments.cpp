@@ -15,7 +15,7 @@ StartupArguments::StartupArguments(int argc,char **argv) {
 	this->argv = argv;
 }
 //Separate Functions because of requiring return!
-bool StartupArguments::CheckArguments(){
+bool StartupArguments::CheckArguments(ConfigList* configList){
 	if(argc > 1){
 		//First Argument Commands
 		std::string argument = argv[1];
@@ -110,8 +110,7 @@ bool StartupArguments::CheckArguments(){
 			if (argument[0] == '-'){
 				//Fullscreen Toggle
 				if (argument == "-F"||argument == "--FULLSCREEN"){
-					this->fullscreen = true;
-
+					configList->SetValue("fullscreen",true);
 				//Game Number
 				}else if (argument == "-S"||argument == "--SETTLERS"){
 					try{
@@ -124,8 +123,11 @@ bool StartupArguments::CheckArguments(){
 					}
 				}else if (argument == "-R"||argument == "--RESOLUTION"){
 					try{
-						this->windowSize.first = atoi(argv[i+1]);
-						this->windowSize.second = atoi(argv[i+2]);
+						std::pair<int,int> pair = std::make_pair(atoi(argv[i+1]),atoi(argv[i+2]));
+						configList->SetValue("windowsize",pair);
+
+//						this->windowSize.first = atoi(argv[i+1]);
+//						this->windowSize.second = atoi(argv[i+2]);
 						i++;
 						i++;
 					}
@@ -158,3 +160,4 @@ bool StartupArguments::CheckArguments(){
 	}
 	return false;
 }
+

@@ -12,9 +12,12 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <utility>
 
 #include "Log.h"
 #include "config.h"
+#include "ConfigList.h"
+#include "ConfigTemplate.h"
 
 class StartupArguments {
 public:
@@ -31,7 +34,6 @@ private:
 	//Options
 	bool converter = false;
 	bool extractor = false;
-	bool fullscreen = false;
 	bool gameEditor = false;
 	bool mapEditor = false;
 	bool test = false;
@@ -41,18 +43,16 @@ private:
 	std::string location = "";
 	std::string configLocation = "";
 	std::string outputLocation = "";
-	std::pair<int,int> windowSize = std::make_pair(800,600);
 
 public:
 	StartupArguments(int argc,char **argv);
 	virtual ~StartupArguments(){};
 
-	bool CheckArguments();
+	bool CheckArguments(ConfigList* configList);
 
 	//Getters
 	bool Converter(){return this->converter;}
 	bool Extractor(){return this->extractor;}
-	bool Fullscreen(){return this->fullscreen;}
 	bool GameEditor(){return this->gameEditor;}
 	bool MapEditor(){return this->mapEditor;}
 	bool Test(){return this->test;}
@@ -62,5 +62,4 @@ public:
 	std::string Location(){return this->location;}
 	std::string ConfigLocation(){return this->configLocation;}
 	std::string OutputLocation(){return this->outputLocation;}
-	std::pair<int,int> WindowSize(){return this->windowSize;};
 };

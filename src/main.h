@@ -16,14 +16,17 @@
 
 //config from autotools
 #include "config.h"
+
 //Log System
 #include "Log.h"
 
 //Startup Arguments
 #include "StartupArguments.h"
 
-//Config File
-#include "ConfigFile.h"
+//Config List
+#include "ConfigList.h"
+#include "ConfigTemplate.h"
+//#include "ConfigFile.h"
 
 //Converter
 #include "Converter/Converter.h"
