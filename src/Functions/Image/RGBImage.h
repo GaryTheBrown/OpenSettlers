@@ -25,8 +25,6 @@ namespace Functions{
 
 		RGBA* imageRGBA = NULL;
 
-		bool keep = false;
-
 	public:
 		RGBImage(){};
 		RGBImage(unsigned short width,unsigned short height);

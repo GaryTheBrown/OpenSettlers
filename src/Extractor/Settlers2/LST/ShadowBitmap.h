@@ -18,8 +18,7 @@ namespace Extractor{
 	namespace Settlers2{
 		class ShadowBitmap : public Functions::RGBImage{
 		private:
-			signed short xRel;
-			signed short yRel;
+
 		public:
 			ShadowBitmap(Functions::DataReader* reader);
 
