@@ -36,7 +36,7 @@ namespace Extractor {
 			unsigned short animationCount = 0;
 
 		public:
-			LBMDataType(std::string file);
+			explicit LBMDataType(std::string file);
 			~LBMDataType();
 
 			void SaveToFile(std::string location);

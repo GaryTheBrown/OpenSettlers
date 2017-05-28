@@ -33,7 +33,7 @@ namespace Extractor{
 			unsigned short animationCount = 0;
 
 		public:
-			BBMDataType(std::string file);
+			explicit BBMDataType(std::string file);
 			~BBMDataType();
 
 			void SaveToFile(std::string location);

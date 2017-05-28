@@ -37,7 +37,7 @@ namespace Extractor{
 			SNDFrame** frames;
 
 		public:
-			SNDHeader(Functions::DataReader* reader);
+			explicit SNDHeader(Functions::DataReader* reader);
 			~SNDHeader();
 			void SaveToFile(std::string location);
 		};

@@ -33,8 +33,8 @@ namespace OSData{
 		void CheckValues(std::string name, std::string value);
 	public:
 		GUITextData(GUIItemData baseData,std::string text,RGBA textColour,signed short fontSize);
-		GUITextData(Functions::DataReader* reader);
-		GUITextData(xmlNode* node);
+		explicit GUITextData(Functions::DataReader* reader);
+		explicit GUITextData(xmlNode* node);
 		virtual ~GUITextData(){};
 
 		std::string Text(){return text;}

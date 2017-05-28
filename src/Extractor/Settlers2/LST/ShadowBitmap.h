@@ -20,7 +20,7 @@ namespace Extractor{
 		private:
 
 		public:
-			ShadowBitmap(Functions::DataReader* reader);
+			explicit ShadowBitmap(Functions::DataReader* reader);
 
 			virtual void SaveToFile(std::string filename);
 		};

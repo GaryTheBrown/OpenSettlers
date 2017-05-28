@@ -28,7 +28,7 @@ public:
 	ReturnData(eMenuEvent rMenuEvent,unsigned int rInt);
 	ReturnData(eMenuEvent rMenuEvent,unsigned int rInt , std::string rString);
 
-	ReturnData(Functions::DataReader* reader);
+	explicit ReturnData(Functions::DataReader* reader);
 
 	virtual ~ReturnData(){};
 

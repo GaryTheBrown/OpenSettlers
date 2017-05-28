@@ -17,7 +17,7 @@ namespace Extractor{
 	namespace Settlers2{
 		class RLECompressedBitmap : public Functions::PaletteImage{
 		public:
-			RLECompressedBitmap(Functions::DataReader* reader);
+			explicit RLECompressedBitmap(Functions::DataReader* reader);
 		};
 	}
 }

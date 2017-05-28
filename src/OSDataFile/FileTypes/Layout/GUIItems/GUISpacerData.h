@@ -29,9 +29,9 @@ namespace OSData{
 
 		void CheckValues(std::string name, std::string value);
 	public:
-		GUISpacerData(std::pair<unsigned short,unsigned short> size);
-		GUISpacerData(Functions::DataReader* reader);
-		GUISpacerData(xmlNode* node);
+		explicit GUISpacerData(std::pair<unsigned short,unsigned short> size);
+		explicit GUISpacerData(Functions::DataReader* reader);
+		explicit GUISpacerData(xmlNode* node);
 		//virtual ~GUISpacerData(){};
 
 		bool ToSaveToData(std::vector<char>* data = NULL);

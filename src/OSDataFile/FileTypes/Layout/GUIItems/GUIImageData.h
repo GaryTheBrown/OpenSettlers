@@ -32,8 +32,8 @@ namespace OSData{
 		void CheckValues(std::string name, std::string value);
 	public:
 		GUIImageData(GUIItemData baseData, ImageData image);
-		GUIImageData(Functions::DataReader* reader);
-		GUIImageData(xmlNode* node);
+		explicit GUIImageData(Functions::DataReader* reader);
+		explicit GUIImageData(xmlNode* node);
 		virtual ~GUIImageData(){};
 
 		ImageData Image(){return this->image;}

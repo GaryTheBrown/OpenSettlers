@@ -30,7 +30,7 @@ private:
 	OSData::MenuLayout* layout;
 
 public:
-	StartMenu(SystemInterface::System* system);
+	explicit StartMenu(SystemInterface::System* system);
 	virtual ~StartMenu();
 
 	OSData::MenuLayout* CreateLayout();

@@ -36,7 +36,7 @@ namespace Converter {
 			Data* data;
 			std::vector<OSData::MenuLayout*>* menuLayouts;
 		public:
-			ConvertGUI(Data* data)
+			explicit ConvertGUI(Data* data)
 				:data(data),
 				 menuLayouts(new std::vector<OSData::MenuLayout*>()){};
 

@@ -40,7 +40,7 @@ namespace Extractor{
 			unsigned int offsetPalette; 	//- @offset:80(4)
 
 		public:
-			GFXHeader(Functions::DataReader* reader);
+			explicit GFXHeader(Functions::DataReader* reader);
 			~GFXHeader(){};
 
 			unsigned int ColourCode(){return this->colourCode1;}

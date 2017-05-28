@@ -31,8 +31,8 @@ namespace OSData{
 		void CheckValues(std::string name, std::string value);
 	public:
 		GUIBoxDirectoryData(std::string folderLocation,unsigned short verticalSize,RGBA textColour,unsigned short fontSize, RGBA selectColour);
-		GUIBoxDirectoryData(Functions::DataReader* reader);
-		GUIBoxDirectoryData(xmlNode* node);
+		explicit GUIBoxDirectoryData(Functions::DataReader* reader);
+		explicit GUIBoxDirectoryData(xmlNode* node);
 		virtual ~GUIBoxDirectoryData(){};
 
 		unsigned short VerticalSize(){return this->verticalSize;};

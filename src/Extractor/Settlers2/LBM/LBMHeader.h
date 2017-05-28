@@ -20,7 +20,7 @@ namespace Extractor{
 			unsigned int formatID;//"ILBM"/ "PBM " uint 541934160
 
 		public:
-			LBMHeader(Functions::DataReader* reader);
+			explicit LBMHeader(Functions::DataReader* reader);
 		};
 	}
 }

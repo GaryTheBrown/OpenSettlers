@@ -31,7 +31,7 @@ namespace Extractor {
 			unsigned short pageHeight;
 
 		public:
-			LBMBMHD(Functions::DataReader* reader);
+			explicit LBMBMHD(Functions::DataReader* reader);
 
 			unsigned short Width(){return this->width;};
 			unsigned short Height(){return this->height;};

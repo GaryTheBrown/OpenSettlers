@@ -19,7 +19,7 @@ namespace Extractor{
 
 
 		public:
-			UncompressedBitmap(Functions::DataReader* reader);
+			explicit UncompressedBitmap(Functions::DataReader* reader);
 
 		};
 	}

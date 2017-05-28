@@ -48,8 +48,8 @@ namespace OSData{
 		bool SaveImagesToData(std::vector<char>* data);
 
 	public:
-		File(std::string file);
-		File(FileTypes* data);
+		explicit File(std::string file);
+		explicit File(FileTypes* data);
 		virtual ~File();
 
 		bool ToSaveToXML();

@@ -58,8 +58,8 @@ namespace OSData{
 	public:
 
 		GUIBoxData(GUIItemData baseData, RGBA backgroundColour, eBoxType boxType, std::vector<GUIItemData*>* itemDataList,bool multiSelect = false);
-		GUIBoxData(Functions::DataReader* reader);
-		GUIBoxData(xmlNode* node);
+		explicit GUIBoxData(Functions::DataReader* reader);
+		explicit GUIBoxData(xmlNode* node);
 		virtual ~GUIBoxData();
 
 		RGBA BackgroundColour(){return this->backgroundColour;}

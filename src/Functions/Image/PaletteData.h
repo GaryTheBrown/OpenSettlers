@@ -19,7 +19,7 @@ namespace Functions{
 	protected:
 		RGBA* palette = NULL;
 	public:
-		PaletteData(Functions::DataReader* reader);
+		explicit PaletteData(Functions::DataReader* reader);
 		~PaletteData(){delete [] palette;};
 
 		RGBA* GetPalette(){return this->palette;};

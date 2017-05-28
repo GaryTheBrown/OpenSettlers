@@ -27,7 +27,7 @@ namespace Extractor{
 			bool direction = true;
 
 		public:
-			LBMAnimationData(Functions::DataReader* reader);
+			explicit LBMAnimationData(Functions::DataReader* reader);
 
 			std::string ToString();
 		};

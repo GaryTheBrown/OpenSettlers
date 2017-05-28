@@ -54,8 +54,8 @@ namespace OSData {
 	//			std::vector<Race*>* raceList
 				 );
 
-		GameType(Functions::DataReader* reader);
-		GameType(xmlNode* node);
+		explicit GameType(Functions::DataReader* reader);
+		explicit GameType(xmlNode* node);
 
 		virtual ~GameType();
 

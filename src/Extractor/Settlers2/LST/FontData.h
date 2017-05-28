@@ -27,7 +27,7 @@ namespace Extractor{
 
 			RGBA* palette = NULL;
 		public:
-			FontData(Functions::DataReader* reader);
+			explicit FontData(Functions::DataReader* reader);
 			~FontData();
 
 			void SetPalette(RGBA* palette){this->palette = palette;};

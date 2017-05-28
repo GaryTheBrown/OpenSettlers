@@ -17,7 +17,7 @@ namespace Extractor{
 		class XMIDIData : public Functions::XMIDIData{
 
 		public:
-			XMIDIData(Functions::DataReader* reader);
+			explicit XMIDIData(Functions::DataReader* reader);
 		};
 	}
 }

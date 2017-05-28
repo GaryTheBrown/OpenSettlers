@@ -26,7 +26,7 @@ namespace Functions{
 		std::string unshieldArguments = "-g EXE x";
 	public:
 
-		ExternalProgram(std::string location):location(location){};
+		explicit ExternalProgram(std::string location):location(location){};
 		~ExternalProgram(){};
 		std::string Run(std::string program, std::string arguments, bool show = true);
 		bool GOGExtract();

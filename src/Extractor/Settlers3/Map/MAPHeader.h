@@ -75,7 +75,7 @@ namespace Extractor{
 		public:
 
 
-			MAPHeader(Functions::DataReader* reader);
+			explicit MAPHeader(Functions::DataReader* reader);
 			~MAPHeader();
 
 			std::string HeaderToString();

@@ -74,7 +74,7 @@ namespace Extractor{
 								{222,190,189,255},{222,165,156,255},{230,141,131,255},{238,121,107,255},{238,97,74,255},{247,72,49,255},{255,52,24,255},{255,28,0,255}};
 		public:
 
-			GFXDataType(std::string file);
+			explicit GFXDataType(std::string file);
 			~GFXDataType();
 
 			void SaveToFile(std::string location);

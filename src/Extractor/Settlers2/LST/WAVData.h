@@ -17,7 +17,7 @@ namespace Extractor{
 		class WAVData : public Functions::WAVData{
 
 		public:
-			WAVData(Functions::DataReader* reader);
+			explicit WAVData(Functions::DataReader* reader);
 		};
 	}
 }

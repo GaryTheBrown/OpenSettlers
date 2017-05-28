@@ -19,7 +19,7 @@ namespace Functions{
 			iconv_t iConv;
 
 		public:
-			iConverter(std::string inEncode);
+			explicit iConverter(std::string inEncode);
 			~iConverter(){iconv_close(iConv);};
 
 			std::string convert(std::string input);

@@ -23,7 +23,7 @@ namespace Extractor{
 			SNDHeader* header = NULL;
 
 		public:
-			SNDDataType(std::string file);
+			explicit SNDDataType(std::string file);
 			~SNDDataType();
 
 			void SaveToFile(std::string location);

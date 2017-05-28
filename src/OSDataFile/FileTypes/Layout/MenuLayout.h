@@ -42,8 +42,8 @@ namespace OSData{
 
 
 		MenuLayout(unsigned int menuID,std::string title,RGBA backgroundColour,std::vector<GUIItemData*>* itemData);
-		MenuLayout(Functions::DataReader* reader);
-		MenuLayout(xmlNode* node);
+		explicit MenuLayout(Functions::DataReader* reader);
+		explicit MenuLayout(xmlNode* node);
 
 		virtual ~MenuLayout();
 

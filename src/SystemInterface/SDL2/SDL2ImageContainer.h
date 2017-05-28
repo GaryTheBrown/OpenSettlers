@@ -30,7 +30,7 @@ namespace SystemInterface {
 
 	public:
 
-		SDL2ImageContainer(SDL2System* system);
+		explicit SDL2ImageContainer(SDL2System* system);
 		SDL2ImageContainer(SDL2System* system, SDL2ImageContainer* imageContainer);
 		virtual ~SDL2ImageContainer();
 

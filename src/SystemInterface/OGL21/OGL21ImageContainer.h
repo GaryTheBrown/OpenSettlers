@@ -31,7 +31,7 @@ namespace SystemInterface {
 		std::pair<int,int> location = {0,0};
 
 	public:
-		OGL21ImageContainer(OGL21System* system);
+		explicit OGL21ImageContainer(OGL21System* system);
 		OGL21ImageContainer(OGL21System* system, OGL21ImageContainer* imageContainer);
 		virtual ~OGL21ImageContainer();
 
