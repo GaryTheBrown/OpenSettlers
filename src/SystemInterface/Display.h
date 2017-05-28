@@ -63,8 +63,7 @@ class System;
 		virtual void FlipScreen() = 0;
 
 		//Window size
-		virtual std::pair<int,int> GetWindowSize() = 0;
-		virtual void SetWindowSize(std::pair<int,int> size) = 0;
+		virtual void SetWindowSize() = 0;
 
 		//Screen Size
 		virtual std::pair<int,int> GetScreenSize() = 0;

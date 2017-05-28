@@ -92,14 +92,8 @@ void SystemInterface::OGL21Display::SetWindowName(std::string name){
 	SDL_SetWindowTitle(this->window,this->windowName.c_str());
 }
 
-std::pair<int,int> SystemInterface::OGL21Display::GetWindowSize(){
-	std::pair<int,int> size;
-	SDL_GL_GetDrawableSize(this->window,&size.first,&size.second);
-	return size;
-}
-
-void SystemInterface::OGL21Display::SetWindowSize(std::pair<int,int> size){
-	//std::pair<int,int> size = this->configList->GetValue<std::pair<int,int> >("windowSize");
+void SystemInterface::OGL21Display::SetWindowSize(){
+	std::pair<int,int> size = this->configList->GetValue<std::pair<int,int> >("windowSize");
 	if (size.second == 0) size.second = 1;
 	if (size.first == 0) size.first = 1;
 
@@ -121,12 +115,15 @@ void SystemInterface::OGL21Display::SetWindowFullscreen(){
 	bool fullScreen = this->configList->GetValue<bool>("fullscreen");
 	if (fullScreen){
 		SDL_SetWindowFullscreen(this->window,SDL_FALSE);
-		this->SetWindowSize(this->tmpFullscreenWindowSize);
+		this->configList->SetValue<std::pair<int,int> >("windowSize",this->tmpFullscreenWindowSize);
+		this->SetWindowSize();
 		fullScreen = false;
 	}
 	else{
-		this->tmpFullscreenWindowSize = this->GetWindowSize();
-		this->SetWindowSize({this->systemDesktopMode.w,this->systemDesktopMode.h});
+		this->tmpFullscreenWindowSize = this->configList->GetValue<std::pair<int,int> >("windowSize");
+
+		this->configList->SetValue<std::pair<int,int> >("windowSize",{this->systemDesktopMode.w,this->systemDesktopMode.h});
+		this->SetWindowSize();
 		SDL_SetWindowFullscreen(this->window,SDL_WINDOW_FULLSCREEN);
 		fullScreen = true;
 	}
