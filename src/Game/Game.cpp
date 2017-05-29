@@ -10,8 +10,9 @@
 
 #include "Game.h"
 
-GameInterface::Game::Game(SystemInterface::System* system, OSData::GameType* gameType, signed int startMenuNumberOverride) {
+GameInterface::Game::Game(SystemInterface::System* system, ConfigList* configList, OSData::GameType* gameType, signed int startMenuNumberOverride) {
 	this->system = system;
+	this->configList = configList;
 
 	this->system->SetGameLocation("Games/TheSettlers3/");
 	this->gameType = gameType;
@@ -20,7 +21,7 @@ GameInterface::Game::Game(SystemInterface::System* system, OSData::GameType* gam
 	if(startMenuNumberOverride == -1){
 		startMenuNumber = this->gameType->StartMenuNumber();
 	}
-	this->menu = new GameMenu(this->system,this->gameType->MenuLayouts(),startMenuNumber,this->gameType->AddonsIncluded());
+	this->menu = new GameMenu(this->system,this->configList,this->gameType->MenuLayouts(),startMenuNumber,this->gameType->AddonsIncluded());
 
 }
 

@@ -9,7 +9,7 @@
  *******************************************************************************/
 
 #pragma once
-
+#include "../ConfigList.h"
 #include "../SystemInterface/System.h"
 #include "../OSDataFile/FileTypes/GameType.h"
 #include "../GFXInterface/GFXMenu.h"
@@ -22,10 +22,11 @@ namespace GameInterface {
 	class Game {
 	private:
 		SystemInterface::System* system;
+		ConfigList* configList;
 		OSData::GameType* gameType;
 		GameMenu* menu;
 	public:
-		Game(SystemInterface::System* system,OSData::GameType* gameType, signed int startMenuNumberOverride = -1);
+		Game(SystemInterface::System* system,ConfigList* configList, OSData::GameType* gameType, signed int startMenuNumberOverride = -1);
 		virtual ~Game();
 
 		ReturnData Loop();

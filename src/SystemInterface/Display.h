@@ -35,6 +35,7 @@ class System;
 
 		//Look at setting up an option to Max out FPS for your monitor
 		const unsigned int MAXFPS = 30;
+		bool fullscreen = false;
 		bool bLockFPS = true;
 		bool bShowFPS = false;
 		unsigned int frame = 0;
@@ -42,12 +43,14 @@ class System;
 
 		//Display Options
 		std::string windowName;
+		std::pair<int,int> windowSize = MINWINDOWSIZE;
 
 	public:
 		virtual ~Display(){};
 
 		//Internal
 		std::pair<int,int> GetWindowMINSize(){return this->MINWINDOWSIZE;}
+		std::pair<int,int> GetWindowSize(){return this->windowSize;}
 		std::string GetWindowName(){return this->windowName;}
 		virtual void SetWindowName(std::string name = ""){this->windowName = name;};
 		virtual void SetWindowFullscreen() = 0;
@@ -63,7 +66,7 @@ class System;
 		virtual void FlipScreen() = 0;
 
 		//Window size
-		virtual void SetWindowSize() = 0;
+		virtual void SetWindowSize(std::pair<int,int> size) = 0;
 
 		//Screen Size
 		virtual std::pair<int,int> GetScreenSize() = 0;

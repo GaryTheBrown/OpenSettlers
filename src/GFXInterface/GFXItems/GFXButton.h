@@ -14,6 +14,7 @@
 #include <string>
 #include <stdio.h>
 #include <utility>
+#include "../../ConfigList.h"
 #include "../../MenuEvents.h"
 #include "../../SystemInterface/System.h"
 #include "../../SystemInterface/ImageContainer.h"
@@ -44,7 +45,7 @@ namespace GFXInterface {
 	public:
 
 		//Constructor
-		GFXButton(SystemInterface::System* system, OSData::GUIButtonData* buttonData, OSData::GameAddons addons);
+		GFXButton(SystemInterface::System* system, ConfigList* configList, OSData::GUIButtonData* buttonData, OSData::GameAddons addons);
 		virtual ~GFXButton();
 
 		//Getters

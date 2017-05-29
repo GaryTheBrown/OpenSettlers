@@ -10,9 +10,10 @@
 
 #include "GFXMenu.h"
 
-GFXInterface::GFXMenu::GFXMenu(SystemInterface::System* system, OSData::MenuLayout* menuLayout, OSData::GameAddons addons){
+GFXInterface::GFXMenu::GFXMenu(SystemInterface::System* system, ConfigList* configList, OSData::MenuLayout* menuLayout, OSData::GameAddons addons){
 	if(menuLayout != NULL){
 		this->system = system;
+		this->configList = configList;
 		this->menuLayout = menuLayout;
 		this->title = this->menuLayout->Title();
 		this->backgroundColour = this->menuLayout->BackgroundColour();
@@ -29,23 +30,23 @@ GFXInterface::GFXMenu::GFXMenu(SystemInterface::System* system, OSData::MenuLayo
 				default:
 					break;
 				case OSData::GUIItemData::GUIImageType:
-					image = new GFXImage(this->system,(OSData::GUIImageData*)(*item),addons);
+					image = new GFXImage(this->system,this->configList,(OSData::GUIImageData*)(*item),addons);
 					this->itemList->push_back(image);
 					break;
 				case OSData::GUIItemData::GUIButtonType:
-					button = new GFXButton(this->system,(OSData::GUIButtonData*)(*item),addons);
+					button = new GFXButton(this->system,this->configList,(OSData::GUIButtonData*)(*item),addons);
 					this->itemList->push_back(button);
 					break;
 				case OSData::GUIItemData::GUIBoxType:
-					box = new GFXBox(this->system,(OSData::GUIBoxData*)(*item),addons);
+					box = new GFXBox(this->system,this->configList,(OSData::GUIBoxData*)(*item),addons);
 					this->itemList->push_back(box);
 					break;
 				case OSData::GUIItemData::GUITextType:
-					text = new GFXText(this->system,(OSData::GUITextData*)(*item),addons);
+					text = new GFXText(this->system,this->configList,(OSData::GUITextData*)(*item),addons);
 					this->itemList->push_back(text);
 					break;
 				case OSData::GUIItemData::GUISpacerType:
-					spacer = new GFXSpacer(this->system,(OSData::GUISpacerData*)(*item));
+					spacer = new GFXSpacer(this->system,this->configList,(OSData::GUISpacerData*)(*item));
 					this->itemList->push_back(spacer);
 					break;
 				}
@@ -131,8 +132,11 @@ ReturnData GFXInterface::GFXMenu::EventHandler(){
 	   	    if(tempSize.first < this->system->display->GetWindowMINSize().first) tempSize.first = this->system->display->GetWindowMINSize().first;
 	   	    if(tempSize.second < this->system->display->GetWindowMINSize().second) tempSize.second = this->system->display->GetWindowMINSize().second;
 
-	   	    this->system->display->SetWindowSize(tempSize);
-
+ 			this->system->display->SetWindowSize(tempSize);
+/*
+			this->configList->SetValue("windowSize",tempSize);
+	   	    this->system->display->SetWindowSize();
+*/
 	   	    this->ResizedWindow();
 	   	    break;
 	    }

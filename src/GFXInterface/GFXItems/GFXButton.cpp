@@ -10,25 +10,25 @@
 
 #include "GFXButton.h"
 
-GFXInterface::GFXButton::GFXButton(SystemInterface::System* system, OSData::GUIButtonData* buttonData, OSData::GameAddons addons)
-				:GFXItem(system,OSData::GUIItemData::GUIButtonType,(OSData::GUIItemData*)buttonData,addons){
+GFXInterface::GFXButton::GFXButton(SystemInterface::System* system, ConfigList* configList, OSData::GUIButtonData* buttonData, OSData::GameAddons addons)
+				:GFXItem(system,configList,OSData::GUIItemData::GUIButtonType,(OSData::GUIItemData*)buttonData,addons){
 	this->buttonData = buttonData;
 	this->location = this->buttonData->Location();
 	this->size = this->buttonData->Size();
 	this->text = this->buttonData->Text();
 
 	switch(this->buttonData->Image().Type()){
-	case OSData::ImageData::tLocation:
-		this->image = this->system->LoadTexture(this->buttonData->Image().Location());
-		break;
-	case OSData::ImageData::tColour:
-		this->image = this->system->CreateTexture(this->buttonData->Size(),this->buttonData->Image().Colour());
-		break;
-	case OSData::ImageData::tNumber:
-		this->image = this->system->LoadTexture(this->buttonData->Image().Image());
-		break;
-	default:
-		break;
+		case OSData::ImageData::tLocation:
+			this->image = this->system->LoadTexture(this->buttonData->Image().Location());
+			break;
+		case OSData::ImageData::tColour:
+			this->image = this->system->CreateTexture(this->buttonData->Size(),this->buttonData->Image().Colour());
+			break;
+		case OSData::ImageData::tNumber:
+			this->image = this->system->LoadTexture(this->buttonData->Image().Image());
+			break;
+		default:
+			break;
 	}
 	switch(this->buttonData->Hover().Type()){
 		case OSData::ImageData::tLocation:
@@ -142,7 +142,6 @@ void GFXInterface::GFXButton::Pressed(){
 		else
 			this->clicked = true;
 	}
-
 }
 
 void GFXInterface::GFXButton::Unselect(){

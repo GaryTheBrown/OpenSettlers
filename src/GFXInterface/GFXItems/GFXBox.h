@@ -15,6 +15,7 @@
 #include <vector>
 #include <utility>
 
+#include "../../ConfigList.h"
 #include "../../MenuEvents.h"
 #include "../../Functions/To.h"
 #include "../../OSDataFile/FileTypes/Layout/GUIItems/GUIBoxData.h"
@@ -39,7 +40,7 @@ namespace GFXInterface {
 
 	public:
 
-		GFXBox(SystemInterface::System* system,OSData::GUIBoxData* BoxData, OSData::GameAddons addons);
+		GFXBox(SystemInterface::System* system, ConfigList* configList, OSData::GUIBoxData* BoxData, OSData::GameAddons addons);
 		virtual ~GFXBox();
 
 		//getters

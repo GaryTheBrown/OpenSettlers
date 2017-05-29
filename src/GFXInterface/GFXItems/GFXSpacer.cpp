@@ -10,8 +10,8 @@
 
 #include "GFXSpacer.h"
 
-GFXInterface::GFXSpacer::GFXSpacer(SystemInterface::System* system, OSData::GUISpacerData* spacerData)
-			:GFXItem(system,OSData::GUIItemData::GUISpacerType,(OSData::GUIItemData*)spacerData,OSData::eS2None){
+GFXInterface::GFXSpacer::GFXSpacer(SystemInterface::System* system, ConfigList* configList, OSData::GUISpacerData* spacerData)
+			:GFXItem(system,configList,OSData::GUIItemData::GUISpacerType,  (OSData::GUIItemData*)spacerData,OSData::eS2None){
 	this->spacerData = spacerData;
 	this->location = this->spacerData->Location();
 	this->size = this->spacerData->Size();

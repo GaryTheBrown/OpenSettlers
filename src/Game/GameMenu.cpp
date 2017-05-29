@@ -10,8 +10,9 @@
 
 #include "GameMenu.h"
 
-GameInterface::GameMenu::GameMenu(SystemInterface::System* system, std::vector<OSData::MenuLayout*>* menuLayouts, unsigned int startMenuNumber, OSData::GameAddons addons):
+GameInterface::GameMenu::GameMenu(SystemInterface::System* system, ConfigList* configList, std::vector<OSData::MenuLayout*>* menuLayouts, unsigned int startMenuNumber, OSData::GameAddons addons):
 	system(system),
+	configList(configList),
 	menuLayouts(menuLayouts),
 	startMenuNumber(startMenuNumber),
 	addons(addons){
@@ -20,7 +21,7 @@ GameInterface::GameMenu::GameMenu(SystemInterface::System* system, std::vector<O
 	for (unsigned int startNumber = this->startMenuNumber; startNumber >= 0; startNumber--){
 		for(auto layout = this->menuLayouts->begin() ; layout < this->menuLayouts->end(); layout++){
 			if ((*layout)->MenuID() == startNumber){
-				this->menu = new GFXInterface::GFXMenu(system,(*layout),this->addons);
+				this->menu = new GFXInterface::GFXMenu(system,this->configList,(*layout),this->addons);
 				return;
 			}
 		}
@@ -46,7 +47,7 @@ ReturnData GameInterface::GameMenu::Loop(){
 				for(auto layout = this->menuLayouts->begin() ; layout < this->menuLayouts->end(); layout++){
 					if ((*layout)->MenuID() == gfxReturn.Int()){
 						delete this->menu;
-						this->menu = new GFXInterface::GFXMenu(system,(*layout),addons);
+						this->menu = new GFXInterface::GFXMenu(system,this->configList,(*layout),addons);
 						found = true;
 						break;
 					}

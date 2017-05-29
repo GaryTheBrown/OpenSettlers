@@ -12,6 +12,7 @@
 
 #include <string>
 #include <vector>
+#include "../ConfigList.h"
 #include "../MenuEvents.h"
 #include "../Functions/Image/RGBA.h"
 #include "../SystemInterface/System.h"
@@ -28,13 +29,14 @@ namespace GFXInterface {
 	class GFXMenu {
 	protected:
 		SystemInterface::System* system;
+		ConfigList* configList;
 		OSData::MenuLayout* menuLayout;
 		std::string title;
 		RGBA backgroundColour;
 		std::vector<GFXItem*>* itemList = NULL;
 
 	public:
-		GFXMenu(SystemInterface::System* system, OSData::MenuLayout* menuLayout, OSData::GameAddons addons);
+		GFXMenu(SystemInterface::System* system, ConfigList* configList, OSData::MenuLayout* menuLayout, OSData::GameAddons addons);
 		virtual ~GFXMenu();
 
 		std::string Title(){return title;}

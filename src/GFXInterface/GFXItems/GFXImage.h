@@ -14,6 +14,7 @@
 #include <string>
 #include <stdio.h>
 #include <utility>
+#include "../../ConfigList.h"
 #include "../../SystemInterface/System.h"
 #include "../../SystemInterface/ImageContainer.h"
 #include "../../OSDataFile/FileTypes/Layout/GUIItems/GUIImageData.h"
@@ -27,7 +28,7 @@ namespace GFXInterface {
 
 	public:
 		//constructors
-		GFXImage(SystemInterface::System* system, OSData::GUIImageData* imageData, OSData::GameAddons addons);
+		GFXImage(SystemInterface::System* system, ConfigList* configList, OSData::GUIImageData* imageData, OSData::GameAddons addons);
 		virtual ~GFXImage(){};
 
 		//functions

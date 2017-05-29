@@ -80,7 +80,7 @@ void OSData::GUIButtonTypeData::CheckValues(std::string name, std::string value)
 	if (name == "Text")
 		this->text = value;
 	else if (name == "ButtonType")
-			this->GetButtonType(value);
+		this->GetButtonType(value);
 }
 bool OSData::GUIButtonTypeData::ToSaveToData(std::vector<char>* data){
 	if (data == NULL) data = new std::vector<char>;

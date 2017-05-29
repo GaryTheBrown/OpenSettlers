@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <utility>
 
+#include "../../ConfigList.h"
 #include "../../Functions/Image/RGBA.h"
 #include "../../SystemInterface/System.h"
 #include "../../SystemInterface/ImageContainer.h"
@@ -28,8 +29,8 @@ namespace GFXInterface {
 		OSData::GUITextData* textData;
 	public:
 		//constructors
-		GFXText(SystemInterface::System* system, std::string text, RGBA textColour, unsigned short fontSize, std::pair<int,int> location, OSData::GameAddons addons);
-		GFXText(SystemInterface::System* system, OSData::GUITextData* textData, OSData::GameAddons addons);
+		GFXText(SystemInterface::System* system, ConfigList* configList, std::string text, RGBA textColour, unsigned short fontSize, std::pair<int,int> location, OSData::GameAddons addons);
+		GFXText(SystemInterface::System* system, ConfigList* configList, OSData::GUITextData* textData, OSData::GameAddons addons);
 		virtual ~GFXText(){};
 
 		void Draw();

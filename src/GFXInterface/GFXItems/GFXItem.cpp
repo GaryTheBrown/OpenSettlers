@@ -9,11 +9,11 @@
  *******************************************************************************/
 
 #include "GFXItem.h"
-
-GFXInterface::GFXItem::GFXItem(SystemInterface::System* system, OSData::GUIItemData::eGUIItemType itemType, OSData::GUIItemData* itemData, OSData::GameAddons addons) {
+GFXInterface::GFXItem::GFXItem(SystemInterface::System* system,ConfigList* configList, OSData::GUIItemData::eGUIItemType itemType, OSData::GUIItemData* itemData, OSData::GameAddons addons) {
 	this->itemType = itemType;
 	this->itemData = itemData;
 	this->system = system;
+	this->configList = configList;
 	this->image = NULL;
 
 	switch(this->itemData->VisibilityData().Type()){

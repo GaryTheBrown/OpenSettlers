@@ -10,8 +10,8 @@
 
 #include "GFXImage.h"
 
-GFXInterface::GFXImage::GFXImage(SystemInterface::System* system, OSData::GUIImageData* imageData, OSData::GameAddons addons)
-			:GFXItem(system,OSData::GUIItemData::GUIImageType,(OSData::GUIItemData*)imageData,addons){
+GFXInterface::GFXImage::GFXImage(SystemInterface::System* system, ConfigList* configList, OSData::GUIImageData* imageData, OSData::GameAddons addons)
+			:GFXItem(system,configList,OSData::GUIItemData::GUIImageType,(OSData::GUIItemData*)imageData,addons){
 	this->imageData = imageData;
 	this->location = this->imageData->Location();
 	this->size = this->imageData->Size();
@@ -34,6 +34,7 @@ GFXInterface::GFXImage::GFXImage(SystemInterface::System* system, OSData::GUIIma
 void GFXInterface::GFXImage::Draw(){
 	if(this->enabled&&this->visible){
 		std::pair<int,int> windowSize = this->system->display->GetWindowSize();
+		//auto windowSize = this->configList->GetValue<std::pair<int,int> >("windowSize");
 		std::pair<int,int> location = this->location;
 		std::pair<int,int> size = this->image->GetTextureSize();
 

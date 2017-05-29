@@ -9,7 +9,7 @@
  *******************************************************************************/
 
 #pragma once
-
+#include "../ConfigList.h"
 #include "../SystemInterface/System.h"
 #include "../OSDataFile/FileTypes/GameType.h"
 #include "../OSDataFile/FileTypes/GameData.h"
@@ -21,12 +21,13 @@ namespace GameInterface {
 	class GameMenu {
 	private:
 		SystemInterface::System* system;
+		ConfigList* configList;
 		std::vector<OSData::MenuLayout*>* menuLayouts;
 		unsigned int startMenuNumber;
 		GFXInterface::GFXMenu* menu;
 		OSData::GameAddons addons;
 	public:
-		GameMenu(SystemInterface::System* system, std::vector<OSData::MenuLayout*>* menuLayouts, unsigned int startMenuNumber, OSData::GameAddons addons);
+		GameMenu(SystemInterface::System* system, ConfigList* configList, std::vector<OSData::MenuLayout*>* menuLayouts, unsigned int startMenuNumber, OSData::GameAddons addons);
 		virtual ~GameMenu();
 
 		ReturnData Loop();

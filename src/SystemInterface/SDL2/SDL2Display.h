@@ -32,7 +32,7 @@ namespace SystemInterface {
 		//Window
 		void SetWindowName(std::string name = "");
 		std::pair<int,int> GetWindowSize();
-		void SetWindowSize();
+		void SetWindowSize(std::pair<int,int> size);
 		void SetWindowFullscreen();
 
 		//Screen

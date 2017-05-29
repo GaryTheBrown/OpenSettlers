@@ -10,8 +10,8 @@
 
 #include "GFXBox.h"
 
-GFXInterface::GFXBox::GFXBox(SystemInterface::System* system,OSData::GUIBoxData* boxData, OSData::GameAddons addons)
-	:GFXItem(system,OSData::GUIItemData::GUIBoxType,(OSData::GUIItemData*)boxData,addons){
+GFXInterface::GFXBox::GFXBox(SystemInterface::System* system, ConfigList* configList, OSData::GUIBoxData* boxData, OSData::GameAddons addons)
+	:GFXItem(system,configList,OSData::GUIItemData::GUIBoxType,(OSData::GUIItemData*)boxData,addons){
 	this->boxData = boxData;
 	this->image = this->system->CreateTexture(boxData->Size(),boxData->BackgroundColour());
 	this->location = this->boxData->Location();
@@ -28,15 +28,15 @@ GFXInterface::GFXBox::GFXBox(SystemInterface::System* system,OSData::GUIBoxData*
 			default:
 				break;
 			case OSData::GUIItemData::GUIButtonType:
-				newItem = new GFXButton(this->system,(OSData::GUIButtonData*)(*item),addons);
+				newItem = new GFXButton(this->system,this->configList,(OSData::GUIButtonData*)(*item),addons);
 				this->itemList->push_back(newItem);
 				break;
 			case OSData::GUIItemData::GUIImageType:
-				newItem = new GFXImage(this->system,(OSData::GUIImageData*)(*item),addons);
+				newItem = new GFXImage(this->system,this->configList,(OSData::GUIImageData*)(*item),addons);
 				this->itemList->push_back(newItem);
 				break;
 			case OSData::GUIItemData::GUISpacerType:
-				newItem = new GFXSpacer(this->system,(OSData::GUISpacerData*)(*item));
+				newItem = new GFXSpacer(this->system,this->configList,(OSData::GUISpacerData*)(*item));
 				this->itemList->push_back(newItem);
 				break;
 			}

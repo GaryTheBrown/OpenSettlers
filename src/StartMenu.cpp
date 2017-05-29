@@ -10,7 +10,7 @@
 
 #include "StartMenu.h"
 
-StartMenu::StartMenu(SystemInterface::System* system):system(system) {
+StartMenu::StartMenu(SystemInterface::System* system,ConfigList* configList):system(system),configList(configList) {
 	OSData::File* file = NULL;
 
 	if(Functions::FolderExists("Data")){
@@ -24,7 +24,7 @@ StartMenu::StartMenu(SystemInterface::System* system):system(system) {
 
 		this->layout = file->ReturnMenuLayout();
 		file->KeepData();
-		this->menu = new GFXInterface::GFXMenu(system,this->layout,OSData::eS2None);
+		this->menu = new GFXInterface::GFXMenu(system,this->configList,this->layout,OSData::eS2None);
 		delete file;
 	}
 }

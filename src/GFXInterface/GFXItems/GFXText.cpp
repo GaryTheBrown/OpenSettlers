@@ -10,8 +10,8 @@
 
 #include "GFXText.h"
 
-GFXInterface::GFXText::GFXText(SystemInterface::System* system, std::string text, RGBA textColour, unsigned short fontSize, std::pair<int,int> location, OSData::GameAddons addons)
-		:GFXItem(system,OSData::GUIItemData::GUITextType,(OSData::GUIItemData*)textData,addons){
+GFXInterface::GFXText::GFXText(SystemInterface::System* system, ConfigList* configList, std::string text, RGBA textColour, unsigned short fontSize, std::pair<int,int> location, OSData::GameAddons addons)
+		:GFXItem(system,configList,OSData::GUIItemData::GUITextType,(OSData::GUIItemData*)textData,addons){
 
 	this->textData = NULL;
 	this->image = this->system->TextToImage(text,textColour,fontSize);
@@ -20,8 +20,8 @@ GFXInterface::GFXText::GFXText(SystemInterface::System* system, std::string text
 
 }
 
-GFXInterface::GFXText::GFXText(SystemInterface::System* system, OSData::GUITextData* textData, OSData::GameAddons addons)
-		:GFXItem(system,OSData::GUIItemData::GUITextType,(OSData::GUIItemData*)textData,addons){
+GFXInterface::GFXText::GFXText(SystemInterface::System* system, ConfigList* configList, OSData::GUITextData* textData, OSData::GameAddons addons)
+		:GFXItem(system,configList,OSData::GUIItemData::GUITextType,(OSData::GUIItemData*)textData,addons){
 
 	this->textData = textData;
 	this->image = this->system->TextToImage(this->textData->Text(),this->textData->TextColour(),this->textData->FontSize());

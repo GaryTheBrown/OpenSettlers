@@ -12,6 +12,7 @@
 #include <string>
 #include <utility>
 
+#include "../../ConfigList.h"
 #include "../../SystemInterface/System.h"
 #include "../../SystemInterface/ImageContainer.h"
 #include "../../OSDataFile/FileTypes/Layout/GUIItems/GUIItemData.h"
@@ -27,6 +28,7 @@ namespace GFXInterface {
 		bool temp = false;
 	protected:
 		SystemInterface::System* system;
+		ConfigList* configList;
 		SystemInterface::ImageContainer* image;
 		std::pair<int,int> location;
 		std::pair<int,int> size;
@@ -34,7 +36,7 @@ namespace GFXInterface {
 		bool enabled;
 
 	public:
-		GFXItem(SystemInterface::System* system, OSData::GUIItemData::eGUIItemType itemType, OSData::GUIItemData* itemData, OSData::GameAddons addons);
+		GFXItem(SystemInterface::System* system, ConfigList* configList, OSData::GUIItemData::eGUIItemType itemType, OSData::GUIItemData* itemData, OSData::GameAddons addons);
 		virtual ~GFXItem();
 
 		//Getters

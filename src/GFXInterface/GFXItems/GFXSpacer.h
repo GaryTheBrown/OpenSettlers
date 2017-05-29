@@ -14,6 +14,7 @@
 #include <string>
 #include <stdio.h>
 #include <utility>
+#include "../../ConfigList.h"
 #include "../../SystemInterface/System.h"
 #include "../../SystemInterface/ImageContainer.h"
 #include "../../OSDataFile/FileTypes/Layout/GUIItems/GUISpacerData.h"
@@ -25,7 +26,7 @@ namespace GFXInterface {
 	private:
 		OSData::GUISpacerData* spacerData;
 	public:
-		GFXSpacer(SystemInterface::System* system, OSData::GUISpacerData* spacerData);
+		GFXSpacer(SystemInterface::System* system, ConfigList* configList, OSData::GUISpacerData* spacerData);
 		virtual ~GFXSpacer(){};
 
 	};

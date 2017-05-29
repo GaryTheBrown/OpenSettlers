@@ -13,6 +13,7 @@
 #include <vector>
 #include <algorithm>
 
+#include "ConfigList.h"
 #include "SystemInterface/System.h"
 
 #include "MenuEvents.h"
@@ -26,11 +27,12 @@
 class StartMenu {
 private:
 	SystemInterface::System* system;
+	ConfigList* configList;
 	GFXInterface::GFXMenu* menu;
 	OSData::MenuLayout* layout;
 
 public:
-	explicit StartMenu(SystemInterface::System* system);
+	StartMenu(SystemInterface::System* system,ConfigList* configList);
 	virtual ~StartMenu();
 
 	OSData::MenuLayout* CreateLayout();

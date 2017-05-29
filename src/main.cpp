@@ -106,7 +106,7 @@ std::string configLocation2 = "~/Opensettlers/config.cfg"; //TO BE SYSTEM LOCATI
 		//If not loading Game From command then Run Start Menu
 		if(gameType == NULL){
 			//Create Start Menu Object
-			StartMenu* startMenu = new StartMenu(system);
+			StartMenu* startMenu = new StartMenu(system,configList);
 			//DO StartMenu Loop
 			startMenuReturn = startMenu->Loop();
 			// Cleanup window
@@ -116,7 +116,7 @@ std::string configLocation2 = "~/Opensettlers/config.cfg"; //TO BE SYSTEM LOCATI
 		case MMStartGame:{
 			file = new OSData::File("Games/" + startMenuReturn.String());
 			gameType = file->ReturnGameType();
-			GameInterface::Game* game = new GameInterface::Game(system,gameType);
+			GameInterface::Game* game = new GameInterface::Game(system,configList,gameType);
 			system->display->SetWindowName(std::string(PACKAGE_NAME) + "- " + gameType->GameName());
 			startMenuReturn = game->Loop();
 			delete game;
