@@ -109,14 +109,4 @@ template <class T> class ConfigTemplate : public ConfigTemplateBase{
 				}
 			}
 		}
-
-
-
-
-
-
-
-
-
-
 };
