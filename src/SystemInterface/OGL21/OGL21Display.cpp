@@ -93,7 +93,8 @@ void SystemInterface::OGL21Display::SetWindowName(std::string name){
 }
 
 void SystemInterface::OGL21Display::SetWindowSize(std::pair<int,int> size){
-	//std::pair<int,int> size = this->configList->GetValue<std::pair<int,int> >("windowSize");
+	//auto pair =  this->configList->GetValue<std::pair<int,int> >("windowsize");
+	//std::pair<int,int> size = this->configList->GetValue<std::pair<int,int> >("windowsize");
 	if (size.second == 0) size.second = 1;
 	if (size.first == 0) size.first = 1;
 
@@ -113,22 +114,22 @@ void SystemInterface::OGL21Display::SetWindowSize(std::pair<int,int> size){
 }
 
 void SystemInterface::OGL21Display::SetWindowFullscreen(){
-	//bool fullscreen = this->configList->GetValue<bool>("fullscreen");
-	if (this->fullscreen){
+	bool fullscreen = this->configList->GetValue<bool>("fullscreen");
+	if (fullscreen){
 		SDL_SetWindowFullscreen(this->window,SDL_FALSE);
-		//this->configList->SetValue<std::pair<int,int> >("windowSize",);
+		//this->configList->SetValue<std::pair<int,int> >("windowsize",this->tmpFullscreenWindowSize);
 		this->SetWindowSize(this->tmpFullscreenWindowSize);
-		this->fullscreen = false;
+		fullscreen = false;
 	}
 	else{
-		this->tmpFullscreenWindowSize = this->windowSize;// this->configList->GetValue<std::pair<int,int> >("windowSize");
+		this->tmpFullscreenWindowSize = this->windowSize;// this->configList->GetValue<std::pair<int,int> >("windowsize");
 
-		//this->configList->SetValue<std::pair<int,int> >("windowSize",{this->systemDesktopMode.w,this->systemDesktopMode.h});
+		//this->configList->SetValue<std::pair<int,int> >("windowsize",{this->systemDesktopMode.w,this->systemDesktopMode.h});
 		this->SetWindowSize({this->systemDesktopMode.w,this->systemDesktopMode.h});
 		SDL_SetWindowFullscreen(this->window,SDL_WINDOW_FULLSCREEN);
-		this->fullscreen = true;
+		fullscreen = true;
 	}
-	//this->configList->SetValue<bool>("fullscreen",fullscreen);
+	this->configList->SetValue<bool>("fullscreen",fullscreen);
 }
 
 std::pair<int,int> SystemInterface::OGL21Display::GetScreenSize(){

@@ -60,28 +60,28 @@ void SystemInterface::SDL2Display::SetWindowName(std::string name){
 }
 
 void SystemInterface::SDL2Display::SetWindowSize(std::pair<int,int> size){
-	//std::pair<int,int> size = this->configList->GetValue<std::pair<int,int> >("windowSize");
+	//std::pair<int,int> size = this->configList->GetValue<std::pair<int,int> >("windowsize");
 	if(size.second == 0) size.second = 1;
 	if(size.first == 0) size.first = 1;
 	SDL_SetWindowSize(this->window,size.first,size.second);
-	//this->configList->SetValue<std::pair<int,int> >("windowSize",size);
+	//this->configList->SetValue<std::pair<int,int> >("windowsize",size);
 	this->windowSize = size;
 }
 
 void SystemInterface::SDL2Display::SetWindowFullscreen(){
-	//auto fullscreen = this->configList->GetValue<bool>("fullscreen");
-	if (this->fullscreen){
+	bool fullscreen = this->configList->GetValue<bool>("fullscreen");
+	if (fullscreen){
 		SDL_SetWindowFullscreen(this->window,SDL_FALSE);
-		//this->configList->SetValue<std::pair<int,int> >("windowSize",this->tmpFullscreenWindowSize);
+		//this->configList->SetValue<std::pair<int,int> >("windowsize",this->tmpFullscreenWindowSize);
 		this->SetWindowSize(this->tmpFullscreenWindowSize);
-		this->fullscreen = false;
+		fullscreen = false;
 	}
 	else{
-		this->tmpFullscreenWindowSize = this->windowSize;//this->configList->GetValue<std::pair<int,int> >("windowSize");;
+		this->tmpFullscreenWindowSize = this->windowSize;//this->configList->GetValue<std::pair<int,int> >("windowsize");
 		SDL_SetWindowFullscreen(this->window,SDL_WINDOW_FULLSCREEN_DESKTOP);
-		this->fullscreen = true;
+		fullscreen = true;
 	}
-	//this->configList->SetValue("fullscreen",fullscreen);
+	this->configList->SetValue<bool>("fullscreen",fullscreen);
 }
 
 std::pair<int,int> SystemInterface::SDL2Display::GetScreenSize(){

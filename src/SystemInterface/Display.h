@@ -35,7 +35,7 @@ class System;
 
 		//Look at setting up an option to Max out FPS for your monitor
 		const unsigned int MAXFPS = 30;
-		bool fullscreen = false;
+		//bool fullscreen = false;
 		bool bLockFPS = true;
 		bool bShowFPS = false;
 		unsigned int frame = 0;
