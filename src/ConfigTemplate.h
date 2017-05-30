@@ -8,6 +8,7 @@
  *******************************************************************************/
 
 #pragma once
+#include <algorithm>
 #include <string>
 #include <utility>
 #include <typeinfo>
@@ -33,11 +34,17 @@ class ConfigTemplateBase{
 
 	public:
 		ConfigTemplateBase(){};
-		ConfigTemplateBase(std::string code, std::string name):code(code),name(name){};
-		ConfigTemplateBase(std::string code, std::string name,configGroup group):code(code),name(name),group(group){};
+		ConfigTemplateBase(std::string code, std::string name):code(code),name(name){
+			std::transform(code.begin(), code.end(),code.begin(), ::toupper);
+		};
+		ConfigTemplateBase(std::string code, std::string name,configGroup group):code(code),name(name),group(group){
+			std::transform(this->code.begin(), this->code.end(),this->code.begin(), ::toupper);
+		};
 		virtual ~ConfigTemplateBase(){};
 
-		bool CheckCode(std::string checkCode){if(this->code==checkCode)return true; else return false;}
+		bool CheckCode(std::string checkCode){
+			std::transform(checkCode.begin(), checkCode.end(),checkCode.begin(), ::toupper);
+			if(this->code==checkCode)return true; else return false;}
 		std::string GetName(){return this->name;}
 		configGroup GetGroup(){return group;}
 };
@@ -55,7 +62,6 @@ template <class T> class ConfigTemplate : public ConfigTemplateBase{
 		ConfigTemplate(){};
 		ConfigTemplate(std::string code, std::string name, configGroup group, T defaultValue, unsigned int count, std::pair<std::string,T> *data):ConfigTemplateBase(code, name,group), value(defaultValue), defaultValue(defaultValue), count(count), data(data){}
 		ConfigTemplate(std::string code, std::string name, configGroup group, T defaultValue,eVarType varType):ConfigTemplateBase(code, name,group), value(defaultValue), defaultValue(defaultValue){
-
 			switch (varType){
 				case eBool:
 					this->count = 2;
