@@ -13,18 +13,24 @@
 
 enum eMenuEvent {
 	//These return nothing
-			MMNothing = 0,
-			MMStartMenu = 1,
-			MMStartGame = 2,
-			MMMapEditor = 3,
-			MMGameOptions = 4,
-			MMAddGame = 5,
-			MMCreateGame = 6,
-			MMEditGame = 7,
-			MMOptions = 8,
-			MMAbout = 9,
-			MMQuit = 10,
-			GMGotoMenu = 11 //Return Int
+		MMNothing,
+		MMStartMenu,
+		MMStartGame,
+		MMMapEditor,
+		MMGameOptions,
+		MMAddGame,
+		MMCreateGame,
+		MMEditGame,
+		MMOptions,
+		MMAbout,
+		MMQuit,
+
+		GMGotoMenu,//Return Int
+
+		CLDisplayAll,
+		CLSingleOption,//Return String
+
+
 
 		};//{Nothing,Quit,StartGame,About,Options,PlayGame,LoadGame,SaveGame,OpenMenu,OpenWindow,CloseWindow,LoadInternalData, TestData,SaveData};
 

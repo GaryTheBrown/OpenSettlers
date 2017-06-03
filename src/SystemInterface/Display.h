@@ -34,10 +34,9 @@ class System;
 		std::pair<int,int> tmpFullscreenWindowSize;
 
 		//Look at setting up an option to Max out FPS for your monitor
-		const unsigned int MAXFPS = 30;
-		//bool fullscreen = false;
-		bool bLockFPS = true;
-		bool bShowFPS = false;
+		unsigned int MAXFPS;
+		bool bLockFPS;
+		bool bShowFPS;
 		unsigned int frame = 0;
 		Functions::Timer tLockFPS, FPS, update;
 
@@ -54,9 +53,6 @@ class System;
 		std::string GetWindowName(){return this->windowName;}
 		virtual void SetWindowName(std::string name = ""){this->windowName = name;};
 		virtual void SetWindowFullscreen() = 0;
-
-
-
 
 		//Virtual
 		//Clear Window to Colour
@@ -81,7 +77,5 @@ class System;
 		virtual unsigned int GetTick() = 0;
 		virtual double CalculateFPS() = 0;
 		virtual	void ShowFPSCounter() = 0;
-
-		std::pair<int,int> GetMinWindowSize(){return MINWINDOWSIZE;};
 	};
 }

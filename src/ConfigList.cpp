@@ -12,7 +12,7 @@
 
 ConfigList::ConfigList(){
 //Fullscreen
-	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<bool>("fullscreen","FullScreen",ConfigTemplateBase::cDisplay,false,ConfigTemplate<bool>::eBool)));
+	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<bool>("fullscreen","FullScreen",ConfigTemplateBase::cDisplay,false,ConfigTemplateBase::eBool)));
 //Window Size
 	unsigned int windowCount = 4;
 	std::pair<std::string,std::pair<int,int> > *data = new std::pair<std::string,std::pair<int,int> >[windowCount];
@@ -21,6 +21,10 @@ ConfigList::ConfigList(){
 	data[2] = std::make_pair("1024x768",std::make_pair(1024,768));
 	data[3] = std::make_pair("1366x768",std::make_pair(1366,768));
 	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<std::pair<int,int> >("windowsize","Window Size",ConfigTemplateBase::cDisplay,std::make_pair(800,600),windowCount, data)));
+//FPS Options
+	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<bool>("lockfps","Lock FPS",ConfigTemplateBase::cDisplay,true,ConfigTemplateBase::eBool)));
+	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<bool>("showfps","Show FPS",ConfigTemplateBase::cDisplay,false,ConfigTemplateBase::eBool)));
+	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<int>("maxfps","Max FPS",ConfigTemplateBase::cDisplay,30,ConfigTemplateBase::eInt)));
 //list more options here
 }
 
@@ -30,7 +34,11 @@ ConfigList::~ConfigList() {
 	}
 	this->configList.clear();
 }
+bool ConfigList::ConvertString(std::string first,std::string second){
 
+
+	return false;
+}
 bool ConfigList::ConfigFile(std::string file){
 	if (Functions::FileExists(file) == false){
 		if (file != ""){
@@ -43,19 +51,43 @@ bool ConfigList::ConfigFile(std::string file){
 
 	for (auto line=data->begin() ; line < data->end(); line++ ){
 		if(this->OptionExists(line->first)){
-			if(line->first == "fullscreen"){
-				this->SetValue("fullscreen",true);
-			}else if(line->first == "windowsize"){
-				std::size_t pos = line->second.find(",");
-				std::pair<int,int> pair = std::make_pair(atoi(line->second.substr(0,pos).c_str()),atoi(line->second.substr(pos+1).c_str()));
-				this->SetValue("windowsize",pair);
+//Check If More than 1 Variable
+			size_t pos = line->second.find_first_of(',');
+			if (pos==std::string::npos){
+				if(line->second == "true"){
+					this->SetValue(line->first,true);
+					return true;
+				}
+				if(line->second == "false"){
+					this->SetValue(line->first,false);
+					return true;
+				}
+				if((line->second[0] == '"')&&(line->second.back() == '"')){
+					this->SetValue(line->first,line->second);
+					return true;
+				}
+				if(atoi(line->second.c_str())){
+					this->SetValue(line->first,atoi(line->second.c_str()));
+					return true;
+				}
+				if(atof(line->second.c_str())){
+					this->SetValue(line->first,atof(line->second.c_str()));
+					return true;
+				}
+
+					return false;
 			}
-		}else{
-			LOGSYSTEM->Error("Config Code " + line->first + "Not Found");
-			return false;
+			std::string var1 = line->second.substr(0, pos);
+			std::string var2 = line->second.substr(pos+1);
+
+			if((atoi(var1.c_str()))&&(atoi(var2.c_str()))){
+				auto pair = std::make_pair(atoi(var1.c_str()),(atoi(var2.c_str())));
+				this->SetValue(line->first,pair);
+				return true;
+			}
 		}
 	}
-	return true;
+	return false;
 }
 
 

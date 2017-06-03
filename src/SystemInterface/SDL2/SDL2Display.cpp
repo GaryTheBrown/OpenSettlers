@@ -21,6 +21,9 @@ SystemInterface::SDL2Display::SDL2Display(System* system,ConfigList* configList)
 
 	auto windowSize =  configList->GetValue<std::pair<int,int> >("windowsize");
 	bool fullscreen = configList->GetValue<bool>("fullscreen");
+	this->MAXFPS = configList->GetValue<unsigned int>("maxfps");
+	this->bShowFPS = configList->GetValue<bool>("showfps");
+	this->bLockFPS = configList->GetValue<bool>("lockfps");
 
 	//Checks for Inital Window Size (setting up from cli and eventually from config)
 	if(windowSize.first < this->MINWINDOWSIZE.first) windowSize.first = this->MINWINDOWSIZE.first;

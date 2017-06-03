@@ -16,16 +16,16 @@
 class ConfigTemplateBase{
 	public:
 	enum eVarType : char{
-		eBool,
-		eInt,
-		eString,
+		eBool = 0,
+		eInt = 1,
+		eString = 2,
 	};
 
 	enum configGroup : char{
-			cGeneral = 0,
-			cDisplay = 1,
-			cAudio = 2,
-		};
+		cGeneral = 0,
+		cDisplay = 1,
+		cAudio = 2,
+	};
 
 	protected:
 		std::string code;
@@ -63,16 +63,18 @@ template <class T> class ConfigTemplate : public ConfigTemplateBase{
 		ConfigTemplate(std::string code, std::string name, configGroup group, T defaultValue, unsigned int count, std::pair<std::string,T> *data):ConfigTemplateBase(code, name,group), value(defaultValue), defaultValue(defaultValue), count(count), data(data){}
 		ConfigTemplate(std::string code, std::string name, configGroup group, T defaultValue,eVarType varType):ConfigTemplateBase(code, name,group), value(defaultValue), defaultValue(defaultValue){
 			switch (varType){
-				case eBool:
+				case eBool:{
 					this->count = 2;
-					this->data = new std::pair<std::string,bool>[2];
+					this->data = new std::pair<std::string,T>[2];
 					this->data[0] = std::make_pair("True",true);
 					this->data[1] = std::make_pair("False",false);
 					break;
+				}
 				case eInt:
-				case eString:
+				case eString:{
 					this->count = 0;
 					break;
+				}
 				default:
 					break;
 			}

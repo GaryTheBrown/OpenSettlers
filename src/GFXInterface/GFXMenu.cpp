@@ -117,7 +117,33 @@ ReturnData GFXInterface::GFXMenu::EventHandler(){
 	    			case OSData::GUIItemData::GUIButtonType:
 	    			case OSData::GUIItemData::GUIBoxType:
 	    				returnEvent = (*item)->EventHandler();
-	    				if (returnEvent != ReturnData(MMNothing)) return returnEvent;
+						switch(returnEvent.MenuEvent()){
+							case MMNothing:
+								break;
+							//case CLDisplayAll:
+
+							//break;
+							case CLSingleOption:
+								if(returnEvent.String() == "FULLSCREEN"){
+									this->system->display->SetWindowFullscreen();
+								}else if(returnEvent.String() == "WINDOWSIZE"){
+									auto windowSize = this->configList->GetValue<std::pair<int,int> >("windowsize");
+									this->system->display->SetWindowSize(windowSize);
+								}
+								else if(returnEvent.String() == "SHOWFPS"){
+									bool showfps = this->configList->GetValue<bool>("showfps");
+									if(showfps){
+										this->system->display->ShowFPS();
+									}else{
+										this->system->display->HideFPS();
+									}
+								}
+
+								//returnEvent.String()//option code
+								break;
+							default:
+								return returnEvent;
+						}
 	    				break;
 	    			default:
 	    				break;

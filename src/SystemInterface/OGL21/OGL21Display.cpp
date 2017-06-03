@@ -19,8 +19,12 @@ SystemInterface::OGL21Display::OGL21Display(System* system,ConfigList* configLis
 	SDL_GetCurrentDisplayMode(0,&this->currentDesktopMode);
 	SDL_GetDesktopDisplayMode(0,&this->systemDesktopMode);
 
+	//setup from config
 	auto windowSize =  configList->GetValue<std::pair<int,int> >("windowsize");
 	bool fullScreen = configList->GetValue<bool>("fullscreen");
+	this->MAXFPS = configList->GetValue<unsigned int>("maxfps");
+	this->bShowFPS = configList->GetValue<bool>("showfps");
+	this->bLockFPS = configList->GetValue<bool>("lockfps");
 
 	//Checks for Inital Window Size (setting up from cli and eventually from config)
  	if(windowSize.first < this->MINWINDOWSIZE.first) windowSize.first = this->MINWINDOWSIZE.first;
