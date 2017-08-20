@@ -11,6 +11,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <libxml/tree.h>
 
 #include "../../../../Functions/File/DataReader.h"

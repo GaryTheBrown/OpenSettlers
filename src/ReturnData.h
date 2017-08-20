@@ -11,6 +11,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include "MenuEvents.h"
 #include "Functions/To.h"
 #include "Functions/File/DataReader.h"
