@@ -21,5 +21,5 @@
 //#include "Settlers4/Convert.h"
 
 namespace Converter{
-	extern bool Main(std::string location, std::string saveLocation = "Games");
+	extern bool Main(std::string location, std::string saveLocation);
 }

@@ -25,6 +25,7 @@ class ConfigTemplateBase{
 		cGeneral = 0,
 		cDisplay = 1,
 		cAudio = 2,
+		cLocation = 3,
 	};
 
 	protected:

@@ -25,6 +25,10 @@ ConfigList::ConfigList(){
 	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<bool>("lockfps","Lock FPS",ConfigTemplateBase::cDisplay,true,ConfigTemplateBase::eBool)));
 	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<bool>("showfps","Show FPS",ConfigTemplateBase::cDisplay,false,ConfigTemplateBase::eBool)));
 	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<int>("maxfps","Max FPS",ConfigTemplateBase::cDisplay,30,ConfigTemplateBase::eInt)));
+//Locations
+this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<std::string>("gameslocation","Games Location",ConfigTemplateBase::cLocation,"Games/",ConfigTemplateBase::eString)));
+this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<std::string>("startmenulocation","Start Menu Location",ConfigTemplateBase::cLocation,"Data/StartMenu.dat",ConfigTemplateBase::eString)));
+
 //list more options here
 }
 
@@ -33,11 +37,6 @@ ConfigList::~ConfigList() {
 		delete this->configList[i];
 	}
 	this->configList.clear();
-}
-bool ConfigList::ConvertString(std::string first,std::string second){
-
-
-	return false;
 }
 bool ConfigList::ConfigFile(std::string file){
 	if (Functions::FileExists(file) == false){

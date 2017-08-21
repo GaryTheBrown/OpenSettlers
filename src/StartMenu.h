@@ -35,6 +35,7 @@ public:
 	StartMenu(SystemInterface::System* system,ConfigList* configList);
 	virtual ~StartMenu();
 
+	bool Load();
 	OSData::MenuLayout* CreateLayout();
 	ReturnData Loop();
 };

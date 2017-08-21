@@ -34,8 +34,6 @@
 class ConfigList {
 	private:
 		std::vector<ConfigTemplateBase*> configList;
-
-		bool ConvertString(std::string first,std::string second);
 	public:
 		ConfigList();
 		virtual ~ConfigList();

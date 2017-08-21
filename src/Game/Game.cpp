@@ -13,8 +13,6 @@
 GameInterface::Game::Game(SystemInterface::System* system, ConfigList* configList, OSData::GameType* gameType, signed int startMenuNumberOverride) {
 	this->system = system;
 	this->configList = configList;
-
-	this->system->SetGameLocation("Games/TheSettlers3/");
 	this->gameType = gameType;
 
 	unsigned int startMenuNumber = startMenuNumberOverride;

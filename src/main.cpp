@@ -13,20 +13,17 @@
 int main(int argc,char* argv[]){
 
 	ConfigList* configList = new ConfigList();
+	unsigned int configLocationSize = 2;
+	std::string configLocations[configLocationSize] = {"config.cfg", "~/Opensettlers/config.cfg"};
+	for(auto i = 0; i < configLocationSize; i++){
+		if(Functions::FileExists(configLocations[i])){
+			if(!configList->ConfigFile(configLocations[i])) return 0;
+		}
+	}
 	//Startup Arguments Setup
 	StartupArguments* startupArguments = new StartupArguments(argc,argv);
 	if(startupArguments->CheckArguments(configList))
 		return 0; //if comes back true exits
-
-std::string configLocation1 = "config.cfg"; //TO BE SYSTEM LOCATION
-std::string configLocation2 = "~/Opensettlers/config.cfg"; //TO BE SYSTEM LOCATION
-
-	if(Functions::FileExists(configLocation1)){
-		if(!configList->ConfigFile(configLocation1)) return 0;
-	}
-	if(Functions::FileExists(configLocation2)){
-		if(!configList->ConfigFile(configLocation2)) return 0;
-	}
 
 	OSData::GameType* gameType = NULL;
 	OSData::File* file = NULL;
@@ -36,7 +33,7 @@ std::string configLocation2 = "~/Opensettlers/config.cfg"; //TO BE SYSTEM LOCATI
 	if(startupArguments->Converter()){
 		LOGSYSTEM->Log("Open Settlers Converter Started",1);
 		if(startupArguments->OutputLocation() == ""){
-			if (Converter::Main(startupArguments->Location()) == false) return 1;
+			if (Converter::Main(startupArguments->Location(),configList->GetValue<std::string>("gameslocation")) == false) return 1;
 		}else{
 			if (Converter::Main(startupArguments->Location(),startupArguments->OutputLocation()) == false) return 1;
 		}
@@ -107,6 +104,8 @@ std::string configLocation2 = "~/Opensettlers/config.cfg"; //TO BE SYSTEM LOCATI
 		if(gameType == NULL){
 			//Create Start Menu Object
 			StartMenu* startMenu = new StartMenu(system,configList);
+			//Load The Startmenu or die
+			if(!startMenu->Load()) return 1;
 			//DO StartMenu Loop
 			startMenuReturn = startMenu->Loop();
 			// Cleanup window
@@ -114,7 +113,7 @@ std::string configLocation2 = "~/Opensettlers/config.cfg"; //TO BE SYSTEM LOCATI
 		}
 		switch(startMenuReturn.MenuEvent()){
 		case MMStartGame:{
-			file = new OSData::File("Games/" + startMenuReturn.String());
+			file = new OSData::File(configList->GetValue<std::string>("gameslocation") + startMenuReturn.String());
 			gameType = file->ReturnGameType();
 			GameInterface::Game* game = new GameInterface::Game(system,configList,gameType);
 			system->display->SetWindowName(std::string(PACKAGE_NAME) + "- " + gameType->GameName());
