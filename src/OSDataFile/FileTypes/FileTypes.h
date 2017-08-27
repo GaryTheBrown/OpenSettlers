@@ -22,7 +22,10 @@ namespace OSData{
 			eFull = 1,
 			eArchive = 2,
 			eMenuLayout = 3,
-			eLoadScreen = 4
+			eLoadingScreenLayout = 4,
+			eMapOptions = 5,
+			eMapSetup = 6,
+			eTerrain = 7
 		};
 
 	protected:

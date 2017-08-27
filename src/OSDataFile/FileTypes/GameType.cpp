@@ -24,7 +24,7 @@ OSData::GameType::GameType(std::string gameName, unsigned char gameNumber, GameA
 	this->menuLayouts = new std::vector<MenuLayout*>();
 }
 
-OSData::GameType::GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts
+OSData::GameType::GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts, std::vector<LoadingScreenLayout*>* loadingScreenLayouts
 //		GameOptions* gameOptions,
 //		Layout* layout,
 //		MapSetup* mapSetup,
@@ -36,9 +36,11 @@ OSData::GameType::GameType(std::string gameName, unsigned char gameNumber, GameA
 		gameNumber(gameNumber),
 		addonsIncluded(addonsIncluded),
 		startMenuNumber(startMenuNumber),
-		menuLayouts(menuLayouts){
+		menuLayouts(menuLayouts),
+		loadingScreenLayouts(loadingScreenLayouts){
 
 	std::sort(this->menuLayouts->begin(),this->menuLayouts->end());
+	std::sort(this->loadingScreenLayouts->begin(),this->loadingScreenLayouts->end());
 
 //	this->gameOptions = gameOptions;
 //	this->layout = layout;
@@ -117,7 +119,7 @@ OSData::FileTypes::eFileType OSData::GameType::GetFileType(std::string data){
 	if (data == "MenuLayout")
 		return FileTypes::eMenuLayout;
 	else if (data == "LoadScreen")
-		return FileTypes::eLoadScreen;
+		return FileTypes::eLoadingScreenLayout;
 	else //Includes Full and Archive
 		return FileTypes::eNone;
 }
@@ -134,7 +136,13 @@ void OSData::GameType::DoFileType(FileTypes::eFileType fileType, void* data, boo
 		else
 			this->menuLayouts->push_back(new MenuLayout((Functions::DataReader*)data));
 		break;
-	case FileTypes::eLoadScreen:
+	case FileTypes::eLoadingScreenLayout:
+		if(this->loadingScreenLayouts == NULL)
+			this->loadingScreenLayouts = new std::vector<LoadingScreenLayout*>();
+		if(xml)
+			this->loadingScreenLayouts->push_back(new LoadingScreenLayout((xmlNode*)data));
+		else
+			this->loadingScreenLayouts->push_back(new LoadingScreenLayout((Functions::DataReader*)data));
 		break;
 
 	//Ignore these

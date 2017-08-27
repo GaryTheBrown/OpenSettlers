@@ -24,7 +24,7 @@ bool StartMenu::Load(){
 			return false;
 		}
 */
-	if (Functions::FileExists(configList->GetValue<std::string>("startmenulocation")){
+	if (Functions::FileExists(configList->GetValue<std::string>("startmenulocation"))){
 		file = new OSData::File(configList->GetValue<std::string>("startmenulocation"));
 		this->layout = file->ReturnMenuLayout();
 		file->KeepData();

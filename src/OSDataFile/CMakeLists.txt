@@ -29,13 +29,13 @@ set(src_osdatafile
 	FileTypes/Layout/GUIItems/ImageData.h
 	FileTypes/Layout/MenuLayout.cpp
 	FileTypes/Layout/MenuLayout.h
+	FileTypes/Layout/LoadingScreenLayout.cpp
+	FileTypes/Layout/LoadingScreenLayout.h
 	FileTypes/GameType.cpp
 	FileTypes/GameType.h
 	OSDataFile.cpp
 	OSDataFile.h
 )
-
-
 
 add_library(OSDataFile ${src_osdatafile})
 

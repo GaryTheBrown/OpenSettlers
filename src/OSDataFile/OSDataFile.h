@@ -27,6 +27,7 @@
 #include "FileTypes/FileTypes.h"
 #include "FileTypes/GameType.h"
 #include "FileTypes/Layout/MenuLayout.h"
+#include "FileTypes/Layout/LoadingScreenLayout.h"
 
 namespace OSData{
 	class File {

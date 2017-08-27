@@ -13,7 +13,8 @@ set(src_gfxinterface
 	GFXItems/GFXText.h
 	GFXMenu.cpp
 	GFXMenu.h
-
+	GFXLoadingScreen.cpp
+	GFXLoadingScreen.h
 )
 add_library(GFXInterface ${src_gfxinterface})
 target_link_libraries (GFXInterface MenuEvents ReturnData Functions SystemInterface OSDataFile)

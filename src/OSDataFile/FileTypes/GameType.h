@@ -23,6 +23,7 @@
 #include "../../Log.h"
 
 #include "Layout/MenuLayout.h"
+#include "Layout/LoadingScreenLayout.h"
 
 namespace OSData {
 	class GameType : public FileTypes {
@@ -34,6 +35,7 @@ namespace OSData {
 
 		//bool hasGameIcon;
 		std::vector<MenuLayout*>* menuLayouts = NULL;
+		std::vector<LoadingScreenLayout*>* loadingScreenLayouts = NULL;
 		//GameOptions* gameOptions;
 		//List<Race>* raceList;
 		//List<Resource>* resourceList;
@@ -47,7 +49,7 @@ namespace OSData {
 
 		GameType();
 		GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber);
-		GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts
+		GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts, std::vector<LoadingScreenLayout*>* loadingScreenLayouts
 	//			GameOptions* gameOptions,
 	//			MapSetup* mapSetup,
 	//			std::vector<Resource*>* resourceList,

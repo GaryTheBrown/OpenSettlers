@@ -15,7 +15,7 @@ int main(int argc,char* argv[]){
 	ConfigList* configList = new ConfigList();
 	unsigned int configLocationSize = 2;
 	std::string configLocations[configLocationSize] = {"config.cfg", "~/Opensettlers/config.cfg"};
-	for(auto i = 0; i < configLocationSize; i++){
+	for(unsigned int i = 0; i < configLocationSize; i++){
 		if(Functions::FileExists(configLocations[i])){
 			if(!configList->ConfigFile(configLocations[i])) return 0;
 		}

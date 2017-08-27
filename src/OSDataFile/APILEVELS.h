@@ -19,7 +19,7 @@ namespace OSData{
 		const unsigned int ARCHIVE = 0; //Is This one really needed?
 
 		const unsigned int MENULAYOUT = 0;
-		const unsigned int LOADINGSCREEN = 0;
+		const unsigned int LOADINGSCREENLAYOUT = 0;
 		const unsigned int GUIITEMS = 0;
 
 		const unsigned int LANDSCAPE = 0;

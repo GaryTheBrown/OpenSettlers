@@ -16,36 +16,32 @@
 #include "../MenuEvents.h"
 #include "../Functions/Image/RGBA.h"
 #include "../SystemInterface/System.h"
-#include "../OSDataFile/FileTypes/Layout/MenuLayout.h"
+#include "../OSDataFile/FileTypes/Layout/LoadingScreenLayout.h"
 #include "../OSDataFile/FileTypes/GameData.h"
-#include "GFXItems/GFXBox.h"
-#include "GFXItems/GFXButton.h"
 #include "GFXItems/GFXImage.h"
-#include "GFXItems/GFXText.h"
-#include "GFXItems/GFXSpacer.h"
 #include "../ReturnData.h"
 
 namespace GFXInterface {
-	class GFXMenu {
+	class GFXLoadingScreen {
 	protected:
 		SystemInterface::System* system;
 		ConfigList* configList;
-		OSData::MenuLayout* menuLayout;
+		OSData::LoadingScreenLayout* loadingScreenLayout;
 		std::string title;
 		RGBA backgroundColour;
-		std::vector<GFXItem*>* itemList = NULL;
+		std::vector<GFXImage*>* imageList = NULL;
 
 	public:
-		GFXMenu(SystemInterface::System* system, ConfigList* configList, OSData::MenuLayout* menuLayout, OSData::GameAddons addons);
-		virtual ~GFXMenu();
+		GFXLoadingScreen(SystemInterface::System* system, ConfigList* configList, OSData::LoadingScreenLayout* loadingScreenLayout, OSData::GameAddons addons);
+		virtual ~GFXLoadingScreen();
 
 		std::string Title(){return title;}
 
 		void Draw();
 		void ResizedWindow();
 
-		ReturnData Loop();
-		ReturnData EventHandler();
+		//ReturnData Loop();
+		//ReturnData EventHandler();
 
 	};
 }

@@ -127,7 +127,7 @@ OSData::FileTypes::eFileType OSData::File::GetFileType(std::string data){
 	else if (data == "MenuLayout")
 		return FileTypes::eMenuLayout;
 	else if (data == "LoadScreen")
-		return FileTypes::eLoadScreen;
+		return FileTypes::eLoadingScreenLayout;
 
 	return FileTypes::eNone;
 }
@@ -149,7 +149,11 @@ void OSData::File::DoFileType(FileTypes::eFileType fileType,void* data, bool xml
 		else
 			this->dataType = new MenuLayout((Functions::DataReader*)data);
 		break;
-	case FileTypes::eLoadScreen:
+	case FileTypes::eLoadingScreenLayout:
+		if(xml)
+			this->dataType = new LoadingScreenLayout((xmlNode*)data);
+		else
+			this->dataType = new LoadingScreenLayout((Functions::DataReader*)data);
 		break;
 	default:
 		break;

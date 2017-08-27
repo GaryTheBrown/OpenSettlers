@@ -8,72 +8,56 @@
  * of the License.
  *******************************************************************************/
 
-#include "GFXMenu.h"
+#include "GFXLoadingScreen.h"
 
-GFXInterface::GFXMenu::GFXMenu(SystemInterface::System* system, ConfigList* configList, OSData::MenuLayout* menuLayout, OSData::GameAddons addons){
-	if(menuLayout != NULL){
+GFXInterface::GFXLoadingScreen::GFXLoadingScreen(SystemInterface::System* system, ConfigList* configList, OSData::LoadingScreenLayout* loadingScreenLayout, OSData::GameAddons addons){
+	if(loadingScreenLayout != NULL){
 		this->system = system;
 		this->configList = configList;
-		this->menuLayout = menuLayout;
-		this->title = this->menuLayout->Title();
-		this->backgroundColour = this->menuLayout->BackgroundColour();
-		this->itemList = new std::vector<GFXItem*>();
+		this->loadingScreenLayout = loadingScreenLayout;
+		this->title = this->loadingScreenLayout->Title();
+		this->backgroundColour = this->loadingScreenLayout->BackgroundColour();
+		this->imageList = new std::vector<GFXImage*>();
 
-		if(this->menuLayout->ItemData() != NULL){
-			for(auto item=this->menuLayout->ItemData()->begin() ; item < this->menuLayout->ItemData()->end(); item++ ){
-				switch ((*item)->ItemType()){
-				default:
-					break;
-				case OSData::GUIItemData::GUIImageType:
-					this->itemList->push_back(new GFXImage(this->system,this->configList,(OSData::GUIImageData*)(*item),addons));
-					break;
-				case OSData::GUIItemData::GUIButtonType:
-					this->itemList->push_back(new GFXButton(this->system,this->configList,(OSData::GUIButtonData*)(*item),addons));
-					break;
-				case OSData::GUIItemData::GUIBoxType:
-					this->itemList->push_back(new GFXBox(this->system,this->configList,(OSData::GUIBoxData*)(*item),addons));
-					break;
-				case OSData::GUIItemData::GUITextType:
-					this->itemList->push_back(new GFXText(this->system,this->configList,(OSData::GUITextData*)(*item),addons));
-					break;
-				case OSData::GUIItemData::GUISpacerType:
-					this->itemList->push_back(new GFXSpacer(this->system,this->configList,(OSData::GUISpacerData*)(*item)));
-					break;
-				}
+		if(this->loadingScreenLayout->ImageData() != NULL){
+			GFXImage* image;
+			for(auto item=this->loadingScreenLayout->ImageData()->begin() ; item < this->loadingScreenLayout->ImageData()->end(); item++ ){
+				image = new GFXImage(this->system,this->configList,(OSData::GUIImageData*)(*item),addons);
+				this->imageList->push_back(image);
 			}
 		}
 	}
 }
-GFXInterface::GFXMenu::~GFXMenu() {
-	if (this->itemList != NULL) {
-		for(auto item=this->itemList->begin() ; item < this->itemList->end(); item++ ){
+GFXInterface::GFXLoadingScreen::~GFXLoadingScreen() {
+	if (this->imageList != NULL) {
+		for(auto item=this->imageList->begin() ; item < this->imageList->end(); item++ ){
 			delete (*item);
 		}
-		this->itemList->clear();
-		delete this->itemList;
+		this->imageList->clear();
+		delete this->imageList;
 	}
 }
 
-void GFXInterface::GFXMenu::Draw(){
+void GFXInterface::GFXLoadingScreen::Draw(){
 
     this->system->display->ClearToColour(this->backgroundColour);
-	if(this->itemList != NULL){
-		for(auto item=this->itemList->begin() ; item < this->itemList->end(); item++ ){
+	if(this->imageList != NULL){
+		for(auto item=this->imageList->begin() ; item < this->imageList->end(); item++ ){
 			(*item)->Draw();
 		}
 	}
 	this->system->display->FlipScreen();
 }
 
-void GFXInterface::GFXMenu::ResizedWindow(){
-	if(this->itemList != NULL){
-		for(auto item=this->itemList->begin() ; item < this->itemList->end(); item++ ){
+void GFXInterface::GFXLoadingScreen::ResizedWindow(){
+	if(this->imageList != NULL){
+		for(auto item=this->imageList->begin() ; item < this->imageList->end(); item++ ){
 			(*item)->CalculateLocation();
 		}
 	}
 }
-
-ReturnData GFXInterface::GFXMenu::EventHandler(){
+/*
+ReturnData GFXInterface::GFXLoadingScreen::EventHandler(){
 	//Handle events on queue
 	while(this->system->events->GetNextEvent()){
 		switch(this->system->events->GetEvent()){
@@ -107,7 +91,7 @@ ReturnData GFXInterface::GFXMenu::EventHandler(){
 	    			case OSData::GUIItemData::GUIButtonType:
 	    			case OSData::GUIItemData::GUIBoxType:
 	    				returnEvent = (*item)->EventHandler();
-						switch(returnEvent.MenuEvent()){
+						switch(returnEvent.LoadingScreenEvent()){
 							case MMNothing:
 								break;
 							//case CLDisplayAll:
@@ -149,10 +133,10 @@ ReturnData GFXInterface::GFXMenu::EventHandler(){
 	   	    if(tempSize.second < this->system->display->GetWindowMINSize().second) tempSize.second = this->system->display->GetWindowMINSize().second;
 
  			this->system->display->SetWindowSize(tempSize);
-/*
-			this->configList->SetValue("windowSize",tempSize);
-	   	    this->system->display->SetWindowSize();
-*/
+
+//			this->configList->SetValue("windowSize",tempSize);
+//	   	    this->system->display->SetWindowSize();
+
 	   	    this->ResizedWindow();
 	   	    break;
 	    }
@@ -163,21 +147,21 @@ ReturnData GFXInterface::GFXMenu::EventHandler(){
 	return MMNothing;
 }
 
-ReturnData GFXInterface::GFXMenu::Loop(){
+ReturnData GFXInterface::GFXLoadingScreen::Loop(){
 
 	while (true){
 
 		this->system->display->FPSRestart();
 
 		ReturnData event = this->EventHandler();
-		switch (event.MenuEvent()){
-		//Commands ran outside of menu
+		switch (event.LoadingScreenEvent()){
+		//Commands ran outside of LoadingScreen
 		case MMStartGame:
 			for(auto item=this->itemList->begin() ; item < this->itemList->end(); item++ ){
 				if ((*item)->GetItemType() == OSData::GUIItemData::GUIBoxType){
 					GFXItem* fetched = (*item)->GetSelected();
 					if(fetched != NULL){
-						return ReturnData(event.MenuEvent(),fetched->GetText());
+						return ReturnData(event.LoadingScreenEvent(),fetched->GetText());
 					}
 				}
 			}
@@ -185,11 +169,11 @@ ReturnData GFXInterface::GFXMenu::Loop(){
 		case MMAddGame:
 		case MMEditGame:
 		case MMQuit:
-		case GMGotoMenu:
+		case GMGotoLoadingScreen:
 		case MMOptions: //TMP
 			return event;
 
-		//Functions inside menu system
+		//Functions inside LoadingScreen system
 		case MMAbout:
 			if(this->system->display->GetShowFPS() == false){
 				this->system->display->ShowFPS();
@@ -220,3 +204,4 @@ ReturnData GFXInterface::GFXMenu::Loop(){
 	}
 	return ReturnData(MMNothing);
 }
+*/
