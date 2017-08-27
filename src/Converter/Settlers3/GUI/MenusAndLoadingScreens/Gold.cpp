@@ -170,16 +170,17 @@ void Converter::Settlers3::ConvertGUI::Gold(OSData::GameType* gameType){
 
 		gameType->AddMenuLayout(MLMainMenu);
 
-		//TEMP SAVE TO FILES DELETE ONCE MENU LAYOUT IS SETUP
-/*
 		//Loading Screen
-		loadingScreenMiddleBar->SaveToFile("GFX/GoldLSMiddleBar");
-		loadingScreenLogo->SaveToFile("GFX/GoldLSLogo");
-*/
-		//Loading Screen
-		if (loadingScreenMiddleBar != NULL)delete loadingScreenMiddleBar;
-		if (loadingScreenLogo != NULL)delete loadingScreenLogo;
-		//Original Images
+		std::vector<OSData::GUIImageData*>* loadingImages= new std::vector<OSData::GUIImageData*>();
+
+		OSData::GUIImageData* lsMiddleBar = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(0,0),OSData::GUIItemData::AlignCentre,OSData::GUIItemData::FullStretch,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),OSData::ImageData(loadingScreenMiddleBar));
+		loadingImages->push_back(lsMiddleBar);
+		OSData::GUIImageData* lsLogo = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(0,0),OSData::GUIItemData::AlignCentre,OSData::GUIItemData::AlignCentre,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),OSData::ImageData(loadingScreenLogo));
+		loadingImages->push_back(lsLogo);
+
+		gameType->AddLoadingScreenLayout(new OSData::LoadingScreenLayout(3,"Loading Screen - Gold",RGBA(255,93,24,255),loadingImages));
+
+		//Delete Original Images
 		if (mainMenu != NULL)delete mainMenu;
 		if (loadingScreen != NULL)delete loadingScreen;
 	}

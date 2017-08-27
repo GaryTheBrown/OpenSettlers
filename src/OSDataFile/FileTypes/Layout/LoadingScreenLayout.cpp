@@ -36,7 +36,7 @@ OSData::LoadingScreenLayout::LoadingScreenLayout(Functions::DataReader* reader):
 	this->imageData = new std::vector<GUIImageData*>();
 
 	for(int i = 0; i < dataCount;i++){
-		//imageDataType = static_cast<GUIImageData::eGUIItemType>(reader->ReadChar());
+		reader->ReadChar();//always image type
 		this->imageData->push_back(new GUIImageData(reader));
 	}
 }

@@ -28,7 +28,7 @@ namespace OSData{
 	class LoadingScreenLayout : public FileTypes {
 	private:
 
-		unsigned int APIVersion = APILEVEL::MENULAYOUT;
+		unsigned int APIVersion = APILEVEL::LOADINGSCREENLAYOUT;
 		unsigned int menuID = 0;
 		std::string title;
 		RGBA backgroundColour;

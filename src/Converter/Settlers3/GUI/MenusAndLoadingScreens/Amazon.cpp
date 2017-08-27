@@ -175,19 +175,19 @@ void Converter::Settlers3::ConvertGUI::Amazon(OSData::GameType* gameType){
 
 		gameType->AddMenuLayout(MLMainMenu);
 
-		//TEMP SAVE TO FILES DELETE ONCE MENU LAYOUT IS SETUP
+		//Loading Screen
+		std::vector<OSData::GUIImageData*>* loadingImages= new std::vector<OSData::GUIImageData*>();
 
-/*
-		//Loading Screen
-		loadingScreenMiddleBar->SaveToFile("GFX/AmazLSMiddleBar");
-		loadingScreenBBLogo->SaveToFile("GFX/AmazLSBBLogo");
-		loadingScreenLogo->SaveToFile("GFX/AmazLSLogo");
-*/
-		//Loading Screen
-		if (loadingScreenMiddleBar != NULL)delete loadingScreenMiddleBar;
-		if (loadingScreenBBLogo != NULL)delete loadingScreenBBLogo;
-		if (loadingScreenLogo != NULL)delete loadingScreenLogo;
-		//Original Images
+		OSData::GUIImageData* lsMiddleBar = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(0,0),OSData::GUIItemData::AlignCentre,OSData::GUIItemData::FullStretch,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),OSData::ImageData(loadingScreenMiddleBar));
+		loadingImages->push_back(lsMiddleBar);
+		OSData::GUIImageData* lsBBLogo = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(76,36),std::make_pair(0,0),OSData::GUIItemData::AlignRight,OSData::GUIItemData::AlignBottom,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),OSData::ImageData(loadingScreenBBLogo));
+		loadingImages->push_back(lsBBLogo);
+		OSData::GUIImageData* lsLogo = new OSData::GUIImageData(OSData::GUIItemData(std::make_pair(0,0),std::make_pair(0,0),OSData::GUIItemData::AlignCentre,OSData::GUIItemData::AlignCentre,OSData::GUIVisibilityData(OSData::GUIVisibilityData::vNone)),OSData::ImageData(loadingScreenLogo));
+		loadingImages->push_back(lsLogo);
+
+		gameType->AddLoadingScreenLayout(new OSData::LoadingScreenLayout(2,"Loading Screen - Amazon",RGBA(255,93,24,255),loadingImages));
+
+		//Delete Original Images
 		if (mainMenu != NULL)delete mainMenu;
 		if (loadingScreen != NULL)delete loadingScreen;
 	}

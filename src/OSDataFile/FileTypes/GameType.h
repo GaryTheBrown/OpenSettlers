@@ -64,6 +64,7 @@ namespace OSData {
 		void SortAll();
 		void StartMenuNumber(unsigned int startMenuNumber){this->startMenuNumber = startMenuNumber;};
 		void AddMenuLayout(MenuLayout* menuLayout);//see GameType.cpp
+		void AddLoadingScreenLayout(LoadingScreenLayout* loadingScreenLayout);//see GameType.cpp
 		//void GameNumber(unsigned char gameNumber){this->gameNumber = gameNumber;}//Should this be available? thinking no can comment back in if so
 		void AddonsIncluded(GameAddons addonsIncluded){this->addonsIncluded = static_cast<GameAddons>(static_cast<unsigned char>(this->addonsIncluded) | static_cast<unsigned char>(addonsIncluded));}
 

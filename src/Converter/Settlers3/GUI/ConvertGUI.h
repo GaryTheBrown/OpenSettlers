@@ -21,6 +21,7 @@
 #include "../../../Extractor/Settlers3/GFXDataType.h"
 #include "../../../OSDataFile/OSDataFile.h"
 #include "../../../OSDataFile/FileTypes/Layout/MenuLayout.h"
+#include "../../../OSDataFile/FileTypes/Layout/LoadingScreenLayout.h"
 #include "../../../OSDataFile/FileTypes/Layout/GUIItems/GUIItemData.h"
 #include "../../../OSDataFile/FileTypes/Layout/GUIItems/GUIImageData.h"
 #include "../../../OSDataFile/FileTypes/Layout/GUIItems/GUITextData.h"
@@ -34,14 +35,9 @@ namespace Converter {
 		class ConvertGUI{
 		private:
 			Data* data;
-			std::vector<OSData::MenuLayout*>* menuLayouts;
 		public:
-			explicit ConvertGUI(Data* data)
-				:data(data),
-				 menuLayouts(new std::vector<OSData::MenuLayout*>()){};
-
+			explicit ConvertGUI(Data* data):data(data){};
 			virtual ~ConvertGUI(){};
-
 
 			//Main Menu And Loading Screen
 			void Original(OSData::GameType* gameType);

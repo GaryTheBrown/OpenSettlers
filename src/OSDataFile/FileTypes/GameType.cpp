@@ -12,6 +12,7 @@
 
 OSData::GameType::GameType():FileTypes(eFull){
 	this->menuLayouts = new std::vector<MenuLayout*>();
+	this->loadingScreenLayouts = new std::vector<LoadingScreenLayout*>();
 }
 
 OSData::GameType::GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber):
@@ -22,6 +23,7 @@ OSData::GameType::GameType(std::string gameName, unsigned char gameNumber, GameA
 		startMenuNumber(startMenuNumber){
 
 	this->menuLayouts = new std::vector<MenuLayout*>();
+	this->loadingScreenLayouts = new std::vector<LoadingScreenLayout*>();
 }
 
 OSData::GameType::GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts, std::vector<LoadingScreenLayout*>* loadingScreenLayouts
@@ -99,6 +101,13 @@ OSData::GameType::~GameType() {
 		this->menuLayouts->clear();
 		delete this->menuLayouts;
 	}
+	if(this->loadingScreenLayouts != NULL){
+		for(auto item=this->loadingScreenLayouts->begin() ; item < this->loadingScreenLayouts->end(); item++ ){
+			delete (*item);
+		}
+		this->loadingScreenLayouts->clear();
+		delete this->loadingScreenLayouts;
+	}
 //	if(this->gameOptions != NULL){
 //	if(this->layout != NULL){
 //	if(this->raceList != NULL){
@@ -154,7 +163,8 @@ void OSData::GameType::DoFileType(FileTypes::eFileType fileType, void* data, boo
 }
 
 void OSData::GameType::AddMenuLayout(OSData::MenuLayout* menuLayout){
-
+	if(this->menuLayouts == NULL)
+		this->menuLayouts = new std::vector<MenuLayout*>();
 	//First Check the Image is not already Loaded
 	for(auto ml = this->menuLayouts->begin() ; ml < this->menuLayouts->end(); ml++ ){
 		if (menuLayout->MenuID() == (*ml)->MenuID()){
@@ -163,6 +173,19 @@ void OSData::GameType::AddMenuLayout(OSData::MenuLayout* menuLayout){
 		}
 	}
 	this->menuLayouts->push_back(menuLayout);
+}
+
+void OSData::GameType::AddLoadingScreenLayout(OSData::LoadingScreenLayout* loadingScreenLayout){
+	if(this->loadingScreenLayouts == NULL)
+		this->loadingScreenLayouts = new std::vector<LoadingScreenLayout*>();
+	//First Check the Image is not already Loaded
+	for(auto ml = this->loadingScreenLayouts->begin() ; ml < this->loadingScreenLayouts->end(); ml++ ){
+		if (loadingScreenLayout->MenuID() == (*ml)->MenuID()){
+			LOGSYSTEM->Error("LOADING SCREEN LAYOUT ALREADY IN FILE");
+			return;
+		}
+	}
+	this->loadingScreenLayouts->push_back(loadingScreenLayout);
 }
 
 void OSData::GameType::SortAll(){
@@ -192,7 +215,11 @@ bool OSData::GameType::ToSaveToData(std::vector<char>* data){
 	data->push_back((this->startMenuNumber >> 24) & 0xFF);
 
 	//Data Count (Short)
-	unsigned int count = this->menuLayouts->size(); //+ all others added on when added
+	unsigned int count = 0; //+ all others added on when added
+	if (this->menuLayouts != NULL)
+		count += this->menuLayouts->size();
+	if (this->loadingScreenLayouts != NULL)
+		count += this->loadingScreenLayouts->size();
 
 	data->push_back(count & 0xFF);
 	data->push_back((count >> 8) & 0xFF);
@@ -200,8 +227,17 @@ bool OSData::GameType::ToSaveToData(std::vector<char>* data){
 	data->push_back((count >> 24) & 0xFF);
 
 	//MenuLayout Data
-	for(auto menuLayout = this->menuLayouts->begin(); menuLayout < this->menuLayouts->end(); menuLayout++) {
-		if((*menuLayout)->ToSaveToData(data) == false) return false;
+	if (this->menuLayouts != NULL){
+		for(auto menuLayout = this->menuLayouts->begin(); menuLayout < this->menuLayouts->end(); menuLayout++) {
+			if((*menuLayout)->ToSaveToData(data) == false) return false;
+		}
+	}
+
+	//loadingScreenLayout Data
+	if (this->loadingScreenLayouts != NULL){
+		for(auto loadingScreenLayout = this->loadingScreenLayouts->begin(); loadingScreenLayout < this->loadingScreenLayouts->end(); loadingScreenLayout++) {
+			if((*loadingScreenLayout)->ToSaveToData(data) == false) return false;
+		}
 	}
 
 	return true;
@@ -209,19 +245,32 @@ bool OSData::GameType::ToSaveToData(std::vector<char>* data){
 
 bool OSData::GameType::ImageToNumbers(std::vector<Functions::RGBImage*>* images, std::vector<std::string>* imageLocations){
 	if (images == NULL) return false;
-	if (this->menuLayouts == NULL) return false;
-
-	for(auto item = this->menuLayouts->begin(); item < this->menuLayouts->end(); item++) {
-		if((*item)->ImageToNumbers(images,imageLocations) == false) return false;
+	if (this->menuLayouts != NULL){
+		for(auto item = this->menuLayouts->begin(); item < this->menuLayouts->end(); item++) {
+			if((*item)->ImageToNumbers(images,imageLocations) == false) return false;
+		}
+	}
+	if (this->loadingScreenLayouts != NULL){
+		for(auto item = this->loadingScreenLayouts->begin(); item < this->loadingScreenLayouts->end(); item++) {
+			if((*item)->ImageToNumbers(images,imageLocations) == false) return false;
+		}
 	}
 	return true;
 }
 
 bool OSData::GameType::LinkNumbers(std::vector<Functions::RGBImage*>* images){
 	if (images == NULL) return false;
-	for(auto item = this->menuLayouts->begin(); item != this->menuLayouts->end(); item++) {
-		if((*item)->LinkNumbers(images) == false) return false;
+	if (this->menuLayouts != NULL){
+		for(auto item = this->menuLayouts->begin(); item != this->menuLayouts->end(); item++) {
+			if((*item)->LinkNumbers(images) == false) return false;
+		}
 	}
+	if (this->loadingScreenLayouts != NULL){
+		for(auto item = this->loadingScreenLayouts->begin(); item != this->loadingScreenLayouts->end(); item++) {
+			if((*item)->LinkNumbers(images) == false) return false;
+		}
+	}
+
 	return true;
 }
 
