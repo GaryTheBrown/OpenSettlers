@@ -23,13 +23,15 @@ namespace OSData{
 			eArchive = 2,
 			eMenuLayout = 3,
 			eLoadingScreenLayout = 4,
-			eMapOptions = 5,
+			eGameOptions = 5,
 			eMapSetup = 6,
 			eTerrain = 7
 		};
 
 	protected:
 		eFileType fileType;
+
+		eFileType GetFileType(std::string data);
 	public:
 		explicit FileTypes(eFileType fileType):fileType(fileType){};
 		virtual ~FileTypes(){};

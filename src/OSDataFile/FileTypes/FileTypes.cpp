@@ -19,3 +19,17 @@ bool OSData::FileTypes::ToSaveToData(std::vector<char>* data){
 
 	return true;
 }
+
+
+OSData::FileTypes::eFileType OSData::FileTypes::GetFileType(std::string data){
+	if (data == "MenuLayout")
+		return eMenuLayout;
+	else if (data == "LoadScreen")
+		return eLoadingScreenLayout;
+	else if(data == "GameOptions")
+		return eGameOptions;
+	else if(data == "MapSetup")
+		return eMapSetup;
+	else //Includes Full and Archive
+		return eNone;
+}

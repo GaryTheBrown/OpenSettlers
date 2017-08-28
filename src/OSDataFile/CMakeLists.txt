@@ -31,8 +31,12 @@ set(src_osdatafile
 	FileTypes/Layout/MenuLayout.h
 	FileTypes/Layout/LoadingScreenLayout.cpp
 	FileTypes/Layout/LoadingScreenLayout.h
+	FileTypes/GameOptions.cpp
+	FileTypes/GameOptions.h
 	FileTypes/GameType.cpp
 	FileTypes/GameType.h
+	FileTypes/MapSetup/MapSetup.cpp
+	FileTypes/MapSetup/MapSetup.h
 	OSDataFile.cpp
 	OSDataFile.h
 )

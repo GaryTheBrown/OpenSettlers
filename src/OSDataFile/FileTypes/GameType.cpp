@@ -24,12 +24,11 @@ OSData::GameType::GameType(std::string gameName, unsigned char gameNumber, GameA
 
 	this->menuLayouts = new std::vector<MenuLayout*>();
 	this->loadingScreenLayouts = new std::vector<LoadingScreenLayout*>();
+	this->gameOptions = new GameOptions();
+	this->mapSetup = new MapSetup();
 }
 
-OSData::GameType::GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts, std::vector<LoadingScreenLayout*>* loadingScreenLayouts
-//		GameOptions* gameOptions,
-//		Layout* layout,
-//		MapSetup* mapSetup,
+OSData::GameType::GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts, std::vector<LoadingScreenLayout*>* loadingScreenLayouts, GameOptions* gameOptions,MapSetup* mapSetup
 //		List<Resource>* resourceList,
 //		List<Race>* raceList
 		):
@@ -39,14 +38,13 @@ OSData::GameType::GameType(std::string gameName, unsigned char gameNumber, GameA
 		addonsIncluded(addonsIncluded),
 		startMenuNumber(startMenuNumber),
 		menuLayouts(menuLayouts),
-		loadingScreenLayouts(loadingScreenLayouts){
+		loadingScreenLayouts(loadingScreenLayouts),
+		gameOptions(gameOptions),
+		mapSetup(mapSetup){
 
-	std::sort(this->menuLayouts->begin(),this->menuLayouts->end());
-	std::sort(this->loadingScreenLayouts->begin(),this->loadingScreenLayouts->end());
+	if(this->menuLayouts != NULL) std::sort(this->menuLayouts->begin(),this->menuLayouts->end());
+	if(this->loadingScreenLayouts != NULL) std::sort(this->loadingScreenLayouts->begin(),this->loadingScreenLayouts->end());
 
-//	this->gameOptions = gameOptions;
-//	this->layout = layout;
-//	this->mapSetup = mapSetup;
 //	this->resourceList = resourceList;
 //	this->raceList = raceList;
 
@@ -108,11 +106,16 @@ OSData::GameType::~GameType() {
 		this->loadingScreenLayouts->clear();
 		delete this->loadingScreenLayouts;
 	}
-//	if(this->gameOptions != NULL){
-//	if(this->layout != NULL){
+	if(this->gameOptions != NULL){
+		delete this->gameOptions;
+	}
+	if(this->mapSetup != NULL){
+		delete this->mapSetup;
+	}
+
 //	if(this->raceList != NULL){
 //	if(this->resourceList != NULL){
-//	if(this->mapSetup != NULL){
+
 }
 
 void OSData::GameType::CheckValues(std::string name, std::string value){
@@ -120,17 +123,8 @@ void OSData::GameType::CheckValues(std::string name, std::string value){
 		this->gameName = value;
 	if (name == "StartMenu")
 		this->startMenuNumber = atoi(value.c_str());
-	if (name == "gameNumber")
+	if (name == "GameNumber")
 		this->gameName = atoi(value.c_str());
-}
-
-OSData::FileTypes::eFileType OSData::GameType::GetFileType(std::string data){
-	if (data == "MenuLayout")
-		return FileTypes::eMenuLayout;
-	else if (data == "LoadScreen")
-		return FileTypes::eLoadingScreenLayout;
-	else //Includes Full and Archive
-		return FileTypes::eNone;
 }
 
 void OSData::GameType::DoFileType(FileTypes::eFileType fileType, void* data, bool xml){
@@ -140,6 +134,7 @@ void OSData::GameType::DoFileType(FileTypes::eFileType fileType, void* data, boo
 	case FileTypes::eMenuLayout:
 		if(this->menuLayouts == NULL)
 			this->menuLayouts = new std::vector<MenuLayout*>();
+
 		if(xml)
 			this->menuLayouts->push_back(new MenuLayout((xmlNode*)data));
 		else
@@ -152,6 +147,22 @@ void OSData::GameType::DoFileType(FileTypes::eFileType fileType, void* data, boo
 			this->loadingScreenLayouts->push_back(new LoadingScreenLayout((xmlNode*)data));
 		else
 			this->loadingScreenLayouts->push_back(new LoadingScreenLayout((Functions::DataReader*)data));
+		break;
+	case FileTypes::eGameOptions:
+		if(this->gameOptions == NULL){
+			if(xml)
+				this->gameOptions = new GameOptions((xmlNode*)data);
+			else
+				this->gameOptions = new GameOptions((Functions::DataReader*)data);
+		}
+		break;
+	case FileTypes::eMapSetup:
+		if(this->mapSetup == NULL){
+			if(xml)
+				this->mapSetup = new MapSetup((xmlNode*)data);
+			else
+				this->mapSetup = new MapSetup((Functions::DataReader*)data);
+		}
 		break;
 
 	//Ignore these

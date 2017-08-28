@@ -24,6 +24,8 @@
 
 #include "Layout/MenuLayout.h"
 #include "Layout/LoadingScreenLayout.h"
+#include "GameOptions.h"
+#include "MapSetup/MapSetup.h"
 
 namespace OSData {
 	class GameType : public FileTypes {
@@ -36,26 +38,22 @@ namespace OSData {
 		//bool hasGameIcon;
 		std::vector<MenuLayout*>* menuLayouts = NULL;
 		std::vector<LoadingScreenLayout*>* loadingScreenLayouts = NULL;
-		//GameOptions* gameOptions;
-		//List<Race>* raceList;
-		//List<Resource>* resourceList;
-		//MapSetup* mapSetup;
+		GameOptions* gameOptions = NULL;
+		MapSetup* mapSetup = NULL;
+		//List<Race>* raceList = NULL;
+		//List<Resource>* resourceList = NULL;
 
 		void CheckValues(std::string name, std::string value);
-		FileTypes::eFileType GetFileType(std::string data);
 		void DoFileType(FileTypes::eFileType fileType, void* data, bool xml = false);
+
 	public:
-
-
 		GameType();
 		GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber);
-		GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts, std::vector<LoadingScreenLayout*>* loadingScreenLayouts
-	//			GameOptions* gameOptions,
-	//			MapSetup* mapSetup,
+		GameType(std::string gameName, unsigned char gameNumber, GameAddons addonsIncluded, unsigned int startMenuNumber, std::vector<MenuLayout*>* menuLayouts, std::vector<LoadingScreenLayout*>* loadingScreenLayouts, GameOptions* gameOptions, MapSetup* mapSetup
 	//			std::vector<Resource*>* resourceList,
 	//			std::vector<Race*>* raceList
 				 );
-
+//KEEP WORKING ON ADDING GAME OPTIONS AND MAP SETUP
 		explicit GameType(Functions::DataReader* reader);
 		explicit GameType(xmlNode* node);
 
