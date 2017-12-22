@@ -10,7 +10,6 @@
 
 #pragma once
 #include <string>
-#include <vector>
 
 #include "../../Functions/File/DataReader.h"
 #include "../../Functions/File/Functions.h"
