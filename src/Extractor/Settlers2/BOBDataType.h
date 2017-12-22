@@ -30,7 +30,7 @@ namespace Extractor{
 			struct Header{
 				unsigned char height = 0;
 				unsigned char ny = 0;
-				unsigned short starts[30] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+				unsigned int *starts = NULL;
 				bool used = false;
 			};
 
@@ -39,12 +39,14 @@ namespace Extractor{
 				unsigned int offset;
 			} part[6];
 
-			Header headerGroup1[96];
-			Header* headerGroup2;
 
 			PlayerColouredBitmap* imageGroup1[96];
-			PlayerColouredBitmap** imageGroup2 = NULL;
-			//std::vector<PlayerColouredBitmap*> images;
+			struct LinkPart{
+				unsigned short link;
+				PlayerColouredBitmap* image = NULL;
+			} *imageGroup2;
+			//LinkPart* imageGroup2 = NULL;
+
 			unsigned short goodCount = 0;
             unsigned short itemCount = 0;
 

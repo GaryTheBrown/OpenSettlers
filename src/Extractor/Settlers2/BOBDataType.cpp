@@ -12,7 +12,6 @@
 
 Extractor::Settlers2::BOBDataType::BOBDataType(std::string file){
 
-	unsigned int MaxHeight = 0;
 	if (Functions::FileExists(file) == true){
 		Functions::DataReader* reader = new Functions::DataReader(file);
 
@@ -23,14 +22,15 @@ Extractor::Settlers2::BOBDataType::BOBDataType(std::string file){
 
 		if (header != 0x01F501F6){
 			LOGSYSTEM->Error("HEADER INVALID");
+			delete reader;
 			return;
 		}
 
 		unsigned short size = reader->ReadShort();
+		unsigned int tempOffset2;
+		unsigned int tempOffset1 = reader->GetOffset();
 
 		reader->MoveOffset(size);
-
-		unsigned int tempOffset;
 
 		for(unsigned int i = 0; i < 96; i++){
 
@@ -38,34 +38,38 @@ Extractor::Settlers2::BOBDataType::BOBDataType(std::string file){
 
 			if(id != 0x01F4){
 				LOGSYSTEM->Error("ID (" + Functions::ToString(i) + ") INVALID");
+				delete reader;
 				return;
 			}
 
-			this->headerGroup1[i].height = reader->ReadChar();
-			if (this->headerGroup1[i].height > MaxHeight) MaxHeight = this->headerGroup1[i].height;
-			//this->headerGroup1[i].starts = new unsigned int[this->headerGroup1[i].height];
-			for (unsigned char j = 0; j < this->headerGroup1[i].height; j++)
-				this->headerGroup1[i].starts[j] = (reader->ReadShort() + 6);
+			unsigned char height, ny;
 
-			this->headerGroup1[i].ny = reader->ReadChar();
+			height = reader->ReadChar();
+			unsigned int *starts = new unsigned int[height];
+
+			for (unsigned char j = 0; j < height; j++)
+				starts[j] = reader->ReadShort() + tempOffset1;
+
+			ny = reader->ReadChar();
 
 			//remember location
-			tempOffset = reader->GetOffset();
+			tempOffset2 = reader->GetOffset();
 
-			//this->imageGroup1[i] = new PlayerColouredBitmap(reader,32,height,16,ny,NULL,starts,true);
-			//this->imageGroup1[i] = new PlayerColouredBitmap(reader,32,this->headerGroup1[i].height,16,this->headerGroup1[i].ny,NULL,this->headerGroup1[i].starts,true);
+			this->imageGroup1[i] = new PlayerColouredBitmap(reader,32,height,16,ny,NULL,starts,true);
 
 			//restore location
-			reader->SetOffset(tempOffset);
+			reader->SetOffset(tempOffset2);
 
-			//delete [] this->headerGroup1[i].starts;
+			delete [] starts;
 		}
 
 		for(unsigned char i = 0; i < 6; i++){
 			unsigned short id = reader->ReadShort();
 
-			if(id != 0x01F5)
+			if(id != 0x01F5){
+				delete reader;
 				return;
+			}
 
 			this->part[i].size = reader->ReadShort();
 			this->part[i].offset = reader->GetOffset();
@@ -74,83 +78,61 @@ Extractor::Settlers2::BOBDataType::BOBDataType(std::string file){
 
 		this->goodCount = reader->ReadShort();
 
-		bool* used = new bool[this->goodCount];
-		for (unsigned short i = 0; i < this->goodCount; i++){
-			used[i] = false;
-		}
-
-		this->headerGroup2 = new Header[this->goodCount];
+		Header* headerGroup = new Header[this->goodCount];
 
 		for(unsigned short i = 0; i < this->goodCount; i++){
 			unsigned short id = reader->ReadShort();
 
-			if(id != 0x01F4)
+			if(id != 0x01F4){
+				delete reader;
 				return;
-			this->headerGroup2[i].height = reader->ReadChar();
-			if (this->headerGroup2[i].height > MaxHeight) MaxHeight = this->headerGroup2[i].height;
-			//this->headerGroup2[i].starts = new unsigned int[this->headerGroup2[i].height];
+			}
+			headerGroup[i].height = reader->ReadChar();
+			headerGroup[i].starts = new unsigned int[headerGroup[i].height];
 
-			for (unsigned int j = 0; j < this->headerGroup2[i].height; j++)
-				this->headerGroup2[i].starts[j] = reader->ReadShort();
+			for (unsigned int j = 0; j < headerGroup[i].height; j++)
+				headerGroup[i].starts[j] = reader->ReadShort();
 
-			this->headerGroup2[i].ny = reader->ReadChar();
+			headerGroup[i].ny = reader->ReadChar();
 		}
 
 		this->itemCount = reader->ReadShort();
 
-		unsigned short link;
-
+		this->imageGroup2 = new LinkPart[this->itemCount];
 		for(unsigned short i = 0; i < this->itemCount; ++i){
-			LOGSYSTEM->Log("(" + Functions::ToString(i) + "/" + Functions::ToString(this->itemCount) + ")");
+			this->imageGroup2[i].link = reader->ReadShort();
+			//reader->ReadShort();
 
-			link = reader->ReadShort();
-			if(!used[link]){
-				LOGSYSTEM->Log("a");
-
-				//correct the offsets
-				for (unsigned char j = 0; j < this->headerGroup2[i].height; j++)
-					this->headerGroup2[link].starts[j] = this->headerGroup2[link].starts[j] + this->part[i % 6].offset;
-
-				tempOffset = reader->GetOffset();
-				LOGSYSTEM->Log("b");
-
-				//this->image[(link+96)] = new PlayerColouredBitmap(reader,32,heights[link],16,ny[link],NULL,(unsigned int*)starts[link],true);
-
-//TODO FIX SEG FAULT HERE
-				reader->SetOffset(tempOffset);
-				LOGSYSTEM->Log("c");
+			//correct the offsets to be inside of the part section
+			unsigned int* starts = new unsigned int[headerGroup[this->imageGroup2[i].link].height];
+			for (unsigned char j = 0; j < headerGroup[this->imageGroup2[i].link].height; j++){
+				starts[j] = headerGroup[this->imageGroup2[i].link].starts[j] + this->part[(i%6)].offset;
 			}
 
-			used[link] = true;
+			tempOffset2 = reader->GetOffset();
 
+			this->imageGroup2[i].image = new PlayerColouredBitmap(reader,32,headerGroup[this->imageGroup2[i].link].height,16,headerGroup[this->imageGroup2[i].link].ny,NULL,starts,true);
+
+			if(starts != NULL)
+				delete [] starts;
+
+			reader->SetOffset(tempOffset2);
 			reader->MoveOffset(2);
 
-			LOGSYSTEM->Log("d");
 		}
 
-		LOGSYSTEM->Log("finished rip");
-		LOGSYSTEM->Log(Functions::ToString(MaxHeight));
-
+		delete [] headerGroup;
+		delete reader;
 	}
 }
+
 Extractor::Settlers2::BOBDataType::~BOBDataType() {
-/*	for (unsigned int i = 0; i < 96; i++){
-		delete [] this->headerGroup1[i].starts;
-	}
-
-	for (unsigned short i = 0; i < this->goodCount; i++){
-		delete [] this->headerGroup2[i].starts;
-	}
-	*/
-	delete [] this->headerGroup2;
-
 	for (unsigned int i = 0; i > 96; i++){
-		delete [] this->imageGroup1[i];
+		delete this->imageGroup1[i];
 	}
-	//delete [] this->imageGroup1;
 
 	for (unsigned short i = 0; i > this->goodCount; i++){
-		delete [] this->imageGroup2[i];
+		delete this->imageGroup2[i].image;
 	}
 	delete [] this->imageGroup2;
 
@@ -158,11 +140,13 @@ Extractor::Settlers2::BOBDataType::~BOBDataType() {
 
 void Extractor::Settlers2::BOBDataType::SaveToFile(std::string location){
 	location += "/";
-//	for(unsigned int i = 0; i < this->images.size(); i++){
-//		if(this->images[i] != NULL){
-//			this->images[i]->SetPalette(this->Palette);
-//			this->images[i]->SaveToFile(location + Functions::ToString(i));
-//		}
-//	}
+	for(unsigned int i = 0; i < 96; i++){
+		this->imageGroup1[i]->SetPalette(this->Palette);
+		this->imageGroup1[i]->SaveToFile(location + Functions::ToString((int)i));
+	}
+	for(unsigned short i = 0; i < this->itemCount; ++i){
+		this->imageGroup2[i].image->SetPalette(this->Palette);
+		this->imageGroup2[i].image->SaveToFile(location + Functions::ToString((int)i + 96));
+	}
 }
 
