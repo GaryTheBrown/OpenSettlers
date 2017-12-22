@@ -31,7 +31,7 @@ Extractor::Settlers3::AnimationData::AnimationData(Functions::DataReader* reader
 	}
 }
 
-void Extractor::Settlers3::AnimationData::SaveToFile(std::string filename){
+void Extractor::Settlers3::AnimationData::SaveToFile(std::string *filename){
 
 	std::string data = "";
 	for (unsigned int i = 0; i < this->count; i++){
@@ -49,6 +49,6 @@ void Extractor::Settlers3::AnimationData::SaveToFile(std::string filename){
 		data += "Sound Flag 2=" + Functions::ToString(this->frames[i].sound_flag2) + "\t";
 		data += "\n";
 	}
-	Functions::SaveToTextFile(filename + ".txt",data);
+	Functions::SaveToTextFile(*filename + ".txt",data);
 
 }

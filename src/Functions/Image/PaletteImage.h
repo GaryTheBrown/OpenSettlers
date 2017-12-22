@@ -38,8 +38,8 @@ namespace Functions{
 
 	public:
 		PaletteImage(){};
-		PaletteImage(unsigned short height,unsigned short width);
-		PaletteImage(unsigned char* image, unsigned short height,unsigned short width);
+		PaletteImage(unsigned short width, unsigned short height);
+		PaletteImage(unsigned char* image, unsigned short width, unsigned short height);
 		virtual ~PaletteImage();
 		virtual void SaveToFile(std::string filename);
 

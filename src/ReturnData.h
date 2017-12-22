@@ -33,13 +33,13 @@ public:
 
 	virtual ~ReturnData(){};
 
-	eMenuEvent MenuEvent(){return this->rMenuEvent;}
-	unsigned int Int(){return this->rInt;}
-	std::string String(){return this->rString;}
+	const eMenuEvent MenuEvent(){return this->rMenuEvent;}
+	const unsigned int Int(){return this->rInt;}
+	const std::string String(){return this->rString;}
 
 	void MenuEvent(eMenuEvent rMenuEvent){this->rMenuEvent = rMenuEvent;}
 	void Int(unsigned int rInt){this->rInt = rInt;}
-	void String(std::string rString){this->rString = rString;}
+	void String(std::string *rString){this->rString = *rString;}
 
 	bool ToSaveToData(std::vector<char>* data = NULL);
 	std::string ToString();

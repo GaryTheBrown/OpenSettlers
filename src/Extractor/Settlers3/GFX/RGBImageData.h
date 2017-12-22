@@ -37,7 +37,7 @@ namespace Extractor{
 			RGBImageData(RGBA* imageRGBA, unsigned short width,unsigned short height,signed short xRel,signed short yRel);
 			virtual void SaveToFile(std::string filename);
 
-			bool Keep(){return this->keep;};
+			const bool Keep(){return this->keep;};
 
 			RGBImageData* ReturnImage(){this->keep = true; return this;}
 

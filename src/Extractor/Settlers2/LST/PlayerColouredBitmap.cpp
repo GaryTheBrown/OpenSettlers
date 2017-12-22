@@ -69,8 +69,8 @@ void Extractor::Settlers2::PlayerColouredBitmap::Read(Functions::DataReader* rea
 
 		reader->SetOffset((int)starts[y]);
 
-//		if(absoluteStarts == false)
-//          reader->MoveOffset(-(height * 2));
+		if(absoluteStarts == false)
+			reader->MoveOffset(-(height * 2));
 
 		while(x < this->width){
 			unsigned char code = reader->ReadChar();

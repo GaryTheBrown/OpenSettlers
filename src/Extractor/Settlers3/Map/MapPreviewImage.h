@@ -38,10 +38,10 @@ namespace Extractor{
 			void SaveToFile(std::string location);
 			void ShearImage();
 
-			unsigned short Length(){return this->length;};
-			unsigned short Unknown02(){return this->unknown02;};
+			const unsigned short Length(){return this->length;};
+			const unsigned short Unknown02(){return this->unknown02;};
 			RGBA* ImageSquare(){return this->imageSquare;};
-			unsigned short ShearWidth(){return this->shearWidth;};
+			const unsigned short ShearWidth(){return this->shearWidth;};
 			RGBA* ImageSheared(){return this->imageSheared;};
 		};
 	}

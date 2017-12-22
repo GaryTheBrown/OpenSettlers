@@ -9,20 +9,25 @@
  *******************************************************************************/
 
 #pragma once
-
+#include <vector>
+#include <utility>
+#include <algorithm>
 #include <string>
 #include <libxml/tree.h>
 
 #include "../GameData.h"
 #include "../FileTypes.h"
-
 #include "../../../Functions/File/DataReader.h"
 #include "../../../Log.h"
 
 namespace OSData {
 	class MapSetup : public FileTypes {
 	private:
-
+		//Plane128x128
+		//Plane32x32
+		//Hexagon
+		//OTHER ODD SHAPE
+		//std::vector<TerrainData*>* terrainData = NULL;
 
 		void CheckValues(std::string name, std::string value);
 		void DoFileType(FileTypes::eFileType fileType, void* data);

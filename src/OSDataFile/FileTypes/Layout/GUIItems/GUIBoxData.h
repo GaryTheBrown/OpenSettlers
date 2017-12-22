@@ -62,9 +62,9 @@ namespace OSData{
 		explicit GUIBoxData(xmlNode* node);
 		virtual ~GUIBoxData();
 
-		RGBA BackgroundColour(){return this->backgroundColour;}
-		eBoxType BoxType(){return this->boxType;}
-		bool MultiSelect(){return this->multiSelect;}
+		const RGBA BackgroundColour(){return this->backgroundColour;}
+		const eBoxType BoxType(){return this->boxType;}
+		const bool MultiSelect(){return this->multiSelect;}
 		std::vector<GUIItemData*>* ItemData(){return this->itemData;};
 
 		bool ToSaveToData(std::vector<char>* data = NULL);

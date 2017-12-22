@@ -93,7 +93,7 @@ bool Extractor::Main(std::string location,std::string saveLocation){
 			if ((gameNo != 2)&&(gameNo != 3)&&(gameNo != 4)){
 				LOGSYSTEM->Log("Reading GOG EXE File",1);
 
-				Functions::ExternalProgram* program = new Functions::ExternalProgram(location);
+				Functions::ExternalProgram* program = new Functions::ExternalProgram(&location);
 				std::string returnstring = program->GOGGameCheck();
 
 				int spos = returnstring.find("\"") + 1;
@@ -177,16 +177,16 @@ bool Extractor::Main(std::string location,std::string saveLocation){
 			return false;
 		}
 		case 2:{
-			Settlers2::Extract* s2Extract = new Settlers2::Extract(location,GOG,saveLocation);
-			if(s2Extract->FullRAWExtract() == false) return false;
+			Settlers2::Extract* s2Extract = new Settlers2::Extract(&location,GOG,&saveLocation);
+			bool returnResult = s2Extract->FullRAWExtract();
 			delete s2Extract;
-			return true;
+			return returnResult;
 		}
 		case 3:{
-			Settlers3::Extract* s3Extract = new Settlers3::Extract(location,GOG,saveLocation);
-			if(s3Extract->FullRAWExtract() == false) return false;
+			Settlers3::Extract* s3Extract = new Settlers3::Extract(&location,GOG,&saveLocation);
+			bool returnResult = s3Extract->FullRAWExtract();
 			delete s3Extract;
-			return true;
+			return returnResult;
 		}
 		case 4:{
 			//temp message of version
@@ -212,17 +212,17 @@ bool Extractor::Main(std::string location,std::string saveLocation){
 	case IDX:
 	case BOB:{
 		Settlers2::Extract* s2Extract = new Settlers2::Extract();
-		if(s2Extract->ManualExtract(fileType, location) == false) return false;
+		bool returnResult = s2Extract->ManualExtract(fileType, &location);
 		delete s2Extract;
-		return true;
+		return returnResult;
 	}
 	case GFX:
 	case SND:
 	case MAP:{
 		Settlers3::Extract* s3Extract = new Settlers3::Extract();
-		if(s3Extract->ManualExtract(fileType, location) == false) return false;
+		bool returnResult = s3Extract->ManualExtract(fileType, &location);
 		delete s3Extract;
-		return true;
+		return returnResult;
 	}
 
 	default:

@@ -35,11 +35,11 @@ namespace OSData{
 		explicit GUIBoxDirectoryData(xmlNode* node);
 		virtual ~GUIBoxDirectoryData(){};
 
-		unsigned short VerticalSize(){return this->verticalSize;};
-		std::string FolderLocation(){return this->folderLocation;};
-		RGBA TextColour(){return this->textColour;};
-		signed short FontSize(){return this->fontSize;};
-		RGBA SelectColour(){return this->selectColour;};
+		const unsigned short VerticalSize(){return this->verticalSize;};
+		const std::string FolderLocation(){return this->folderLocation;};
+		const RGBA TextColour(){return this->textColour;};
+		const signed short FontSize(){return this->fontSize;};
+		const RGBA SelectColour(){return this->selectColour;};
 
 		std::string ToSaveToText();
 		bool ToSaveToData(std::vector<char>* data = NULL);

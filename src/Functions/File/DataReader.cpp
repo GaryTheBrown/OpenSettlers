@@ -156,6 +156,6 @@ std::string Functions::DataReader::ReadString(unsigned int size){
 		text[i] = this->ReadChar();
 	}
 	std::string returnString(text,size);
-	delete text;
+	delete[] text;
 	return returnString;
 }

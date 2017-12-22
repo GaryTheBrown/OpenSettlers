@@ -47,9 +47,9 @@ namespace OSData{
 
 		virtual ~MenuLayout();
 
-		unsigned int MenuID(){return menuID;}
-		std::string Title(){return title;}
-		RGBA BackgroundColour(){return backgroundColour;}
+		const unsigned int MenuID(){return menuID;}
+		const std::string Title(){return title;}
+		const RGBA BackgroundColour(){return backgroundColour;}
 		std::vector<GUIItemData*>* ItemData(){return this->itemData;};
 
 		bool ToSaveToData(std::vector<char>* data = NULL);

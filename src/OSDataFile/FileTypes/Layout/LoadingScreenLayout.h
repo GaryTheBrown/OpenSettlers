@@ -44,9 +44,9 @@ namespace OSData{
 
 		virtual ~LoadingScreenLayout();
 
-		unsigned int MenuID(){return menuID;}
-		std::string Title(){return title;}
-		RGBA BackgroundColour(){return backgroundColour;}
+		const unsigned int MenuID(){return menuID;}
+		const std::string Title(){return title;}
+		const RGBA BackgroundColour(){return backgroundColour;}
 		std::vector<GUIImageData*>* ImageData(){return this->imageData;};
 
 		bool ToSaveToData(std::vector<char>* data = NULL);

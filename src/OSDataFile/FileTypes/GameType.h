@@ -66,10 +66,10 @@ namespace OSData {
 		//void GameNumber(unsigned char gameNumber){this->gameNumber = gameNumber;}//Should this be available? thinking no can comment back in if so
 		void AddonsIncluded(GameAddons addonsIncluded){this->addonsIncluded = static_cast<GameAddons>(static_cast<unsigned char>(this->addonsIncluded) | static_cast<unsigned char>(addonsIncluded));}
 
-		std::string GameName(){return this->gameName;}
-		unsigned int StartMenuNumber(){return this->startMenuNumber;}
-		unsigned char GameNumber(){return this->gameNumber;}
-		GameAddons AddonsIncluded(){return this->addonsIncluded;}
+		const std::string GameName(){return this->gameName;}
+		const unsigned int StartMenuNumber(){return this->startMenuNumber;}
+		const unsigned char GameNumber(){return this->gameNumber;}
+		const GameAddons AddonsIncluded(){return this->addonsIncluded;}
 		std::vector<MenuLayout*>* MenuLayouts(){return this->menuLayouts;};
 
 		bool ToSaveToData(std::vector<char>* data);

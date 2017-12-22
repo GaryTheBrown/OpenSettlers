@@ -39,7 +39,7 @@ OSData::GUIImageData::GUIImageData(xmlNode* node):GUIItemData(GUIImageType,node)
 
 void OSData::GUIImageData::CheckValues(std::string name, std::string value){
  	if (name == "ImageLocation")
-		this->image.Location(value);
+		this->image.Location(&value);
 }
 
 bool OSData::GUIImageData::ToSaveToData(std::vector<char>* data){

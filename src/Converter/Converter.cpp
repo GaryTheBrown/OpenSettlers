@@ -24,7 +24,7 @@ bool Converter::Main(std::string location,std::string saveLocation){
 			if ((gameNo != 2)&&(gameNo != 3)&&(gameNo != 4)){
 				LOGSYSTEM->Log("Reading GOG EXE File",1);
 
-				Functions::ExternalProgram* program = new Functions::ExternalProgram(location);
+				Functions::ExternalProgram* program = new Functions::ExternalProgram(&location);
 				std::string returnstring = program->GOGGameCheck();
 
 				int spos = returnstring.find("\"") + 1;
@@ -96,7 +96,7 @@ bool Converter::Main(std::string location,std::string saveLocation){
 		}
 		case 3:{
 			LOGSYSTEM->Log("Settlers 3 Detected.",1);
-			Settlers3::Convert* s3Converter = new Settlers3::Convert(location,GOG,saveLocation);
+			Settlers3::Convert* s3Converter = new Settlers3::Convert(location,GOG,&saveLocation);
 			bool passed = s3Converter->DoConvert();
 			delete s3Converter;
 			return passed;

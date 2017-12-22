@@ -10,11 +10,10 @@
 
 #include "Convert.h"
 
-Converter::Settlers3::Convert::Convert(std::string locationOfFiles, bool gog,std::string saveLocation){
-	this->data.locationofFiles = locationOfFiles;
-	this->saveLocation = saveLocation;
+Converter::Settlers3::Convert::Convert(std::string locationofFiles, bool gog,std::string *saveLocation):saveLocation(*saveLocation){
+	this->data.locationofFiles = locationofFiles;
 	this->GUIFunctions = new ConvertGUI(&data);
-	this->data.version = Extractor::Settlers3::CheckGameVersion(locationOfFiles, gog);
+	this->data.version = Extractor::Settlers3::CheckGameVersion(locationofFiles, gog);
 	this->SetupData();
 }
 

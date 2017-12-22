@@ -39,10 +39,10 @@ namespace OSData{
 		explicit GUIVisibilityData(Functions::DataReader* reader);
 		~GUIVisibilityData(){};
 
-		VisibilityOptions Type(){return this->type;};
-		bool Visible(){return this->visible;};
-		bool Enabled(){return this->enabled;};
-		OSData::GameAddons AddonRequired(){return this->addonRequired;};
+		const VisibilityOptions Type(){return this->type;};
+		const bool Visible(){return this->visible;};
+		const bool Enabled(){return this->enabled;};
+		const OSData::GameAddons AddonRequired(){return this->addonRequired;};
 
 		void CheckItemValues(std::string name, std::string value);
 		bool ToSaveToData(std::vector<char>* data = NULL);

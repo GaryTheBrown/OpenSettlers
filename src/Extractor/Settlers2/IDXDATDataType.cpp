@@ -73,6 +73,7 @@ Extractor::Settlers2::IDXDATDataType::IDXDATDataType(std::string file){
 				break;
 			default://UNKNOWN IDS
 				LOGSYSTEM->Error("Unknown File ID:" + Functions::ToString((int)this->idxData[i].typeID));
+				delete reader;
 				return;
 			}
 		}

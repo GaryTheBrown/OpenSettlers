@@ -85,130 +85,126 @@ void Functions::FileImage::SaveToPNG(std::string filename, RGBA* imageRGBA, unsi
 
 RGBA* Functions::FileImage::LoadPNGToRGBA(std::string filename, unsigned short* width, unsigned short* height){
 
-	    png_byte header[8];
+		png_byte header[8];
 
-	    FILE *fp = fopen(filename.c_str(), "rb");
+		FILE *fp = fopen(filename.c_str(), "rb");
 
-	    // read the header
-	    size_t result = fread(header, 1, 8, fp);
-	    if (result != 8){
-	    	LOGSYSTEM->Error("PNG HEADER FAILED TO READ");
-	    	fclose(fp);
-	    	return NULL;
-	    }
+		// read the header
+		size_t result = fread(header, 1, 8, fp);
+		if (result != 8){
+			LOGSYSTEM->Error("PNG HEADER FAILED TO READ");
+			fclose(fp);
+			return NULL;
+		}
 
-	    if (png_sig_cmp(header, 0, 8))
-	    {
-	        LOGSYSTEM->Error("PNG HEADER IS NOT CORRECT");
-	        fclose(fp);
-	        return NULL;
-	    }
+		if (png_sig_cmp(header, 0, 8)){
+			LOGSYSTEM->Error("PNG HEADER IS NOT CORRECT");
+			fclose(fp);
+			return NULL;
+		}
 
-	    png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-	    if (!png_ptr)
-	    {
-	    	LOGSYSTEM->Error("error: png_create_read_struct returned 0.");
-	        fclose(fp);
-	        return NULL;
-	    }
+		png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+		if (!png_ptr){
+			LOGSYSTEM->Error("error: png_create_read_struct returned 0.");
+			fclose(fp);
+			return NULL;
+		}
 
-	    // create png info struct
-	    png_infop info_ptr = png_create_info_struct(png_ptr);
-	    if (!info_ptr)
-	    {
-	    	LOGSYSTEM->Error("error: png_create_info_struct returned 0.");
-	        png_destroy_read_struct(&png_ptr, (png_infopp)NULL, (png_infopp)NULL);
-	        fclose(fp);
-	        return NULL;
-	    }
+		// create png info struct
+		png_infop info_ptr = png_create_info_struct(png_ptr);
+		if (!info_ptr){
+			LOGSYSTEM->Error("error: png_create_info_struct returned 0.");
+			png_destroy_read_struct(&png_ptr, (png_infopp)NULL, (png_infopp)NULL);
+			fclose(fp);
+			return NULL;
+		}
 
-	    // create png info struct
-	    png_infop end_info = png_create_info_struct(png_ptr);
-	    if (!end_info)
-	    {
-	    	LOGSYSTEM->Error("error: png_create_info_struct returned 0.");
-	        png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp) NULL);
-	        fclose(fp);
-	        return NULL;
-	    }
+		// create png info struct
+		png_infop end_info = png_create_info_struct(png_ptr);
+		if (!end_info){
+			LOGSYSTEM->Error("error: png_create_info_struct returned 0.");
+			png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp) NULL);
+			fclose(fp);
+			return NULL;
+		}
 
-	    // the code in this if statement gets called if libpng encounters an error
-	    if (setjmp(png_jmpbuf(png_ptr))) {
-	    	LOGSYSTEM->Error("error from libpng");
-	        png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-	        fclose(fp);
-	        return NULL;
-	    }
+		// the code in this if statement gets called if libpng encounters an error
+		if (setjmp(png_jmpbuf(png_ptr))) {
+			LOGSYSTEM->Error("error from libpng");
+			png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
+			fclose(fp);
+			return NULL;
+		}
 
-	    // init png reading
-	    png_init_io(png_ptr, fp);
+		// init png reading
+		png_init_io(png_ptr, fp);
 
-	    // let libpng know you already read the first 8 bytes
-	    png_set_sig_bytes(png_ptr, 8);
+		// let libpng know you already read the first 8 bytes
+		png_set_sig_bytes(png_ptr, 8);
 
-	    // read all the info up to the image data
-	    png_read_info(png_ptr, info_ptr);
+		// read all the info up to the image data
+		png_read_info(png_ptr, info_ptr);
 
-	    // variables to pass to get info
-	    int bit_depth, color_type;
-	    png_uint_32 temp_width, temp_height;
+		// variables to pass to get info
+		int bit_depth, color_type;
+		png_uint_32 temp_width, temp_height;
 
-	    // get info about png
-	    png_get_IHDR(png_ptr, info_ptr, &temp_width, &temp_height, &bit_depth, &color_type,
-	        NULL, NULL, NULL);
+		// get info about png
+		png_get_IHDR(png_ptr, info_ptr, &temp_width, &temp_height, &bit_depth, &color_type,
+			NULL, NULL, NULL);
 
-	    if (width){ *width = temp_width; }
-	    if (height){ *height = temp_height; }
+		if (width){ *width = temp_width; }
+		if (height){ *height = temp_height; }
 
-	    // Update the png info struct.
-	    png_read_update_info(png_ptr, info_ptr);
+		// Update the png info struct.
+		png_read_update_info(png_ptr, info_ptr);
 
-	    // Row size in bytes.
-	    int rowbytes = png_get_rowbytes(png_ptr, info_ptr);
+		// Row size in bytes.
+		int rowbytes = png_get_rowbytes(png_ptr, info_ptr);
 
-	    // glTexImage2d requires rows to be 4-byte aligned
-	    rowbytes += 3 - ((rowbytes-1) % 4);
+		// glTexImage2d requires rows to be 4-byte aligned
+		rowbytes += 3 - ((rowbytes-1) % 4);
 
-	    // Allocate the image_data as a big block, to be given to opengl
-	    png_byte * imageData = (png_byte *)malloc(rowbytes * temp_height * sizeof(png_byte)+15);
-	    if (imageData == NULL)
-	    {
-	    	LOGSYSTEM->Error("error: could not allocate memory for PNG image data");
-	        png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-	        fclose(fp);
-	        return NULL;
-	    }
+		// Allocate the image_data as a big block, to be given to opengl
+		png_byte * imageData = (png_byte *)malloc(rowbytes * temp_height * sizeof(png_byte)+15);
+		if (imageData == NULL)
+		{
+			LOGSYSTEM->Error("error: could not allocate memory for PNG image data");
+			png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
+			fclose(fp);
+			return NULL;
+		}
 
-	    // row_pointers is for pointing to image_data for reading the png with libpng
-	    png_byte ** row_pointers = (png_byte **)malloc(temp_height * sizeof(png_byte *));
-	    if (row_pointers == NULL)
-	    {
-	    	LOGSYSTEM->Error("error: could not allocate memory for PNG row pointers");
-	        png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-	        free(imageData);
-	        fclose(fp);
-	        return NULL;
-	    }
+		// row_pointers is for pointing to image_data for reading the png with libpng
+		png_byte ** row_pointers = (png_byte **)malloc(temp_height * sizeof(png_byte *));
+		if (row_pointers == NULL)
+		{
+			LOGSYSTEM->Error("error: could not allocate memory for PNG row pointers");
+			png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
+			free(imageData);
+			fclose(fp);
+			return NULL;
+		}
 
-	    // set the individual row_pointers to point at the correct offsets of image_data
-	    for (unsigned int i = 0; i < temp_height; i++)
-	    {
-	        row_pointers[temp_height - 1 - i] = imageData + i * rowbytes;
-	    }
+		// set the individual row_pointers to point at the correct offsets of image_data
+		for (unsigned int i = 0; i < temp_height; i++)
+		{
+			row_pointers[temp_height - 1 - i] = imageData + i * rowbytes;
+		}
 
-	    // read the png into image_data through row_pointers
-	    png_read_image(png_ptr, row_pointers);
+		// read the png into image_data through row_pointers
+		png_read_image(png_ptr, row_pointers);
 
-	    unsigned int size = (*width)*(*height);
-	    RGBA* finalImageData = new RGBA[size];
-	    for (unsigned int i = 0; i < size; i++){
-	    	finalImageData[i] = {imageData[(i*4)], imageData[(i*4+1)], imageData[(i*4+2)], imageData[(i*4+3)]};
-	    }
+		unsigned int size = (*width)*(*height);
+		RGBA* finalImageData = new RGBA[size];
+		for (unsigned int i = 0; i < size; i++){
+			finalImageData[i] = {imageData[(i*4)], imageData[(i*4+1)], imageData[(i*4+2)], imageData[(i*4+3)]};
+		}
 
-	    // clean up
-	    png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-	    free(imageData);
-	    free(row_pointers);
-	    fclose(fp);
-	    return finalImageData;
+		// clean up
+		png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
+		free(imageData);
+		free(row_pointers);
+		fclose(fp);
+		return finalImageData;
 }

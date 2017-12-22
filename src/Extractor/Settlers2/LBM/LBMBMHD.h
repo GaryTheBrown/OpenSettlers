@@ -33,12 +33,12 @@ namespace Extractor {
 		public:
 			explicit LBMBMHD(Functions::DataReader* reader);
 
-			unsigned short Width(){return this->width;};
-			unsigned short Height(){return this->height;};
-			unsigned char NumPlanes(){return this->numPlanes;};
-			unsigned char Mask(){return this->mask;};
-			unsigned char Compression(){return this->compression;};
-			unsigned short TransClr(){return this->transClr;};
+			const unsigned short Width(){return this->width;};
+			const unsigned short Height(){return this->height;};
+			const unsigned char NumPlanes(){return this->numPlanes;};
+			const unsigned char Mask(){return this->mask;};
+			const unsigned char Compression(){return this->compression;};
+			const unsigned short TransClr(){return this->transClr;};
 		};
 	}
 }

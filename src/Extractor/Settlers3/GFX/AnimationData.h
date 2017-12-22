@@ -38,7 +38,7 @@ namespace Extractor{
 			AnimationData(Functions::DataReader* reader, int offset);
 			~AnimationData(){delete [] this->frames;};
 
-			void SaveToFile(std::string filename);
+			void SaveToFile(std::string *filename);
 		};
 	}
 }

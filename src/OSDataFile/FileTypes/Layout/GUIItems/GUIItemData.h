@@ -70,11 +70,11 @@ namespace OSData{
 		GUIItemData(eGUIItemType itemType,xmlNode* node);
 		virtual ~GUIItemData(){};
 
-		eGUIItemType ItemType(){return this->itemType;}
-		std::pair<unsigned short,unsigned short> Location(){return this->location;}
-		std::pair<unsigned short,unsigned short> Size(){return this->size;}
-		ePosition Vertical(){return this->verticalPosition;}
-		ePosition Horizontal(){return this->horizontalPosition;}
+		const eGUIItemType ItemType(){return this->itemType;}
+		const std::pair<unsigned short,unsigned short> Location(){return this->location;}
+		const std::pair<unsigned short,unsigned short> Size(){return this->size;}
+		const ePosition Vertical(){return this->verticalPosition;}
+		const ePosition Horizontal(){return this->horizontalPosition;}
 		GUIVisibilityData VisibilityData(){return this->visibilityData;}
 
 		virtual bool ToSaveToData(std::vector<char>* data = NULL);

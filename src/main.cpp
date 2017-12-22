@@ -119,6 +119,7 @@ int main(int argc,char* argv[]){
 			system->display->SetWindowName(std::string(PACKAGE_NAME) + "- " + gameType->GameName());
 			startMenuReturn = game->Loop();
 			delete game;
+			delete file;
 			return 0;
 		}
 		default:

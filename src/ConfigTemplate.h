@@ -31,23 +31,20 @@ class ConfigTemplateBase{
 	protected:
 		std::string code;
 		std::string name;
-		configGroup group = cGeneral;
+		configGroup group;
 
 	public:
 		ConfigTemplateBase(){};
-		ConfigTemplateBase(std::string code, std::string name):code(code),name(name){
-			std::transform(code.begin(), code.end(),code.begin(), ::toupper);
-		};
-		ConfigTemplateBase(std::string code, std::string name,configGroup group):code(code),name(name),group(group){
+		ConfigTemplateBase(std::string code, std::string name,configGroup group = cGeneral):code(code),name(name),group(group){
 			std::transform(this->code.begin(), this->code.end(),this->code.begin(), ::toupper);
 		};
 		virtual ~ConfigTemplateBase(){};
 
-		bool CheckCode(std::string checkCode){
+		const bool CheckCode(std::string checkCode){
 			std::transform(checkCode.begin(), checkCode.end(),checkCode.begin(), ::toupper);
 			if(this->code==checkCode)return true; else return false;}
-		std::string GetName(){return this->name;}
-		configGroup GetGroup(){return group;}
+		const std::string GetName(){return this->name;}
+		const configGroup GetGroup(){return group;}
 };
 
 template <class T> class ConfigTemplate : public ConfigTemplateBase{
@@ -62,7 +59,7 @@ template <class T> class ConfigTemplate : public ConfigTemplateBase{
 	public:
 		ConfigTemplate(){};
 		ConfigTemplate(std::string code, std::string name, configGroup group, T defaultValue, unsigned int count, std::pair<std::string,T> *data):ConfigTemplateBase(code, name,group), value(defaultValue), defaultValue(defaultValue), count(count), data(data){}
-		ConfigTemplate(std::string code, std::string name, configGroup group, T defaultValue,eVarType varType):ConfigTemplateBase(code, name,group), value(defaultValue), defaultValue(defaultValue){
+		ConfigTemplate(std::string code, std::string name, configGroup group, T defaultValue,eVarType varType):ConfigTemplateBase(code, name, group), value(defaultValue), defaultValue(defaultValue){
 			switch (varType){
 				case eBool:{
 					this->count = 2;
@@ -84,20 +81,20 @@ template <class T> class ConfigTemplate : public ConfigTemplateBase{
 
 		virtual ~ConfigTemplate(){delete[] data;}
 
-		T GetValue(){return this->value;}
-		unsigned int GetCount(){return this->count;}
-		std::string GetTextValue(int location){return data[location].first;}
-		std::string GetTextValue(){
+		const T GetValue(){return this->value;}
+		const unsigned int GetCount(){return this->count;}
+		const std::string GetTextValue(int location){return data[location].first;}
+		const std::string GetTextValue(){
 			for(unsigned int i = 0; i < this->count;i++){
 				if (this->data[i].second == this->value){
 					return data[i].first;
 				}
 			}
 		}
-		T GetDataValue(int location){return data[location].second;}
-		T GetDataValue(std::string name){
+		const T GetDataValue(int location){return data[location].second;}
+		const T GetDataValue(std::string *name){
 			for(unsigned int i = 0; i < this->count;i++){
-				if (this->data[i].first == name){
+				if (this->data[i].first == *name){
 					return this->data[i].second;
 				}
 			}
@@ -105,11 +102,13 @@ template <class T> class ConfigTemplate : public ConfigTemplateBase{
 		}
 
 		void SetValue(T value){this->value = value;}
-		void SetFromDataValue(std::string setValue){
+		bool SetFromDataValue(std::string *setValue){
 			for(unsigned int i = 0; i < this->count;i++){
-				if (this->data[i].first == name){
+				if (this->data[i].first == *setValue){
 					this->value = this->data[i].second;
+					return true;
 				}
 			}
+			return false;
 		}
 };

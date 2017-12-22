@@ -28,20 +28,20 @@ namespace Extractor{
 			std::string locationExtra = "";
 			std::string saveLocation;
 
-			bool RAWGFXFileExtract(std::string folder, std::string file);
-			bool RAWSNDFileExtract(std::string folder, std::string file);
-			bool RAWMAPFileExtract(std::string folder, std::string file, MapType mapType = MT_UNKNOWN);
-			void RAWGFXFolderExtract(std::string folder);
-			void RAWSNDFolderExtract(std::string folder);
-			void RAWMAPFolderExtract(std::string folder, MapType mapType = MT_UNKNOWN);
+			bool RAWGFXFileExtract(std::string *folder, std::string *file);
+			bool RAWSNDFileExtract(std::string *folder, std::string *file);
+			bool RAWMAPFileExtract(std::string *folder, std::string *file, MapType mapType = MT_UNKNOWN);
+			void RAWGFXFolderExtract(std::string *folder);
+			void RAWSNDFolderExtract(std::string *folder);
+			void RAWMAPFolderExtract(std::string *folder, MapType mapType = MT_UNKNOWN);
 
 		public:
-			Extract(std::string location,bool GOG,std::string saveLocation);
+			Extract(std::string *location,bool GOG,std::string *saveLocation);
 			Extract(){};
 			~Extract();
 
 			bool FullRAWExtract();
-			bool ManualExtract(eType fileType,std::string location);
+			bool ManualExtract(eType fileType,std::string *location);
 		};
 	}
 }

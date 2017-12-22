@@ -43,8 +43,8 @@ namespace Extractor{
 			void SaveToFile(std::string location);
 
 
-			int MapSizeHeight(){return this->mapSizeHeight;};
-			int MapSizeWidth(){return this->mapSizeWidth;};
+			const int MapSizeHeight(){return this->mapSizeHeight;};
+			const int MapSizeWidth(){return this->mapSizeWidth;};
 			MapTile* MapData(){return this->mapData;}
 		};
 	}

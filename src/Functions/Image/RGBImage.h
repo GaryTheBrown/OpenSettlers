@@ -41,10 +41,10 @@ namespace Functions{
 		void OverwriteSection(unsigned short X,unsigned short Y,unsigned short width,unsigned short height, RGBA colour = {0,0,0,0});
 		void FlipVertical();
 		void SetKeep(){this->keep = true;};
-		bool GetKeep(){return this->keep;};
+		const bool GetKeep(){return this->keep;};
 
-		unsigned short Width(){return this->width;};
-		unsigned short Height(){return this->height;};
+		const unsigned short Width(){return this->width;};
+		const unsigned short Height(){return this->height;};
 		RGBA* ImageRGBA(){return this->imageRGBA;};
 
 	};

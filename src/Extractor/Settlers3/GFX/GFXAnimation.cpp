@@ -47,7 +47,8 @@ bool Extractor::Settlers3::GFXAnimation::SaveToFile(std::string location){
 		location += "/Animation/";
 		Functions::CreateDir(location);
 		for(unsigned short i = 0; i < this->count; i++){
-			if(this->animations[i] != NULL) this->animations[i]->SaveToFile(location + Functions::ToString(i));
+			std::string file = location + Functions::ToString(i);
+			if(this->animations[i] != NULL) this->animations[i]->SaveToFile(&file);
 		}
 		return true;
 	}

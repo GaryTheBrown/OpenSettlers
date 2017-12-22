@@ -43,7 +43,7 @@ namespace Converter {
 			void SetupData();
 
 		public:
-			Convert(std::string locationofFiles, bool GOG, std::string saveLocation);
+			Convert(std::string locationofFiles, bool gog, std::string *saveLocation);
 			virtual ~Convert();
 			bool DoConvert();
 		};

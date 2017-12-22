@@ -43,15 +43,15 @@ namespace Extractor{
 			explicit GFXHeader(Functions::DataReader* reader);
 			~GFXHeader(){};
 
-			unsigned int ColourCode(){return this->colourCode1;}
-			unsigned int OffsetData(){return this->offsetText;}
-			unsigned int OffsetLandscape(){return this->offsetLandscape;}
-			unsigned int OffsetGui(){return this->offsetGui;}
-			unsigned int OffsetObject(){return this->offsetObject;}
-			unsigned int OffsetTorso(){return this->offsetTorso;}
-			unsigned int OffsetShadow(){return this->offsetShadow;}
-			unsigned int OffsetAnimation(){return this->offsetAnimation;}
-			unsigned int OffsetPalette(){return this->offsetPalette;}
+			const unsigned int ColourCode(){return this->colourCode1;}
+			const unsigned int OffsetData(){return this->offsetText;}
+			const unsigned int OffsetLandscape(){return this->offsetLandscape;}
+			const unsigned int OffsetGui(){return this->offsetGui;}
+			const unsigned int OffsetObject(){return this->offsetObject;}
+			const unsigned int OffsetTorso(){return this->offsetTorso;}
+			const unsigned int OffsetShadow(){return this->offsetShadow;}
+			const unsigned int OffsetAnimation(){return this->offsetAnimation;}
+			const unsigned int OffsetPalette(){return this->offsetPalette;}
 		};
 	}
 }

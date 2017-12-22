@@ -23,7 +23,7 @@ namespace Extractor{
 		public:
 			PaletteImageData(Functions::DataReader* reader, unsigned int offset,RGBA* Palette = NULL);
 
-			bool Keep(){return this->keep;};
+			const bool Keep(){return this->keep;};
 
 			PaletteImageData* ReturnImage(){this->keep = true; return this;}
 		};

@@ -12,7 +12,7 @@
 
 ConfigList::ConfigList(){
 //Fullscreen
-	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<bool>("fullscreen","FullScreen",ConfigTemplateBase::cDisplay,false,ConfigTemplateBase::eBool)));
+	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<bool>((std::string)"fullscreen",(std::string)"FullScreen",ConfigTemplateBase::cDisplay,false,ConfigTemplateBase::eBool)));
 //Window Size
 	unsigned int windowCount = 4;
 	std::pair<std::string,std::pair<int,int> > *data = new std::pair<std::string,std::pair<int,int> >[windowCount];
@@ -20,14 +20,14 @@ ConfigList::ConfigList(){
 	data[1] = std::make_pair("800x600",std::make_pair(800,600));
 	data[2] = std::make_pair("1024x768",std::make_pair(1024,768));
 	data[3] = std::make_pair("1366x768",std::make_pair(1366,768));
-	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<std::pair<int,int> >("windowsize","Window Size",ConfigTemplateBase::cDisplay,std::make_pair(800,600),windowCount, data)));
+	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<std::pair<int,int> >((std::string)"windowsize",(std::string)"Window Size",ConfigTemplateBase::cDisplay,std::make_pair(800,600),windowCount, data)));
 //FPS Options
-	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<bool>("lockfps","Lock FPS",ConfigTemplateBase::cDisplay,true,ConfigTemplateBase::eBool)));
-	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<bool>("showfps","Show FPS",ConfigTemplateBase::cDisplay,false,ConfigTemplateBase::eBool)));
-	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<int>("maxfps","Max FPS",ConfigTemplateBase::cDisplay,30,ConfigTemplateBase::eInt)));
+	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<bool>((std::string)"lockfps",(std::string)"Lock FPS",ConfigTemplateBase::cDisplay,true,ConfigTemplateBase::eBool)));
+	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<bool>((std::string)"showfps",(std::string)"Show FPS",ConfigTemplateBase::cDisplay,false,ConfigTemplateBase::eBool)));
+	this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<int>((std::string)"maxfps",(std::string)"Max FPS",ConfigTemplateBase::cDisplay,30,ConfigTemplateBase::eInt)));
 //Locations
-this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<std::string>("gameslocation","Games Location",ConfigTemplateBase::cLocation,"Games/",ConfigTemplateBase::eString)));
-this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<std::string>("startmenulocation","Start Menu Location",ConfigTemplateBase::cLocation,"Data/StartMenu.dat",ConfigTemplateBase::eString)));
+this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<std::string>((std::string)"gameslocation",(std::string)"Games Location",ConfigTemplateBase::cLocation,"Games/",ConfigTemplateBase::eString)));
+this->configList.push_back(dynamic_cast<ConfigTemplateBase*>(new ConfigTemplate<std::string>((std::string)"startmenulocation",(std::string)"Start Menu Location",ConfigTemplateBase::cLocation,"Data/StartMenu.dat",ConfigTemplateBase::eString)));
 
 //list more options here
 }

@@ -47,20 +47,20 @@ namespace OSData{
 	public:
 
 		GUIButtonData(GUIItemData baseData,std::string text,RGBA textColour,unsigned short fontSize, ImageData image, ImageData pressed,ImageData hover,GUIButtonTypeData buttonType,ReturnData returnData,bool multiSelect);
-		GUIButtonData(Functions::DataReader* reader);
-		GUIButtonData(xmlNode* node);
+		explicit GUIButtonData(Functions::DataReader* reader);
+		explicit GUIButtonData(xmlNode* node);
 		virtual ~GUIButtonData(){};
 
-		std::string Text(){return this->text;}
-		RGBA TextColour(){return this->textColour;}
-		unsigned short FontSize(){return this->fontSize;}
+		const std::string Text(){return this->text;}
+		const RGBA TextColour(){return this->textColour;}
+		const unsigned short FontSize(){return this->fontSize;}
 
 		ImageData Image(){return this->image;}
 		ImageData Hover(){return this->hover;}
 		ImageData Pressed(){return this->pressed;}
-		GUIButtonTypeData ButtonType(){return this->buttonType;}
-		ReturnData MenuEvent(){return this->returnData;}
-		bool MultiSelect(){return this->multiSelect;}
+		const GUIButtonTypeData ButtonType(){return this->buttonType;}
+		const ReturnData MenuEvent(){return this->returnData;}
+		const bool MultiSelect(){return this->multiSelect;}
 
 		bool ToSaveToData(std::vector<char>* data = NULL);
 		bool ImageToNumbers(std::vector<Functions::RGBImage*>* images, std::vector<std::string>* imageLocations = NULL);

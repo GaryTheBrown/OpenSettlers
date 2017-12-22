@@ -67,11 +67,11 @@ void Converter::Settlers3::Convert::SetupData(){
 		}
 		case Extractor::Settlers3::VersionS3GOLD2:{
 			//Extract from Cab
-			Functions::ExternalProgram* program = new Functions::ExternalProgram(this->data.locationofFiles);
+			Functions::ExternalProgram* program = new Functions::ExternalProgram(&this->data.locationofFiles);
 			if(Functions::FolderExists("EXE") == false){
 				if(program->CABExtract("s3/install/data.cab") == false){
 					this->somethingToExtract = false;
-					return;
+					break; //return;
 				}
 			}else
 				LOGSYSTEM->Log("CABExtract: Already Extracted",1);
@@ -96,11 +96,11 @@ void Converter::Settlers3::Convert::SetupData(){
 		}
 		case Extractor::Settlers3::VersionS3GOG:{
 			//Extract From EXE
-			Functions::ExternalProgram* program = new Functions::ExternalProgram(this->data.locationofFiles);
+			Functions::ExternalProgram* program = new Functions::ExternalProgram(&this->data.locationofFiles);
 			if(Functions::FolderExists("app") == false){
 				if(program->GOGExtract() == false){
 					this->somethingToExtract = false;
-					return;
+					break; //return;
 				}
 			}else
 				LOGSYSTEM->Log("GOG Extract: Already Extracted",1);

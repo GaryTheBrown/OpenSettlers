@@ -34,10 +34,10 @@ namespace Functions{
 		const char* readBuffer(int offset){return this->fileBuffer + offset;};
 
 
-		unsigned int FileSize(){return this->fileSize;};
-		std::string FullFileName(){return this->file;};
-		std::string FileName(){return this->fileName;};
-		std::string FileExt(){return this->fileExt;};
-		void DeleteTmpBuffer(){delete[] this->tmpBuffer;}
+		const unsigned int FileSize(){return this->fileSize;};
+		const std::string FullFileName(){return this->file;};
+		const std::string FileName(){return this->fileName;};
+		const std::string FileExt(){return this->fileExt;};
+		const void DeleteTmpBuffer(){delete[] this->tmpBuffer;}
 	};
 }

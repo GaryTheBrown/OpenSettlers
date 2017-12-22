@@ -36,17 +36,17 @@ namespace OSData{
 
 	public:
 
-		GUIButtonTypeData(eType type);
-		GUIButtonTypeData(std::string type);
+		explicit GUIButtonTypeData(eType type);
+		explicit GUIButtonTypeData(std::string type);
 		GUIButtonTypeData(eType type,std::string text);
-		GUIButtonTypeData(Functions::DataReader* reader);
-		GUIButtonTypeData(xmlNode* node);
+		explicit GUIButtonTypeData(Functions::DataReader* reader);
+		explicit GUIButtonTypeData(xmlNode* node);
 		virtual ~GUIButtonTypeData(){};
 
-		eType Type(){return this->type;}
+		const eType Type(){return this->type;}
 
 		std::string ButtonTypeString();
-		std::string Text(){return this->text;}
+		const std::string Text(){return this->text;}
 
 		bool ToSaveToData(std::vector<char>* data = NULL);
 		std::string ToString();

@@ -43,12 +43,14 @@ void OSData::File::ConstructFromDataFile(std::string file){
 	if (headCode != "OSET"){
 		LOGSYSTEM->Error(file + " is not an Open Settlers File. Getting: " + headCode);
 		this->fileOK = false;
+		delete reader;
 		return;
 	}
 	this->APIVersion = reader->ReadInt();
 	if (this->APIVersion > APILEVEL::MASTER){
 		LOGSYSTEM->Error(file + " is Newer than Game API:" + Functions::ToString(this->APIVersion) + ">" + Functions::ToString(APILEVEL::MASTER));
 		this->fileOK = false;
+		delete reader;
 		return;
 	}
 

@@ -57,8 +57,10 @@ std::vector<std::string>* Functions::GetFilesInDirectory(std::string directory){
 	HANDLE dir;
 	WIN32_FIND_DATA fileData;
 
-	if ((dir = FindFirstFile((directory + "/*").c_str(), &fileData)) == INVALID_HANDLE_VALUE)
+	if ((dir = FindFirstFile((directory + "/*").c_str(), &fileData)) == INVALID_HANDLE_VALUE){
+		delete outVector;
 		return 0; /* No files found */
+	}
 	do {
 		if ((fileData.cFileName[0] == '.')||((fileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)) continue;
 		outVector->push_back(fileData.cFileName);
@@ -87,10 +89,12 @@ std::vector<std::string>* Functions::GetFoldersInDirectory(std::string directory
 	HANDLE dir;
 	WIN32_FIND_DATA fileData;
 
-	if ((dir = FindFirstFile((directory + "/*").c_str(), &fileData)) == INVALID_HANDLE_VALUE)
+	if ((dir = FindFirstFile((directory + "/*").c_str(), &fileData)) == INVALID_HANDLE_VALUE){
+		delete outVector;
 		return 0; /* No files found */
+	}
 	do {
-		if ((fileData.cFileName[0] == '.') != 0)) continue;
+		if ((fileData.cFileName[0] == '.') != 0) continue;
 		outVector->push_back(fileData.cFileName + (showDir?"/":""));
 	} while (FindNextFile(dir, &fileData));
 

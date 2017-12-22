@@ -28,8 +28,8 @@ class StartMenu {
 private:
 	SystemInterface::System* system;
 	ConfigList* configList;
-	GFXInterface::GFXMenu* menu;
-	OSData::MenuLayout* layout;
+	GFXInterface::GFXMenu* menu = NULL;
+	OSData::MenuLayout* layout = NULL;
 
 public:
 	StartMenu(SystemInterface::System* system,ConfigList* configList);

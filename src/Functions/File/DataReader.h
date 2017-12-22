@@ -25,18 +25,18 @@ namespace Functions{
 		bool bigEndian = false;
 
 		template <class T> void endswap(T *objp){
-		  unsigned char *memp = reinterpret_cast<unsigned char*>(objp);
-		  std::reverse(memp, memp + sizeof(T));
+		  unsigned char *memoryPointer = reinterpret_cast<unsigned char*>(objp);
+		  std::reverse(memoryPointer, memoryPointer + sizeof(T));
 		}
 
 	public:
 		DataReader(std::string filename, int hiddenOffset = 0, int blockLength = -1);
 		~DataReader(){delete this->file;};
 
-		bool EndOfFile(){return this->endOfFile;};
-		unsigned int Length(){return this->blockLength;};
-		unsigned int FileSize(){return this->file->FileSize();};
-		unsigned int GetOffset(){return this->offset;};
+		const bool EndOfFile(){return this->endOfFile;};
+		const unsigned int Length(){return this->blockLength;};
+		const unsigned int FileSize(){return this->file->FileSize();};
+		const unsigned int GetOffset(){return this->offset;};
 		bool SetOffset(unsigned int newOffset);
 		bool MoveOffset(signed int value);
 

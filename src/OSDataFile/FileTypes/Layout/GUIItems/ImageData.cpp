@@ -103,6 +103,7 @@ bool OSData::ImageData::ImageToNumbers(std::vector<Functions::RGBImage*>* images
 			images->push_back(this->image);
 			imageLocations->push_back(this->location);
 			this->Number(images->size() - 1);
+			delete imageFile;
 		} else {
 			//Found Image in DB already
 			auto index = std::distance(imageLocations->begin(), imageLocation);

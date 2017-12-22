@@ -42,30 +42,30 @@ namespace Extractor{
 			std::string locationExtra = "";
 			std::string saveLocation;
 
-			bool RAWLBMFileExtract(std::string folder, std::string file);
-			void RAWLBMFolderExtract(std::string folder);
+			bool RAWLBMFileExtract(std::string *folder, std::string *file);
+			void RAWLBMFolderExtract(std::string *folder);
 
-			bool RAWBBMFileExtract(std::string folder, std::string file);
-			void RAWBBMFolderExtract(std::string folder);
+			bool RAWBBMFileExtract(std::string *folder, std::string *file);
+			void RAWBBMFolderExtract(std::string *folder);
 
-			bool RAWLSTFileExtract(std::string folder, std::string file);
-			void RAWLSTFolderExtract(std::string folder);
+			bool RAWLSTFileExtract(std::string *folder, std::string *file);
+			void RAWLSTFolderExtract(std::string *folder);
 
-			bool RAWIDXFileExtract(std::string folder, std::string file);
-			void RAWIDXFolderExtract(std::string folder);
+			bool RAWIDXFileExtract(std::string *folder, std::string *file);
+			void RAWIDXFolderExtract(std::string *folder);
 
-			bool RAWBOBFileExtract(std::string folder, std::string file);
-			void RAWBOBFolderExtract(std::string folder);
+			bool RAWBOBFileExtract(std::string *folder, std::string *file);
+			void RAWBOBFolderExtract(std::string *folder);
 
 			void CheckGameVersion(bool GOG);
 
 		public:
-			Extract(std::string location,bool GOG,std::string saveLocation);
+			Extract(std::string *location,bool GOG,std::string *saveLocation);
 			Extract(){};
 			~Extract();
 
 			bool FullRAWExtract();
-			bool ManualExtract(Extractor::eType fileType,std::string location);
+			bool ManualExtract(Extractor::eType fileType,std::string *location);
 		};
 	}
 }

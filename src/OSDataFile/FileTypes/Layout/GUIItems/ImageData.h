@@ -28,22 +28,22 @@ namespace OSData{
 		RGBA colour;
 		Functions::RGBImage* image = NULL;
 	public:
-		ImageData(std::string location):type(tLocation),location(location){};
-		ImageData(unsigned int number):type(tNumber),number(number){};
+		explicit ImageData(std::string *location):type(tLocation),location(*location){};
+		explicit ImageData(unsigned int number):type(tNumber),number(number){};
 		ImageData(RGBA colour):type(tColour),colour(colour){};
 		ImageData(Functions::RGBImage* image):type(tData),image(image){};
 		ImageData():type(tNone){};
 
-		void Location(std::string location){this->type = tLocation;this->location = location;}
+		void Location(std::string *location){this->type = tLocation;this->location = *location;}
 		void Number(unsigned int number){this->type = tNumber;this->number = number;}
 		void Colour(RGBA colour){this->type = tColour;this->colour = colour;}
 		void Data(Functions::RGBImage* image){this->type = tData;this->image = image;}
 		void None(){this->type = tNone;};
 
-		ImageLocationType Type(){return this->type;}
-		std::string Location(){return this->location;}
-		unsigned int Number(){return this->number;}
-		RGBA Colour(){return this->colour;}
+		const ImageLocationType Type(){return this->type;}
+		const std::string Location(){return this->location;}
+		const unsigned int Number(){return this->number;}
+		const RGBA Colour(){return this->colour;}
 		Functions::RGBImage* Image(){return this->image;};
 
 		void ReadData(Functions::DataReader* reader);

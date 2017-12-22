@@ -63,15 +63,15 @@ void OSData::GUIButtonData::CheckValues(std::string name, std::string value){
 	else if (name == "FontSize")
 		this->fontSize = atoi(value.c_str());
 	else if (name == "ImageLocation")
-		this->image.Location(value);
+		this->image.Location(&value);
 	else if (name == "ButtonColour")
 		this->image.Colour(Functions::StringToHex(value));
 	else if (name == "HoverImageLocation")
-		this->hover.Location(value);
+		this->hover.Location(&value);
 	else if (name == "HoverButtonColour")
 		this->hover.Colour(Functions::StringToHex(value));
 	else if (name == "PressedImageLocation")
-		this->pressed.Location(value);
+		this->pressed.Location(&value);
 	else if (name == "PressedButtonColour")
 		this->pressed.Colour(Functions::StringToHex(value));
 	else if (name == "ButtonType") //ONLY IF NO EXTRA DATA NEEDED
@@ -81,7 +81,7 @@ void OSData::GUIButtonData::CheckValues(std::string name, std::string value){
 	else if (name == "MenuEventNumber")
 		this->returnData.Int(atoi(value.c_str()));
 	else if (name == "MenuEventString")
-		this->returnData.String(value);
+		this->returnData.String(&value);
 	else if (name == "MultiSelect")
 		this->multiSelect = value=="true"?true:false;
 }

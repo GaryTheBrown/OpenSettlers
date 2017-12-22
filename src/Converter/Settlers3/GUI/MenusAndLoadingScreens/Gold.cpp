@@ -183,5 +183,6 @@ void Converter::Settlers3::ConvertGUI::Gold(OSData::GameType* gameType){
 		//Delete Original Images
 		if (mainMenu != NULL)delete mainMenu;
 		if (loadingScreen != NULL)delete loadingScreen;
+		delete file;
 	}
 }

@@ -25,15 +25,15 @@ namespace Functions{
 	extern std::string ToBinary(int value,int bytes = 1);
 	extern unsigned int StringToHex(std::string value);
 
-	template <class T> std::string OutputVar(std::string varName, T varValue,int bytes = 1, bool full = true){
+	template <class T> std::string OutputVar(std::string *varName, T varValue,int bytes = 1, bool full = true){
 		std::string returnString;
 		if(full){
-			returnString += varName + "=\tDec:" + ToString((int)varValue);
-			returnString += "\tBinary:" + ToBinary(varValue,bytes);
-			returnString += "\tHex: 0x" + ToHex(varValue,bytes);
+			returnString += *varName + "=\tDec:" + ToString((int)*varValue);
+			returnString += "\tBinary:" + ToBinary(*varValue,bytes);
+			returnString += "\tHex: 0x" + ToHex(*varValue,bytes);
 		}
 		else
-			returnString = varName + "=" + ToString(varValue);
+			returnString = *varName + "=" + ToString(*varValue);
 		return returnString;
 	}
 }

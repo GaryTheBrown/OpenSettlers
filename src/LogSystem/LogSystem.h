@@ -42,4 +42,12 @@ public:
 	void Log(std::string info, signed char verboseLevel = 1, bool newLine = true);
 	void Message(std::string info, bool newLine = true);
 	void Error(std::string info);
+
+	void Bool(std::string info, bool input){
+		if (input){
+			this->Log(info + ": TRUE" );
+		}else{
+			this->Log(info + ": FALSE" );
+		}
+	}
 };

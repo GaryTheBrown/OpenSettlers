@@ -37,9 +37,9 @@ namespace OSData{
 		explicit GUITextData(xmlNode* node);
 		virtual ~GUITextData(){};
 
-		std::string Text(){return text;}
-		RGBA TextColour(){return textColour;}
-		signed short FontSize(){return fontSize;}
+		const std::string Text(){return text;}
+		const RGBA TextColour(){return textColour;}
+		const signed short FontSize(){return fontSize;}
 
 		bool ToSaveToData(std::vector<char>* data = NULL);
 		std::string ToString();
