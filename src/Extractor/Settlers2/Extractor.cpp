@@ -15,6 +15,10 @@ Extractor::Settlers2::Extract::Extract(std::string *location,bool GOG,std::strin
 	this->CheckGameVersion(GOG);
 }
 
+Extractor::Settlers2::Extract::Extract(std::string *saveLocation)
+	:saveLocation(*saveLocation){
+}
+
 Extractor::Settlers2::Extract::~Extract(){
 	if(Functions::FolderExists("app")){
 		LOGSYSTEM->Log("Cleaning up Extracted GOG Data",1);
@@ -234,6 +238,30 @@ void Extractor::Settlers2::Extract::RAWBOBFolderExtract(std::string *folder){
 	}
 }
 
+bool Extractor::Settlers2::Extract::RAWMAPFileExtract(std::string *folder, std::string *file){
+	if(Functions::FileExists(*folder+*file)){
+		LOGSYSTEM->Log("Open MAP Map File: "+ *file,1);
+		LOGSYSTEM->Log("Extracting...",1);
+		MAPDataType* MAPFile = new MAPDataType(*folder+*file);
+		LOGSYSTEM->Log("Saving...",1);
+		Functions::CreateDir(this->saveLocation + "/S2/");
+		Functions::CreateDir(this->saveLocation + "/S2/MAP/");
+		Functions::CreateDir(this->saveLocation + "/S2/MAP/"+ *file);
+		MAPFile->SaveToFile(this->saveLocation + "/S2/MAP/" + *file);
+		LOGSYSTEM->Log("Closing...",1);
+		delete MAPFile;
+		return true;
+	}else return false;
+}
+
+void Extractor::Settlers2::Extract::RAWMAPFolderExtract(std::string *folder){
+	if(Functions::FolderExists(*folder)){
+		std::vector<std::string>* fileList = Functions::GetFilesInDirectory(*folder);
+		for(unsigned int i=0; i < fileList->size(); i++){
+			this->RAWMAPFileExtract(folder,&fileList->at(i));
+		}
+	}
+}
 bool Extractor::Settlers2::Extract::ManualExtract(eType fileType, std::string *location){
 	size_t pos = location->find_last_of("/");
 	if(pos != location->length()-1){
@@ -256,6 +284,10 @@ bool Extractor::Settlers2::Extract::ManualExtract(eType fileType, std::string *l
 		case BOB:
 			this->RAWBOBFileExtract(&folder,&file);
 			break;
+		case WLD:
+		case SWD:
+			this->RAWMAPFileExtract(&folder,&file);
+			break;
 		default:
 			return false;
 		}
@@ -275,6 +307,9 @@ bool Extractor::Settlers2::Extract::ManualExtract(eType fileType, std::string *l
 			break;
 		case BOB:
 			this->RAWBOBFolderExtract(location);
+			break;
+		case MAP:
+			this->RAWMAPFolderExtract(location);
 			break;
 		default:
 			return false;

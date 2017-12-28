@@ -37,6 +37,7 @@ namespace Extractor{
 
 		public:
 			Extract(std::string *location,bool GOG,std::string *saveLocation);
+			Extract(std::string *saveLocation);
 			Extract(){};
 			~Extract();
 

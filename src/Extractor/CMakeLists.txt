@@ -23,6 +23,12 @@ set(src_extractor
 	Settlers2/LST/ShadowBitmap.h
 	Settlers2/LST/XMIDIData.cpp
 	Settlers2/LST/XMIDIData.h
+	Settlers2/MAP/MAPBlock.cpp
+	Settlers2/MAP/MAPBlock.h
+	Settlers2/MAP/MAPHeader.cpp
+	Settlers2/MAP/MAPHeader.h
+	Settlers2/MAP/MAPDataType.cpp
+	Settlers2/MAP/MAPDataType.h
 	Settlers2/BBMDataType.cpp
 	Settlers2/BBMDataType.h
 	Settlers2/BOBDataType.cpp

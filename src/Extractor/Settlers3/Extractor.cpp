@@ -15,6 +15,10 @@ Extractor::Settlers3::Extract::Extract(std::string *location,bool GOG,std::strin
 	this->gameVersion = CheckGameVersion(*location,GOG);
 }
 
+Extractor::Settlers3::Extract::Extract(std::string *saveLocation)
+	:saveLocation(*saveLocation){
+}
+
 Extractor::Settlers3::Extract::~Extract(){
 	if(Functions::FolderExists("EXE")){
 		LOGSYSTEM->Log("Cleaning up Extracted Cab Data",1);

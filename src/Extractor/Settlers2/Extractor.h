@@ -19,6 +19,7 @@
 #include "LSTDataType.h"
 #include "IDXDATDataType.h"
 #include "BOBDataType.h"
+#include "MAP/MAPDataType.h"
 
 namespace Extractor{
 	namespace Settlers2{
@@ -57,10 +58,14 @@ namespace Extractor{
 			bool RAWBOBFileExtract(std::string *folder, std::string *file);
 			void RAWBOBFolderExtract(std::string *folder);
 
+			bool RAWMAPFileExtract(std::string *folder, std::string *file);
+			void RAWMAPFolderExtract(std::string *folder);
+
 			void CheckGameVersion(bool GOG);
 
 		public:
 			Extract(std::string *location,bool GOG,std::string *saveLocation);
+			Extract(std::string *saveLocation);
 			Extract(){};
 			~Extract();
 

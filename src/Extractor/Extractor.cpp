@@ -26,18 +26,15 @@ bool Extractor::Main(std::string location,std::string saveLocation){
 			fileType = LBM;
 			gameNo = 2;
 			LOGSYSTEM->Log("LBM File Type",1);
-		}
-		if (extension == "BBM"){
+		}else if (extension == "BBM"){
 			fileType = BBM;
 			gameNo = 2;
 			LOGSYSTEM->Log("BBM File Type",1);
-		}
-		if (extension == "LST"){
+		}else if (extension == "LST"){
 			fileType = LST;
 			gameNo = 2;
 			LOGSYSTEM->Log("LST File Type",1);
-		}
-		else if (extension == "IDX") {
+		}else if (extension == "IDX") {
 			if (Functions::FileExists(fileWithoutExtension + ".DAT")){
 			fileType = IDX;
 			gameNo = 2;
@@ -46,11 +43,18 @@ bool Extractor::Main(std::string location,std::string saveLocation){
 				fileType = SKIP;
 				gameNo = 2;
 			}
-		}
-		if (extension == "BOB"){
+		}else if (extension == "BOB"){
 			fileType = BOB;
 			gameNo = 2;
 			LOGSYSTEM->Log("BOB File Type",1);
+		}else if (extension == "WLD"){
+			fileType = WLD;
+			gameNo = 2;
+			LOGSYSTEM->Log("WLD File Type",1);
+		}else if (extension == "SWD"){
+			fileType = SWD;
+			gameNo = 2;
+			LOGSYSTEM->Log("SWD File Type",1);
 		}
 		//Settlers 3 File Types
 		else if (extension == "MAP"){
@@ -210,8 +214,10 @@ bool Extractor::Main(std::string location,std::string saveLocation){
 	case BBM:
 	case LST:
 	case IDX:
-	case BOB:{
-		Settlers2::Extract* s2Extract = new Settlers2::Extract();
+	case BOB:
+	case WLD:
+	case SWD:{
+		Settlers2::Extract* s2Extract = new Settlers2::Extract(&saveLocation);
 		bool returnResult = s2Extract->ManualExtract(fileType, &location);
 		delete s2Extract;
 		return returnResult;
@@ -219,7 +225,7 @@ bool Extractor::Main(std::string location,std::string saveLocation){
 	case GFX:
 	case SND:
 	case MAP:{
-		Settlers3::Extract* s3Extract = new Settlers3::Extract();
+		Settlers3::Extract* s3Extract = new Settlers3::Extract(&saveLocation);
 		bool returnResult = s3Extract->ManualExtract(fileType, &location);
 		delete s3Extract;
 		return returnResult;
