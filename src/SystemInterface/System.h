@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef SYSTEMINTERFACE_SYSTEM_H
+#define SYSTEMINTERFACE_SYSTEM_H
 
 #include <string>
 #include <utility>
@@ -47,3 +48,5 @@ namespace SystemInterface {
 
 	};
 }
+
+#endif

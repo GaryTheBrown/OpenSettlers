@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef OSDATAFILE_OSDATAFILE_H
+#define OSDATAFILE_OSDATAFILE_H
+
 #include <string>
 #include <utility>
 #include <algorithm>
@@ -64,3 +66,5 @@ namespace OSData{
 		GameType* ReturnGameType();
 	};
 }
+
+#endif

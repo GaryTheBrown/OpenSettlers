@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef OSDATAFILE_FILETYPES_LAYOUT_GUIITEMS_GUIITEMNEW_H
+#define OSDATAFILE_FILETYPES_LAYOUT_GUIITEMS_GUIITEMNEW_H
 
 #include <string>
 #include <libxml/tree.h>
@@ -25,3 +26,5 @@ namespace OSData{
 	extern GUIItemData::eGUIItemType GetItemType(std::string data);
 	extern OSData::GUIItemData* DoItemType(GUIItemData::eGUIItemType itemDataType,void* data, bool xml = false);
 }
+
+#endif

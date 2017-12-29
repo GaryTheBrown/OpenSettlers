@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef GAME_GAME_H
+#define GAME_GAME_H
+
 #include "../ConfigList.h"
 #include "../SystemInterface/System.h"
 #include "../OSDataFile/FileTypes/GameType.h"
@@ -32,3 +34,5 @@ namespace GameInterface {
 		ReturnData Loop();
 	};
 }
+
+#endif

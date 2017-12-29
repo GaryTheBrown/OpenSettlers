@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef OSDATAFILE_FILETYPES_GAMEDATA_H
+#define OSDATAFILE_FILETYPES_GAMEDATA_H
 
 #include <algorithm>
 #include <string>
@@ -40,3 +41,5 @@ namespace OSData {
 
 	extern GameAddons AddonDataFromText(std::string text);
 }
+
+#endif

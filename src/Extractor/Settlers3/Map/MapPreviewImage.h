@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_SETTLERS3_MAP_MAPPREVIEWIMAGE_H
+#define EXTRACTOR_SETTLERS3_MAP_MAPPREVIEWIMAGE_H
 #include <string>
 #include "../../../Log.h"
 #include "../../../Functions/To.h"
@@ -46,3 +47,5 @@ namespace Extractor{
 		};
 	}
 }
+
+#endif

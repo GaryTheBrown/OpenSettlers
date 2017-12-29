@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef OSDATAFILE_FILETYPES_GAMETYPE_H
+#define OSDATAFILE_FILETYPES_GAMETYPE_H
 
 #include <string>
 #include <vector>
@@ -79,3 +80,5 @@ namespace OSData {
 
 	};
 }
+
+#endif

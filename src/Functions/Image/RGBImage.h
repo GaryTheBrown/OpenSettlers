@@ -8,12 +8,12 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_IMAGE_RGBIMAGE_H
+#define FUNCTIONS_IMAGE_RGBIMAGE_H
 #include <string>
 #include <algorithm>
 #include "RGBA.h"
 #include "FileImage.h"
-
 
 namespace Functions{
 	class RGBImage{
@@ -49,3 +49,5 @@ namespace Functions{
 
 	};
 }
+
+#endif

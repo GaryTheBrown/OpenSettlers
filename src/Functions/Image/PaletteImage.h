@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_IMAGE_PALETTEIMAGE_H
+#define FUNCTIONS_IMAGE_PALETTEIMAGE_H
+
 #include <string>
 #include "RGBA.h"
 #include "../File/Save.h"
@@ -48,3 +50,5 @@ namespace Functions{
 
 	};
 }
+
+#endif

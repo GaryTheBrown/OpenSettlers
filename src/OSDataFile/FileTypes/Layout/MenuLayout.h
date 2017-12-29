@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef OSDATAFILE_FILETYPES_LAYOUT_MENULAYOUT_H
+#define OSDATAFILE_FILETYPES_LAYOUT_MENULAYOUT_H
+
 #include <string>
 #include <vector>
 #include <utility>
@@ -62,3 +64,5 @@ namespace OSData{
 
 	};
 }
+
+#endif

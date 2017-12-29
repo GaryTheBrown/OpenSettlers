@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_IMAGE_PALETTE_H
+#define FUNCTIONS_IMAGE_PALETTE_H
 #include <string>
 #include "RGBA.h"
 #include "../To.h"
@@ -17,3 +18,5 @@ namespace Functions{
 	extern std::string PaletteToText(RGBA* palette);
 	extern std::string PaletteToHtml(RGBA* palette);
 }
+
+#endif

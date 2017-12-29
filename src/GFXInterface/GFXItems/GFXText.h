@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef GFXINTERFACE_GFXITEMS_GFXTEXT_H
+#define GFXINTERFACE_GFXITEMS_GFXTEXT_H
 
 //Include
 #include <string>
@@ -36,3 +37,5 @@ namespace GFXInterface {
 		void Draw();
 	};
 }
+
+#endif

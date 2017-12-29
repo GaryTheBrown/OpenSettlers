@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef GFXINTERFACE_GFXITEMS_GFXITEM_H
+#define GFXINTERFACE_GFXITEMS_GFXITEM_H
 #include <string>
 #include <utility>
 
@@ -59,3 +60,5 @@ namespace GFXInterface {
 		bool IsMouseOver();
 	};
 }
+
+#endif

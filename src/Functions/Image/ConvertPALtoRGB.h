@@ -8,10 +8,13 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_IMAGE_CONVERTPALTORGB_H
+#define FUNCTIONS_IMAGE_CONVERTPALTORGB_H
 #include <string>
 #include "RGBA.h"
 
 namespace Functions{
 	RGBA* ConvertPALToRGBA(unsigned char* fromImage, bool* fromTransparency, RGBA* fromPalette, unsigned int size);
 	}
+
+#endif

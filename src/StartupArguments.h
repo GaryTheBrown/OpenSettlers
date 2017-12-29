@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef STARTUPARGUMENTS_H
+#define STARTUPARGUMENTS_H
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -63,3 +64,5 @@ public:
 	std::string ConfigLocation(){return this->configLocation;}
 	std::string OutputLocation(){return this->outputLocation;}
 };
+
+#endif

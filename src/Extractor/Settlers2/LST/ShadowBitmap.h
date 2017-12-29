@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_SETTLERS2_LST_SHADOWBITMAP_H
+#define EXTRACTOR_SETTLERS2_LST_SHADOWBITMAP_H
 #include <string>
 #include "../../../Functions/File/DataReader.h"
 #include "../../../Functions/Image/RGBImage.h"
@@ -26,3 +27,5 @@ namespace Extractor{
 		};
 	}
 }
+
+#endif

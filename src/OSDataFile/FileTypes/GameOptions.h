@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef OSDATAFILE_FILETYPES_GAMEOPTIONS_H
+#define OSDATAFILE_FILETYPES_GAMEOPTIONS_H
 
 #include <string>
 #include <libxml/tree.h>
@@ -34,3 +35,5 @@ namespace OSData {
 		virtual ~GameOptions();
 	};
 }
+
+#endif

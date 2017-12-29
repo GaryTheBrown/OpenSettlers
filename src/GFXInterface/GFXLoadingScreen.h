@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef GFXINTERFACE_GFXLOADINGSCREEN_H
+#define GFXINTERFACE_GFXLOADINGSCREEN_H
 
 #include <string>
 #include <vector>
@@ -45,3 +46,5 @@ namespace GFXInterface {
 
 	};
 }
+
+#endif

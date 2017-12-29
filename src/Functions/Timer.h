@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_TIMER_H
+#define FUNCTIONS_TIMER_H
 
 namespace Functions{
 	class Timer {
@@ -35,3 +36,5 @@ namespace Functions{
 
 	};
 }
+
+#endif

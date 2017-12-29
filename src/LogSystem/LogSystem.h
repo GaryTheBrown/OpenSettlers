@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef LOGSYSTEM_LOGSYSTEM_H
+#define LOGSYSTEM_LOGSYSTEM_H
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -51,3 +53,5 @@ public:
 		}
 	}
 };
+
+#endif

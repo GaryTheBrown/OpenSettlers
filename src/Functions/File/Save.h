@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_FILE_SAVE_H
+#define FUNCTIONS_FILE_SAVE_H
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -20,3 +21,5 @@ namespace Functions{
 	extern void SaveToTextFile(std::string FileLocation,std::string Data);
 	extern void SaveToBinaryFile(std::string FileLocation,char* Data,unsigned int size);
 }
+
+#endif

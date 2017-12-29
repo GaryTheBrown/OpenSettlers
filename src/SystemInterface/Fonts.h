@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef SYSTEMINTERFACE_FONTS_H
+#define SYSTEMINTERFACE_FONTS_H
 
 #include <string>
 #include <map>
@@ -37,3 +38,5 @@ namespace SystemInterface {
 		virtual TTF_Font* MasterFont(unsigned short fontSize) = 0;
 	};
 }
+
+#endif

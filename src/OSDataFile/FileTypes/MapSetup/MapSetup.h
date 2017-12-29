@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef OSDATAFILE_FILETYPES_MAPSETUP_MAPSETUP_H
+#define OSDATAFILE_FILETYPES_MAPSETUP_MAPSETUP_H
+
 #include <vector>
 #include <utility>
 #include <algorithm>
@@ -39,3 +41,5 @@ namespace OSData {
 		virtual ~MapSetup();
 	};
 }
+
+#endif

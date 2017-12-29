@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_FILE_DATAREADER_H
+#define FUNCTIONS_FILE_DATAREADER_H
+
 #include <stdio.h>
 #include <iostream>
 #include "Open.h"
@@ -61,3 +63,5 @@ namespace Functions{
 
 	};
 }
+
+#endif

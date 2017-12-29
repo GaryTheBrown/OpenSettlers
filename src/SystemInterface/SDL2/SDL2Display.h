@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef SYSTEMINTERFACE_SDL2_SDL2DISPLAY_H
+#define SYSTEMINTERFACE_SDL2_SDL2DISPLAY_H
+
 #include <utility>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -56,3 +58,5 @@ namespace SystemInterface {
 		void SDLRenderCopy(SDL_Texture* texture, SDL_Rect* fromLocation,SDL_Rect* toLocation){SDL_RenderCopy(this->renderer, texture, fromLocation, toLocation);};
 	};
 }
+
+#endif

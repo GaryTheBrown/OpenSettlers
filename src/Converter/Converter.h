@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef CONVERTER_CONVERTER_H
+#define CONVERTER_CONVERTER_H
 
 #include <string>
 #include "../Log.h"
@@ -23,3 +24,5 @@
 namespace Converter{
 	extern bool Main(std::string location, std::string saveLocation);
 }
+
+#endif

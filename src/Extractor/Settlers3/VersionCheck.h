@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_SETTLERS3_VERSIONCHECK_H
+#define EXTRACTOR_SETTLERS3_VERSIONCHECK_H
+
 #include <string>
 #include "../../Log.h"
 #include "../../Functions/File/Functions.h"
@@ -44,3 +46,5 @@ namespace Extractor{
 		extern VersionS3 CheckGameVersion(std::string location, bool GOG);
 	}
 }
+
+#endif

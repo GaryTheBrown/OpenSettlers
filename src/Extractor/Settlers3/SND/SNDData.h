@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_SETTLERS3_SND_SNDDATA_H
+#define EXTRACTOR_SETTLERS3_SND_SNDDATA_H
+
 #include "../../../Functions/File/DataReader.h"
 #include "../../../Functions/Audio/WAVData.h"
 
@@ -21,3 +23,5 @@ namespace Extractor{
 		};
 	}
 }
+
+#endif

@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef SYSTEMINTERFACE_EVENTS_H
+#define SYSTEMINTERFACE_EVENTS_H
 
 #include <utility>
 namespace SystemInterface {
@@ -164,3 +165,5 @@ enum eKeyboardMod{
 		std::pair<int,int> GetResizedWindowSize(){return this->windowResizeSize;}
 	};
 }
+
+#endif

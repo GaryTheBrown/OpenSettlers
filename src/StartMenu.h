@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef STARTMENU_H
+#define STARTMENU_H
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -39,3 +40,5 @@ public:
 	OSData::MenuLayout* CreateLayout();
 	ReturnData Loop();
 };
+
+#endif

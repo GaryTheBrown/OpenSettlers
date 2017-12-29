@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_TO_H
+#define FUNCTIONS_TO_H
 #include <iostream>
 #include <iomanip>
 #include <bitset>
@@ -37,3 +38,5 @@ namespace Functions{
 		return returnString;
 	}
 }
+
+#endif

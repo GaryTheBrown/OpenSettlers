@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef OSDATAFILE_FILETYPES_LAYOUT_LOADINGSCREENLAYOUT_H
+#define OSDATAFILE_FILETYPES_LAYOUT_LOADINGSCREENLAYOUT_H
+
 #include <string>
 #include <vector>
 #include <utility>
@@ -22,7 +24,6 @@
 #include "../../APILEVELS.h"
 #include "../FileTypes.h"
 #include "GUIItems/GUIImageData.h"
-
 
 namespace OSData{
 	class LoadingScreenLayout : public FileTypes {
@@ -59,3 +60,5 @@ namespace OSData{
 
 	};
 }
+
+#endif

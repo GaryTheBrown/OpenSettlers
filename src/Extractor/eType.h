@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_ETYPE_H
+#define EXTRACTOR_ETYPE_H
 
 namespace Extractor{
 	enum eType{
@@ -28,3 +29,5 @@ namespace Extractor{
 		MAP
 	};
 }
+
+#endif

@@ -7,7 +7,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef CONFIGTEMPLATE_H
+#define CONFIGTEMPLATE_H
 #include <algorithm>
 #include <string>
 #include <utility>
@@ -112,3 +113,5 @@ template <class T> class ConfigTemplate : public ConfigTemplateBase{
 			return false;
 		}
 };
+
+#endif

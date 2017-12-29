@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_AUDIO_XMIDIDATA_H
+#define FUNCTIONS_AUDIO_XMIDIDATA_H
 #include <string>
 #include "../File/Functions.h"
 
@@ -25,3 +26,5 @@ namespace Functions{
 		void SaveToFile(std::string filename);
 	};
 }
+
+#endif

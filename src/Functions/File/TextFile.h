@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_FILE_TEXTFILE_H
+#define FUNCTIONS_FILE_TEXTFILE_H
 
 #include <fstream>
 #include <string>
@@ -17,3 +18,5 @@
 namespace Functions{
 	extern std::vector<std::pair<std::string,std::string>>* LoadVariablesFromTextFile(std::string file);
 }
+
+#endif

@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef SYSTEMINTERFACE_SDL2_SDL2FONTS_H
+#define SYSTEMINTERFACE_SDL2_SDL2FONTS_H
 
 #include <SDL2/SDL_ttf.h>
 #include "../Fonts.h"
@@ -21,3 +22,5 @@ namespace SystemInterface {
 		TTF_Font* MasterFont(unsigned short fontSize);
 	};
 }
+
+#endif

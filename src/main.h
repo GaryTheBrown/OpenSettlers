@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef MAIN_H
+#define MAIN_H
 
 //STD Libraries
 #include <string>
@@ -47,3 +48,5 @@
 
 //Main Entry Point
 extern int main(int argc, char *argv[]);
+
+#endif

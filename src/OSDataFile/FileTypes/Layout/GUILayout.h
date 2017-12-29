@@ -8,9 +8,13 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef OSDATAFILE_FILETYPES_LAYOUT_GUILAYOUT_H
+#define OSDATAFILE_FILETYPES_LAYOUT_GUILAYOUT_H
+
 class GUILayout {
 public:
 	GUILayout();
 	virtual ~GUILayout();
 };
+
+#endif

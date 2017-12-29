@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef SYSTEMINTERFACE_OGL21_OGL21IMAGECONTAINER_H
+#define SYSTEMINTERFACE_OGL21_OGL21IMAGECONTAINER_H
+
 #include <SDL2/SDL_image.h>
 
 #include <string>
@@ -53,3 +55,5 @@ namespace SystemInterface {
 		bool TextureToGPU(SDL_Surface* surface);
 	};
 }
+
+#endif

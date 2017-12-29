@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef GFXINTERFACE_GFXMENU_H
+#define GFXINTERFACE_GFXMENU_H
 
 #include <string>
 #include <vector>
@@ -49,3 +50,5 @@ namespace GFXInterface {
 
 	};
 }
+
+#endif

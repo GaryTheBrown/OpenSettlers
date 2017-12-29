@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_IMAGE_FILEIMAGE_H
+#define FUNCTIONS_IMAGE_FILEIMAGE_H
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -53,3 +54,5 @@ namespace Functions{
 			RGBA* LoadPNGToRGBA(std::string filename, unsigned short* width, unsigned short* height);
 	};
 }
+
+#endif

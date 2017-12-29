@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_FILE_FUNCTIONS_H
+#define FUNCTIONS_FILE_FUNCTIONS_H
 #include <string>
 #include <sys/types.h>
 #include <dirent.h>
@@ -32,3 +33,5 @@ namespace Functions{
 	extern std::vector<std::string>* GetFoldersInDirectory(std::string directory, bool showDir = false);
 	extern std::vector<std::string>* GetFullDirectory(std::string directory);
 }
+
+#endif

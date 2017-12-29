@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef OSDATAFILE_FILETYPES_LAYOUT_GUIITEMS_GUIITEMDATA_H
+#define OSDATAFILE_FILETYPES_LAYOUT_GUIITEMS_GUIITEMDATA_H
 
 #include <string>
 #include <utility>
@@ -83,3 +84,5 @@ namespace OSData{
 		virtual std::string ToString();
 	};
 }
+
+#endif

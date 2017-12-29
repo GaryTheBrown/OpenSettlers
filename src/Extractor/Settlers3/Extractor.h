@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_SETTLERS3_EXTRACTOR_H
+#define EXTRACTOR_SETTLERS3_EXTRACTOR_H
+
 #include <string>
 #include "../../Log.h"
 #include "../../Functions/File/Functions.h"
@@ -46,3 +48,5 @@ namespace Extractor{
 		};
 	}
 }
+
+#endif

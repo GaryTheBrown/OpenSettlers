@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef SYSTEMINTERFACE_SDL2_SDL2IMAGECONTAINER_H
+#define SYSTEMINTERFACE_SDL2_SDL2IMAGECONTAINER_H
 
 #include <SDL2/SDL_image.h>
 
@@ -50,3 +51,5 @@ namespace SystemInterface {
 		bool SurfaceToTexture(SDL_Surface* surface);
 	};
 }
+
+#endif

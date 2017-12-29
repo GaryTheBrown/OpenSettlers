@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_SETTLERS2_LST_UNCOMPRESSEDBITMAP_H
+#define EXTRACTOR_SETTLERS2_LST_UNCOMPRESSEDBITMAP_H
 #include "../../../Functions/File/DataReader.h"
 #include "../../../Functions/Image/PaletteImage.h"
 
@@ -24,3 +25,5 @@ namespace Extractor{
 		};
 	}
 }
+
+#endif

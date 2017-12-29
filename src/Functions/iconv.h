@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_ICONV_H
+#define FUNCTIONS_ICONV_H
+
 #include <iconv.h>
 #include <string>
 #include <vector>
@@ -25,3 +27,5 @@ namespace Functions{
 			std::string convert(std::string input);
 		};
 	}
+
+#endif

@@ -7,8 +7,8 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-
-#pragma once
+#ifndef RETURNDATA_H
+#define RETURNDATA_H
 
 #include <string>
 #include <vector>
@@ -49,3 +49,4 @@ public:
     bool operator == (const ReturnData& str) const {return (this->rMenuEvent == str.rMenuEvent);};
 };
 
+#endif

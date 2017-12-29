@@ -3,7 +3,8 @@
  * during the cmake configuration of your project. If you need to make changes
  * edit the original file NOT THIS FILE.
  * --------------------------------------------------------------------------*/
-#pragma once
+#ifndef CONFIG_H
+#define CONFIG_H
 #include <string>
 
 //PROJECT NAME
@@ -19,3 +20,5 @@ const std::string PACKAGE_VERSION = "@VERSION@";
 const std::string GIT_SHA1 = "@GIT_SHA1@";
 const std::string GIT_DATE = "@GIT_DATE@";
 const std::string GIT_COMMIT_SUBJECT = "@GIT_COMMIT_SUBJECT@";
+
+#endif

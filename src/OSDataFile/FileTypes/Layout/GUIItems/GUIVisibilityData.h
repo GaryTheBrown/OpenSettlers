@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef OSDATAFILE_FILETYPES_LAYOUT_GUIITEMS_GUIVISIBILITYDATA_H
+#define OSDATAFILE_FILETYPES_LAYOUT_GUIITEMS_GUIVISIBILITYDATA_H
 
 #include <string>
 #include <vector>
@@ -50,3 +51,5 @@ namespace OSData{
 
 	};
 }
+
+#endif

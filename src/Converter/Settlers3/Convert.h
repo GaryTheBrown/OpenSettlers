@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef CONVERTER_SETTLERS3_CONVERT_H
+#define CONVERTER_SETTLERS3_CONVERT_H
 
 #include <string>
 #include <utility>
@@ -49,3 +50,5 @@ namespace Converter {
 		};
 	}
 }
+
+#endif

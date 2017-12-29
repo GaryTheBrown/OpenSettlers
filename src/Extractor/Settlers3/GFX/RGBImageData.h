@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_SETTLERS3_GFX_RGBIMAGEDATA_H
+#define EXTRACTOR_SETTLERS3_GFX_RGBIMAGEDATA_H
 #include <string>
 #include "../../../Functions/File/DataReader.h"
 #include "../../../Functions/Image/RGBA.h"
@@ -45,3 +46,5 @@ namespace Extractor{
 		};
 	}
 }
+
+#endif

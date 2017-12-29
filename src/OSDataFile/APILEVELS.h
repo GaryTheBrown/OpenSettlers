@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef OSDATAFILE_APILEVELS_H
+#define OSDATAFILE_APILEVELS_H
 namespace OSData{
 	namespace APILEVEL{
 	/*TODO FIGURE OUT A SYSTEM THAT CAN STORE DATA INCASE THE API OF DATA IS LOWER
@@ -26,3 +27,5 @@ namespace OSData{
 
 	}
 }
+
+#endif

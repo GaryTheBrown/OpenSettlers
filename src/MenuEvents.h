@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef MENUEVENT_H
+#define MENUEVENT_H
 #include <string>
 
 enum eMenuEvent {
@@ -43,3 +44,5 @@ enum eReturnExtra : unsigned char {
 extern std::string MenuEventToString(eMenuEvent event);
 extern eMenuEvent GetMenuEvent(std::string data);
 extern eReturnExtra MenuEventReturnType(eMenuEvent menuEvent);
+
+#endif

@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef GFXINTERFACE_GFXITEMS_GFXBOX_H
+#define GFXINTERFACE_GFXITEMS_GFXBOX_H
 
 #include <string>
 #include <stdio.h>
@@ -56,3 +57,4 @@ namespace GFXInterface {
 	};
 }
 
+#endif

@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef GFXINTERFACE_GFXITEMS_GFXBUTTON_H
+#define GFXINTERFACE_GFXITEMS_GFXBUTTON_H
 
 //Include
 #include <string>
@@ -69,3 +70,5 @@ namespace GFXInterface {
 
 	};
 }
+
+#endif

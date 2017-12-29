@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef OSDATAFILE_FILETYPES_FILETYPES_H
+#define OSDATAFILE_FILETYPES_FILETYPES_H
 
 #include <string>
 #include <vector>
@@ -44,3 +45,5 @@ namespace OSData{
 		const eFileType FileType(){return this->fileType;};
 	};
 }
+
+#endif

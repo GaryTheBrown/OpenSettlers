@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_AUDIO_WAVDATA_H
+#define FUNCTIONS_AUDIO_WAVDATA_H
 #include <string>
 #include "../File/Functions.h"
 
@@ -33,3 +34,5 @@ namespace Functions{
 		void SaveToFile(std::string filename);
 	};
 }
+
+#endif

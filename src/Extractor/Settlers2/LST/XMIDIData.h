@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_SETTLERS2_LST_XMIDIDATA_H
+#define EXTRACTOR_SETTLERS2_LST_XMIDIDATA_H
 #include "../../../Functions/File/DataReader.h"
 #include "../../../Functions/Audio/XMIDIData.h"
 
@@ -21,3 +22,5 @@ namespace Extractor{
 		};
 	}
 }
+
+#endif

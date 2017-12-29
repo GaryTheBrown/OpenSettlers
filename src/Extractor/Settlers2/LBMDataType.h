@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_SETTLERS2_LBMDATATYPE_H
+#define EXTRACTOR_SETTLERS2_LBMDATATYPE_H
 #include <string>
 #include "../../LogSystem/LogSystem.h"
 #include "../../Log.h"
@@ -43,3 +44,5 @@ namespace Extractor {
 		};
 	}
 }
+
+#endif

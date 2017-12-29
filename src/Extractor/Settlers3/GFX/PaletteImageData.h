@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_SETTLERS3_GFX_PALETTEIMAGEDATA_H
+#define EXTRACTOR_SETTLERS3_GFX_PALETTEIMAGEDATA_H
 #include <string>
 #include "../../../Functions/Image/PaletteImage.h"
 #include "../../../Functions/File/DataReader.h"
@@ -29,3 +30,5 @@ namespace Extractor{
 		};
 	}
 }
+
+#endif

@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef SYSTEMINTERFACE_SDL2_SDL2EVENTS_H
+#define SYSTEMINTERFACE_SDL2_SDL2EVENTS_H
+
 #include <utility>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mouse.h>
@@ -33,3 +35,5 @@ namespace SystemInterface {
 
 	};
 }
+
+#endif

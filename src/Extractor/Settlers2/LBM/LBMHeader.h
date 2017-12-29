@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_SETTLERS2_LBM_LBMHEADER_H
+#define EXTRACTOR_SETTLERS2_LBM_LBMHEADER_H
 #include "../../../Functions/File/DataReader.h"
 
 namespace Extractor{
@@ -24,3 +25,5 @@ namespace Extractor{
 		};
 	}
 }
+
+#endif

@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_IMAGE_RGBA_H
+#define FUNCTIONS_IMAGE_RGBA_H
 
 class RGBA{
 public:
@@ -26,3 +27,5 @@ public:
 	unsigned int ReturnInt();
 
 };
+
+#endif

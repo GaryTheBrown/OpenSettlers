@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_FILE_OPEN_H
+#define FUNCTIONS_FILE_OPEN_H
 #include <iostream>
 #include <fstream>
 #include <sys/stat.h>
@@ -41,3 +42,5 @@ namespace Functions{
 		const void DeleteTmpBuffer(){delete[] this->tmpBuffer;}
 	};
 }
+
+#endif

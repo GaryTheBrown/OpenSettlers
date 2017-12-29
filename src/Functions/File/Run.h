@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_FILE_RUN_H
+#define FUNCTIONS_FILE_RUN_H
 #include <string>
 #include <iostream>
 #include <stdio.h>
@@ -34,3 +35,5 @@ namespace Functions{
 		bool CABExtract(std::string file);
 	};
 }
+
+#endif

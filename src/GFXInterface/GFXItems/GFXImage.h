@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef GFXINTERFACE_GFXITEMS_GFXIMAGE_H
+#define GFXINTERFACE_GFXITEMS_GFXIMAGE_H
 
 //Includes
 #include <string>
@@ -36,3 +37,5 @@ namespace GFXInterface {
 
 	};
 }
+
+#endif

@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef SYSTEMINTERFACE_IMAGECONTAINER_H
+#define SYSTEMINTERFACE_IMAGECONTAINER_H
 
 #include <string>
 #include <utility>
@@ -37,3 +38,5 @@ namespace SystemInterface {
 
 	};
 }
+
+#endif

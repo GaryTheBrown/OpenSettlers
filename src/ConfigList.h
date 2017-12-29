@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef CONFIGLIST_H
+#define CONFIGLIST_H
 #include <stdlib.h>
 #include <string>
 #include <utility>
@@ -59,3 +60,5 @@ class ConfigList {
 		};
 		void AddConfigOption(ConfigTemplateBase* configTemplateBase);
 };
+
+#endif

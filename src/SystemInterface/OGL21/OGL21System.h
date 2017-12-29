@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef SYSTEMINTERFACE_OGL21_OGL21SYSTEM_H
+#define SYSTEMINTERFACE_OGL21_OGL21SYSTEM_H
+
 #include <string>
 #include <utility>
 //SDL2
@@ -51,3 +53,5 @@ namespace SystemInterface {
 
 	};
 }
+
+#endif

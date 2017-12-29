@@ -8,7 +8,10 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef LOGSYSTEM_H
+#define LOGSYSTEM_H
 #include "LogSystem/LogSystem.h"
 
 extern LogSystem *LOGSYSTEM;
+
+#endif

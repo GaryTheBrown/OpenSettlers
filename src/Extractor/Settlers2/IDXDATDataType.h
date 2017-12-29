@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_SETTLERS2_IDXDATDATATYPE_H
+#define EXTRACTOR_SETTLERS2_IDXDATDATATYPE_H
 #include <string>
 #include "../../Functions/File/DataReader.h"
 #include "../../Functions/File/Functions.h"
@@ -64,3 +65,5 @@ namespace Extractor {
 		};
 	}
 }
+
+#endif

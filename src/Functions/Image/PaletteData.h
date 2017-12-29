@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef FUNCTIONS_IMAGE_PALETTEDATA_H
+#define FUNCTIONS_IMAGE_PALETTEDATA_H
+
 #include "../File/DataReader.h"
 #include "../File/Save.h"
 #include "RGBA.h"
@@ -27,3 +29,5 @@ namespace Functions{
 		void SaveToFile(std::string location);
 	};
 }
+
+#endif

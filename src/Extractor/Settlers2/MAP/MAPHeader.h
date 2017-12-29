@@ -10,7 +10,8 @@
 
 
 // http://settlers2.net/documentation/world-map-file-format-wldswd/
-#pragma once
+#ifndef EXTRACTOR_SETTLERS2_MAP_MAPHEADER_H
+#define EXTRACTOR_SETTLERS2_MAP_MAPHEADER_H
 #include <string>
 #include <vector>
 
@@ -65,3 +66,5 @@ namespace Extractor{
 		};
 	}
 }
+
+#endif

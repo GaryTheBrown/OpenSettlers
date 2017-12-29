@@ -7,7 +7,8 @@
  * as published by the Free Software Foundation; ONLY version 2
  * of the License.
  *******************************************************************************/
-#pragma once
+#ifndef SYSTEMINTERFACE_DISPLAY_H
+#define SYSTEMINTERFACE_DISPLAY_H
 
 #include <SDL2/SDL.h>
 #include <string>
@@ -79,3 +80,5 @@ class System;
 		virtual	void ShowFPSCounter() = 0;
 	};
 }
+
+#endif

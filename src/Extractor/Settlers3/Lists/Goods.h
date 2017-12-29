@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_SETTLERS3_LISTS_GOODS_H
+#define EXTRACTOR_SETTLERS3_LISTS_GOODS_H
 #include <string>
 
 namespace Extractor{
@@ -24,3 +25,5 @@ namespace Extractor{
 		};
 	}
 }
+
+#endif

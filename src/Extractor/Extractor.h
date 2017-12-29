@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_EXTRACTOR_H
+#define EXTRACTOR_EXTRACTOR_H
 
 #include <string>
 #include "../Log.h"
@@ -22,3 +23,5 @@
 namespace Extractor{
 	extern bool Main(std::string location,std::string saveLocation = "Extracted");
 }
+
+#endif

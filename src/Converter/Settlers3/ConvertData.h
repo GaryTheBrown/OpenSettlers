@@ -8,7 +8,9 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef CONVERTER_CONVERTDATA_H
+#define CONVERTER_CONVERTDATA_H
+
 #include <string>
 #include "../../Extractor/Settlers3/VersionCheck.h"
 #include "../../OSDataFile/FileTypes/GameData.h"
@@ -28,3 +30,5 @@ namespace Converter {
 		};
 	}
 }
+
+#endif

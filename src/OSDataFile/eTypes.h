@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef OSDATAFILE_ETYPES_H
+#define OSDATAFILE_ETYPES_H
 
 namespace OSData{
 
@@ -49,3 +50,4 @@ namespace OSData{
 	*/
 }
 
+#endif

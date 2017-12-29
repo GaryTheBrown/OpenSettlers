@@ -8,7 +8,8 @@
  * of the License.
  *******************************************************************************/
 
-#pragma once
+#ifndef EXTRACTOR_SETTLERS3_GFX_GFXTEXT_H
+#define EXTRACTOR_SETTLERS3_GFX_GFXTEXT_H
 #include <string>
 #include "../../../Functions/File/DataReader.h"
 #include "../../../Functions/File/Functions.h"
@@ -68,3 +69,5 @@ namespace Extractor{
 		};
 	}
 }
+
+#endif
